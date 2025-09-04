@@ -1,0 +1,45 @@
+{{#each domainServices}}
+  {{#if this}}
+import { {{this}} } from "../../Domain/Services/{{this}}";
+  {{/if}}
+{{/each}}
+
+{{#each repositories}}
+  {{#if this}}
+import { {{this}} } from "../../Domain/Interfaces/{{this}}";
+  {{/if}}
+{{/each}}
+{{#if useAngularDI}}
+import { Injectable, Inject } from '@angular/core';
+{{/if}}
+
+/**
+ * Application Service: {{name}}
+*/
+{{#if useAngularDI}}
+@Injectable({ providedIn: 'root' })
+{{/if}}
+export class {{name}} {
+  constructor(
+    {{#each domainServices}}
+      {{#if this}}{{#if ../useAngularDI}}@Inject('{{this}}') {{/if}}private readonly {{lowerFirst this}}: {{this}},{{/if}}
+    {{/each}}
+    {{#each repositories}}
+      {{#if this}}{{#if ../useAngularDI}}@Inject('{{this}}') {{/if}}private readonly {{lowerFirst (removeFirst this)}}: {{this}},{{/if}}
+    {{/each}}
+  ) {}
+
+  public async runExampleUseCase(): Promise<void> {
+    {{#if repositories.length}}
+    const someEntity = await this.{{firstRepoVarName repositories}}.findById("someId");
+    {{else}}
+    // No repositories to call
+    {{/if}}
+
+    {{#if domainServices.length}}
+    // this.{{firstServiceVarName domainServices}}.exampleMethod();
+    {{else}}
+    // No domain services to call
+    {{/if}}
+  }
+}

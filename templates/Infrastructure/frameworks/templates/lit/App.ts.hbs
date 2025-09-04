@@ -1,0 +1,65 @@
+{{#if firstAppService}}
+import { LitElement, html, css, unsafeCSS } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
+import container from '../Configuration/awilix.config';
+import { {{firstAppService}} } from '../../Application/Services/{{firstAppService}}';
+import styles from './App.css?inline';
+
+@customElement('app-root')
+export class App extends LitElement {
+  static readonly styles = css`${unsafeCSS(styles)}`;
+
+  @state() private message = "Click to run use case";
+  @state() private loading = false;
+
+  private async runExampleUseCase() {
+    this.loading = true;
+    try {
+     const service = container.resolve<{{{firstAppService}}}>("{{{camel firstAppService}}}");
+      await service.runExampleUseCase();
+      this.message = "{{firstAppService}}: use case executed ✅";
+    } catch (err) {
+      this.message = "❌ Error: " + (err as Error).message;
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  render() {
+    return html`
+      <div class="app">
+        <h1>🧅 Onion Architecture + Lit</h1>
+        <button @click=${this.runExampleUseCase} ?disabled=${this.loading}>
+          ${this.loading ? "Running..." : "Run Use Case"}
+        </button>
+        <p>${this.message}</p>
+      </div>
+    `;
+  }
+}
+{{else}}
+import { LitElement, html, css } from 'lit';
+import { customElement } from 'lit/decorators.js';
+
+@customElement('app-root')
+export class App extends LitElement {
+  static styles = css`
+    .app {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+    }
+  `;
+
+  render() {
+    return html`
+      <div class="app">
+        <h1>🧅 Onion Architecture + Lit</h1>
+        <p>No application services were defined.</p>
+      </div>
+    `;
+  }
+}
+{{/if}}
