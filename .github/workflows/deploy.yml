@@ -2,9 +2,9 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [postthesisbranch]
+    branches: [main]
   pull_request:
-    branches: [postthesisbranch]
+    branches: [main]
 
 permissions:
   contents: read

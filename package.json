@@ -1,6 +1,6 @@
 {
-  "name": "onion-architecture-generator",
-  "version": "0.0.3",
+  "name": "onion-initialzr",
+  "version": "0.0.4",
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
