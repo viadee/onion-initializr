@@ -1,8 +1,7 @@
-# Onion Architecture Generator
-
+# Onion Initialzr for Frontend
 <img src="./public/onion_gpt.png" alt="Onion Architecture Diagram" width="50%"/>
 
-Generate an [Onion Architecture](https://jeffreypalermo.com/blog/the-onion-architecture-part-1/) structure with entities, services, and even a frontend framework — all from a simple Website. In Addition you can use the CLI locally using prompts or more direct using a config file.
+Generate an [Onion Architecture](https://jeffreypalermo.com/blog/the-onion-architecture-part-1/) structure with entities, services, and even a frontend framework — all from a simple Website. In alternative you can use the CLI locally using prompts or more direct using a config file instead of the website.
 
 ---
 
@@ -26,9 +25,9 @@ LINK HERE
 ## Alternativly install locally
 
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/viadee/thesis-spa-onion-design.git
-   cd thesis-spa-onion-design
+```bash
+git clone https://github.com/viadee/onion-initializr
+cd onion-initializr
    ```
 2. **Install Dependencies**
 
@@ -41,6 +40,12 @@ npm install
 ```bash
 npm run link
 ```
+
+4. **Run the website locally**
+```bash
+npm run dev
+```
+
 
 ---
 
