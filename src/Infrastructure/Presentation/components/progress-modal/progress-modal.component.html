@@ -1,0 +1,133 @@
+<div class="progress-modal">
+  <div class="modal-header">
+    <h2 mat-dialog-title class="modal-title">
+      <mat-icon class="title-icon">architecture</mat-icon>
+      {{ data.title }}
+    </h2>
+  </div>
+
+  <mat-dialog-content class="modal-content">
+    <div class="progress-section">
+      <!-- Overall Progress Bar -->
+      <div class="overall-progress">
+        <div class="progress-info">
+          <span class="progress-label">Overall Progress</span>
+          <span class="progress-percentage"
+            >{{ Math.round(progressState.overallProgress) }}%</span
+          >
+        </div>
+        <mat-progress-bar
+          mode="determinate"
+          [value]="progressState.overallProgress"
+          class="main-progress-bar">
+        </mat-progress-bar>
+      </div>
+
+      <!-- Current Step Information -->
+      <div class="current-step" *ngIf="progressState.currentStep">
+        <div class="step-header">
+          <mat-icon
+            class="step-icon"
+            [class.spinning]="progressState.isRunning">
+            {{ getStepIcon(progressState.currentStep) }}
+          </mat-icon>
+          <span class="step-label">{{ progressState.currentStep.label }}</span>
+        </div>
+
+        <!-- Estimated Time Remaining -->
+        <div class="time-estimate" *ngIf="progressState.estimatedTimeRemaining">
+          <mat-icon class="time-icon">schedule</mat-icon>
+          <span
+            >{{
+              formatTime(progressState.estimatedTimeRemaining)
+            }}
+            remaining</span
+          >
+        </div>
+      </div>
+
+      <!-- Steps List -->
+      <div class="steps-list">
+        <div
+          *ngFor="let step of progressState.steps; let i = index"
+          class="step-item"
+          [class.completed]="step.completed"
+          [class.current]="i === progressState.currentStepIndex"
+          [class.error]="step.error">
+          <div class="step-indicator">
+            <mat-icon
+              *ngIf="step.completed && !step.error"
+              class="step-icon completed"
+              >check_circle</mat-icon
+            >
+            <mat-icon *ngIf="step.error" class="step-icon error"
+              >error</mat-icon
+            >
+            <mat-icon
+              *ngIf="
+                !step.completed &&
+                !step.error &&
+                i === progressState.currentStepIndex
+              "
+              class="step-icon current spinning"
+              >radio_button_unchecked</mat-icon
+            >
+            <mat-icon
+              *ngIf="
+                !step.completed &&
+                !step.error &&
+                i !== progressState.currentStepIndex
+              "
+              class="step-icon pending"
+              >radio_button_unchecked</mat-icon
+            >
+          </div>
+
+          <div class="step-details">
+            <span class="step-name">{{ step.label }}</span>
+            <span *ngIf="step.error" class="step-error">{{ step.error }}</span>
+            <span
+              *ngIf="step.completed && step.startTime && step.endTime"
+              class="step-duration">
+              {{ formatDuration(step.endTime - step.startTime) }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="progressState.error" class="error-section">
+        <mat-icon class="error-icon">error_outline</mat-icon>
+        <span class="error-message">{{ progressState.error }}</span>
+      </div>
+
+      <!-- Completion Message -->
+      <div
+        *ngIf="
+          !progressState.isRunning &&
+          !progressState.error &&
+          progressState.overallProgress >= 100
+        "
+        class="completion-section">
+        <mat-icon class="completion-icon">check_circle</mat-icon>
+        <div class="completion-content">
+          <span class="completion-message">
+            Project generation completed successfully!
+          </span>
+          <span class="completion-hint">
+            Click outside this dialog to close
+          </span>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions
+    *ngIf="data.allowCancel && progressState.isRunning"
+    class="modal-actions">
+    <button mat-button (click)="cancel()" class="cancel-button">
+      <mat-icon>close</mat-icon>
+      Cancel
+    </button>
+  </mat-dialog-actions>
+</div>

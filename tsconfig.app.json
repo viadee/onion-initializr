@@ -1,0 +1,25 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": ["mocha", "chai", "node"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "src/Infrastructure/Repositories/FileSystemFileRepository.ts",
+    "src/Infrastructure/Repositories/PathRepository.ts",
+    "src/Infrastructure/Repositories/RunCommandService.ts",
+    "src/Application/Services/LintAppService.ts",
+    "src/Domain/Services/ProjectInitService.ts",
+    "src/Application/Services/OnionCliAppService.ts",
+    "src/Application/Services/MainAppService.ts"
+  ]
+}

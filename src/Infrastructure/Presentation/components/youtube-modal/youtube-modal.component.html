@@ -1,0 +1,48 @@
+<div class="youtube-modal-overlay">
+  <div class="youtube-modal-content">
+    <!-- Header -->
+    <div class="modal-header">
+      <h2>Welcome to the Onion Initializr!</h2>
+      <button
+        mat-icon-button
+        class="close-button"
+        (click)="closeModal()"
+        aria-label="Close tutorial">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <!-- Video Content -->
+    <div class="video-container">
+      <iframe
+        [src]="safeVideoUrl"
+        title="Onion Initializr Tutorial"
+        allowfullscreen
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        class="youtube-iframe">
+      </iframe>
+    </div>
+
+    <!-- Description -->
+    <div class="modal-description">
+      <p>
+        Learn how to use the Onion Architecture Generator to create clean,
+        maintainable frontend applications with proper separation of concerns.
+      </p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="modal-actions">
+      <button mat-button class="skip-button" (click)="skipTutorial()">
+        Skip Tutorial
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="got-it-button"
+        (click)="closeModal()">
+        Got it, let's start!
+      </button>
+    </div>
+  </div>
+</div>

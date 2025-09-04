@@ -1,0 +1,322 @@
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 16px 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .tutorial-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid #1976d2;
+    border-radius: 6px;
+    background: white;
+    color: #1976d2;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #1976d2;
+      color: white;
+    }
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+
+    img {
+      height: 32px;
+      width: 32px;
+    }
+  }
+
+  .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #f5f5f5;
+      border-color: #bbb;
+    }
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+  padding: 80px 24px;
+  margin: -48px -24px 48px -24px;
+  border-radius: 0 0 24px 24px;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+
+    .hero-description {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      margin-bottom: 40px;
+      opacity: 0.9;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+
+      @media (max-width: 768px) {
+        font-size: 1.1rem;
+      }
+    }
+
+    .hero-features {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+
+      .feature {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+          transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+          font-size: 0.8rem;
+          padding: 8px 16px;
+        }
+      }
+    }
+  }
+}
+
+mat-card {
+  max-width: 1720px;
+  margin: 48px auto;
+  padding: 32px 24px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  background: #fff;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 32px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #333;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  // Standard button styles to match diagram component
+  .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 90px;
+    letter-spacing: 0.5px;
+
+    &:disabled {
+      background: #d1d5db;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+
+  .btn-primary {
+    background: #3b82f6;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: #2563eb;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+    }
+  }
+
+  .btn-secondary {
+    background: #f3f4f6;
+    color: #374151;
+
+    &:hover:not(:disabled) {
+      background: #e5e7eb;
+      border-color: #9ca3af;
+    }
+  }
+
+  .generate-btn {
+    display: block;
+    margin: 16px auto 0;
+    width: 20%;
+    min-width: 200px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .select-input,
+  .text-input {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  .select-input:focus,
+  .text-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+  .framework-buttons {
+    margin-bottom: 16px;
+
+    .framework-label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #555;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .framework-btn {
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 100px;
+
+        .framework-logo {
+          width: 20px;
+          height: 20px;
+          object-fit: contain;
+          flex-shrink: 0;
+        }
+
+        .framework-name {
+          font-weight: 500;
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+}
+
+.main-content {
+  scroll-margin-top: 80px; // For smooth scrolling from hero
+}
+
+// YouTube Modal Dialog Styles
+::ng-deep .youtube-modal-dialog .mat-mdc-dialog-container {
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+  box-shadow: none;
+}
+
+::ng-deep .youtube-modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+}

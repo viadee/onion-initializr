@@ -1,0 +1,40 @@
+{
+  "folderPath": ".",
+  "entities": [
+    "ApplicationService",
+    "DomainService",
+    "Entity",
+    "Diagramm",
+    "FileEntity",
+    "uiFramework",
+    "OnionConfig"
+  ],
+  "domainServices": [
+    "ApplicationServiceService",
+    "DomainServiceService",
+    "AwilixConfigService",
+    "DiagramService",
+    "FileService",
+    ""
+  ],
+  "applicationServices": ["UserAppService"],
+  "domainServiceConnections": {
+    "OrderService": ["Order", "User"],
+    "UserService": [],
+    "ShippingService": ["Order"],
+    "ProductService": ["Product"],
+    "PaymentService": []
+  },
+  "applicationServiceDependencies": {
+    "UserAppService": {
+      "domainServices": ["UserService"],
+      "repositories": ["IUserRepository"]
+    },
+    "OrderAppService": {
+      "domainServices": ["OrderService"],
+      "repositories": ["IOrderRepository"]
+    }
+  },
+  "uiFramework": "lit",
+  "_chooseFromThese": ["react", "angular", "vue", "lit", "vanilla"]
+}
