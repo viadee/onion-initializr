@@ -34,7 +34,7 @@ jobs:
         run: npm ci --legacy-peer-deps
 
       - name: Build application
-        run: npm run build -- --base-href="/thesis-spa-onion-design/"
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
