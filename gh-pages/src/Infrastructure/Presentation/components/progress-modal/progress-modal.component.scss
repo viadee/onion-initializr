@@ -81,8 +81,6 @@ $border-accent: #bbdefb;
   // Mobile responsive adjustments
   @media (max-width: 768px) {
     min-width: unset;
-    width: calc(100vw - 32px);
-    max-width: calc(100vw - 32px);
     padding: 16px;
     margin: 16px;
   }
@@ -150,7 +148,7 @@ $border-accent: #bbdefb;
   gap: 24px;
 
   // Mobile responsive adjustments
-  @media (max-width: 768px) {
+  @media (max-width: 700px) {
     gap: 16px;
   }
 
