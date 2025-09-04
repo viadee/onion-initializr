@@ -2,11 +2,7 @@ import { OnionConfig } from '../../Domain/Entities/OnionConfig';
 import { WebContainerFileRepository } from '../../Infrastructure/Repositories/WebContainerFileRepository';
 
 import { WebContainerManagerAppService } from './WebContainerManagerAppService';
-import {
-  ProjectGenerationOrchestratorAppService,
-  GenerationResult,
-  ProgressCallback,
-} from './ProjectGenerationOrchestratorAppService';
+
 import {
   ProjectDownloadAppService,
   DownloadResult,
@@ -20,7 +16,7 @@ export class WebContainerAppService {
   constructor(
     private readonly fileRepository: WebContainerFileRepository,
     private readonly webContainerManager: WebContainerManagerAppService,
-    private readonly generationOrchestrator: ProjectGenerationOrchestratorAppService,
+    //private readonly generationOrchestrator: ProjectGenerationOrchestratorAppService,
     private readonly downloadService: ProjectDownloadAppService
   ) {}
 
@@ -36,12 +32,12 @@ export class WebContainerAppService {
    */
   async generateOnionArchitecture(
     config: OnionConfig,
-    progressCallback?: ProgressCallback
-  ): Promise<GenerationResult> {
-    return await this.generationOrchestrator.generateProject(
+    progressCallback?: any
+  ): Promise<any> {
+    /*return await this.generationOrchestrator.generateProject(
       config,
       progressCallback
-    );
+    );*/
   }
 
   /**
