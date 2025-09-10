@@ -7,6 +7,7 @@ import {
   ProjectDownloadAppService,
   DownloadResult,
 } from './ProjectDownloadAppService';
+import { ProjectGenerationOrchestratorAppService } from './ProjectGenerationOrchestratorAppService';
 
 /**
  * Main service that coordinates WebContainer operations
@@ -16,7 +17,7 @@ export class WebContainerAppService {
   constructor(
     private readonly fileRepository: WebContainerFileRepository,
     private readonly webContainerManager: WebContainerManagerAppService,
-    //private readonly generationOrchestrator: ProjectGenerationOrchestratorAppService,
+    private readonly generationOrchestrator: ProjectGenerationOrchestratorAppService,
     private readonly downloadService: ProjectDownloadAppService
   ) {}
 
@@ -34,10 +35,10 @@ export class WebContainerAppService {
     config: OnionConfig,
     progressCallback?: any
   ): Promise<any> {
-    /*return await this.generationOrchestrator.generateProject(
+    return await this.generationOrchestrator.generateProject(
       config,
       progressCallback
-    );*/
+    );
   }
 
   /**

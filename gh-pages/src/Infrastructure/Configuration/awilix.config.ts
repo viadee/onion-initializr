@@ -44,6 +44,9 @@ import { LintAppService } from '../../Application/Services/LintAppService';
 import { DiagramConfigurationAppService } from '../../Application/Services/DiagramConfigurationAppService';
 import { DiagramPositionCalculatorAppService } from '../../Application/Services/DiagramPositionCalculatorAppService';
 import { DiagramSVGRendererAppService } from '../../Application/Services/DiagramSVGRendererAppService';
+import { ProjectGenerationOrchestratorAppService } from '../../Application/Services/ProjectGenerationOrchestratorAppService';
+import { OnionAppService } from '../../Application/Services/OnionAppService';
+import { AppServiceDependencyAppService } from '../../Application/Services/AppServiceDependencyAppService';
 
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,
@@ -52,6 +55,13 @@ const container = createContainer({
 const browserService = new BrowserCheckAppService();
 
 container.register({
+  generationOrchestrator: asClass(
+    ProjectGenerationOrchestratorAppService
+  ).singleton(),
+  onionAppService: asClass(OnionAppService).singleton(),
+  appServiceDependencyAppService: asClass(
+    AppServiceDependencyAppService
+  ).singleton(),
   onionConfig: asClass(OnionConfig).singleton(),
   awilixConfig: asClass(AwilixConfig).singleton(),
   scanControllerService: asClass(ScanControllerAppService).singleton(),
