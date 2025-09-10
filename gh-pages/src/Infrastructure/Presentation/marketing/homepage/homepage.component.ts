@@ -148,7 +148,6 @@ export class HomepageComponent {
 }`;
 
   scrollToTryOnline(): void {
-    // Navigate to the generator page
     this.router.navigate(['/generator']);
   }
 
