@@ -119,23 +119,23 @@ export class OnionGenComponent implements OnInit, OnDestroy {
 
   public getFrameworkIconPath(framework: string): string {
     const iconMap: Record<string, string> = {
-      angular: '/angular.svg',
-      react: '/react.svg',
-      vue: '/vue.svg',
-      lit: '/lit.svg',
-      vanilla: '/typescript.svg',
+      angular: 'angular.svg',
+      react: 'react.svg',
+      vue: 'vue.svg',
+      lit: 'lit.svg',
+      vanilla: 'typescript.svg',
     };
 
-    return iconMap[framework] || '/typescript.svg';
+    return iconMap[framework] || 'typescript.svg';
   }
 
   public getDiFrameworkIconPath(diFramework: DiFramework): string {
     const iconMap: Record<DiFramework, string> = {
-      angular: '/angular.svg',
-      awilix: '/typescript.svg',
+      angular: 'angular.svg',
+      awilix: 'typescript.svg',
     };
 
-    return iconMap[diFramework] || '/typescript.svg';
+    return iconMap[diFramework] || 'typescript.svg';
   }
 
   public onFrameworkChange(framework: string): void {
