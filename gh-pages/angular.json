@@ -50,6 +50,7 @@
               "outputHashing": "all"
             },
             "development": {
+              "baseHref": "/onion-initializr/",
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
