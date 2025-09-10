@@ -91705,10 +91705,10 @@ var YouTubeModalComponent = class _YouTubeModalComponent {
   constructor(dialogRef, sanitizer) {
     this.dialogRef = dialogRef;
     this.sanitizer = sanitizer;
-    const videoUrl = `https://www.youtube.com/embed/${this.videoId}?autoplay=1&rel=0&modestbranding=1&showinfo=0`;
+    const videoUrl = `https://www.youtube.com/embed/${this.videoId}`;
     this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
   }
-  videoId = "replaceLater";
+  videoId = "_q-i1Fn3hOM";
   safeVideoUrl;
   ngOnInit() {
     this.markModalAsSeen();
