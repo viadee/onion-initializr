@@ -324,7 +324,6 @@ export class OnionGenComponent implements OnInit, OnDestroy {
 
       dialogRef.afterClosed().subscribe(() => {
         // Modal is automatically marked as seen in the component
-        console.log('Tutorial modal closed');
       });
     }
   }
@@ -340,9 +339,7 @@ export class OnionGenComponent implements OnInit, OnDestroy {
       backdropClass: 'youtube-modal-backdrop',
     });
 
-    dialogRef.afterClosed().subscribe(() => {
-      console.log('Manual tutorial modal closed');
-    });
+    dialogRef.afterClosed().subscribe(() => {});
   }
 
   navigateHome(): void {
