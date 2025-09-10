@@ -46,7 +46,6 @@ import { DiagramPositionCalculatorAppService } from '../../Application/Services/
 import { DiagramSVGRendererAppService } from '../../Application/Services/DiagramSVGRendererAppService';
 import { ProjectGenerationOrchestratorAppService } from '../../Application/Services/ProjectGenerationOrchestratorAppService';
 import { OnionAppService } from '../../Application/Services/OnionAppService';
-import { AppServiceDependencyAppService } from '../../Application/Services/AppServiceDependencyAppService';
 
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,
@@ -59,9 +58,6 @@ container.register({
     ProjectGenerationOrchestratorAppService
   ).singleton(),
   onionAppService: asClass(OnionAppService).singleton(),
-  appServiceDependencyAppService: asClass(
-    AppServiceDependencyAppService
-  ).singleton(),
   onionConfig: asClass(OnionConfig).singleton(),
   awilixConfig: asClass(AwilixConfig).singleton(),
   scanControllerService: asClass(ScanControllerAppService).singleton(),

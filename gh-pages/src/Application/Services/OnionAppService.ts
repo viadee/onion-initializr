@@ -23,7 +23,6 @@ import { DiFramework } from '../../Domain/Entities/DiFramework';
 import { PathAppService } from './PathAppService';
 import { ConfigurationAppService } from './ConfigurationAppService';
 import { FileService } from '../../Domain/Services/FileService';
-import { AppServiceDependencyAppService } from './AppServiceDependencyAppService';
 
 export interface OnionArchitectureGenerationParams {
   folderPath: string;
@@ -52,7 +51,6 @@ export class OnionAppService {
     private readonly fileService: FileService,
     private readonly pathService: PathAppService,
     private readonly configurationAppService: ConfigurationAppService,
-    private readonly appServiceDependencyAppService: AppServiceDependencyAppService
   ) {}
 
   async generate(
