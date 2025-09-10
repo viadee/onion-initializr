@@ -91597,7 +91597,6 @@ var OnionGenComponent = class _OnionGenComponent {
         backdropClass: "youtube-modal-backdrop"
       });
       dialogRef.afterClosed().subscribe(() => {
-        console.log("Tutorial modal closed");
       });
     }
   }
@@ -91612,7 +91611,6 @@ var OnionGenComponent = class _OnionGenComponent {
       backdropClass: "youtube-modal-backdrop"
     });
     dialogRef.afterClosed().subscribe(() => {
-      console.log("Manual tutorial modal closed");
     });
   }
   navigateHome() {
