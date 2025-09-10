@@ -88244,9 +88244,10 @@ export default [
 
 // src/Application/Services/WebContainerAppService.ts
 var WebContainerAppService = class {
-  constructor(fileRepository, webContainerManager, downloadService) {
+  constructor(fileRepository, webContainerManager, generationOrchestrator, downloadService) {
     this.fileRepository = fileRepository;
     this.webContainerManager = webContainerManager;
+    this.generationOrchestrator = generationOrchestrator;
     this.downloadService = downloadService;
   }
   /**
@@ -88262,6 +88263,10 @@ var WebContainerAppService = class {
    */
   generateOnionArchitecture(config2, progressCallback) {
     return __async(this, null, function* () {
+      return yield this.generationOrchestrator.generateProject(
+        config2,
+        progressCallback
+      );
     });
   }
   /**
@@ -89454,12 +89459,485 @@ var DiagramSVGRendererAppService = class {
   }
 };
 
+// src/Application/Services/ProjectGenerationOrchestratorAppService.ts
+var ProjectGenerationOrchestratorAppService = class {
+  constructor(webContainerManager, fileRepository, projectService, onionAppService) {
+    this.webContainerManager = webContainerManager;
+    this.fileRepository = fileRepository;
+    this.projectService = projectService;
+    this.onionAppService = onionAppService;
+  }
+  generateProject(config2, progressCallback) {
+    return __async(this, null, function* () {
+      const startTime = Date.now();
+      console.log("\u{1F680} Starting WebContainer Onion Architecture generation...");
+      try {
+        console.log("diFramework selected:", config2.diFramework);
+        yield this.initializeEnvironment(progressCallback);
+        yield this.setupFramework(config2, progressCallback);
+        yield this.generateArchitecture(config2, progressCallback);
+        const result = yield this.finalizeProject(progressCallback);
+        const totalTime = Date.now() - startTime;
+        console.log(
+          `\u{1F389} WebContainer generation completed in ${totalTime}ms (${(totalTime / 1e3).toFixed(2)}s)`
+        );
+        return __spreadValues({
+          success: true,
+          message: `Onion Architecture generated successfully in WebContainer! (${(totalTime / 1e3).toFixed(2)}s)`
+        }, result);
+      } catch (error) {
+        const totalTime = Date.now() - startTime;
+        console.error(
+          `\u274C Failed to generate Onion Architecture after ${totalTime}ms:`,
+          error
+        );
+        return {
+          success: false,
+          message: `Failed to generate: ${error}`
+        };
+      }
+    });
+  }
+  initializeEnvironment(progressCallback) {
+    return __async(this, null, function* () {
+      progressCallback?.("init-webcontainer");
+      const webcontainer = yield this.webContainerManager.initialize();
+      this.fileRepository.setWebContainer(webcontainer);
+      yield this.fileRepository.initializeWebContainer(webcontainer);
+      const projectFolder = "/onion-project";
+      yield this.cleanupExistingProject(projectFolder);
+      yield this.fileRepository.createDirectory(projectFolder);
+      progressCallback?.("init-webcontainer", 100);
+    });
+  }
+  setupFramework(config2, progressCallback) {
+    return __async(this, null, function* () {
+      const frameworkStart = Date.now();
+      console.log("\u{1F3D7}\uFE0F Setting up UI framework (this may take 20-30 seconds)...");
+      const initResult = yield this.projectService.initialize(
+        "/onion-project",
+        config2.uiFramework,
+        config2.diFramework,
+        this.createFrameworkProgressHandler(progressCallback)
+      );
+      if (!initResult) {
+        throw new Error("Failed to initialize framework");
+      }
+      console.log(
+        `\u2705 Framework setup completed (${Date.now() - frameworkStart}ms)`
+      );
+    });
+  }
+  generateArchitecture(config2, progressCallback) {
+    return __async(this, null, function* () {
+      progressCallback?.("generate-architecture");
+      const onionGenStart = Date.now();
+      console.log("\u{1F9C5} Generating onion architecture files...");
+      yield this.onionAppService.generate({
+        folderPath: "/onion-project",
+        entityNames: config2.entities || [],
+        domainServiceNames: config2.domainServices || [],
+        applicationServiceNames: config2.applicationServices || [],
+        uiFramework: config2.uiFramework || "react",
+        diFramework: config2.diFramework || "awilix",
+        domainServiceConnections: config2.domainServiceConnections || {},
+        applicationServiceDependencies: config2.applicationServiceDependencies || {},
+        skipProjectInit: false
+      });
+      console.log(
+        `\u2705 Architecture generation completed (${Date.now() - onionGenStart}ms)`
+      );
+      progressCallback?.("generate-architecture", 100);
+    });
+  }
+  finalizeProject(progressCallback) {
+    return __async(this, null, function* () {
+      progressCallback?.("create-download");
+      const filesCreated = this.fileRepository.getBrowserFiles();
+      return filesCreated;
+    });
+  }
+  cleanupExistingProject(projectFolder) {
+    return __async(this, null, function* () {
+      try {
+        yield this.fileRepository.rmSync(projectFolder);
+      } catch {
+      }
+    });
+  }
+  createFrameworkProgressHandler(progressCallback) {
+    return (phase, progress) => {
+      const phaseMap = {
+        "npm-init": "npm-init",
+        "install-dev-deps": "install-dev-deps",
+        "create-framework": "create-framework",
+        "move-files": "move-files",
+        "install-awilix": "install-awilix"
+      };
+      const stepId = phaseMap[phase];
+      if (stepId) {
+        progressCallback?.(stepId, progress);
+      }
+    };
+  }
+};
+
+// src/Domain/Entities/ShowcaseAppGeneration.ts
+var ShowcaseAppGeneration = class {
+  constructor(basePath, framework, useAngularDI, firstAppService) {
+    this.basePath = basePath;
+    this.framework = framework;
+    this.useAngularDI = useAngularDI;
+    this.firstAppService = firstAppService;
+  }
+};
+
+// src/Application/Services/OnionAppService.ts
+var OnionAppService = class {
+  constructor(awilixCfgService, angularConfigAppService, projectService, showcaseService, entityService, repoService, iRepoService, domainServiceService, applicationServiceService, folderStructureService, fileService, pathService, configurationAppService) {
+    this.awilixCfgService = awilixCfgService;
+    this.angularConfigAppService = angularConfigAppService;
+    this.projectService = projectService;
+    this.showcaseService = showcaseService;
+    this.entityService = entityService;
+    this.repoService = repoService;
+    this.iRepoService = iRepoService;
+    this.domainServiceService = domainServiceService;
+    this.applicationServiceService = applicationServiceService;
+    this.folderStructureService = folderStructureService;
+    this.fileService = fileService;
+    this.pathService = pathService;
+    this.configurationAppService = configurationAppService;
+  }
+  generate(params) {
+    return __async(this, null, function* () {
+      console.log("\u{1F9C5} Starting Onion Architecture generation...");
+      const {
+        folderPath,
+        entityNames,
+        domainServiceNames,
+        applicationServiceNames,
+        uiFramework,
+        diFramework: passedDiFramework,
+        domainServiceConnections,
+        applicationServiceDependencies,
+        skipProjectInit = true
+      } = params;
+      yield this.folderStructureService.createFolderStructure(folderPath);
+      const diFramework = yield this.initializeProject(
+        folderPath,
+        uiFramework,
+        passedDiFramework,
+        skipProjectInit
+      );
+      const allFileEntities = [];
+      const tsConfigFile = yield this.configurationAppService.updateVerbatimModuleSyntax(
+        folderPath,
+        false
+      );
+      if (tsConfigFile) {
+        allFileEntities.push(tsConfigFile);
+      }
+      const entityFiles = yield this.generateEntities(folderPath, entityNames);
+      allFileEntities.push(...entityFiles);
+      const repositoryFiles = yield this.generateRepositories(
+        folderPath,
+        entityNames,
+        diFramework
+      );
+      allFileEntities.push(...repositoryFiles);
+      const domainServiceFiles = yield this.generateDomainServices(
+        folderPath,
+        domainServiceNames,
+        entityNames,
+        domainServiceConnections,
+        diFramework
+      );
+      allFileEntities.push(...domainServiceFiles);
+      const { appServiceDeps, appServiceFiles } = yield this.generateApplicationServices(
+        folderPath,
+        applicationServiceNames,
+        domainServiceNames,
+        entityNames,
+        applicationServiceDependencies,
+        diFramework
+      );
+      allFileEntities.push(...appServiceFiles);
+      const diConfigFiles = yield this.generateDIConfiguration(
+        folderPath,
+        entityNames,
+        domainServiceNames,
+        applicationServiceNames,
+        appServiceDeps,
+        diFramework
+      );
+      allFileEntities.push(...diConfigFiles);
+      const showcaseFiles = yield this.generateShowcaseApplication(
+        folderPath,
+        uiFramework,
+        diFramework,
+        applicationServiceNames
+      );
+      allFileEntities.push(...showcaseFiles);
+      yield this.createDirectoriesForFiles(allFileEntities);
+      yield this.writeAllFiles(allFileEntities);
+      return allFileEntities;
+    });
+  }
+  initializeProject(folderPath, framework, passedDiFramework, skipProjectInit = true) {
+    return __async(this, null, function* () {
+      let diFramework = passedDiFramework || "awilix";
+      if (!skipProjectInit) {
+        const stepStart = Date.now();
+        const result = yield this.projectService.initialize(
+          folderPath,
+          framework,
+          diFramework
+        );
+        diFramework = result.diFramework;
+        console.log(`\u2705 Project initialized (${Date.now() - stepStart}ms)`);
+      }
+      return diFramework;
+    });
+  }
+  generateEntities(folderPath, entityNames) {
+    return __async(this, null, function* () {
+      const stepStart = Date.now();
+      const template = yield this.fileService.readTemplate("entity.hbs");
+      const entitiesDir = this.pathService.join(
+        folderPath,
+        "src",
+        "Domain",
+        "Entities"
+      );
+      const fileEntities = this.entityService.generateEntitiesFiles(
+        entitiesDir,
+        entityNames,
+        template.content
+      );
+      console.log(`\u2705 Entities generated (${Date.now() - stepStart}ms)`);
+      return fileEntities;
+    });
+  }
+  generateRepositories(folderPath, entityNames, diFramework) {
+    return __async(this, null, function* () {
+      const stepStart = Date.now();
+      const repoTemplate = yield this.fileService.readTemplate(
+        "infrastructureRepository.hbs"
+      );
+      const interfaceTemplate = yield this.fileService.readTemplate(
+        "repositoryInterface.hbs"
+      );
+      const infraRepoDir = this.pathService.join(
+        folderPath,
+        "src",
+        "Infrastructure",
+        "Repositories"
+      );
+      const repoFiles = this.repoService.generateRepositoriesFiles(
+        entityNames,
+        diFramework,
+        repoTemplate.content,
+        infraRepoDir
+      );
+      const entityFilePaths = entityNames.map((entityName) => ({
+        entityName,
+        filePath: this.pathService.join(
+          folderPath,
+          "src",
+          "Domain",
+          "Interfaces",
+          `I${entityName}Repository.ts`
+        )
+      }));
+      const interfaceFiles = this.iRepoService.generateRepositoryInterfacesFiles(
+        entityFilePaths,
+        interfaceTemplate.content
+      );
+      console.log(`\u2705 Repositories generated (${Date.now() - stepStart}ms)`);
+      return [...repoFiles, ...interfaceFiles];
+    });
+  }
+  generateDomainServices(folderPath, domainServiceNames, entityNames, domainServiceConnections, diFramework) {
+    return __async(this, null, function* () {
+      const stepStart = Date.now();
+      const template = yield this.fileService.readTemplate("domainService.hbs");
+      const servicesDir = this.pathService.join(
+        folderPath,
+        "src",
+        "Domain",
+        "Services"
+      );
+      const domainServiceParams = {
+        servicesDir,
+        domainServiceNames,
+        entityNames,
+        userConfig: { domainServiceConnections },
+        diFramework,
+        templateContent: template.content
+      };
+      const fileEntities = this.domainServiceService.connectAndGenerateFiles(domainServiceParams);
+      console.log(`\u2705 Domain services generated (${Date.now() - stepStart}ms)`);
+      return fileEntities;
+    });
+  }
+  generateApplicationServices(folderPath, applicationServiceNames, domainServiceNames, entityNames, applicationServiceDependencies, diFramework) {
+    return __async(this, null, function* () {
+      const stepStart = Date.now();
+      let appServiceDeps = applicationServiceDependencies;
+      if (!appServiceDeps || Object.keys(appServiceDeps).length === 0) {
+        appServiceDeps = yield this.createDefaultApplicationServiceDependencies(
+          applicationServiceNames,
+          domainServiceNames,
+          entityNames
+        );
+      }
+      const template = yield this.fileService.readTemplate("appService.hbs");
+      const appDir = this.pathService.join(
+        folderPath,
+        "src",
+        "Application",
+        "Services"
+      );
+      const appServiceFiles = this.applicationServiceService.generateApplicationServicesFiles(
+        appServiceDeps,
+        diFramework,
+        template.content,
+        appDir
+      );
+      console.log(
+        `\u2705 Application services generated (${Date.now() - stepStart}ms)`
+      );
+      return {
+        appServiceDeps,
+        appServiceFiles
+      };
+    });
+  }
+  createDefaultApplicationServiceDependencies(applicationServiceNames, domainServiceNames, entityNames) {
+    return __async(this, null, function* () {
+      const iRepoList = entityNames.map((name) => `I${name}Repository`);
+      const dependencies = {};
+      for (const appServiceName of applicationServiceNames) {
+        dependencies[appServiceName] = {
+          domainServices: [...domainServiceNames],
+          // All domain services
+          repositories: [...iRepoList]
+          // All repositories
+        };
+      }
+      return dependencies;
+    });
+  }
+  generateDIConfiguration(folderPath, entityNames, domainServiceNames, applicationServiceNames, appServiceDeps, diFramework) {
+    return __async(this, null, function* () {
+      const stepStart = Date.now();
+      let fileEntities = [];
+      if (diFramework === "awilix") {
+        const awilixConfigParams = new AwilixConfig(
+          folderPath,
+          entityNames,
+          domainServiceNames,
+          applicationServiceNames
+        );
+        const awilixConfigPath = this.pathService.join(
+          folderPath,
+          "src",
+          "Infrastructure",
+          "Configuration",
+          "awilix.config.ts"
+        );
+        const awilixFile = this.awilixCfgService.generateAwilixConfigFile(
+          awilixConfigParams,
+          awilixConfigPath
+        );
+        fileEntities.push(awilixFile);
+      } else if (diFramework === "angular") {
+        const angularFiles = yield this.angularConfigAppService.generateAngularProvidersFiles(
+          folderPath,
+          entityNames,
+          domainServiceNames,
+          applicationServiceNames,
+          appServiceDeps
+        );
+        fileEntities.push(...angularFiles);
+      }
+      console.log(`\u2705 DI configuration generated (${Date.now() - stepStart}ms)`);
+      return fileEntities;
+    });
+  }
+  generateShowcaseApplication(folderPath, framework, diFramework, applicationServiceNames) {
+    return __async(this, null, function* () {
+      if (!framework) return [];
+      const stepStart = Date.now();
+      const showcaseAppGeneration = new ShowcaseAppGeneration(
+        folderPath,
+        framework,
+        diFramework === "angular",
+        applicationServiceNames[0]
+      );
+      const presentationDir = this.pathService.join(
+        folderPath,
+        "src",
+        "Infrastructure",
+        "Presentation"
+      );
+      const buildPaths = (template, output) => {
+        const shouldPlaceInRoot = framework === "lit" && output === "index.html";
+        const outputPath = shouldPlaceInRoot ? this.pathService.join(folderPath, output) : this.pathService.join(presentationDir, output);
+        return {
+          templatePath: this.pathService.join(
+            "Infrastructure",
+            "frameworks",
+            "templates",
+            template
+          ),
+          outputPath
+        };
+      };
+      const fileEntities = yield this.showcaseService.generateShowcaseFiles(
+        showcaseAppGeneration,
+        buildPaths
+      );
+      console.log(
+        `\u2705 Showcase application generated (${Date.now() - stepStart}ms)`
+      );
+      return fileEntities;
+    });
+  }
+  createDirectoriesForFiles(fileEntities) {
+    return __async(this, null, function* () {
+      const directories = /* @__PURE__ */ new Set();
+      for (const file of fileEntities) {
+        const dir = file.filePath.substring(0, file.filePath.lastIndexOf("\\"));
+        if (dir) {
+          directories.add(dir);
+        }
+      }
+      for (const dir of directories) {
+        yield this.fileService.createDirectory(dir);
+      }
+    });
+  }
+  writeAllFiles(fileEntities) {
+    return __async(this, null, function* () {
+      for (const file of fileEntities) {
+        yield this.fileService.createFile(file);
+      }
+    });
+  }
+};
+
 // src/Infrastructure/Configuration/awilix.config.ts
 var container = createContainer({
   injectionMode: InjectionMode.CLASSIC
 });
 var browserService = new BrowserCheckAppService();
 container.register({
+  generationOrchestrator: asClass(
+    ProjectGenerationOrchestratorAppService
+  ).singleton(),
+  onionAppService: asClass(OnionAppService).singleton(),
   onionConfig: asClass(OnionConfig).singleton(),
   awilixConfig: asClass(AwilixConfig).singleton(),
   scanControllerService: asClass(ScanControllerAppService).singleton(),
