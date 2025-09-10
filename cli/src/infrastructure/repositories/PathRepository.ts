@@ -1,7 +1,7 @@
 // Only import path for Node.js usage
 let path: typeof import('path') | undefined;
 
-import { IPathRepository } from '../../Domain/Interfaces/IPathRepository';
+import { IPathRepository } from '../../../../gh-pages/src/Domain/Interfaces/IPathRepository';
 
 export class PathRepository implements IPathRepository {
   dirname(filePath: string): string {

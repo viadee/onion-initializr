@@ -1,64 +1,53 @@
-import { createContainer, asClass, asFunction, InjectionMode } from 'awilix';
+import { createContainer, asClass, InjectionMode } from "awilix";
 
-import { OnionConfig } from '../../Domain/Entities/OnionConfig';
-import { AwilixConfig } from '../../Domain/Entities/AwilixConfig';
-import { OnionConfigRepository } from '../../Infrastructure/Repositories/OnionConfigRepository';
-import { OnionConfigService } from '../../Domain/Services/OnionConfigService';
-import { OnionConfigStateService } from '../../Domain/Services/OnionConfigStateService';
-import { OnionConfigNodeService } from '../../Domain/Services/OnionConfigNodeService';
-import { OnionConfigValidationService } from '../../Domain/Services/OnionConfigValidationService';
-import { OnionConfigRepositoryService } from '../../Domain/Services/OnionConfigRepositoryService';
-import { DiagramAppService } from '../../Application/Services/DiagramAppService';
-import { DiagramNodeInteractionAppService } from '../../Application/Services/DiagramNodeInteractionAppService';
-import { DiagramNodeManagementService } from '../../Application/Services/DiagramNodeManagementAppService';
-import { DiagramConnectionAppService } from '../../Application/Services/DiagramConnectionAppService';
-import { DiagramProjectGenerationService } from '../../Application/Services/DiagramProjectGenerationAppService';
-import { ScanControllerAppService } from '../../Application/Services/ScanControllerAppService';
-import { HelpAppService } from '../../Application/Services/HelpAppService';
-import { ScannerAppService } from '../../Application/Services/ScannerAppService';
-import { AwilixConfigService } from '../../Domain/Services/AwilixConfigService';
-import { ShowcaseService } from '../../Domain/Services/ShowcaseService';
-import { EntityService } from '../../Domain/Services/EntitityService';
-import { DomainServiceService } from '../../Domain/Services/DomainServiceService';
-import { RepoService } from '../../Domain/Services/RepoService';
-import { ApplicationServiceService } from '../../Domain/Services/ApplicationServiceService';
-import { ProjectInitAppService } from '../../Application/Services/ProjectInitAppService';
-import { BrowserCheckAppService } from '../../Application/Services/BrowserCheckAppService';
-import { FileService } from '../../Domain/Services/FileService';
-import { FileHelperAppService } from '../../Application/Services/FileHelperAppService';
-import { FolderStructureService } from '../../Application/Services/FolderGenAppService';
-import { PathAppService } from '../../Application/Services/PathAppService';
-import { PathRepository } from '../Repositories/PathRepository';
-import { WebContainerPathRepository } from '../Repositories/WebContainerPathRepository';
-import { IRepoService } from '../../Domain/Services/IRepoService';
-import { ZipAppService } from '../../Application/Services/ZipAppService';
-import { FileSystemFileRepository } from '../Repositories/FileSystemFileRepository';
-import { WebContainerFileRepository } from '../Repositories/WebContainerFileRepository';
-import { WebContainerOptimizedProjectAppService } from '../../Application/Services/WebContainerOptimizedProjectAppService';
-import { WebContainerAppService } from '../../Application/Services/WebContainerAppService';
-import { NodeCommandRunner } from '../Repositories/NodeCommandRunner';
-import { WebContainerCommandRunnerService } from '../Repositories/WebContainerCommandRunnerService';
-import { WebContainerHelperFunctions } from '../Repositories/WebContainerHelperFunctions';
-import { ProjectGenerationOrchestratorAppService } from '../../Application/Services/ProjectGenerationOrchestratorAppService';
-import { ProjectDownloadAppService } from '../../Application/Services/ProjectDownloadAppService';
-import { OnionAppService } from '../../Application/Services/OnionAppService';
-import { OnionCliAppService } from '../../Application/Services/OnionCliAppService';
-import { ProgressTrackingAppService } from '../../Application/Services/ProgressTrackingAppService';
-import { OnionConfigConnectionAppService } from '../../Application/Services/OnionConfigConnectionAppService';
-import { AngularConfigAppService } from '../../Application/Services/AngularConfigAppService';
-import { ConfigurationAppService } from '../../Application/Services/ConfigurationAppService';
-import { RunCommandService } from '../Repositories/RunCommandService';
-import { AppServiceDependencyAppService } from '../../Application/Services/AppServiceDependencyAppService';
-import { LintAppService } from '../../Application/Services/LintAppService';
-import { DiagramConfigurationAppService } from '../../Application/Services/DiagramConfigurationAppService';
-import { DiagramPositionCalculatorAppService } from '../../Application/Services/DiagramPositionCalculatorAppService';
-import { DiagramSVGRendererAppService } from '../../Application/Services/DiagramSVGRendererAppService';
+import { OnionConfig } from "../../../../gh-pages/src/Domain/Entities/OnionConfig";
+import { AwilixConfig } from "../../../../gh-pages/src/Domain/Entities/AwilixConfig";
+import { OnionConfigRepository } from "../../../../gh-pages/src/Infrastructure/Repositories/OnionConfigRepository";
+import { OnionConfigService } from "../../../../gh-pages/src/Domain/Services/OnionConfigService";
+import { OnionConfigStateService } from "../../../../gh-pages/src/Domain/Services/OnionConfigStateService";
+import { OnionConfigNodeService } from "../../../../gh-pages/src/Domain/Services/OnionConfigNodeService";
+import { OnionConfigValidationService } from "../../../../gh-pages/src/Domain/Services/OnionConfigValidationService";
+import { OnionConfigRepositoryService } from "../../../../gh-pages/src/Domain/Services/OnionConfigRepositoryService";
+import { DiagramAppService } from "../../../../gh-pages/src/Application/Services/DiagramAppService";
+import { DiagramNodeInteractionAppService } from "../../../../gh-pages/src/Application/Services/DiagramNodeInteractionAppService";
+import { DiagramNodeManagementService } from "../../../../gh-pages/src/Application/Services/DiagramNodeManagementAppService";
+import { DiagramConnectionAppService } from "../../../../gh-pages/src/Application/Services/DiagramConnectionAppService";
+import { DiagramProjectGenerationService } from "../../../../gh-pages/src/Application/Services/DiagramProjectGenerationAppService";
+import { HelpAppService } from "../../../../gh-pages/src/Application/Services/HelpAppService";
+import { AwilixConfigService } from "../../../../gh-pages/src/Domain/Services/AwilixConfigService";
+import { ShowcaseService } from "../../../../gh-pages/src/Domain/Services/ShowcaseService";
+import { EntityService } from "../../../../gh-pages/src/Domain/Services/EntitityService";
+import { DomainServiceService } from "../../../../gh-pages/src/Domain/Services/DomainServiceService";
+import { RepoService } from "../../../../gh-pages/src/Domain/Services/RepoService";
+import { ApplicationServiceService } from "../../../../gh-pages/src/Domain/Services/ApplicationServiceService";
+import { BrowserCheckAppService } from "../../../../gh-pages/src/Application/Services/BrowserCheckAppService";
+import { FileService } from "../../../../gh-pages/src/Domain/Services/FileService";
+import { FolderStructureService } from "../../../../gh-pages/src/Application/Services/FolderGenAppService";
+import { PathAppService } from "../../../../gh-pages/src/Application/Services/PathAppService";
+import { PathRepository } from "../Repositories/PathRepository";
+import { IRepoService } from "../../../../gh-pages/src/Domain/Services/IRepoService";
+import { FileSystemFileRepository } from "../Repositories/FileSystemFileRepository";
+import { NodeCommandRunner } from "../../../../gh-pages/src/Infrastructure/Repositories/NodeCommandRunner";
+import { OnionAppService } from "../../../../gh-pages/src/Application/Services/OnionAppService";
+import { ProgressTrackingAppService } from "../../../../gh-pages/src/Application/Services/ProgressTrackingAppService";
+import { OnionConfigConnectionAppService } from "../../../../gh-pages/src/Application/Services/OnionConfigConnectionAppService";
+import { AngularConfigAppService } from "../../../../gh-pages/src/Application/Services/AngularConfigAppService";
+import { ConfigurationAppService } from "../../../../gh-pages/src/Application/Services/ConfigurationAppService";
+import { RunCommandService } from "../Repositories/RunCommandService";
+import { LintAppService } from "../../../../gh-pages/src/Application/Services/LintAppService";
+import { DiagramConfigurationAppService } from "../../../../gh-pages/src/Application/Services/DiagramConfigurationAppService";
+import { DiagramPositionCalculatorAppService } from "../../../../gh-pages/src/Application/Services/DiagramPositionCalculatorAppService";
+import { DiagramSVGRendererAppService } from "../../../../gh-pages/src/Application/Services/DiagramSVGRendererAppService";
+import { ScanControllerAppService } from "../../Application/Services/ScanControllerAppService";
+import { ScannerAppService } from "../../Application/Services/ScannerAppService";
+import { FileHelperAppService } from "../../Application/Services/FileHelperAppService";
+import { OnionCliAppService } from "../../Application/Services/OnionCliAppService";
+import { AppServiceDependencyAppService } from "../../Application/Services/AppServiceDependencyAppService";
+import { ProjectInitAppService } from "../../Application/Services/ProjectInitAppService";
 
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,
 });
-
-const browserService = new BrowserCheckAppService();
 
 container.register({
   onionConfig: asClass(OnionConfig).singleton(),
@@ -129,97 +118,10 @@ container.register({
   ).singleton(),
   configService: asClass(OnionConfigService).singleton(),
   lintAppService: asClass(LintAppService).singleton(),
+  fileRepository: asClass(FileSystemFileRepository).singleton(),
+  commandRunner: asClass(NodeCommandRunner).singleton(),
+  commandRunnerService: asClass(RunCommandService).singleton(),
+  projectService: asClass(ProjectInitAppService).singleton(),
 });
-
-// Register file repository based on environment
-if (browserService.isNode()) {
-  container.register({
-    fileRepository: asClass(FileSystemFileRepository).singleton(),
-    pathRepository: asClass(PathRepository).singleton(),
-    commandRunner: asClass(NodeCommandRunner).singleton(),
-    commandRunnerService: asClass(RunCommandService).singleton(),
-    projectService: asClass(ProjectInitAppService).singleton(),
-  });
-} else if (browserService.isBrowser()) {
-  container.register({
-    fileRepository: asClass(WebContainerFileRepository).singleton(),
-    webContainerRepository: asClass(WebContainerFileRepository).singleton(),
-    pathRepository: asClass(WebContainerPathRepository).singleton(),
-    projectService: asClass(WebContainerOptimizedProjectAppService).singleton(),
-    commandRunner: asClass(WebContainerCommandRunnerService).singleton(),
-    webContainerService: asClass(WebContainerAppService).singleton(),
-
-    // WebContainer can usually not be imported into node.js environments,
-    // so we use a proxy to lazy-load the service when needed
-    webContainerManager: asFunction(() => {
-      // Create a proxy that lazy-loads the actual service
-      type WebContainerManagerInstance = {
-        initialize(): Promise<unknown>;
-        reset(): Promise<void>;
-        isReady(): boolean;
-        getWebContainer(): unknown;
-      };
-
-      let serviceInstance: WebContainerManagerInstance | null = null;
-
-      const loadService = async () => {
-        if (!serviceInstance) {
-          const { WebContainerManagerAppService } = await import(
-            '../../Application/Services/WebContainerManagerAppService'
-          );
-          serviceInstance = new WebContainerManagerAppService();
-        }
-        return serviceInstance;
-      };
-
-      // Return a proxy that looks like the service but lazy-loads it
-      return new Proxy(
-        {},
-        {
-          get(_target, prop) {
-            if (prop === 'initialize') {
-              return async () => {
-                const service = await loadService();
-                return service.initialize();
-              };
-            }
-            if (prop === 'reset') {
-              return async () => {
-                const service = await loadService();
-                return service.reset();
-              };
-            }
-            if (prop === 'isReady') {
-              return async () => {
-                const service = await loadService();
-                return service.isReady();
-              };
-            }
-            if (prop === 'getWebContainer') {
-              return async () => {
-                const service = await loadService();
-                return service.getWebContainer();
-              };
-            }
-            // For unknown methods, return undefined
-            return undefined;
-          },
-        }
-      );
-    }).singleton(),
-    helperFunctions: asClass(WebContainerHelperFunctions).singleton(),
-    generationOrchestrator: asClass(
-      ProjectGenerationOrchestratorAppService
-    ).singleton(),
-    projectGenerationOrchestrator: asClass(
-      ProjectGenerationOrchestratorAppService
-    ).singleton(),
-    downloadService: asClass(ProjectDownloadAppService).singleton(),
-    projectDownloadService: asClass(ProjectDownloadAppService).singleton(),
-    zipService: asClass(ZipAppService).singleton(),
-  });
-} else {
-  console.log('Unknown environment, no Runtime Environement detected');
-}
 
 export { container };

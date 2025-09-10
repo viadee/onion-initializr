@@ -6,5 +6,5 @@
     "outDir": "./out-tsc/spec",
     "types": ["jasmine"]
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "../cli/src/infrastructure/Tests/ProjectInitService.test.ts", "../cli/src/infrastructure/Tests/ApplicationServiceDependencyService.test.ts"]
 }
