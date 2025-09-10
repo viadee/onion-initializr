@@ -30,14 +30,18 @@ jobs:
           node-version: "20"
           cache: "npm"
 
+      - name: Navigate to gh-pages directory
+        run: cd gh-pages
+
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+        run: cd gh-pages && npm ci --legacy-peer-deps
 
       - name: Build application
-        run: npm run build
+        run: cd gh-pages && npm run github-build
 
       - name: Check if Angular dist exists, if not use static files
         run: |
+          cd gh-pages
           if [ ! -d "dist/temp/browser" ]; then
             echo "Angular build output not found, creating basic static deployment"
             mkdir -p dist/temp/browser
@@ -52,7 +56,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/temp/browser
+          path: ./gh-pages/dist/onion-initializr
       - name: Deploy to GitHub Pages (fallback)
         if: failure()
         run: |
