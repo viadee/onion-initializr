@@ -42,7 +42,7 @@ export class HomepageComponent {
         'Generate projects from your terminal with interactive prompts or JSON configuration file.',
       icon: '🖥️',
       action: 'external',
-      link: 'https://github.com/viadee/thesis-spa-onion-design',
+      link: 'https://github.com/viadee/onion-initializr',
     },
     {
       title: 'Web Interface',
@@ -74,7 +74,7 @@ export class HomepageComponent {
         'This Project is also build as an Onion-Architecture and can be used as a reference for your own projects.',
       icon: '📖',
       action: 'external',
-      link: 'https://github.com/viadee/thesis-spa-onion-design',
+      link: 'https://github.com/viadee/onion-initializr',
     },
   ];
 
@@ -152,7 +152,7 @@ export class HomepageComponent {
   }
 
   navigateToGitHub(): void {
-    window.open('https://github.com/viadee/thesis-spa-onion-design', '_blank');
+    window.open('https://github.com/viadee/onion-initializr', '_blank');
   }
 
   navigateToDocumentation(): void {
