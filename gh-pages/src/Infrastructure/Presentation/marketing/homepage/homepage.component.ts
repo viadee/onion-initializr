@@ -202,7 +202,7 @@ export class HomepageComponent {
       case 'navigate':
         return `Go to ${feature.title}`;
       case 'scroll':
-        return `View ${feature.title} section`;
+        return `View the ${feature.title} section`;
       default:
         return `Click to explore ${feature.title}`;
     }
