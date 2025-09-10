@@ -13,7 +13,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ['./youtube-modal.component.scss'],
 })
 export class YouTubeModalComponent implements OnInit, OnDestroy {
-  private readonly videoId = 'replaceLater';
+  private readonly videoId = '_q-i1Fn3hOM';
   safeVideoUrl: SafeResourceUrl;
 
   constructor(
@@ -21,7 +21,7 @@ export class YouTubeModalComponent implements OnInit, OnDestroy {
     private readonly sanitizer: DomSanitizer
   ) {
     // Create safe YouTube embed URL
-    const videoUrl = `https://www.youtube.com/embed/${this.videoId}?autoplay=1&rel=0&modestbranding=1&showinfo=0`;
+    const videoUrl = `https://www.youtube.com/embed/${this.videoId}`;
     this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
   }
 
