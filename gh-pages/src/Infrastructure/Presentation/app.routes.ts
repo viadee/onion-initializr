@@ -4,9 +4,9 @@ import { OnionGenComponent } from './components/onion-generator/onion-gen.compon
 import { DocumentationComponent } from './components/documentation/documentation.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
   { path: 'generator', component: OnionGenComponent },
   { path: 'documentation', component: DocumentationComponent },
-  { path: '**', redirectTo: '/home' }, // Wildcard route for 404 pages
+  { path: '**', redirectTo: 'home' }, // Wildcard route for 404 pages
 ];

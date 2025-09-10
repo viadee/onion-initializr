@@ -14,11 +14,11 @@ export class DocumentationComponent {
   constructor(private readonly router: Router) {}
 
   navigateHome(): void {
-    this.router.navigate(['/home']);
+    this.router.navigate(['home']);
   }
 
   navigateToGenerator(): void {
-    this.router.navigate(['/generator']);
+    this.router.navigate(['generator']);
   }
 
   scrollToSection(sectionId: string): void {

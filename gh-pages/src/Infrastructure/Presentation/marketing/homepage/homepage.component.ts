@@ -148,7 +148,7 @@ export class HomepageComponent {
 }`;
 
   scrollToTryOnline(): void {
-    this.router.navigate(['/generator']);
+    this.router.navigate(['generator']);
   }
 
   navigateToGitHub(): void {
@@ -156,7 +156,7 @@ export class HomepageComponent {
   }
 
   navigateToDocumentation(): void {
-    this.router.navigate(['/documentation']);
+    this.router.navigate(['documentation']);
   }
 
   navigateToOnionArchitectureArticle(): void {
