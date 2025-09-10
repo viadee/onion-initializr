@@ -35,7 +35,6 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "/onion-initializr/",
               "budgets": [
                 {
                   "type": "initial",
