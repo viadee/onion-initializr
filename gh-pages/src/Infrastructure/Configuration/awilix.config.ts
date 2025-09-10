@@ -13,9 +13,7 @@ import { DiagramNodeInteractionAppService } from '../../Application/Services/Dia
 import { DiagramNodeManagementService } from '../../Application/Services/DiagramNodeManagementAppService';
 import { DiagramConnectionAppService } from '../../Application/Services/DiagramConnectionAppService';
 import { DiagramProjectGenerationService } from '../../Application/Services/DiagramProjectGenerationAppService';
-import { ScanControllerAppService } from '../../Application/Services/ScanControllerAppService';
 import { HelpAppService } from '../../Application/Services/HelpAppService';
-import { ScannerAppService } from '../../Application/Services/ScannerAppService';
 import { AwilixConfigService } from '../../Domain/Services/AwilixConfigService';
 import { ShowcaseService } from '../../Domain/Services/ShowcaseService';
 import { EntityService } from '../../Domain/Services/EntitityService';
@@ -60,9 +58,7 @@ container.register({
   onionAppService: asClass(OnionAppService).singleton(),
   onionConfig: asClass(OnionConfig).singleton(),
   awilixConfig: asClass(AwilixConfig).singleton(),
-  scanControllerService: asClass(ScanControllerAppService).singleton(),
   helpAppService: asClass(HelpAppService).singleton(),
-  scannerService: asClass(ScannerAppService).singleton(),
   entityService: asClass(EntityService).singleton(),
   domainServiceService: asClass(DomainServiceService).singleton(),
   iRepoService: asClass(IRepoService).singleton(),

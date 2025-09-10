@@ -1,21 +1,21 @@
 #!/usr/bin/env node
-import { OnionConfig } from '../../Domain/Entities/OnionConfig';
-import { UIFrameworks } from '../../Domain/Entities/UiFramework';
-import { DiFramework } from '../../Domain/Entities/DiFramework';
-import { HelpAppService } from './HelpAppService';
+import { OnionConfig } from '../../../../gh-pages/src/Domain/Entities/OnionConfig';
+import { UIFrameworks } from '../../../../gh-pages/src/Domain/Entities/UiFramework';
+import { DiFramework } from '../../../../gh-pages/src/Domain/Entities/DiFramework';
+import { HelpAppService } from '../../../../gh-pages/src/Application/Services/HelpAppService';
 import { ScanControllerAppService } from './ScanControllerAppService';
-import { OnionConfigService } from '../../Domain/Services/OnionConfigService';
-import { FolderStructureService } from './FolderGenAppService';
+import { OnionConfigService } from '../../../../gh-pages/src/Domain/Services/OnionConfigService';
+import { FolderStructureService } from '../../../../gh-pages/src/Application/Services/FolderGenAppService';
 import { FileHelperAppService } from './FileHelperAppService';
-import { PathAppService } from './PathAppService';
+import { PathAppService } from '../../../../gh-pages/src/Application/Services/PathAppService';
 import {
   OnionAppService,
   OnionArchitectureGenerationParams,
 } from './OnionAppService';
-import { IProjectService } from '../../Domain/Interfaces/IProjectService';
-import { OnionConfigValidationService } from '../../Domain/Services/OnionConfigValidationService';
-import { FileEntity } from '../../Domain/Entities/FileEntity';
-import { FileService } from '../../Domain/Services/FileService';
+import { IProjectService } from '../../../../gh-pages/src/Domain/Interfaces/IProjectService';
+import { OnionConfigValidationService } from '../../../../gh-pages/src/Domain/Services/OnionConfigValidationService';
+import { FileEntity } from '../../../../gh-pages/src/Domain/Entities/FileEntity';
+import { FileService } from '../../../../gh-pages/src/Domain/Services/FileService';
 
 export class OnionCliAppService {
   constructor(

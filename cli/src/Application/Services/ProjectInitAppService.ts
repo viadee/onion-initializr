@@ -1,19 +1,19 @@
-import { ICommandRunner } from '../../Domain/Interfaces/ICommandRunner';
-import { IProjectService } from '../../Domain/Interfaces/IProjectService';
-import { UIFrameworks } from '../../Domain/Entities/UiFramework';
-import { DiFramework } from '../../Domain/Entities/DiFramework';
-import { FileService } from '../../Domain/Services/FileService';
-import { PathAppService } from './PathAppService';
-import { LintAppService } from './LintAppService';
-import chalk from 'chalk';
+import { ICommandRunner } from "../../../../gh-pages/src/Domain/Interfaces/ICommandRunner";
+import { IProjectService } from "../../../../gh-pages/src/Domain/Interfaces/IProjectService";
+import { UIFrameworks } from "../../../../gh-pages/src/Domain/Entities/UiFramework";
+import { DiFramework } from "../../../../gh-pages/src/Domain/Entities/DiFramework";
+import { FileService } from "../../../../gh-pages/src/Domain/Services/FileService";
+import { PathAppService } from "../../../../gh-pages/src/Application/Services/PathAppService";
+import { LintAppService } from "../../../../gh-pages/src/Application/Services/LintAppService";
+import chalk from "chalk";
 
 // Maps display name to internal framework key
 const frameworkDisplayMap: Record<string, keyof UIFrameworks> = {
-  'React (Vite + TS)': 'react',
-  'Vue (Vite + TS)': 'vue',
-  'Angular (Vite + TS)': 'angular',
-  'Lit (Vite + TS)': 'lit',
-  'Vanilla ': 'vanilla',
+  "React (Vite + TS)": "react",
+  "Vue (Vite + TS)": "vue",
+  "Angular (Vite + TS)": "angular",
+  "Lit (Vite + TS)": "lit",
+  "Vanilla ": "vanilla",
 };
 
 /**
@@ -30,8 +30,8 @@ export class ProjectInitAppService implements IProjectService {
     private readonly lintAppService: LintAppService
   ) {}
   async isInitialized(folderPath: string): Promise<boolean> {
-    const packageJson = this.pathService.join(folderPath, 'package.json');
-    const srcDir = this.pathService.join(folderPath, 'src');
+    const packageJson = this.pathService.join(folderPath, "package.json");
+    const srcDir = this.pathService.join(folderPath, "src");
     return (
       (await this.fileService.fileExists(packageJson)) &&
       this.fileService.fileExists(srcDir)
@@ -40,8 +40,8 @@ export class ProjectInitAppService implements IProjectService {
 
   async installAwilix(folderPath: string) {
     try {
-      await this.commandRunner.runCommand('npm install awilix', folderPath);
-      console.log(chalk.green('Awilix installed successfully!'));
+      await this.commandRunner.runCommand("npm install awilix", folderPath);
+      console.log(chalk.green("Awilix installed successfully!"));
     } catch (error) {
       console.error(chalk.red(`Failed to install Awilix: ${error}`));
     }
@@ -49,11 +49,11 @@ export class ProjectInitAppService implements IProjectService {
   async formatCode(folderPath: string) {
     try {
       await this.commandRunner.runCommand(
-        'npm i eslint-plugin-prettier',
+        "npm i eslint-plugin-prettier",
         folderPath
       );
-      await this.commandRunner.runCommand('npm run format', folderPath);
-      console.log(chalk.green('Code formatted with Prettier!'));
+      await this.commandRunner.runCommand("npm run format", folderPath);
+      console.log(chalk.green("Code formatted with Prettier!"));
     } catch (error) {
       console.error(chalk.red(`Failed to lint/format code: ${error}`));
     }
@@ -66,43 +66,43 @@ export class ProjectInitAppService implements IProjectService {
   > {
     try {
       const inquirer =
-        (await import('inquirer')).default ?? (await import('inquirer'));
+        (await import("inquirer")).default ?? (await import("inquirer"));
       await this.ensureNpmInit(folderPath);
       await this.installDevDependencies(folderPath);
 
       if (!uiFramework) {
         const { selectedDisplayName } = await inquirer.prompt([
           {
-            type: 'list',
-            name: 'selectedDisplayName',
-            message: 'Select a frontend framework to set up:',
+            type: "list",
+            name: "selectedDisplayName",
+            message: "Select a frontend framework to set up:",
             choices: Object.keys(frameworkDisplayMap),
           },
         ]);
         uiFramework = frameworkDisplayMap[selectedDisplayName];
       }
-      let diFramework: DiFramework = 'awilix';
+      let diFramework: DiFramework = "awilix";
 
-      if (uiFramework === 'angular') {
+      if (uiFramework === "angular") {
         const { selectedDiFramework } = await inquirer.prompt([
           {
-            type: 'list',
-            name: 'selectedDiFramework',
+            type: "list",
+            name: "selectedDiFramework",
             message:
-              'What Dependency Injection Framework do you want to use ? (default: Awilix)',
+              "What Dependency Injection Framework do you want to use ? (default: Awilix)",
             choices: [
-              { name: 'Awilix', value: 'awilix' },
-              { name: 'Angular', value: 'angular' },
+              { name: "Awilix", value: "awilix" },
+              { name: "Angular", value: "angular" },
             ],
           },
         ]);
         diFramework = selectedDiFramework;
       }
 
-      uiFramework = uiFramework || 'vanilla';
+      uiFramework = uiFramework || "vanilla";
       await this.setupUIFramework(folderPath, uiFramework);
 
-      if (diFramework === 'awilix') {
+      if (diFramework === "awilix") {
         await this.installAwilix(folderPath);
       }
       this.lintAppService.createFlatEslintConfig(folderPath);
@@ -113,53 +113,53 @@ export class ProjectInitAppService implements IProjectService {
 
       return { uiFramework, diFramework };
     } catch (error) {
-      console.error(chalk.red('Project initialization failed.', error));
+      console.error(chalk.red("Project initialization failed.", error));
       return undefined;
     }
   }
 
   async ensureNpmInit(folderPath: string) {
-    const packageJsonPath = this.pathService.join(folderPath, 'package.json');
+    const packageJsonPath = this.pathService.join(folderPath, "package.json");
 
     if (!(await this.fileService.fileExists(packageJsonPath))) {
-      console.log(chalk.yellow('Initializing npm project...'));
-      await this.commandRunner.runCommand('npm init -y', folderPath);
-      console.log(chalk.green('npm project initialized successfully!'));
+      console.log(chalk.yellow("Initializing npm project..."));
+      await this.commandRunner.runCommand("npm init -y", folderPath);
+      console.log(chalk.green("npm project initialized successfully!"));
     }
   }
 
   async installDevDependencies(folderPath: string) {
-    console.log(chalk.yellow('Installing ESLint and Prettier...'));
+    console.log(chalk.yellow("Installing ESLint and Prettier..."));
     await this.commandRunner.runCommand(
-      'npm install --save-dev eslint prettier @eslint/js @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-prettier',
+      "npm install --save-dev eslint prettier @eslint/js @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-prettier",
       folderPath
     );
-    console.log(chalk.green('Prettier and ESLint installed successfully!'));
+    console.log(chalk.green("Prettier and ESLint installed successfully!"));
   }
 
   async setupUIFramework(folderPath: string, framework: keyof UIFrameworks) {
     console.log(
       chalk.yellow(`Setting up ${framework} project in ${folderPath}...`)
     );
-    const tempDir = 'temp';
+    const tempDir = "temp";
     const tempPath = this.pathService.join(folderPath, tempDir);
-    let setupCommand = '';
+    let setupCommand = "";
 
     switch (framework) {
-      case 'react':
+      case "react":
         setupCommand = `npx --yes create-vite@latest ${tempDir} --template react-ts`;
         break;
-      case 'vue':
+      case "vue":
         setupCommand = `npx --yes create-vite@latest ${tempDir} --template vue-ts`;
         break;
-      case 'angular':
+      case "angular":
         setupCommand = `npx @angular/cli@latest new ${tempDir} --directory ${tempDir} --style=scss --routing --skip-git --skip-install --strict --inline-style=false --inline-template=false --defaults`;
         break;
-      case 'lit':
+      case "lit":
         setupCommand = `npx --yes create-vite@latest ${tempDir} --template lit-ts`;
     }
 
-    if (framework !== 'vanilla') {
+    if (framework !== "vanilla") {
       await this.commandRunner.runCommand(setupCommand, folderPath);
       await this.moveFilesAndCleanUp(tempPath, folderPath);
       console.log(chalk.green(`${framework} project created successfully!`));
@@ -172,62 +172,62 @@ export class ProjectInitAppService implements IProjectService {
     folderPath: string,
     framework: keyof UIFrameworks
   ) {
-    const srcPath = this.pathService.join(folderPath, 'src');
+    const srcPath = this.pathService.join(folderPath, "src");
     const presentationPath = this.pathService.join(
       folderPath,
-      'src',
-      'Infrastructure',
-      'Presentation'
+      "src",
+      "Infrastructure",
+      "Presentation"
     );
 
     if (!(await this.fileService.fileExists(presentationPath))) {
       this.fileService.createDirectory(presentationPath);
     }
 
-    if (framework === 'react') {
-      ['App.tsx', 'App.css'].forEach(async file => {
+    if (framework === "react") {
+      ["App.tsx", "App.css"].forEach(async (file) => {
         const from = this.pathService.join(srcPath, file);
         const to = this.pathService.join(presentationPath, file);
         if (await this.fileService.fileExists(from))
           this.fileService.rename(from, to);
       });
 
-      const mainFile = this.pathService.join(srcPath, 'main.tsx');
+      const mainFile = this.pathService.join(srcPath, "main.tsx");
       await this.updateMultipleImports(mainFile, {
-        './App.tsx': './Infrastructure/Presentation/App.tsx',
+        "./App.tsx": "./Infrastructure/Presentation/App.tsx",
       });
-    } else if (framework === 'vue') {
-      const from = this.pathService.join(srcPath, 'App.vue');
-      const to = this.pathService.join(presentationPath, 'App.vue');
+    } else if (framework === "vue") {
+      const from = this.pathService.join(srcPath, "App.vue");
+      const to = this.pathService.join(presentationPath, "App.vue");
       if (await this.fileService.fileExists(from))
         this.fileService.rename(from, to);
 
       await this.createShimsVueFile(folderPath);
       await this.changeToTypeImportSyntax(folderPath);
 
-      this.pathService.join(srcPath, 'components');
-      const componentsDir = this.pathService.join(srcPath, 'components');
-      await this.removeFile(componentsDir, 'HelloWorld.vue');
+      this.pathService.join(srcPath, "components");
+      const componentsDir = this.pathService.join(srcPath, "components");
+      await this.removeFile(componentsDir, "HelloWorld.vue");
       await this.removeDirectory(componentsDir);
 
-      const mainFile = this.pathService.join(srcPath, 'main.ts');
+      const mainFile = this.pathService.join(srcPath, "main.ts");
       await this.updateMultipleImports(mainFile, {
-        './App.vue': './Infrastructure/Presentation/App.vue',
+        "./App.vue": "./Infrastructure/Presentation/App.vue",
       });
-    } else if (framework === 'angular') {
-      const appDir = this.pathService.join(srcPath, 'app');
+    } else if (framework === "angular") {
+      const appDir = this.pathService.join(srcPath, "app");
       if (await this.fileService.fileExists(appDir)) {
         await this.copyFolderRecursiveSync(appDir, presentationPath);
         await this.fileService.rmSync(appDir);
       }
 
-      const mainFile = this.pathService.join(srcPath, 'main.ts');
+      const mainFile = this.pathService.join(srcPath, "main.ts");
       await this.updateMultipleImports(mainFile, {
-        './app/app.config': './Infrastructure/Presentation/app.config',
-        './app/app': './Infrastructure/Presentation/app.component',
+        "./app/app.config": "./Infrastructure/Presentation/app.config",
+        "./app/app": "./Infrastructure/Presentation/app.component",
       });
-    } else if (framework === 'lit') {
-      await this.removeFile(srcPath, 'my-element.ts');
+    } else if (framework === "lit") {
+      await this.removeFile(srcPath, "my-element.ts");
 
       // Process Lit framework templates
       await this.processFrameworkTemplates(folderPath, framework);
@@ -267,7 +267,7 @@ export class ProjectInitAppService implements IProjectService {
   }
 
   private escapeRegExp(string: string): string {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 
   private async updateMultipleImports(
@@ -285,7 +285,7 @@ export class ProjectInitAppService implements IProjectService {
       const escapedOldPath = this.escapeRegExp(oldPath);
       const importRegex = new RegExp(
         `(import\\s+[^'"]*?['"])${escapedOldPath}(['"])`,
-        'g'
+        "g"
       );
 
       content = content.replace(importRegex, `$1${newPath}$2`);
@@ -298,7 +298,7 @@ export class ProjectInitAppService implements IProjectService {
   }
 
   private async createShimsVueFile(folderPath: string): Promise<void> {
-    const shimsFilePath = this.pathService.join(folderPath, 'shims-vue.d.ts');
+    const shimsFilePath = this.pathService.join(folderPath, "shims-vue.d.ts");
     const content = `declare module "*.vue" {
         import Vue from "vue";
         export default Vue;
@@ -313,7 +313,7 @@ export class ProjectInitAppService implements IProjectService {
     folderPath: string,
     value: boolean
   ): Promise<boolean> {
-    const tsconfigPath = this.pathService.join(folderPath, 'tsconfig.json');
+    const tsconfigPath = this.pathService.join(folderPath, "tsconfig.json");
 
     // Check if tsconfig.json exists
     if (!(await this.fileService.fileExists(tsconfigPath))) {
@@ -327,11 +327,11 @@ export class ProjectInitAppService implements IProjectService {
 
     // Strip comments from JSON content to make it parseable
     // Remove single-line comments (//)
-    content = content.replace(/\/\/.*$/gm, '');
+    content = content.replace(/\/\/.*$/gm, "");
     // Remove multi-line comments (/* */)
-    content = content.replace(/\/\*[\s\S]*?\*\//g, '');
+    content = content.replace(/\/\*[\s\S]*?\*\//g, "");
     // Remove trailing commas before closing braces/brackets
-    content = content.replace(/,(\s*[}\]])/g, '$1');
+    content = content.replace(/,(\s*[}\]])/g, "$1");
 
     const tsconfig = JSON.parse(content);
 
@@ -357,17 +357,17 @@ export class ProjectInitAppService implements IProjectService {
     folderPath: string,
     framework: string
   ): Promise<void> {
-    if (framework !== 'lit') {
+    if (framework !== "lit") {
       return; // Only process Lit templates for now
     }
 
     // Path to framework templates
     const templatesPath = this.pathService.join(
       __dirname,
-      '../..',
-      'Infrastructure',
-      'frameworks',
-      'templates',
+      "../..",
+      "Infrastructure",
+      "frameworks",
+      "templates",
       framework
     );
 
@@ -380,7 +380,7 @@ export class ProjectInitAppService implements IProjectService {
     // Process index.html.hbs template
     const indexHtmlTemplatePath = this.pathService.join(
       templatesPath,
-      'index.html.hbs'
+      "index.html.hbs"
     );
     if (await this.fileService.fileExists(indexHtmlTemplatePath)) {
       const templateContent = await this.fileService.readFile(
@@ -390,7 +390,7 @@ export class ProjectInitAppService implements IProjectService {
       let processedContent = templateContent.content;
 
       // Write the processed index.html to the project root
-      const indexHtmlPath = this.pathService.join(folderPath, 'index.html');
+      const indexHtmlPath = this.pathService.join(folderPath, "index.html");
       await this.fileService.createFile({
         filePath: indexHtmlPath,
         content: processedContent,
@@ -414,7 +414,7 @@ export class ProjectInitAppService implements IProjectService {
 
       if (isItemDir && !isItemFile) {
         await this.changeToTypeImportSyntax(itemPath);
-      } else if (item.endsWith('.ts')) {
+      } else if (item.endsWith(".ts")) {
         const fileEntity = await this.fileService.readFile(itemPath);
         let content = fileEntity.content;
         const importRegex = /import\s+{([^}]+)}\s+from\s+['"]([^'"]+)['"]/g;
@@ -422,7 +422,7 @@ export class ProjectInitAppService implements IProjectService {
         content = content.replace(
           importRegex,
           (match: string, imports: string, modulePath: string) => {
-            if (modulePath.includes('Interfaces')) {
+            if (modulePath.includes("Interfaces")) {
               return `import type {${imports}} from '${modulePath}'`;
             }
             return match;

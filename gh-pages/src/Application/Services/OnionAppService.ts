@@ -50,7 +50,7 @@ export class OnionAppService {
     private readonly folderStructureService: FolderStructureService,
     private readonly fileService: FileService,
     private readonly pathService: PathAppService,
-    private readonly configurationAppService: ConfigurationAppService,
+    private readonly configurationAppService: ConfigurationAppService
   ) {}
 
   async generate(

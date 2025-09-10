@@ -1,9 +1,9 @@
-import chalk from 'chalk';
-import { FileService } from '../../Domain/Services/FileService';
-import { OnionConfig } from '../../Domain/Entities/OnionConfig';
+import chalk from "chalk";
+import { FileService } from "../../../../gh-pages/src/Domain/Services/FileService";
+import { OnionConfig } from "../../../../gh-pages/src/Domain/Entities/OnionConfig";
 
 type InquirerPromptOptions = {
-  type: 'input' | 'list' | 'checkbox' | 'confirm';
+  type: "input" | "list" | "checkbox" | "confirm";
   name: string;
   message: string;
   default?: string | string[];
@@ -11,7 +11,7 @@ type InquirerPromptOptions = {
 };
 
 export class FileHelperAppService {
-  private static readonly CONFIG_ARG = '--config';
+  private static readonly CONFIG_ARG = "--config";
 
   constructor(private readonly fileService: FileService) {}
 
@@ -56,7 +56,7 @@ export class FileHelperAppService {
   async readJsonFile(filePath: string): Promise<{ data?: any; error?: Error }> {
     try {
       if (!(await this.fileService.dirExists(filePath))) {
-        return { error: new Error('File does not exist.') };
+        return { error: new Error("File does not exist.") };
       }
       const jsonFile = await this.fileService.readFile(filePath);
       const parsed = JSON.parse(jsonFile.content);
@@ -79,15 +79,15 @@ export class FileHelperAppService {
     const shouldPrompt =
       valFromConfig === undefined ||
       valFromConfig === null ||
-      (typeof valFromConfig === 'string' && valFromConfig.trim() === '') ||
+      (typeof valFromConfig === "string" && valFromConfig.trim() === "") ||
       (Array.isArray(valFromConfig) && valFromConfig.length === 0);
 
-    if (!shouldPrompt && typeof valFromConfig === 'string') {
+    if (!shouldPrompt && typeof valFromConfig === "string") {
       return valFromConfig;
     }
 
     const inquirer =
-      (await import('inquirer')).default ?? (await import('inquirer'));
+      (await import("inquirer")).default ?? (await import("inquirer"));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const answers = await inquirer.prompt([promptOptions as any]);
     return answers[promptOptions.name] as string;
@@ -113,7 +113,7 @@ export class FileHelperAppService {
     }
 
     const inquirer =
-      (await import('inquirer')).default ?? (await import('inquirer'));
+      (await import("inquirer")).default ?? (await import("inquirer"));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const answers = await inquirer.prompt([promptOptions as any]);
     const stringValue = answers[promptOptions.name] as string;
@@ -124,44 +124,44 @@ export class FileHelperAppService {
     config: OnionConfig,
     currentDir: string
   ): Promise<string> {
-    return this.getOrPromptString(config, 'folderPath', {
-      type: 'input',
-      name: 'folderPath',
-      message: 'Enter path to your project folder:',
+    return this.getOrPromptString(config, "folderPath", {
+      type: "input",
+      name: "folderPath",
+      message: "Enter path to your project folder:",
       default: currentDir,
     });
   }
 
   async getEntityNames(config: OnionConfig): Promise<string[]> {
-    return this.getOrPromptStringArray(config, 'entities', {
-      type: 'input',
-      name: 'entities',
-      message: 'Enter entity names (comma-separated)',
-      default: 'User, Order',
+    return this.getOrPromptStringArray(config, "entities", {
+      type: "input",
+      name: "entities",
+      message: "Enter entity names (comma-separated)",
+      default: "User, Order",
     });
   }
 
   async getDomainServiceNames(config: OnionConfig): Promise<string[]> {
-    return this.getOrPromptStringArray(config, 'domainServices', {
-      type: 'input',
-      name: 'domainServices',
-      message: 'Enter domain service names (comma-separated)',
-      default: 'UserService, OrderService',
+    return this.getOrPromptStringArray(config, "domainServices", {
+      type: "input",
+      name: "domainServices",
+      message: "Enter domain service names (comma-separated)",
+      default: "UserService, OrderService",
     });
   }
 
   async getApplicationServiceNames(config: OnionConfig): Promise<string[]> {
-    return this.getOrPromptStringArray(config, 'applicationServices', {
-      type: 'input',
-      name: 'applicationServices',
-      message: 'Enter application service names (comma-separated)',
-      default: 'UserAppService',
+    return this.getOrPromptStringArray(config, "applicationServices", {
+      type: "input",
+      name: "applicationServices",
+      message: "Enter application service names (comma-separated)",
+      default: "UserAppService",
     });
   }
 
   private stringToArray(value: string | string[]): string[] {
     return Array.isArray(value)
       ? value
-      : value.split(',').map((s: string) => s.trim());
+      : value.split(",").map((s: string) => s.trim());
   }
 }

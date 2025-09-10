@@ -1,5 +1,5 @@
-import { DomainService } from '../../Domain/Entities/DomainService';
-import { ApplicationService } from '../../Domain/Entities/ApplicationService';
+import { DomainService } from '../../../../gh-pages/src/Domain/Entities/DomainService';
+import { ApplicationService } from '../../../../gh-pages/src/Domain/Entities/ApplicationService';
 
 /**
  * Service for managing application service dependencies through user interaction.
