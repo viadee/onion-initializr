@@ -10,15 +10,13 @@
     "resolveJsonModule": true,
     "strict": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
   "include": [
     "src/**/*",
-    "../gh-pages/src/Domain/**/*",
-    "../gh-pages/src/Infrastructure/**/*"
-    
+    "../gh-pages/src/Domain/**/*"
   ],
   "exclude": [
     "../gh-pages/src/Infrastructure/Presentation/**/*",

@@ -11,10 +11,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm run github-build
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "gh-pages/package-lock.json"
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./gh-pages
+      - name: Build project
+        run: npm run github-build
+        working-directory: ./gh-pages
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ONION_INITIALIZR }}
           channelId: live
           projectId: onion-initializr
+          entryPoint: ./gh-pages
