@@ -15,15 +15,6 @@
             "value": "same-origin"
           }
         ]
-      },
-      {
-        "source": "**/*.@(js|css|html|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)",
-        "headers": [
-          {
-            "key": "Cross-Origin-Resource-Policy",
-            "value": "cross-origin"
-          }
-        ]
       }
     ]
   }
