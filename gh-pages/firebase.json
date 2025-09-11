@@ -1,18 +1,14 @@
 {
   "hosting": {
     "public": "dist/onion-initializr/browser",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "headers": [
       {
         "source": "**",
         "headers": [
           {
             "key": "Cross-Origin-Embedder-Policy",
-            "value": "require-corp"
+            "value": "credentialless"
           },
           {
             "key": "Cross-Origin-Opener-Policy",
