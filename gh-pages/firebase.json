@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/onion-initializr/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
