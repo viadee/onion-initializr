@@ -15,7 +15,7 @@ export class WebContainerManagerAppService {
     this.validateEnvironment();
 
     console.log('Cross-origin isolation enabled, initializing WebContainer...');
-    this.webcontainer = await WebContainer.boot({ coep: 'credentialless' });
+    this.webcontainer = await WebContainer.boot();
     this.isInitialized = true;
 
     console.log('WebContainer initialized successfully');
