@@ -4,7 +4,7 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "headers": [
       {
-        "source": "**/*",
+        "source": "**",
         "headers": [
           {
             "key": "Cross-Origin-Embedder-Policy",
@@ -13,7 +13,12 @@
           {
             "key": "Cross-Origin-Opener-Policy",
             "value": "same-origin"
-          },
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(js|css|html|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)",
+        "headers": [
           {
             "key": "Cross-Origin-Resource-Policy",
             "value": "cross-origin"
