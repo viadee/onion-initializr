@@ -6,7 +6,7 @@ export class NodeCommandRunner implements ICommandRunner {
   async runCommand(command: string, cwd: string): Promise<string> {
     //return await this.commandRunnerService.runCommand(command, cwd);
     return '';
-    // 
+    //
   }
 
   async installPackages(packages: string[], cwd: string): Promise<void> {

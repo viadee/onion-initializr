@@ -51,6 +51,23 @@
               "outputHashing": "all",
               "optimization": false
             },
+            "github-pages": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "6MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "16kB"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": false,
+              "baseHref": "/onion-initializr/"
+            },
             "development": {
               "baseHref": "/onion-initializr/",
               "optimization": false,
