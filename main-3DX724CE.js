@@ -83816,6 +83816,7 @@ var DiagramNodeManagementService = class {
         data = this.onionConfigService.addApplicationService(trimmedName);
         break;
       default:
+        console.log("Unknown node type");
         throw new Error(`Unknown node type: ${nodeType}`);
     }
     return {
