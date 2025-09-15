@@ -1,5 +1,5 @@
 import { WebContainer } from '@webcontainer/api';
-import { IFileRepository } from './IFileRepository';
+import { IFileRepository } from '../../../../lib/Domain/Interfaces/IFileRepository';
 
 /**
  * Interface for repositories that provide WebContainer functionality

@@ -1,4 +1,4 @@
-import { IWebContainerRepository } from './../../../../lib/Domain/Interfaces/IWebContainerRepository';
+import { IWebContainerRepository } from '../Interfaces/IWebContainerRepository';
 import { WebContainer } from '@webcontainer/api';
 import { FileEntity } from '../../../../lib/Domain/Entities/FileEntity';
 import { IFileRepository } from '../../../../lib/Domain/Interfaces/IFileRepository';

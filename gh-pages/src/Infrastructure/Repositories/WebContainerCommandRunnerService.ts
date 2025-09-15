@@ -1,6 +1,6 @@
 import { ICommandRunner } from './../../../../lib/Domain/Interfaces/ICommandRunner';
 import { WebContainerCommandRunner } from './WebContainerCommandRunner';
-import { IWebContainerRepository } from '../../../../lib/Domain/Interfaces/IWebContainerRepository';
+import { IWebContainerRepository } from '../Interfaces/IWebContainerRepository';
 
 /**
  * A wrapper service that initializes WebContainerCommandRunner with the WebContainer instance
