@@ -30,8 +30,7 @@
     "e2e:debug": "playwright test --debug",
     "clean": "rimraf dist",
     "build": "npm run clean && tsc --project tsconfig.cli.json && npm run copy:templates",
-    "github-build": "ng build --configuration github-pages",
-    "firebase-build": "ng build --configuration production",
+    "github-build": "ng build --configuration production --base-href /",
     "github-deploy": "npx angular-cli-ghpages --dir=dist/onion-initializr/browser --no-silent",
     "copy:templates": "cpx \"public/templates/Domain/Services/templates/**/*.hbs\" dist/Domain/Services/templates && cpx \"public/templates/Infrastructure/frameworks/templates/**/*.hbs\" dist/Infrastructure/frameworks/templates"
   },

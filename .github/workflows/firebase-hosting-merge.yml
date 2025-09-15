@@ -21,7 +21,7 @@ jobs:
         run: npm ci
         working-directory: ./gh-pages
       - name: Build project
-        run: npm run firebase-build
+        run: npm run github-build
         working-directory: ./gh-pages
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
