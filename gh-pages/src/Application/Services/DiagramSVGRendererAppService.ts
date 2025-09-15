@@ -64,7 +64,7 @@ export class DiagramSVGRendererAppService {
       .append('g')
       .attr('class', 'node')
       .style('cursor', 'pointer')
-      .on('click', event => {
+      .on('click', (event: Event) => {
         event.stopPropagation();
         onNodeClick(item);
       });

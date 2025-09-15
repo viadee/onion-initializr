@@ -32,7 +32,7 @@
               "@angular/material/prebuilt-themes/cyan-orange.css",
               "src/styles.scss"
             ],
-            "allowedCommonJsDependencies": ["handlebars"],
+            "allowedCommonJsDependencies": ["handlebars", "d3"],
             "externalDependencies": ["handlebars"]
           },
           "configurations": {
