@@ -1,14 +1,13 @@
-import { IProjectService } from '../../Domain/Interfaces/IProjectService';
-import { UIFrameworks } from '../../Domain/Entities/UiFramework';
-import { DiFramework } from '../../Domain/Entities/DiFramework';
-import { FileEntity } from '../../Domain/Entities/FileEntity';
-import { FileService } from '../../Domain/Services/FileService';
+import { FileService } from '../../../../lib/Domain/Services/FileService';
 import { WebContainerCommandRunner } from '../../Infrastructure/Repositories/WebContainerCommandRunner';
-import { WebContainerOptimizationService } from './WebContainerOptimizationAppService';
-import { IFileRepository } from '../../Domain/Interfaces/IFileRepository';
 import { WebContainerFileRepository } from '../../Infrastructure/Repositories/WebContainerFileRepository';
 import { WebContainerHelperFunctions } from '../../Infrastructure/Repositories/WebContainerHelperFunctions';
-
+import { IProjectService } from '../../../../lib/Domain/Interfaces/IProjectService';
+import { WebContainerOptimizationService } from './WebContainerOptimizationAppService';
+import { IFileRepository } from '../../../../lib/Domain/Interfaces/IFileRepository';
+import { DiFramework } from '../../../../lib/Domain/Entities/DiFramework';
+import { FileEntity } from '../../../../lib/Domain/Entities/FileEntity';
+import { UIFrameworks } from '../../../../lib/Domain/Entities/UiFramework';
 /**
  * Optimized WebContainer project service that uses pre-generated lock files
  * to dramatically reduce installation time from ~50s to ~5s

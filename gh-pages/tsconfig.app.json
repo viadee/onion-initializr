@@ -10,16 +10,16 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "../lib/Application/Services/awilix.config.ts"],
   "exclude": [
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
     "src/Infrastructure/Repositories/FileSystemFileRepository.ts",
     "src/Infrastructure/Repositories/PathRepository.ts",
     "src/Infrastructure/Repositories/RunCommandService.ts",
-    "src/Application/Services/LintAppService.ts",
-    "src/Domain/Services/ProjectInitService.ts",
-    "src/Application/Services/OnionCliAppService.ts",
-    "src/Application/Services/MainAppService.ts"
+    "../lib/Application/Services/LintAppService.ts",
+    "../lib/Domain/Services/ProjectInitService.ts",
+    "../lib/Application/Services/Services/OnionCliAppService.ts",
+    "../lib/Application/Services/Services/MainAppService.ts"
   ]
 }

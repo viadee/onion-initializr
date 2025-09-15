@@ -1,5 +1,6 @@
-import { AwilixConfig } from '../Entities/AwilixConfig';
-import { FileEntity } from '../Entities/FileEntity';
+import { AwilixConfig } from "../Entities/AwilixConfig";
+import { FileEntity } from "../Entities/FileEntity";
+
 
 /**
  * Generates the `awilix.config.ts` file dynamically
@@ -10,7 +11,7 @@ export class AwilixConfigService {
     awilixConfigPath: string
   ): FileEntity {
     // Collect all class names and camelCase registration keys
-    const repoRegistrations = params.entities.map(entity => {
+    const repoRegistrations = params.entities.map((entity) => {
       const className = `${entity}Repository`;
       return {
         className,
@@ -19,7 +20,7 @@ export class AwilixConfigService {
       };
     });
 
-    const entityRegistrations = params.entities.map(entity => {
+    const entityRegistrations = params.entities.map((entity) => {
       return {
         className: entity,
         varName: this.lowerFirst(entity),
@@ -27,17 +28,19 @@ export class AwilixConfigService {
       };
     });
 
-    const domainServiceRegistrations = params.domainServices.map(service => ({
+    const domainServiceRegistrations = params.domainServices.map((service) => ({
       className: service,
       varName: this.lowerFirst(service),
       importPath: `../../Domain/Services/${service}`,
     }));
 
-    const appServiceRegistrations = params.applicationServices.map(service => ({
-      className: service,
-      varName: this.lowerFirst(service),
-      importPath: `../../Application/Services/${service}`,
-    }));
+    const appServiceRegistrations = params.applicationServices.map(
+      (service) => ({
+        className: service,
+        varName: this.lowerFirst(service),
+        importPath: `../../Application/Services/${service}`,
+      })
+    );
 
     const allRegistrations = [
       ...entityRegistrations,
@@ -51,14 +54,14 @@ export class AwilixConfigService {
         ({ className, importPath }) =>
           `import { ${className} } from "${importPath}";`
       )
-      .join('\n');
+      .join("\n");
 
     const registrations = allRegistrations
       .map(
         ({ varName, className }) =>
           `  ${varName}: asClass(${className}).singleton(),`
       )
-      .join('\n');
+      .join("\n");
 
     const fileContent = `
 import { createContainer, asClass, InjectionMode } from "awilix";

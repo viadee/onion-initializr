@@ -1,6 +1,7 @@
-import { FileEntity } from '../Entities/FileEntity';
-import { DiFramework } from '../Entities/DiFramework';
-import { TemplateService } from './TemplateService';
+
+import { DiFramework } from "../Entities/DiFramework";
+import { FileEntity } from "../Entities/FileEntity";
+import { TemplateService } from "./TemplateService";
 
 export class ApplicationServiceService {
   /**
@@ -53,7 +54,7 @@ export class ApplicationServiceService {
     deps: { domainServices?: string[]; repositories?: string[] } = {}
   ): string {
     const generator = new TemplateService(templateContent);
-    const useAngularDI = diFramework === 'angular';
+    const useAngularDI = diFramework === "angular";
 
     return generator.render({ name, ...deps, useAngularDI });
   }

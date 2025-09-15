@@ -1,10 +1,11 @@
+import { PathAppService } from "../../../../lib/Application/Services/PathAppService";
+import { FileEntity } from "../../../../lib/Domain/Entities/FileEntity";
+import { IFileRepository } from "../../../../lib/Domain/Interfaces/IFileRepository";
+
 // Only import fs and path for Node.js usage
 let fs: typeof import("fs") | undefined;
 let path: typeof import("path") | undefined;
 
-import { IFileRepository } from "../../../../gh-pages/src/Domain/Interfaces/IFileRepository";
-import { FileEntity } from "../../../../gh-pages/src/Domain/Entities/FileEntity";
-import { PathAppService } from "../../../../gh-pages/src/Application/Services/PathAppService";
 
 export class FileSystemFileRepository implements IFileRepository {
   constructor(private readonly pathService: PathAppService) {}

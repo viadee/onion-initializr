@@ -1,9 +1,9 @@
-import { OnionConfig } from '../Entities/OnionConfig';
-import { OnionConfigStateService } from './OnionConfigStateService';
-import { OnionConfigNodeService } from './OnionConfigNodeService';
-import { OnionConfigRepositoryService } from './OnionConfigRepositoryService';
+import { IConnectionValidator } from './../Interfaces/IConnectionValidator';
+import { OnionConfigStateService } from "./OnionConfigStateService";
+import { OnionConfigNodeService } from "./OnionConfigNodeService";
+import { OnionConfigRepositoryService } from "./OnionConfigRepositoryService";
 import { FileEntity } from '../Entities/FileEntity';
-import { IConnectionValidator } from '../Interfaces/IConnectionValidator';
+import { OnionConfig } from '../Entities/OnionConfig';
 
 /**
  * Facade service that coordinates all OnionConfig operations

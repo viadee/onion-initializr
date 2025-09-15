@@ -1,5 +1,6 @@
-import { OnionConfig } from '../Entities/OnionConfig';
-import { OnionRing, OnionRingType } from '../Entities/OnionRing';
+import { OnionConfig } from "../Entities/OnionConfig";
+import { OnionRingType, OnionRing } from "../Entities/OnionRing";
+
 
 export class OnionConfigRepositoryService {
   isRepositoryName(name: string): boolean {
@@ -23,7 +24,7 @@ export class OnionConfigRepositoryService {
   }
 
   getRepositories(entities: string[]): string[] {
-    return (entities || []).map(entity => `I${entity}Repository`);
+    return (entities || []).map((entity) => `I${entity}Repository`);
   }
 
   getRing(node: string, data: OnionConfig): OnionRingType {

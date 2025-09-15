@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { FileService } from "../../../../gh-pages/src/Domain/Services/FileService";
+import { FileService } from "../../../../lib/Domain/Services/FileService";
 import { OnionConfig } from "../../../../gh-pages/src/Domain/Entities/OnionConfig";
 
 type InquirerPromptOptions = {

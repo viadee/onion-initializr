@@ -1,5 +1,6 @@
-import { WebContainerFileRepository } from '../../Infrastructure/Repositories/WebContainerFileRepository';
-import { ZipAppService } from './ZipAppService';
+
+import { ZipAppService } from '../../../gh-pages/src/Application/Services/ZipAppService';
+import { WebContainerFileRepository } from '../../../gh-pages/src/Infrastructure/Repositories/WebContainerFileRepository';
 import { FileEntity } from '../../Domain/Entities/FileEntity';
 
 export interface DownloadResult {

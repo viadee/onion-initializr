@@ -1,6 +1,6 @@
-import { OnionConfig } from '../../Domain/Entities/OnionConfig';
-import { OnionConfigService } from '../../Domain/Services/OnionConfigService';
-import { NodeType } from '../../Domain/Entities/NodeType';
+import { NodeType } from '../../../../lib/Domain/Entities/NodeType';
+import { OnionConfig } from '../../../../lib/Domain/Entities/OnionConfig';
+import { OnionConfigService } from '../../../../lib/Domain/Services/OnionConfigService';
 
 export interface NodeValidationResult {
   isValid: boolean;

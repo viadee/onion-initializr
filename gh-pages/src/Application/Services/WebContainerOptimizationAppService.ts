@@ -1,5 +1,5 @@
-import { UIFrameworks } from '../../Domain/Entities/UiFramework';
-import { DiFramework } from '../../Domain/Entities/DiFramework';
+import { DiFramework } from '../../../../lib/Domain/Entities/DiFramework';
+import { UIFrameworks } from '../../../../lib/Domain/Entities/UiFramework';
 
 export interface PreBundledDependencies {
   awilix: boolean;

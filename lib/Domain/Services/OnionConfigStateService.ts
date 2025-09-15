@@ -1,7 +1,7 @@
+import { DiFramework } from '../Entities/DiFramework';
 import { OnionConfig } from '../Entities/OnionConfig';
 import { UIFrameworks } from '../Entities/UiFramework';
-import { IOnionConfigRepository } from '../Interfaces/IOnionConfigRepository';
-import { DiFramework } from '../Entities/DiFramework';
+import { IOnionConfigRepository } from './../Interfaces/IOnionConfigRepository';
 
 export class OnionConfigStateService {
   private data: OnionConfig;
@@ -17,21 +17,21 @@ export class OnionConfigStateService {
       this.data = await this.onionConfigRepository.loadInitialData();
       return this.data;
     } catch (error) {
-      console.error('Failed to load initial data:', error);
+      console.error("Failed to load initial data:", error);
       return this.data;
     }
   }
 
   getEmptyConfig(): OnionConfig {
     const emptyConfig: OnionConfig = {
-      folderPath: '',
+      folderPath: "",
       entities: [],
       domainServices: [],
       applicationServices: [],
       domainServiceConnections: {},
       applicationServiceDependencies: {},
-      uiFramework: 'vanilla' as keyof UIFrameworks,
-      diFramework: 'awilix' as DiFramework,
+      uiFramework: "vanilla" as keyof UIFrameworks,
+      diFramework: "awilix" as DiFramework,
     };
 
     this.data = emptyConfig;
@@ -43,7 +43,7 @@ export class OnionConfigStateService {
   }
 
   async saveData(data: OnionConfig): Promise<void> {
-    this.onionConfigRepository.save(data, 'onion-config.json');
+    this.onionConfigRepository.save(data, "onion-config.json");
   }
 
   getData(): OnionConfig {

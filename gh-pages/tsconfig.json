@@ -17,6 +17,7 @@
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": false,
     "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {

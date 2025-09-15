@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { container } from '../../../Configuration/awilix.config';
-import { OnionConfig } from '../../../../Domain/Entities/OnionConfig';
-import { OnionConfigValidationService } from '../../../../Domain/Services/OnionConfigValidationService';
+import { OnionConfigValidationService } from '../../../../../../lib/Domain/Services/OnionConfigValidationService';
+import { OnionConfig } from '../../../../../../lib/Domain/Entities/OnionConfig';
 
 @Component({
   standalone: true,

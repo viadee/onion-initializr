@@ -1,21 +1,21 @@
 #!/usr/bin/env node
-import { OnionConfig } from '../../../../gh-pages/src/Domain/Entities/OnionConfig';
-import { UIFrameworks } from '../../../../gh-pages/src/Domain/Entities/UiFramework';
-import { DiFramework } from '../../../../gh-pages/src/Domain/Entities/DiFramework';
-import { HelpAppService } from '../../../../gh-pages/src/Application/Services/HelpAppService';
-import { ScanControllerAppService } from './ScanControllerAppService';
-import { OnionConfigService } from '../../../../gh-pages/src/Domain/Services/OnionConfigService';
-import { FolderStructureService } from '../../../../gh-pages/src/Application/Services/FolderGenAppService';
-import { FileHelperAppService } from './FileHelperAppService';
-import { PathAppService } from '../../../../gh-pages/src/Application/Services/PathAppService';
+import { ScanControllerAppService } from "./ScanControllerAppService";
+import { OnionConfigService } from "../../../../lib/Domain/Services/OnionConfigService";
+import { FileHelperAppService } from "./FileHelperAppService";
 import {
   OnionAppService,
   OnionArchitectureGenerationParams,
-} from './OnionAppService';
-import { IProjectService } from '../../../../gh-pages/src/Domain/Interfaces/IProjectService';
-import { OnionConfigValidationService } from '../../../../gh-pages/src/Domain/Services/OnionConfigValidationService';
-import { FileEntity } from '../../../../gh-pages/src/Domain/Entities/FileEntity';
-import { FileService } from '../../../../gh-pages/src/Domain/Services/FileService';
+} from "./OnionAppService";
+import { OnionConfigValidationService } from "../../../../lib/Domain/Services/OnionConfigValidationService";
+import { FileService } from "../../../../lib/Domain/Services/FileService";
+import { FolderStructureService } from "../../../../lib/Application/Services/FolderGenAppService";
+import { PathAppService } from "../../../../lib/Application/Services/PathAppService";
+import { IProjectService } from "../../../../lib/Domain/Interfaces/IProjectService";
+import { HelpAppService } from "../../../../gh-pages/src/Application/Services/HelpAppService";
+import { DiFramework } from "../../../../lib/Domain/Entities/DiFramework";
+import { FileEntity } from "../../../../lib/Domain/Entities/FileEntity";
+import { OnionConfig } from "../../../../lib/Domain/Entities/OnionConfig";
+import { UIFrameworks } from "../../../../lib/Domain/Entities/UiFramework";
 
 export class OnionCliAppService {
   constructor(
@@ -41,7 +41,7 @@ export class OnionCliAppService {
   public async runOnionCli() {
     this.helpAppService.handleHelp();
     await this.scanControllerService.handleScan();
-    console.log('🧅 Onion CLI - Generate Onion Architecture Structure\n');
+    console.log("🧅 Onion CLI - Generate Onion Architecture Structure\n");
     // helper immer schlechter name
     const configurationFilePath = this.fileHelperService.getConfigFilePath();
 
@@ -81,8 +81,8 @@ export class OnionCliAppService {
       folderPath,
       userConfig.uiFramework
     );
-    uiFramework = projectInitResult?.uiFramework || 'react';
-    diFramework = projectInitResult?.diFramework || 'awilix';
+    uiFramework = projectInitResult?.uiFramework || "react";
+    diFramework = projectInitResult?.diFramework || "awilix";
 
     const entityNames = await this.fileHelperService.getEntityNames(userConfig);
     const domainServiceNames =

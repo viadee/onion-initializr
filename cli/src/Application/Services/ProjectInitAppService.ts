@@ -1,12 +1,11 @@
-import { ICommandRunner } from "../../../../gh-pages/src/Domain/Interfaces/ICommandRunner";
-import { IProjectService } from "../../../../gh-pages/src/Domain/Interfaces/IProjectService";
-import { UIFrameworks } from "../../../../gh-pages/src/Domain/Entities/UiFramework";
-import { DiFramework } from "../../../../gh-pages/src/Domain/Entities/DiFramework";
-import { FileService } from "../../../../gh-pages/src/Domain/Services/FileService";
-import { PathAppService } from "../../../../gh-pages/src/Application/Services/PathAppService";
-import { LintAppService } from "../../../../gh-pages/src/Application/Services/LintAppService";
+import { LintAppService } from './../../../../lib/Application/Services/LintAppService';
+import { FileService } from "../../../../lib/Domain/Services/FileService";
 import chalk from "chalk";
-
+import { PathAppService } from "../../../../lib/Application/Services/PathAppService";
+import { ICommandRunner } from "../../../../lib/Domain/Interfaces/ICommandRunner";
+import { IProjectService } from "../../../../lib/Domain/Interfaces/IProjectService";
+import { DiFramework } from '../../../../lib/Domain/Entities/DiFramework';
+import { UIFrameworks } from '../../../../lib/Domain/Entities/UiFramework';
 // Maps display name to internal framework key
 const frameworkDisplayMap: Record<string, keyof UIFrameworks> = {
   "React (Vite + TS)": "react",

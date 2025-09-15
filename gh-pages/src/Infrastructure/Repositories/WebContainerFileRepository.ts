@@ -1,8 +1,7 @@
+import { IWebContainerRepository } from './../../../../lib/Domain/Interfaces/IWebContainerRepository';
 import { WebContainer } from '@webcontainer/api';
-import { IFileRepository } from '../../Domain/Interfaces/IFileRepository';
-import { IWebContainerRepository } from '../../Domain/Interfaces/IWebContainerRepository';
-import { FileEntity } from '../../Domain/Entities/FileEntity';
-
+import { FileEntity } from '../../../../lib/Domain/Entities/FileEntity';
+import { IFileRepository } from '../../../../lib/Domain/Interfaces/IFileRepository';
 export class WebContainerFileRepository
   implements IFileRepository, IWebContainerRepository
 {

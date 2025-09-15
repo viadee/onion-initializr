@@ -1,12 +1,12 @@
-import { ItemPosition } from '../../Domain/Entities/Diagramm';
-import { OnionConfig } from '../../Domain/Entities/OnionConfig';
 import * as d3 from 'd3';
+import { DiagramPositionCalculatorAppService } from './DiagramPositionCalculatorAppService';
+import { DiagramSVGRendererAppService } from './DiagramSVGRendererAppService';
 import {
   DiagramConfigurationAppService,
   RingConfig,
 } from './DiagramConfigurationAppService';
-import { DiagramPositionCalculatorAppService } from './DiagramPositionCalculatorAppService';
-import { DiagramSVGRendererAppService } from './DiagramSVGRendererAppService';
+import { ItemPosition } from '../../../../lib/Domain/Entities/Diagramm';
+import { OnionConfig } from '../../../../lib/Domain/Entities/OnionConfig';
 
 interface NodeGroup {
   name: string;
@@ -65,14 +65,14 @@ export class DiagramAppService {
     const repositories = new Set<string>();
 
     // Add entity-based repositories
-    data.entities?.forEach(entity => {
+    data.entities?.forEach((entity: unknown) => {
       repositories.add(`I${entity}Repository`);
     });
 
     // Add infrastructure repositories from applicationServiceDependencies
     if (data.applicationServiceDependencies) {
       Object.values(data.applicationServiceDependencies).forEach(deps => {
-        deps.repositories?.forEach(repo => {
+        deps.repositories?.forEach((repo: string) => {
           repositories.add(repo);
         });
       });
@@ -307,7 +307,7 @@ export class DiagramAppService {
         const fromPos = this.itemPositions[service];
         if (!fromPos) return;
 
-        entities.forEach(entity => {
+        entities.forEach((entity: string | number) => {
           const toPos = this.itemPositions[entity];
           if (!toPos) return;
 
@@ -334,7 +334,7 @@ export class DiagramAppService {
         const fromPos = this.itemPositions[appService];
         if (!fromPos) return;
 
-        deps.domainServices?.forEach(dService => {
+        deps.domainServices?.forEach((dService: string | number) => {
           const toPos = this.itemPositions[dService];
           if (!toPos) return;
 
@@ -361,7 +361,7 @@ export class DiagramAppService {
         const appPos = this.itemPositions[appService];
         if (!appPos) return;
 
-        deps.repositories?.forEach(repo => {
+        deps.repositories?.forEach((repo: string | number) => {
           const repoPos = this.itemPositions[repo];
           if (!repoPos) return;
 

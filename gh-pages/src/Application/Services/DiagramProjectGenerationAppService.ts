@@ -1,11 +1,11 @@
-import { OnionConfig } from '../../Domain/Entities/OnionConfig';
-import { WebContainerAppService } from './WebContainerAppService';
+import { DiFramework } from '../../../../lib/Domain/Entities/DiFramework';
+import { OnionConfig } from '../../../../lib/Domain/Entities/OnionConfig';
+import { UIFrameworks } from '../../../../lib/Domain/Entities/UiFramework';
 import {
-  ProgressTrackingAppService,
   ProgressStep,
+  ProgressTrackingAppService,
 } from './ProgressTrackingAppService';
-import { UIFrameworks } from '../../Domain/Entities/UiFramework';
-import { DiFramework } from '../../Domain/Entities/DiFramework';
+import { WebContainerAppService } from './WebContainerAppService';
 
 export interface ProjectGenerationResult {
   success: boolean;

@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import prettier from "prettier";
 import { ScannerAppService } from "./ScannerAppService";
-import { FileService } from "../../../../gh-pages/src/Domain/Services/FileService";
+import { FileService } from "../../../../lib/Domain/Services/FileService";
 import { FileEntity } from "../../../../gh-pages/src/Domain/Entities/FileEntity";
 import { PathAppService } from "../../../../gh-pages/src/Application/Services/PathAppService";
 

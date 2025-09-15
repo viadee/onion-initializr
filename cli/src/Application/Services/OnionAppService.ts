@@ -1,32 +1,28 @@
-import { IProjectService } from "../../../../gh-pages/src/Domain/Interfaces/IProjectService";
-import { EntityService } from "../../../../gh-pages/src/Domain/Services/EntitityService";
-import { RepoService } from "../../../../gh-pages/src/Domain/Services/RepoService";
-import { ApplicationServiceService } from "../../../../gh-pages/src/Domain/Services/ApplicationServiceService";
-import {
-  ApplicationServiceDependencyMap,
-  DomainServiceConnections,
-} from "../../../../gh-pages/src/Domain/Interfaces/DomainServiceConnections";
-import { ApplicationService } from "../../../../gh-pages/src/Domain/Entities/ApplicationService";
-import { DomainService } from "../../../../gh-pages/src/Domain/Entities/DomainService";
-import { UIFrameworks } from "../../../../gh-pages/src/Domain/Entities/UiFramework";
-import { ShowcaseService } from "../../../../gh-pages/src/Domain/Services/ShowcaseService";
-import { ShowcaseAppGeneration } from "../../../../gh-pages/src/Domain/Entities/ShowcaseAppGeneration";
-import { AwilixConfigService } from "../../../../gh-pages/src/Domain/Services/AwilixConfigService";
-import { FolderStructureService } from "../../../../gh-pages/src/Application/Services/FolderGenAppService";
-import { AwilixConfig } from "../../../../gh-pages/src/Domain/Entities/AwilixConfig";
+import { ApplicationService } from './../../../../lib/Domain/Entities/ApplicationService';
+import { EntityService } from "../../../../lib/Domain/Services/EntitityService";
+import { RepoService } from "../../../../lib/Domain/Services/RepoService";
+import { ApplicationServiceService } from "../../../../lib/Domain/Services/ApplicationServiceService";
+import { ShowcaseService } from "../../../../lib/Domain/Services/ShowcaseService";
+import { AwilixConfigService } from "../../../../lib/Domain/Services/AwilixConfigService";
 import {
   DomainServiceConnectorParams,
   DomainServiceService,
-} from "../../../../gh-pages/src/Domain/Services/DomainServiceService";
-import { IRepoService } from "../../../../gh-pages/src/Domain/Services/IRepoService";
+} from "../../../../lib/Domain/Services/DomainServiceService";
+import { IRepoService } from "../../../../lib/Domain/Services/IRepoService";
 import { AppServiceDependencyAppService } from "./AppServiceDependencyAppService";
-import { FileEntity } from "../../../../gh-pages/src/Domain/Entities/FileEntity";
-import { AngularConfigAppService } from "../../../../gh-pages/src/Application/Services/AngularConfigAppService";
-import { DiFramework } from "../../../../gh-pages/src/Domain/Entities/DiFramework";
-import { PathAppService } from "../../../../gh-pages/src/Application/Services/PathAppService";
-import { ConfigurationAppService } from "../../../../gh-pages/src/Application/Services/ConfigurationAppService";
-import { FileService } from "../../../../gh-pages/src/Domain/Services/FileService";
-
+import { FileService } from "../../../../lib/Domain/Services/FileService";
+import { AngularConfigAppService } from "../../../../lib/Application/Services/AngularConfigAppService";
+import { ConfigurationAppService } from "../../../../lib/Application/Services/ConfigurationAppService";
+import { FolderStructureService } from "../../../../lib/Application/Services/FolderGenAppService";
+import { PathAppService } from "../../../../lib/Application/Services/PathAppService";
+import { DomainServiceConnections, ApplicationServiceDependencyMap } from "../../../../lib/Domain/Interfaces/DomainServiceConnections";
+import { IProjectService } from "../../../../lib/Domain/Interfaces/IProjectService";
+import { AwilixConfig } from "../../../../lib/Domain/Entities/AwilixConfig";
+import { DiFramework } from "../../../../lib/Domain/Entities/DiFramework";
+import { DomainService } from "../../../../lib/Domain/Entities/DomainService";
+import { FileEntity } from "../../../../lib/Domain/Entities/FileEntity";
+import { ShowcaseAppGeneration } from "../../../../lib/Domain/Entities/ShowcaseAppGeneration";
+import { UIFrameworks } from "../../../../lib/Domain/Entities/UiFramework";
 export interface OnionArchitectureGenerationParams {
   folderPath: string;
   entityNames: string[];

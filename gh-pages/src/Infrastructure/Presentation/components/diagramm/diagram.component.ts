@@ -13,16 +13,6 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { DiagramAppService } from '../../../../Application/Services/DiagramAppService';
-import { OnionConfigService } from '../../../../Domain/Services/OnionConfigService';
-import { WebContainerAppService } from '../../../../Application/Services/WebContainerAppService';
-import { DiagramNodeInteractionAppService } from '../../../../Application/Services/DiagramNodeInteractionAppService';
-import { DiagramNodeManagementService } from '../../../../Application/Services/DiagramNodeManagementAppService';
-import { DiagramConnectionAppService } from '../../../../Application/Services/DiagramConnectionAppService';
-import { DiagramProjectGenerationService } from '../../../../Application/Services/DiagramProjectGenerationAppService';
-import { ProgressTrackingAppService } from '../../../../Application/Services/ProgressTrackingAppService';
-
-import { OnionConfig } from '../../../../Domain/Entities/OnionConfig';
 import { CodeDisplayComponent } from '../code-display/code-display.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,17 +21,26 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { Entity } from '../../../../Domain/Entities/Entity';
-import { DomainService } from '../../../../Domain/Entities/DomainService';
-import { NodeType } from '../../../../Domain/Entities/NodeType';
 import { JsonUploadModalComponent } from '../upload-modal/upload-modal.module';
 import {
   ProgressModalComponent,
   ProgressModalData,
 } from '../progress-modal/progress-modal.component';
-import { UIFrameworks } from '../../../../Domain/Entities/UiFramework';
-import { DiFramework } from '../../../../Domain/Entities/DiFramework';
 import { container } from '../../../Configuration/awilix.config';
+import { OnionConfigService } from '../../../../../../lib/Domain/Services/OnionConfigService';
+import { DiagramAppService } from '../../../../Application/Services/DiagramAppService';
+import { DiagramConnectionAppService } from '../../../../Application/Services/DiagramConnectionAppService';
+import { DiagramNodeInteractionAppService } from '../../../../Application/Services/DiagramNodeInteractionAppService';
+import { DiagramNodeManagementService } from '../../../../Application/Services/DiagramNodeManagementAppService';
+import { DiagramProjectGenerationService } from '../../../../Application/Services/DiagramProjectGenerationAppService';
+import { ProgressTrackingAppService } from '../../../../Application/Services/ProgressTrackingAppService';
+import { WebContainerAppService } from '../../../../Application/Services/WebContainerAppService';
+import { DiFramework } from '../../../../../../lib/Domain/Entities/DiFramework';
+import { DomainService } from '../../../../../../lib/Domain/Entities/DomainService';
+import { Entity } from '../../../../../../lib/Domain/Entities/Entity';
+import { NodeType } from '../../../../../../lib/Domain/Entities/NodeType';
+import { UIFrameworks } from '../../../../../../lib/Domain/Entities/UiFramework';
+import { OnionConfig } from '../../../../../../lib/Domain/Entities/OnionConfig';
 
 type StatusType = 'success' | 'error' | 'info';
 

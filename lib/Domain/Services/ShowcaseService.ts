@@ -1,10 +1,9 @@
-import Handlebars from 'handlebars';
-import { ShowcaseAppGeneration } from '../Entities/ShowcaseAppGeneration';
-import { ShowcaseTemplateFile } from '../Entities/ShowcaseTemplateFile';
-import { FileService } from './FileService';
-import { FileEntity } from '../Entities/FileEntity';
-import { UIFrameworks } from '../Entities/UiFramework';
-
+import { FileEntity } from "../Entities/FileEntity";
+import { ShowcaseAppGeneration } from "../Entities/ShowcaseAppGeneration";
+import { UIFrameworks } from "../Entities/UiFramework";
+import { FileService } from "./FileService";
+import Handlebars from "handlebars";
+import { ShowcaseTemplateFile } from "../Entities/ShowcaseTemplateFile";
 interface TemplateContext {
   firstAppService?: string;
   useAngularDI?: boolean;
@@ -23,7 +22,7 @@ type PathBuilder = (
   outputPath: string;
 };
 
-type SupportedFramework = Exclude<keyof UIFrameworks, 'vanilla'>;
+type SupportedFramework = Exclude<keyof UIFrameworks, "vanilla">;
 
 export class ShowcaseService {
   constructor(private readonly fileService: FileService) {}
@@ -32,8 +31,8 @@ export class ShowcaseService {
     request: ShowcaseAppGeneration,
     buildPaths: PathBuilder
   ): Promise<FileEntity[]> {
-    if (request.framework === 'vanilla') {
-      console.log('Vanilla framework selected, skipping generation.');
+    if (request.framework === "vanilla") {
+      console.log("Vanilla framework selected, skipping generation.");
       return [];
     }
 
@@ -81,35 +80,35 @@ export class ShowcaseService {
     > = {
       react: {
         main: [
-          new ShowcaseTemplateFile('react/App.tsx.hbs', 'App.tsx'),
-          new ShowcaseTemplateFile('shared/App.css.hbs', 'App.css'),
+          new ShowcaseTemplateFile("react/App.tsx.hbs", "App.tsx"),
+          new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
         ],
       },
       angular: {
         main: [
           new ShowcaseTemplateFile(
-            'angular/app.component.ts.hbs',
-            'app.component.ts'
+            "angular/app.component.ts.hbs",
+            "app.component.ts"
           ),
           new ShowcaseTemplateFile(
-            'angular/app.component.html.hbs',
-            'app.component.html'
+            "angular/app.component.html.hbs",
+            "app.component.html"
           ),
-          new ShowcaseTemplateFile('shared/App.css.hbs', 'app.component.scss'),
+          new ShowcaseTemplateFile("shared/App.css.hbs", "app.component.scss"),
         ],
       },
       vue: {
         main: [
-          new ShowcaseTemplateFile('vue/App.vue.hbs', 'App.vue'),
-          new ShowcaseTemplateFile('shared/App.css.hbs', 'App.css'),
+          new ShowcaseTemplateFile("vue/App.vue.hbs", "App.vue"),
+          new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
         ],
       },
       lit: {
         main: [
-          new ShowcaseTemplateFile('lit/App.ts.hbs', 'App.ts'),
-          new ShowcaseTemplateFile('shared/App.css.hbs', 'App.css'),
+          new ShowcaseTemplateFile("lit/App.ts.hbs", "App.ts"),
+          new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
         ],
-        extra: [new ShowcaseTemplateFile('lit/index.html.hbs', 'index.html')],
+        extra: [new ShowcaseTemplateFile("lit/index.html.hbs", "index.html")],
       },
     };
 
@@ -123,7 +122,7 @@ export class ShowcaseService {
     files: ShowcaseTemplateFile[],
     buildPaths: PathBuilder
   ): TemplateFileDefinition[] {
-    return files.map(file => {
+    return files.map((file) => {
       const paths = buildPaths(file.template, file.output);
       return {
         templatePath: paths.templatePath,

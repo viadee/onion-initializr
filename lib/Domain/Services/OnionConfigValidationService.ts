@@ -1,16 +1,9 @@
-import { OnionConfig } from '../Entities/OnionConfig';
-import { FileEntity } from '../Entities/FileEntity';
-import { OnionConfigService } from './OnionConfigService';
-import {
-  DiFramework,
-  VALID_DI_FRAMEWORKS,
-  isValidDiFramework,
-} from '../Entities/DiFramework';
-import {
-  UIFrameworks,
-  VALID_UI_FRAMEWORKS,
-  isValidUiFramework,
-} from '../Entities/UiFramework';
+import { DiFramework, isValidDiFramework, VALID_DI_FRAMEWORKS } from "../Entities/DiFramework";
+import { FileEntity } from "../Entities/FileEntity";
+import { OnionConfig } from "../Entities/OnionConfig";
+import { UIFrameworks, isValidUiFramework, VALID_UI_FRAMEWORKS } from "../Entities/UiFramework";
+import { OnionConfigService } from "./OnionConfigService";
+
 
 export class OnionConfigValidationService {
   constructor(private readonly onionConfigService: OnionConfigService) {}
@@ -64,7 +57,7 @@ export class OnionConfigValidationService {
     errors: string[]
   ): void {
     if (!Array.isArray(config.domainServices)) {
-      errors.push('`domainServices` should be an array.');
+      errors.push("`domainServices` should be an array.");
       return;
     }
 
@@ -103,7 +96,7 @@ export class OnionConfigValidationService {
     errors: string[]
   ): void {
     if (!Array.isArray(config.applicationServices)) {
-      errors.push('`applicationServices` should be an array.');
+      errors.push("`applicationServices` should be an array.");
       return;
     }
 
@@ -132,7 +125,7 @@ export class OnionConfigValidationService {
     errors: string[]
   ): void {
     const deps = config.applicationServiceDependencies?.[appService];
-    if (!deps || typeof deps !== 'object') {
+    if (!deps || typeof deps !== "object") {
       errors.push(
         `Missing or invalid dependencies for applicationService "${appService}".`
       );
@@ -201,18 +194,18 @@ export class OnionConfigValidationService {
     errors: string[]
   ): void {
     if (!uiFramework) {
-      errors.push('`uiFramework` is required.');
+      errors.push("`uiFramework` is required.");
       return;
     }
 
-    if (typeof uiFramework !== 'string') {
-      errors.push('`uiFramework` should be a string.');
+    if (typeof uiFramework !== "string") {
+      errors.push("`uiFramework` should be a string.");
       return;
     }
 
     if (!isValidUiFramework(uiFramework)) {
       errors.push(
-        `Unknown UI framework "${uiFramework}" found in config. Valid frameworks are: ${VALID_UI_FRAMEWORKS.join(', ')}.`
+        `Unknown UI framework "${uiFramework}" found in config. Valid frameworks are: ${VALID_UI_FRAMEWORKS.join(", ")}.`
       );
     }
   }
@@ -221,18 +214,18 @@ export class OnionConfigValidationService {
     errors: string[]
   ): void {
     if (!diFramework) {
-      errors.push('`diFramework` is required.');
+      errors.push("`diFramework` is required.");
       return;
     }
 
-    if (typeof diFramework !== 'string') {
-      errors.push('`diFramework` should be a string.');
+    if (typeof diFramework !== "string") {
+      errors.push("`diFramework` should be a string.");
       return;
     }
 
     if (!isValidDiFramework(diFramework)) {
       errors.push(
-        `Unknown DI framework "${diFramework}" found in config. Valid frameworks are: ${VALID_DI_FRAMEWORKS.join(', ')}.`
+        `Unknown DI framework "${diFramework}" found in config. Valid frameworks are: ${VALID_DI_FRAMEWORKS.join(", ")}.`
       );
     }
   }

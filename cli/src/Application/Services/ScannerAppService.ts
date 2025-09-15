@@ -1,8 +1,8 @@
-import { PathAppService } from "../../../../gh-pages/src/Application/Services/PathAppService";
-import { FileService } from "../../../../gh-pages/src/Domain/Services/FileService";
-import { UIFrameworks } from "../../../../gh-pages/src/Domain/Entities/UiFramework";
-import { OnionConfig } from "../../../../gh-pages/src/Domain/Entities/OnionConfig";
-import { DiFramework } from "../../../../gh-pages/src/Domain/Entities/DiFramework";
+import { FileService } from "../../../../lib/Domain/Services/FileService";
+import { PathAppService } from "../../../../lib/Application/Services/PathAppService";
+import { DiFramework } from "../../../../lib/Domain/Entities/DiFramework";
+import { OnionConfig } from "../../../../lib/Domain/Entities/OnionConfig";
+import { UIFrameworks } from "../../../../lib/Domain/Entities/UiFramework";
 
 // This Scanner allows you to create a JSON File
 // with in the CLI based on the project you are

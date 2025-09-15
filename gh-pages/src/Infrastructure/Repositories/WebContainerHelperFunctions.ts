@@ -1,5 +1,5 @@
-import { FileEntity } from '../../Domain/Entities/FileEntity';
-import { IFileRepository } from '../../Domain/Interfaces/IFileRepository';
+import { FileEntity } from '../../../../lib/Domain/Entities/FileEntity';
+import { IFileRepository } from '../../../../lib/Domain/Interfaces/IFileRepository';
 
 /**
  * WebContainer-compatible helper functions that mirror the Node.js fs operations
@@ -114,7 +114,7 @@ export class WebContainerHelperFunctions {
 
             const content = file.content.replace(
               importRegex,
-              (match, imports, modulePath) => {
+              (match: any, imports: unknown, modulePath: string | string[]) => {
                 if (modulePath.includes('Interfaces')) {
                   return `import type {${imports}} from '${modulePath}'`;
                 }

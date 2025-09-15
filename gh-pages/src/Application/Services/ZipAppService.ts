@@ -1,7 +1,7 @@
+import { FileEntity } from './../../../../lib/Domain/Entities/FileEntity';
 import JSZip from 'jszip';
-import { FileEntity } from '../../Domain/Entities/FileEntity';
-import { BrowserCheckAppService } from './BrowserCheckAppService';
-import { IFileRepository } from '../../Domain/Interfaces/IFileRepository';
+import { BrowserCheckAppService } from '../../../../lib/Application/Services/BrowserCheckAppService';
+import { IFileRepository } from '../../../../lib/Domain/Interfaces/IFileRepository';
 
 /**
  * Service for ZIP file operations and downloads.

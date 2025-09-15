@@ -1,9 +1,10 @@
-import { FileEntity } from '../Entities/FileEntity';
-import { DomainServiceConnections } from '../Interfaces/DomainServiceConnections';
-import { Entity } from '../Entities/Entity';
-import { DomainService } from '../Entities/DomainService';
-import { TemplateService } from './TemplateService';
-import { DiFramework } from '../Entities/DiFramework';
+import { DiFramework } from "../Entities/DiFramework";
+import { DomainService } from "../Entities/DomainService";
+import { Entity } from "../Entities/Entity";
+import { FileEntity } from "../Entities/FileEntity";
+import { DomainServiceConnections } from "../Interfaces/DomainServiceConnections";
+import { TemplateService } from "./TemplateService";
+
 
 export interface DomainServiceConnectorParams {
   servicesDir: string;
@@ -32,7 +33,7 @@ export class DomainServiceService {
 
     for (const [serviceName, entities] of Object.entries(connections)) {
       const filePath = `${servicesDir}/${serviceName}.ts`;
-      const entityObjects: Entity[] = entities.map(name => new Entity(name));
+      const entityObjects: Entity[] = entities.map((name) => new Entity(name));
       const code = this.generateDomainServiceCodeFromTemplate(
         templateContent,
         serviceName,
@@ -60,7 +61,7 @@ export class DomainServiceService {
   ): string {
     const generator = new TemplateService<DomainService>(templateContent);
 
-    const useAngularDI = diFramework === 'angular';
+    const useAngularDI = diFramework === "angular";
 
     return generator.render({ serviceName, entities, useAngularDI });
   }
@@ -95,7 +96,7 @@ export class DomainServiceService {
     entityNames: string[]
   ): DomainServiceConnections {
     const connections: DomainServiceConnections = {};
-    domainServiceNames.forEach(serviceName => {
+    domainServiceNames.forEach((serviceName) => {
       connections[serviceName] = entityNames;
     });
     return connections;

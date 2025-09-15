@@ -3,7 +3,6 @@ import { OnionConfigStateService } from '../../Domain/Services/OnionConfigStateS
 import { OnionConfigRepositoryService } from '../../Domain/Services/OnionConfigRepositoryService';
 import { IConnectionValidator } from '../../Domain/Interfaces/IConnectionValidator';
 import { OnionRing } from '../../Domain/Entities/OnionRing';
-
 export class OnionConfigConnectionAppService implements IConnectionValidator {
   constructor(
     private readonly stateService: OnionConfigStateService,
@@ -273,7 +272,7 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
       return [...(deps.domainServices || []), ...(deps.repositories || [])];
     } else if (sourceIsRepo) {
       const appServices = data.applicationServices || [];
-      return appServices.filter(appService => {
+      return appServices.filter((appService: string | number) => {
         const deps = data.applicationServiceDependencies?.[appService];
         return deps?.repositories?.includes(source) || false;
       });

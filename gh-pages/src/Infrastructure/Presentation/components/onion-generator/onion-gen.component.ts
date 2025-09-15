@@ -12,19 +12,19 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { Diagram } from '../diagramm/diagram.component';
 import { ScrollIndicatorComponent } from '../scroll-indicator/scroll-indicator.component';
-import { ApplicationServiceService } from '../../../../Domain/Services/ApplicationServiceService';
-import { EntityService } from '../../../../Domain/Services/EntitityService';
-import { DomainServiceService } from '../../../../Domain/Services/DomainServiceService';
-import { Entity } from '../../../../Domain/Entities/Entity';
-import { DomainService } from '../../../../Domain/Entities/DomainService';
-import { UIFrameworks } from '../../../../Domain/Entities/UiFramework';
-import { DiFramework } from '../../../../Domain/Entities/DiFramework';
-import { IRepoService } from '../../../../Domain/Services/IRepoService';
-import { IFileRepository } from '../../../../Domain/Interfaces/IFileRepository';
-import { ProgressTrackingAppService } from '../../../../Application/Services/ProgressTrackingAppService';
+import { ApplicationServiceService } from '../../../../../../lib/Domain/Services/ApplicationServiceService';
+import { EntityService } from '../../../../../../lib/Domain/Services/EntitityService';
+import { DomainServiceService } from '../../../../../../lib/Domain/Services/DomainServiceService';
+import { IRepoService } from '../../../../../../lib/Domain/Services/IRepoService';
 import { Subscription } from 'rxjs';
 import { container } from '../../../Configuration/awilix.config';
 import { YouTubeModalComponent } from '../youtube-modal/youtube-modal.component';
+import { IFileRepository } from '../../../../../../lib/Domain/Interfaces/IFileRepository';
+import { ProgressTrackingAppService } from '../../../../Application/Services/ProgressTrackingAppService';
+import { DiFramework } from '../../../../../../lib/Domain/Entities/DiFramework';
+import { DomainService } from '../../../../../../lib/Domain/Entities/DomainService';
+import { Entity } from '../../../../../../lib/Domain/Entities/Entity';
+import { UIFrameworks } from '../../../../../../lib/Domain/Entities/UiFramework';
 
 @Component({
   selector: 'onion-gen',
