@@ -24,14 +24,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Copy lock file to root for caching
+        run: cp gh-pages/package-lock.json package-lock.json
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
-
-      - name: Navigate to gh-pages directory
-        run: cd gh-pages
 
       - name: Install dependencies
         run: cd gh-pages && npm ci --legacy-peer-deps
@@ -42,14 +42,14 @@ jobs:
       - name: Check if Angular dist exists, if not use static files
         run: |
           cd gh-pages
-          if [ ! -d "dist/temp/browser" ]; then
+          if [ ! -d "dist/onion-initializr/browser" ]; then
             echo "Angular build output not found, creating basic static deployment"
-            mkdir -p dist/temp/browser
-            cp -r public/* dist/temp/browser/ 2>/dev/null || echo "No public directory"
+            mkdir -p dist/onion-initializr/browser
+            cp -r public/* dist/onion-initializr/browser/ 2>/dev/null || echo "No public directory"
             if [ -f "src/index.html" ]; then
-              cp src/index.html dist/temp/browser/
+              cp src/index.html dist/onion-initializr/browser/
             fi
-            echo "<h1>Onion Architecture Initializer</h1><p>The application is currently being set up for GitHub Pages deployment.</p>" > dist/temp/browser/index.html
+            echo "<h1>Onion Architecture Initializer</h1><p>The application is currently being set up for GitHub Pages deployment.</p>" > dist/onion-initializr/browser/index.html
           fi
         shell: bash
 
