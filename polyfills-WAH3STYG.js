@@ -1,4 +1,4 @@
-// ../node_modules/zone.js/fesm2015/zone.js
+// node_modules/zone.js/fesm2015/zone.js
 var global = globalThis;
 function __symbol__(name) {
   const symbolPrefix = global["__Zone_symbol_prefix"] || "__zone_symbol__";

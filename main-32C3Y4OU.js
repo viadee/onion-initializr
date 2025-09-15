@@ -1,16 +1,15 @@
 import {
   __async,
   __commonJS,
-  __objRest,
   __require,
   __spreadProps,
   __spreadValues,
   __toESM
-} from "./chunk-IPOLEHR6.js";
+} from "./chunk-MV3YWL4F.js";
 
-// ../node_modules/highlight.js/lib/core.js
+// node_modules/highlight.js/lib/core.js
 var require_core = __commonJS({
-  "../node_modules/highlight.js/lib/core.js"(exports, module) {
+  "node_modules/highlight.js/lib/core.js"(exports, module) {
     "use strict";
     function deepFreeze(obj) {
       if (obj instanceof Map) {
@@ -250,19 +249,19 @@ var require_core = __commonJS({
         return true;
       }
     };
-    function source(re2) {
-      if (!re2) return null;
-      if (typeof re2 === "string") return re2;
-      return re2.source;
+    function source(re) {
+      if (!re) return null;
+      if (typeof re === "string") return re;
+      return re.source;
     }
-    function lookahead(re2) {
-      return concat2("(?=", re2, ")");
+    function lookahead(re) {
+      return concat2("(?=", re, ")");
     }
-    function anyNumberOfTimes(re2) {
-      return concat2("(?:", re2, ")*");
+    function anyNumberOfTimes(re) {
+      return concat2("(?:", re, ")*");
     }
-    function optional(re2) {
-      return concat2("(?:", re2, ")?");
+    function optional(re) {
+      return concat2("(?:", re, ")?");
     }
     function concat2(...args) {
       const joined = args.map((x) => source(x)).join("");
@@ -282,11 +281,11 @@ var require_core = __commonJS({
       const joined = "(" + (opts.capture ? "" : "?:") + args.map((x) => source(x)).join("|") + ")";
       return joined;
     }
-    function countMatchGroups(re2) {
-      return new RegExp(re2.toString() + "|").exec("").length - 1;
+    function countMatchGroups(re) {
+      return new RegExp(re.toString() + "|").exec("").length - 1;
     }
-    function startsWith(re2, lexeme) {
-      const match2 = re2 && re2.exec(lexeme);
+    function startsWith(re, lexeme) {
+      const match2 = re && re.exec(lexeme);
       return match2 && match2.index === 0;
     }
     var BACKREF_RE = /\[(?:[^\\\]]|\\.)*\]|\(\??|\\([1-9][0-9]*)|\\./;
@@ -295,16 +294,16 @@ var require_core = __commonJS({
       return regexps.map((regex) => {
         numCaptures += 1;
         const offset = numCaptures;
-        let re2 = source(regex);
+        let re = source(regex);
         let out = "";
-        while (re2.length > 0) {
-          const match2 = BACKREF_RE.exec(re2);
+        while (re.length > 0) {
+          const match2 = BACKREF_RE.exec(re);
           if (!match2) {
-            out += re2;
+            out += re;
             break;
           }
-          out += re2.substring(0, match2.index);
-          re2 = re2.substring(match2.index + match2[0].length);
+          out += re.substring(0, match2.index);
+          re = re.substring(match2.index + match2[0].length);
           if (match2[0][0] === "\\" && match2[1]) {
             out += "\\" + String(Number(match2[1]) + offset);
           } else {
@@ -315,10 +314,10 @@ var require_core = __commonJS({
           }
         }
         return out;
-      }).map((re2) => `(${re2})`).join(joinWith);
+      }).map((re) => `(${re})`).join(joinWith);
     }
     var MATCH_NOTHING_RE = /\b\B/;
-    var IDENT_RE2 = "[a-zA-Z]\\w*";
+    var IDENT_RE = "[a-zA-Z]\\w*";
     var UNDERSCORE_IDENT_RE = "[a-zA-Z_]\\w*";
     var NUMBER_RE = "\\b\\d+(\\.\\d+)?";
     var C_NUMBER_RE = "(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";
@@ -468,7 +467,7 @@ var require_core = __commonJS({
     };
     var TITLE_MODE = {
       scope: "title",
-      begin: IDENT_RE2,
+      begin: IDENT_RE,
       relevance: 0
     };
     var UNDERSCORE_TITLE_MODE = {
@@ -509,7 +508,7 @@ var require_core = __commonJS({
       C_NUMBER_RE,
       END_SAME_AS_BEGIN,
       HASH_COMMENT_MODE,
-      IDENT_RE: IDENT_RE2,
+      IDENT_RE,
       MATCH_NOTHING_RE,
       METHOD_GUARD,
       NUMBER_MODE,
@@ -711,11 +710,11 @@ var require_core = __commonJS({
           this.position = 0;
         }
         // @ts-ignore
-        addRule(re2, opts) {
+        addRule(re, opts) {
           opts.position = this.position++;
           this.matchIndexes[this.matchAt] = opts;
-          this.regexes.push([opts, re2]);
-          this.matchAt += countMatchGroups(re2) + 1;
+          this.regexes.push([opts, re]);
+          this.matchAt += countMatchGroups(re) + 1;
         }
         compile() {
           if (this.regexes.length === 0) {
@@ -750,7 +749,7 @@ var require_core = __commonJS({
         getMatcher(index) {
           if (this.multiRegexes[index]) return this.multiRegexes[index];
           const matcher = new MultiRegex();
-          this.rules.slice(index).forEach(([re2, opts]) => matcher.addRule(re2, opts));
+          this.rules.slice(index).forEach(([re, opts]) => matcher.addRule(re, opts));
           matcher.compile();
           this.multiRegexes[index] = matcher;
           return matcher;
@@ -762,8 +761,8 @@ var require_core = __commonJS({
           this.regexIndex = 0;
         }
         // @ts-ignore
-        addRule(re2, opts) {
-          this.rules.push([re2, opts]);
+        addRule(re, opts) {
+          this.rules.push([re, opts]);
           if (opts.type === "begin") this.count++;
         }
         /** @param {string} s */
@@ -909,7 +908,7 @@ var require_core = __commonJS({
     var inherit2 = inherit$1;
     var NO_MATCH = Symbol("nomatch");
     var MAX_KEYWORD_HITS = 7;
-    var HLJS = function(hljs) {
+    var HLJS = function(hljs2) {
       const languages = /* @__PURE__ */ Object.create(null);
       const aliases = /* @__PURE__ */ Object.create(null);
       const plugins = [];
@@ -1317,12 +1316,12 @@ var require_core = __commonJS({
           (name) => _highlight(name, code, false)
         );
         results.unshift(plaintext);
-        const sorted = results.sort((a, b2) => {
-          if (a.relevance !== b2.relevance) return b2.relevance - a.relevance;
-          if (a.language && b2.language) {
-            if (getLanguage(a.language).supersetOf === b2.language) {
+        const sorted = results.sort((a, b) => {
+          if (a.relevance !== b.relevance) return b.relevance - a.relevance;
+          if (a.language && b.language) {
+            if (getLanguage(a.language).supersetOf === b.language) {
               return 1;
-            } else if (getLanguage(b2.language).supersetOf === a.language) {
+            } else if (getLanguage(b.language).supersetOf === a.language) {
               return -1;
             }
           }
@@ -1414,7 +1413,7 @@ var require_core = __commonJS({
       function registerLanguage(languageName, languageDefinition) {
         let lang = null;
         try {
-          lang = languageDefinition(hljs);
+          lang = languageDefinition(hljs2);
         } catch (error$1) {
           error("Language definition for '{}' could not be registered.".replace("{}", languageName));
           if (!SAFE_MODE) {
@@ -1426,7 +1425,7 @@ var require_core = __commonJS({
         }
         if (!lang.name) lang.name = languageName;
         languages[languageName] = lang;
-        lang.rawDefinition = languageDefinition.bind(null, hljs);
+        lang.rawDefinition = languageDefinition.bind(null, hljs2);
         if (lang.aliases) {
           registerAliases(lang.aliases, { languageName });
         }
@@ -1497,7 +1496,7 @@ var require_core = __commonJS({
         deprecated("10.7.0", "Please use highlightElement now.");
         return highlightElement(el);
       }
-      Object.assign(hljs, {
+      Object.assign(hljs2, {
         highlight: highlight2,
         highlightAuto,
         highlightAll,
@@ -1517,14 +1516,14 @@ var require_core = __commonJS({
         addPlugin,
         removePlugin
       });
-      hljs.debugMode = function() {
+      hljs2.debugMode = function() {
         SAFE_MODE = false;
       };
-      hljs.safeMode = function() {
+      hljs2.safeMode = function() {
         SAFE_MODE = true;
       };
-      hljs.versionString = version;
-      hljs.regex = {
+      hljs2.versionString = version;
+      hljs2.regex = {
         concat: concat2,
         lookahead,
         either,
@@ -1536,8 +1535,8 @@ var require_core = __commonJS({
           deepFreeze(MODES[key]);
         }
       }
-      Object.assign(hljs, MODES);
-      return hljs;
+      Object.assign(hljs2, MODES);
+      return hljs2;
     };
     var highlight = HLJS({});
     highlight.newInstance = () => HLJS({});
@@ -1547,1454 +1546,829 @@ var require_core = __commonJS({
   }
 });
 
-// ../node_modules/color-name/index.js
-var require_color_name = __commonJS({
-  "../node_modules/color-name/index.js"(exports, module) {
+// node_modules/highlight.js/lib/languages/typescript.js
+var require_typescript = __commonJS({
+  "node_modules/highlight.js/lib/languages/typescript.js"(exports, module) {
     "use strict";
-    module.exports = {
-      "aliceblue": [240, 248, 255],
-      "antiquewhite": [250, 235, 215],
-      "aqua": [0, 255, 255],
-      "aquamarine": [127, 255, 212],
-      "azure": [240, 255, 255],
-      "beige": [245, 245, 220],
-      "bisque": [255, 228, 196],
-      "black": [0, 0, 0],
-      "blanchedalmond": [255, 235, 205],
-      "blue": [0, 0, 255],
-      "blueviolet": [138, 43, 226],
-      "brown": [165, 42, 42],
-      "burlywood": [222, 184, 135],
-      "cadetblue": [95, 158, 160],
-      "chartreuse": [127, 255, 0],
-      "chocolate": [210, 105, 30],
-      "coral": [255, 127, 80],
-      "cornflowerblue": [100, 149, 237],
-      "cornsilk": [255, 248, 220],
-      "crimson": [220, 20, 60],
-      "cyan": [0, 255, 255],
-      "darkblue": [0, 0, 139],
-      "darkcyan": [0, 139, 139],
-      "darkgoldenrod": [184, 134, 11],
-      "darkgray": [169, 169, 169],
-      "darkgreen": [0, 100, 0],
-      "darkgrey": [169, 169, 169],
-      "darkkhaki": [189, 183, 107],
-      "darkmagenta": [139, 0, 139],
-      "darkolivegreen": [85, 107, 47],
-      "darkorange": [255, 140, 0],
-      "darkorchid": [153, 50, 204],
-      "darkred": [139, 0, 0],
-      "darksalmon": [233, 150, 122],
-      "darkseagreen": [143, 188, 143],
-      "darkslateblue": [72, 61, 139],
-      "darkslategray": [47, 79, 79],
-      "darkslategrey": [47, 79, 79],
-      "darkturquoise": [0, 206, 209],
-      "darkviolet": [148, 0, 211],
-      "deeppink": [255, 20, 147],
-      "deepskyblue": [0, 191, 255],
-      "dimgray": [105, 105, 105],
-      "dimgrey": [105, 105, 105],
-      "dodgerblue": [30, 144, 255],
-      "firebrick": [178, 34, 34],
-      "floralwhite": [255, 250, 240],
-      "forestgreen": [34, 139, 34],
-      "fuchsia": [255, 0, 255],
-      "gainsboro": [220, 220, 220],
-      "ghostwhite": [248, 248, 255],
-      "gold": [255, 215, 0],
-      "goldenrod": [218, 165, 32],
-      "gray": [128, 128, 128],
-      "green": [0, 128, 0],
-      "greenyellow": [173, 255, 47],
-      "grey": [128, 128, 128],
-      "honeydew": [240, 255, 240],
-      "hotpink": [255, 105, 180],
-      "indianred": [205, 92, 92],
-      "indigo": [75, 0, 130],
-      "ivory": [255, 255, 240],
-      "khaki": [240, 230, 140],
-      "lavender": [230, 230, 250],
-      "lavenderblush": [255, 240, 245],
-      "lawngreen": [124, 252, 0],
-      "lemonchiffon": [255, 250, 205],
-      "lightblue": [173, 216, 230],
-      "lightcoral": [240, 128, 128],
-      "lightcyan": [224, 255, 255],
-      "lightgoldenrodyellow": [250, 250, 210],
-      "lightgray": [211, 211, 211],
-      "lightgreen": [144, 238, 144],
-      "lightgrey": [211, 211, 211],
-      "lightpink": [255, 182, 193],
-      "lightsalmon": [255, 160, 122],
-      "lightseagreen": [32, 178, 170],
-      "lightskyblue": [135, 206, 250],
-      "lightslategray": [119, 136, 153],
-      "lightslategrey": [119, 136, 153],
-      "lightsteelblue": [176, 196, 222],
-      "lightyellow": [255, 255, 224],
-      "lime": [0, 255, 0],
-      "limegreen": [50, 205, 50],
-      "linen": [250, 240, 230],
-      "magenta": [255, 0, 255],
-      "maroon": [128, 0, 0],
-      "mediumaquamarine": [102, 205, 170],
-      "mediumblue": [0, 0, 205],
-      "mediumorchid": [186, 85, 211],
-      "mediumpurple": [147, 112, 219],
-      "mediumseagreen": [60, 179, 113],
-      "mediumslateblue": [123, 104, 238],
-      "mediumspringgreen": [0, 250, 154],
-      "mediumturquoise": [72, 209, 204],
-      "mediumvioletred": [199, 21, 133],
-      "midnightblue": [25, 25, 112],
-      "mintcream": [245, 255, 250],
-      "mistyrose": [255, 228, 225],
-      "moccasin": [255, 228, 181],
-      "navajowhite": [255, 222, 173],
-      "navy": [0, 0, 128],
-      "oldlace": [253, 245, 230],
-      "olive": [128, 128, 0],
-      "olivedrab": [107, 142, 35],
-      "orange": [255, 165, 0],
-      "orangered": [255, 69, 0],
-      "orchid": [218, 112, 214],
-      "palegoldenrod": [238, 232, 170],
-      "palegreen": [152, 251, 152],
-      "paleturquoise": [175, 238, 238],
-      "palevioletred": [219, 112, 147],
-      "papayawhip": [255, 239, 213],
-      "peachpuff": [255, 218, 185],
-      "peru": [205, 133, 63],
-      "pink": [255, 192, 203],
-      "plum": [221, 160, 221],
-      "powderblue": [176, 224, 230],
-      "purple": [128, 0, 128],
-      "rebeccapurple": [102, 51, 153],
-      "red": [255, 0, 0],
-      "rosybrown": [188, 143, 143],
-      "royalblue": [65, 105, 225],
-      "saddlebrown": [139, 69, 19],
-      "salmon": [250, 128, 114],
-      "sandybrown": [244, 164, 96],
-      "seagreen": [46, 139, 87],
-      "seashell": [255, 245, 238],
-      "sienna": [160, 82, 45],
-      "silver": [192, 192, 192],
-      "skyblue": [135, 206, 235],
-      "slateblue": [106, 90, 205],
-      "slategray": [112, 128, 144],
-      "slategrey": [112, 128, 144],
-      "snow": [255, 250, 250],
-      "springgreen": [0, 255, 127],
-      "steelblue": [70, 130, 180],
-      "tan": [210, 180, 140],
-      "teal": [0, 128, 128],
-      "thistle": [216, 191, 216],
-      "tomato": [255, 99, 71],
-      "turquoise": [64, 224, 208],
-      "violet": [238, 130, 238],
-      "wheat": [245, 222, 179],
-      "white": [255, 255, 255],
-      "whitesmoke": [245, 245, 245],
-      "yellow": [255, 255, 0],
-      "yellowgreen": [154, 205, 50]
-    };
-  }
-});
-
-// ../node_modules/color-convert/conversions.js
-var require_conversions = __commonJS({
-  "../node_modules/color-convert/conversions.js"(exports, module) {
-    "use strict";
-    var cssKeywords = require_color_name();
-    var reverseKeywords = {};
-    for (const key of Object.keys(cssKeywords)) {
-      reverseKeywords[cssKeywords[key]] = key;
-    }
-    var convert = {
-      rgb: { channels: 3, labels: "rgb" },
-      hsl: { channels: 3, labels: "hsl" },
-      hsv: { channels: 3, labels: "hsv" },
-      hwb: { channels: 3, labels: "hwb" },
-      cmyk: { channels: 4, labels: "cmyk" },
-      xyz: { channels: 3, labels: "xyz" },
-      lab: { channels: 3, labels: "lab" },
-      lch: { channels: 3, labels: "lch" },
-      hex: { channels: 1, labels: ["hex"] },
-      keyword: { channels: 1, labels: ["keyword"] },
-      ansi16: { channels: 1, labels: ["ansi16"] },
-      ansi256: { channels: 1, labels: ["ansi256"] },
-      hcg: { channels: 3, labels: ["h", "c", "g"] },
-      apple: { channels: 3, labels: ["r16", "g16", "b16"] },
-      gray: { channels: 1, labels: ["gray"] }
-    };
-    module.exports = convert;
-    for (const model2 of Object.keys(convert)) {
-      if (!("channels" in convert[model2])) {
-        throw new Error("missing channels property: " + model2);
-      }
-      if (!("labels" in convert[model2])) {
-        throw new Error("missing channel labels property: " + model2);
-      }
-      if (convert[model2].labels.length !== convert[model2].channels) {
-        throw new Error("channel and label counts mismatch: " + model2);
-      }
-      const { channels, labels } = convert[model2];
-      delete convert[model2].channels;
-      delete convert[model2].labels;
-      Object.defineProperty(convert[model2], "channels", { value: channels });
-      Object.defineProperty(convert[model2], "labels", { value: labels });
-    }
-    convert.rgb.hsl = function(rgb2) {
-      const r = rgb2[0] / 255;
-      const g2 = rgb2[1] / 255;
-      const b2 = rgb2[2] / 255;
-      const min2 = Math.min(r, g2, b2);
-      const max2 = Math.max(r, g2, b2);
-      const delta = max2 - min2;
-      let h;
-      let s;
-      if (max2 === min2) {
-        h = 0;
-      } else if (r === max2) {
-        h = (g2 - b2) / delta;
-      } else if (g2 === max2) {
-        h = 2 + (b2 - r) / delta;
-      } else if (b2 === max2) {
-        h = 4 + (r - g2) / delta;
-      }
-      h = Math.min(h * 60, 360);
-      if (h < 0) {
-        h += 360;
-      }
-      const l = (min2 + max2) / 2;
-      if (max2 === min2) {
-        s = 0;
-      } else if (l <= 0.5) {
-        s = delta / (max2 + min2);
-      } else {
-        s = delta / (2 - max2 - min2);
-      }
-      return [h, s * 100, l * 100];
-    };
-    convert.rgb.hsv = function(rgb2) {
-      let rdif;
-      let gdif;
-      let bdif;
-      let h;
-      let s;
-      const r = rgb2[0] / 255;
-      const g2 = rgb2[1] / 255;
-      const b2 = rgb2[2] / 255;
-      const v2 = Math.max(r, g2, b2);
-      const diff = v2 - Math.min(r, g2, b2);
-      const diffc = function(c) {
-        return (v2 - c) / 6 / diff + 1 / 2;
-      };
-      if (diff === 0) {
-        h = 0;
-        s = 0;
-      } else {
-        s = diff / v2;
-        rdif = diffc(r);
-        gdif = diffc(g2);
-        bdif = diffc(b2);
-        if (r === v2) {
-          h = bdif - gdif;
-        } else if (g2 === v2) {
-          h = 1 / 3 + rdif - bdif;
-        } else if (b2 === v2) {
-          h = 2 / 3 + gdif - rdif;
-        }
-        if (h < 0) {
-          h += 1;
-        } else if (h > 1) {
-          h -= 1;
-        }
-      }
-      return [
-        h * 360,
-        s * 100,
-        v2 * 100
-      ];
-    };
-    convert.rgb.hwb = function(rgb2) {
-      const r = rgb2[0];
-      const g2 = rgb2[1];
-      let b2 = rgb2[2];
-      const h = convert.rgb.hsl(rgb2)[0];
-      const w2 = 1 / 255 * Math.min(r, Math.min(g2, b2));
-      b2 = 1 - 1 / 255 * Math.max(r, Math.max(g2, b2));
-      return [h, w2 * 100, b2 * 100];
-    };
-    convert.rgb.cmyk = function(rgb2) {
-      const r = rgb2[0] / 255;
-      const g2 = rgb2[1] / 255;
-      const b2 = rgb2[2] / 255;
-      const k2 = Math.min(1 - r, 1 - g2, 1 - b2);
-      const c = (1 - r - k2) / (1 - k2) || 0;
-      const m = (1 - g2 - k2) / (1 - k2) || 0;
-      const y2 = (1 - b2 - k2) / (1 - k2) || 0;
-      return [c * 100, m * 100, y2 * 100, k2 * 100];
-    };
-    function comparativeDistance(x, y2) {
-      return (x[0] - y2[0]) ** 2 + (x[1] - y2[1]) ** 2 + (x[2] - y2[2]) ** 2;
-    }
-    convert.rgb.keyword = function(rgb2) {
-      const reversed = reverseKeywords[rgb2];
-      if (reversed) {
-        return reversed;
-      }
-      let currentClosestDistance = Infinity;
-      let currentClosestKeyword;
-      for (const keyword of Object.keys(cssKeywords)) {
-        const value = cssKeywords[keyword];
-        const distance = comparativeDistance(rgb2, value);
-        if (distance < currentClosestDistance) {
-          currentClosestDistance = distance;
-          currentClosestKeyword = keyword;
-        }
-      }
-      return currentClosestKeyword;
-    };
-    convert.keyword.rgb = function(keyword) {
-      return cssKeywords[keyword];
-    };
-    convert.rgb.xyz = function(rgb2) {
-      let r = rgb2[0] / 255;
-      let g2 = rgb2[1] / 255;
-      let b2 = rgb2[2] / 255;
-      r = r > 0.04045 ? ((r + 0.055) / 1.055) ** 2.4 : r / 12.92;
-      g2 = g2 > 0.04045 ? ((g2 + 0.055) / 1.055) ** 2.4 : g2 / 12.92;
-      b2 = b2 > 0.04045 ? ((b2 + 0.055) / 1.055) ** 2.4 : b2 / 12.92;
-      const x = r * 0.4124 + g2 * 0.3576 + b2 * 0.1805;
-      const y2 = r * 0.2126 + g2 * 0.7152 + b2 * 0.0722;
-      const z2 = r * 0.0193 + g2 * 0.1192 + b2 * 0.9505;
-      return [x * 100, y2 * 100, z2 * 100];
-    };
-    convert.rgb.lab = function(rgb2) {
-      const xyz = convert.rgb.xyz(rgb2);
-      let x = xyz[0];
-      let y2 = xyz[1];
-      let z2 = xyz[2];
-      x /= 95.047;
-      y2 /= 100;
-      z2 /= 108.883;
-      x = x > 8856e-6 ? x ** (1 / 3) : 7.787 * x + 16 / 116;
-      y2 = y2 > 8856e-6 ? y2 ** (1 / 3) : 7.787 * y2 + 16 / 116;
-      z2 = z2 > 8856e-6 ? z2 ** (1 / 3) : 7.787 * z2 + 16 / 116;
-      const l = 116 * y2 - 16;
-      const a = 500 * (x - y2);
-      const b2 = 200 * (y2 - z2);
-      return [l, a, b2];
-    };
-    convert.hsl.rgb = function(hsl2) {
-      const h = hsl2[0] / 360;
-      const s = hsl2[1] / 100;
-      const l = hsl2[2] / 100;
-      let t2;
-      let t3;
-      let val;
-      if (s === 0) {
-        val = l * 255;
-        return [val, val, val];
-      }
-      if (l < 0.5) {
-        t2 = l * (1 + s);
-      } else {
-        t2 = l + s - l * s;
-      }
-      const t1 = 2 * l - t2;
-      const rgb2 = [0, 0, 0];
-      for (let i = 0; i < 3; i++) {
-        t3 = h + 1 / 3 * -(i - 1);
-        if (t3 < 0) {
-          t3++;
-        }
-        if (t3 > 1) {
-          t3--;
-        }
-        if (6 * t3 < 1) {
-          val = t1 + (t2 - t1) * 6 * t3;
-        } else if (2 * t3 < 1) {
-          val = t2;
-        } else if (3 * t3 < 2) {
-          val = t1 + (t2 - t1) * (2 / 3 - t3) * 6;
-        } else {
-          val = t1;
-        }
-        rgb2[i] = val * 255;
-      }
-      return rgb2;
-    };
-    convert.hsl.hsv = function(hsl2) {
-      const h = hsl2[0];
-      let s = hsl2[1] / 100;
-      let l = hsl2[2] / 100;
-      let smin = s;
-      const lmin = Math.max(l, 0.01);
-      l *= 2;
-      s *= l <= 1 ? l : 2 - l;
-      smin *= lmin <= 1 ? lmin : 2 - lmin;
-      const v2 = (l + s) / 2;
-      const sv = l === 0 ? 2 * smin / (lmin + smin) : 2 * s / (l + s);
-      return [h, sv * 100, v2 * 100];
-    };
-    convert.hsv.rgb = function(hsv) {
-      const h = hsv[0] / 60;
-      const s = hsv[1] / 100;
-      let v2 = hsv[2] / 100;
-      const hi = Math.floor(h) % 6;
-      const f = h - Math.floor(h);
-      const p = 255 * v2 * (1 - s);
-      const q2 = 255 * v2 * (1 - s * f);
-      const t = 255 * v2 * (1 - s * (1 - f));
-      v2 *= 255;
-      switch (hi) {
-        case 0:
-          return [v2, t, p];
-        case 1:
-          return [q2, v2, p];
-        case 2:
-          return [p, v2, t];
-        case 3:
-          return [p, q2, v2];
-        case 4:
-          return [t, p, v2];
-        case 5:
-          return [v2, p, q2];
-      }
-    };
-    convert.hsv.hsl = function(hsv) {
-      const h = hsv[0];
-      const s = hsv[1] / 100;
-      const v2 = hsv[2] / 100;
-      const vmin = Math.max(v2, 0.01);
-      let sl;
-      let l;
-      l = (2 - s) * v2;
-      const lmin = (2 - s) * vmin;
-      sl = s * vmin;
-      sl /= lmin <= 1 ? lmin : 2 - lmin;
-      sl = sl || 0;
-      l /= 2;
-      return [h, sl * 100, l * 100];
-    };
-    convert.hwb.rgb = function(hwb) {
-      const h = hwb[0] / 360;
-      let wh = hwb[1] / 100;
-      let bl = hwb[2] / 100;
-      const ratio = wh + bl;
-      let f;
-      if (ratio > 1) {
-        wh /= ratio;
-        bl /= ratio;
-      }
-      const i = Math.floor(6 * h);
-      const v2 = 1 - bl;
-      f = 6 * h - i;
-      if ((i & 1) !== 0) {
-        f = 1 - f;
-      }
-      const n = wh + f * (v2 - wh);
-      let r;
-      let g2;
-      let b2;
-      switch (i) {
-        default:
-        case 6:
-        case 0:
-          r = v2;
-          g2 = n;
-          b2 = wh;
-          break;
-        case 1:
-          r = n;
-          g2 = v2;
-          b2 = wh;
-          break;
-        case 2:
-          r = wh;
-          g2 = v2;
-          b2 = n;
-          break;
-        case 3:
-          r = wh;
-          g2 = n;
-          b2 = v2;
-          break;
-        case 4:
-          r = n;
-          g2 = wh;
-          b2 = v2;
-          break;
-        case 5:
-          r = v2;
-          g2 = wh;
-          b2 = n;
-          break;
-      }
-      return [r * 255, g2 * 255, b2 * 255];
-    };
-    convert.cmyk.rgb = function(cmyk) {
-      const c = cmyk[0] / 100;
-      const m = cmyk[1] / 100;
-      const y2 = cmyk[2] / 100;
-      const k2 = cmyk[3] / 100;
-      const r = 1 - Math.min(1, c * (1 - k2) + k2);
-      const g2 = 1 - Math.min(1, m * (1 - k2) + k2);
-      const b2 = 1 - Math.min(1, y2 * (1 - k2) + k2);
-      return [r * 255, g2 * 255, b2 * 255];
-    };
-    convert.xyz.rgb = function(xyz) {
-      const x = xyz[0] / 100;
-      const y2 = xyz[1] / 100;
-      const z2 = xyz[2] / 100;
-      let r;
-      let g2;
-      let b2;
-      r = x * 3.2406 + y2 * -1.5372 + z2 * -0.4986;
-      g2 = x * -0.9689 + y2 * 1.8758 + z2 * 0.0415;
-      b2 = x * 0.0557 + y2 * -0.204 + z2 * 1.057;
-      r = r > 31308e-7 ? 1.055 * r ** (1 / 2.4) - 0.055 : r * 12.92;
-      g2 = g2 > 31308e-7 ? 1.055 * g2 ** (1 / 2.4) - 0.055 : g2 * 12.92;
-      b2 = b2 > 31308e-7 ? 1.055 * b2 ** (1 / 2.4) - 0.055 : b2 * 12.92;
-      r = Math.min(Math.max(0, r), 1);
-      g2 = Math.min(Math.max(0, g2), 1);
-      b2 = Math.min(Math.max(0, b2), 1);
-      return [r * 255, g2 * 255, b2 * 255];
-    };
-    convert.xyz.lab = function(xyz) {
-      let x = xyz[0];
-      let y2 = xyz[1];
-      let z2 = xyz[2];
-      x /= 95.047;
-      y2 /= 100;
-      z2 /= 108.883;
-      x = x > 8856e-6 ? x ** (1 / 3) : 7.787 * x + 16 / 116;
-      y2 = y2 > 8856e-6 ? y2 ** (1 / 3) : 7.787 * y2 + 16 / 116;
-      z2 = z2 > 8856e-6 ? z2 ** (1 / 3) : 7.787 * z2 + 16 / 116;
-      const l = 116 * y2 - 16;
-      const a = 500 * (x - y2);
-      const b2 = 200 * (y2 - z2);
-      return [l, a, b2];
-    };
-    convert.lab.xyz = function(lab) {
-      const l = lab[0];
-      const a = lab[1];
-      const b2 = lab[2];
-      let x;
-      let y2;
-      let z2;
-      y2 = (l + 16) / 116;
-      x = a / 500 + y2;
-      z2 = y2 - b2 / 200;
-      const y22 = y2 ** 3;
-      const x2 = x ** 3;
-      const z22 = z2 ** 3;
-      y2 = y22 > 8856e-6 ? y22 : (y2 - 16 / 116) / 7.787;
-      x = x2 > 8856e-6 ? x2 : (x - 16 / 116) / 7.787;
-      z2 = z22 > 8856e-6 ? z22 : (z2 - 16 / 116) / 7.787;
-      x *= 95.047;
-      y2 *= 100;
-      z2 *= 108.883;
-      return [x, y2, z2];
-    };
-    convert.lab.lch = function(lab) {
-      const l = lab[0];
-      const a = lab[1];
-      const b2 = lab[2];
-      let h;
-      const hr2 = Math.atan2(b2, a);
-      h = hr2 * 360 / 2 / Math.PI;
-      if (h < 0) {
-        h += 360;
-      }
-      const c = Math.sqrt(a * a + b2 * b2);
-      return [l, c, h];
-    };
-    convert.lch.lab = function(lch) {
-      const l = lch[0];
-      const c = lch[1];
-      const h = lch[2];
-      const hr2 = h / 360 * 2 * Math.PI;
-      const a = c * Math.cos(hr2);
-      const b2 = c * Math.sin(hr2);
-      return [l, a, b2];
-    };
-    convert.rgb.ansi16 = function(args, saturation = null) {
-      const [r, g2, b2] = args;
-      let value = saturation === null ? convert.rgb.hsv(args)[2] : saturation;
-      value = Math.round(value / 50);
-      if (value === 0) {
-        return 30;
-      }
-      let ansi = 30 + (Math.round(b2 / 255) << 2 | Math.round(g2 / 255) << 1 | Math.round(r / 255));
-      if (value === 2) {
-        ansi += 60;
-      }
-      return ansi;
-    };
-    convert.hsv.ansi16 = function(args) {
-      return convert.rgb.ansi16(convert.hsv.rgb(args), args[2]);
-    };
-    convert.rgb.ansi256 = function(args) {
-      const r = args[0];
-      const g2 = args[1];
-      const b2 = args[2];
-      if (r === g2 && g2 === b2) {
-        if (r < 8) {
-          return 16;
-        }
-        if (r > 248) {
-          return 231;
-        }
-        return Math.round((r - 8) / 247 * 24) + 232;
-      }
-      const ansi = 16 + 36 * Math.round(r / 255 * 5) + 6 * Math.round(g2 / 255 * 5) + Math.round(b2 / 255 * 5);
-      return ansi;
-    };
-    convert.ansi16.rgb = function(args) {
-      let color2 = args % 10;
-      if (color2 === 0 || color2 === 7) {
-        if (args > 50) {
-          color2 += 3.5;
-        }
-        color2 = color2 / 10.5 * 255;
-        return [color2, color2, color2];
-      }
-      const mult = (~~(args > 50) + 1) * 0.5;
-      const r = (color2 & 1) * mult * 255;
-      const g2 = (color2 >> 1 & 1) * mult * 255;
-      const b2 = (color2 >> 2 & 1) * mult * 255;
-      return [r, g2, b2];
-    };
-    convert.ansi256.rgb = function(args) {
-      if (args >= 232) {
-        const c = (args - 232) * 10 + 8;
-        return [c, c, c];
-      }
-      args -= 16;
-      let rem;
-      const r = Math.floor(args / 36) / 5 * 255;
-      const g2 = Math.floor((rem = args % 36) / 6) / 5 * 255;
-      const b2 = rem % 6 / 5 * 255;
-      return [r, g2, b2];
-    };
-    convert.rgb.hex = function(args) {
-      const integer = ((Math.round(args[0]) & 255) << 16) + ((Math.round(args[1]) & 255) << 8) + (Math.round(args[2]) & 255);
-      const string = integer.toString(16).toUpperCase();
-      return "000000".substring(string.length) + string;
-    };
-    convert.hex.rgb = function(args) {
-      const match2 = args.toString(16).match(/[a-f0-9]{6}|[a-f0-9]{3}/i);
-      if (!match2) {
-        return [0, 0, 0];
-      }
-      let colorString = match2[0];
-      if (match2[0].length === 3) {
-        colorString = colorString.split("").map((char) => {
-          return char + char;
-        }).join("");
-      }
-      const integer = parseInt(colorString, 16);
-      const r = integer >> 16 & 255;
-      const g2 = integer >> 8 & 255;
-      const b2 = integer & 255;
-      return [r, g2, b2];
-    };
-    convert.rgb.hcg = function(rgb2) {
-      const r = rgb2[0] / 255;
-      const g2 = rgb2[1] / 255;
-      const b2 = rgb2[2] / 255;
-      const max2 = Math.max(Math.max(r, g2), b2);
-      const min2 = Math.min(Math.min(r, g2), b2);
-      const chroma = max2 - min2;
-      let grayscale;
-      let hue;
-      if (chroma < 1) {
-        grayscale = min2 / (1 - chroma);
-      } else {
-        grayscale = 0;
-      }
-      if (chroma <= 0) {
-        hue = 0;
-      } else if (max2 === r) {
-        hue = (g2 - b2) / chroma % 6;
-      } else if (max2 === g2) {
-        hue = 2 + (b2 - r) / chroma;
-      } else {
-        hue = 4 + (r - g2) / chroma;
-      }
-      hue /= 6;
-      hue %= 1;
-      return [hue * 360, chroma * 100, grayscale * 100];
-    };
-    convert.hsl.hcg = function(hsl2) {
-      const s = hsl2[1] / 100;
-      const l = hsl2[2] / 100;
-      const c = l < 0.5 ? 2 * s * l : 2 * s * (1 - l);
-      let f = 0;
-      if (c < 1) {
-        f = (l - 0.5 * c) / (1 - c);
-      }
-      return [hsl2[0], c * 100, f * 100];
-    };
-    convert.hsv.hcg = function(hsv) {
-      const s = hsv[1] / 100;
-      const v2 = hsv[2] / 100;
-      const c = s * v2;
-      let f = 0;
-      if (c < 1) {
-        f = (v2 - c) / (1 - c);
-      }
-      return [hsv[0], c * 100, f * 100];
-    };
-    convert.hcg.rgb = function(hcg) {
-      const h = hcg[0] / 360;
-      const c = hcg[1] / 100;
-      const g2 = hcg[2] / 100;
-      if (c === 0) {
-        return [g2 * 255, g2 * 255, g2 * 255];
-      }
-      const pure = [0, 0, 0];
-      const hi = h % 1 * 6;
-      const v2 = hi % 1;
-      const w2 = 1 - v2;
-      let mg = 0;
-      switch (Math.floor(hi)) {
-        case 0:
-          pure[0] = 1;
-          pure[1] = v2;
-          pure[2] = 0;
-          break;
-        case 1:
-          pure[0] = w2;
-          pure[1] = 1;
-          pure[2] = 0;
-          break;
-        case 2:
-          pure[0] = 0;
-          pure[1] = 1;
-          pure[2] = v2;
-          break;
-        case 3:
-          pure[0] = 0;
-          pure[1] = w2;
-          pure[2] = 1;
-          break;
-        case 4:
-          pure[0] = v2;
-          pure[1] = 0;
-          pure[2] = 1;
-          break;
-        default:
-          pure[0] = 1;
-          pure[1] = 0;
-          pure[2] = w2;
-      }
-      mg = (1 - c) * g2;
-      return [
-        (c * pure[0] + mg) * 255,
-        (c * pure[1] + mg) * 255,
-        (c * pure[2] + mg) * 255
-      ];
-    };
-    convert.hcg.hsv = function(hcg) {
-      const c = hcg[1] / 100;
-      const g2 = hcg[2] / 100;
-      const v2 = c + g2 * (1 - c);
-      let f = 0;
-      if (v2 > 0) {
-        f = c / v2;
-      }
-      return [hcg[0], f * 100, v2 * 100];
-    };
-    convert.hcg.hsl = function(hcg) {
-      const c = hcg[1] / 100;
-      const g2 = hcg[2] / 100;
-      const l = g2 * (1 - c) + 0.5 * c;
-      let s = 0;
-      if (l > 0 && l < 0.5) {
-        s = c / (2 * l);
-      } else if (l >= 0.5 && l < 1) {
-        s = c / (2 * (1 - l));
-      }
-      return [hcg[0], s * 100, l * 100];
-    };
-    convert.hcg.hwb = function(hcg) {
-      const c = hcg[1] / 100;
-      const g2 = hcg[2] / 100;
-      const v2 = c + g2 * (1 - c);
-      return [hcg[0], (v2 - c) * 100, (1 - v2) * 100];
-    };
-    convert.hwb.hcg = function(hwb) {
-      const w2 = hwb[1] / 100;
-      const b2 = hwb[2] / 100;
-      const v2 = 1 - b2;
-      const c = v2 - w2;
-      let g2 = 0;
-      if (c < 1) {
-        g2 = (v2 - c) / (1 - c);
-      }
-      return [hwb[0], c * 100, g2 * 100];
-    };
-    convert.apple.rgb = function(apple) {
-      return [apple[0] / 65535 * 255, apple[1] / 65535 * 255, apple[2] / 65535 * 255];
-    };
-    convert.rgb.apple = function(rgb2) {
-      return [rgb2[0] / 255 * 65535, rgb2[1] / 255 * 65535, rgb2[2] / 255 * 65535];
-    };
-    convert.gray.rgb = function(args) {
-      return [args[0] / 100 * 255, args[0] / 100 * 255, args[0] / 100 * 255];
-    };
-    convert.gray.hsl = function(args) {
-      return [0, 0, args[0]];
-    };
-    convert.gray.hsv = convert.gray.hsl;
-    convert.gray.hwb = function(gray) {
-      return [0, 100, gray[0]];
-    };
-    convert.gray.cmyk = function(gray) {
-      return [0, 0, 0, gray[0]];
-    };
-    convert.gray.lab = function(gray) {
-      return [gray[0], 0, 0];
-    };
-    convert.gray.hex = function(gray) {
-      const val = Math.round(gray[0] / 100 * 255) & 255;
-      const integer = (val << 16) + (val << 8) + val;
-      const string = integer.toString(16).toUpperCase();
-      return "000000".substring(string.length) + string;
-    };
-    convert.rgb.gray = function(rgb2) {
-      const val = (rgb2[0] + rgb2[1] + rgb2[2]) / 3;
-      return [val / 255 * 100];
-    };
-  }
-});
-
-// ../node_modules/color-convert/route.js
-var require_route = __commonJS({
-  "../node_modules/color-convert/route.js"(exports, module) {
-    "use strict";
-    var conversions = require_conversions();
-    function buildGraph() {
-      const graph = {};
-      const models = Object.keys(conversions);
-      for (let len = models.length, i = 0; i < len; i++) {
-        graph[models[i]] = {
-          // http://jsperf.com/1-vs-infinity
-          // micro-opt, but this is simple.
-          distance: -1,
-          parent: null
-        };
-      }
-      return graph;
-    }
-    function deriveBFS(fromModel) {
-      const graph = buildGraph();
-      const queue = [fromModel];
-      graph[fromModel].distance = 0;
-      while (queue.length) {
-        const current = queue.pop();
-        const adjacents = Object.keys(conversions[current]);
-        for (let len = adjacents.length, i = 0; i < len; i++) {
-          const adjacent = adjacents[i];
-          const node = graph[adjacent];
-          if (node.distance === -1) {
-            node.distance = graph[current].distance + 1;
-            node.parent = current;
-            queue.unshift(adjacent);
-          }
-        }
-      }
-      return graph;
-    }
-    function link(from2, to2) {
-      return function(args) {
-        return to2(from2(args));
-      };
-    }
-    function wrapConversion(toModel, graph) {
-      const path = [graph[toModel].parent, toModel];
-      let fn2 = conversions[graph[toModel].parent][toModel];
-      let cur = graph[toModel].parent;
-      while (graph[cur].parent) {
-        path.unshift(graph[cur].parent);
-        fn2 = link(conversions[graph[cur].parent][cur], fn2);
-        cur = graph[cur].parent;
-      }
-      fn2.conversion = path;
-      return fn2;
-    }
-    module.exports = function(fromModel) {
-      const graph = deriveBFS(fromModel);
-      const conversion = {};
-      const models = Object.keys(graph);
-      for (let len = models.length, i = 0; i < len; i++) {
-        const toModel = models[i];
-        const node = graph[toModel];
-        if (node.parent === null) {
-          continue;
-        }
-        conversion[toModel] = wrapConversion(toModel, graph);
-      }
-      return conversion;
-    };
-  }
-});
-
-// ../node_modules/color-convert/index.js
-var require_color_convert = __commonJS({
-  "../node_modules/color-convert/index.js"(exports, module) {
-    "use strict";
-    var conversions = require_conversions();
-    var route = require_route();
-    var convert = {};
-    var models = Object.keys(conversions);
-    function wrapRaw(fn2) {
-      const wrappedFn = function(...args) {
-        const arg0 = args[0];
-        if (arg0 === void 0 || arg0 === null) {
-          return arg0;
-        }
-        if (arg0.length > 1) {
-          args = arg0;
-        }
-        return fn2(args);
-      };
-      if ("conversion" in fn2) {
-        wrappedFn.conversion = fn2.conversion;
-      }
-      return wrappedFn;
-    }
-    function wrapRounded(fn2) {
-      const wrappedFn = function(...args) {
-        const arg0 = args[0];
-        if (arg0 === void 0 || arg0 === null) {
-          return arg0;
-        }
-        if (arg0.length > 1) {
-          args = arg0;
-        }
-        const result = fn2(args);
-        if (typeof result === "object") {
-          for (let len = result.length, i = 0; i < len; i++) {
-            result[i] = Math.round(result[i]);
-          }
-        }
-        return result;
-      };
-      if ("conversion" in fn2) {
-        wrappedFn.conversion = fn2.conversion;
-      }
-      return wrappedFn;
-    }
-    models.forEach((fromModel) => {
-      convert[fromModel] = {};
-      Object.defineProperty(convert[fromModel], "channels", { value: conversions[fromModel].channels });
-      Object.defineProperty(convert[fromModel], "labels", { value: conversions[fromModel].labels });
-      const routes2 = route(fromModel);
-      const routeModels = Object.keys(routes2);
-      routeModels.forEach((toModel) => {
-        const fn2 = routes2[toModel];
-        convert[fromModel][toModel] = wrapRounded(fn2);
-        convert[fromModel][toModel].raw = wrapRaw(fn2);
-      });
-    });
-    module.exports = convert;
-  }
-});
-
-// ../node_modules/ansi-styles/index.js
-var require_ansi_styles = __commonJS({
-  "../node_modules/ansi-styles/index.js"(exports, module) {
-    "use strict";
-    var wrapAnsi16 = (fn2, offset) => (...args) => {
-      const code = fn2(...args);
-      return `\x1B[${code + offset}m`;
-    };
-    var wrapAnsi256 = (fn2, offset) => (...args) => {
-      const code = fn2(...args);
-      return `\x1B[${38 + offset};5;${code}m`;
-    };
-    var wrapAnsi16m = (fn2, offset) => (...args) => {
-      const rgb2 = fn2(...args);
-      return `\x1B[${38 + offset};2;${rgb2[0]};${rgb2[1]};${rgb2[2]}m`;
-    };
-    var ansi2ansi = (n) => n;
-    var rgb2rgb = (r, g2, b2) => [r, g2, b2];
-    var setLazyProperty = (object, property, get3) => {
-      Object.defineProperty(object, property, {
-        get: () => {
-          const value = get3();
-          Object.defineProperty(object, property, {
-            value,
-            enumerable: true,
-            configurable: true
-          });
-          return value;
-        },
-        enumerable: true,
-        configurable: true
-      });
-    };
-    var colorConvert;
-    var makeDynamicStyles = (wrap, targetSpace, identity4, isBackground) => {
-      if (colorConvert === void 0) {
-        colorConvert = require_color_convert();
-      }
-      const offset = isBackground ? 10 : 0;
-      const styles = {};
-      for (const [sourceSpace, suite] of Object.entries(colorConvert)) {
-        const name = sourceSpace === "ansi16" ? "ansi" : sourceSpace;
-        if (sourceSpace === targetSpace) {
-          styles[name] = wrap(identity4, offset);
-        } else if (typeof suite === "object") {
-          styles[name] = wrap(suite[targetSpace], offset);
-        }
-      }
-      return styles;
-    };
-    function assembleStyles() {
-      const codes = /* @__PURE__ */ new Map();
-      const styles = {
-        modifier: {
-          reset: [0, 0],
-          // 21 isn't widely supported and 22 does the same thing
-          bold: [1, 22],
-          dim: [2, 22],
-          italic: [3, 23],
-          underline: [4, 24],
-          inverse: [7, 27],
-          hidden: [8, 28],
-          strikethrough: [9, 29]
-        },
-        color: {
-          black: [30, 39],
-          red: [31, 39],
-          green: [32, 39],
-          yellow: [33, 39],
-          blue: [34, 39],
-          magenta: [35, 39],
-          cyan: [36, 39],
-          white: [37, 39],
-          // Bright color
-          blackBright: [90, 39],
-          redBright: [91, 39],
-          greenBright: [92, 39],
-          yellowBright: [93, 39],
-          blueBright: [94, 39],
-          magentaBright: [95, 39],
-          cyanBright: [96, 39],
-          whiteBright: [97, 39]
-        },
-        bgColor: {
-          bgBlack: [40, 49],
-          bgRed: [41, 49],
-          bgGreen: [42, 49],
-          bgYellow: [43, 49],
-          bgBlue: [44, 49],
-          bgMagenta: [45, 49],
-          bgCyan: [46, 49],
-          bgWhite: [47, 49],
-          // Bright color
-          bgBlackBright: [100, 49],
-          bgRedBright: [101, 49],
-          bgGreenBright: [102, 49],
-          bgYellowBright: [103, 49],
-          bgBlueBright: [104, 49],
-          bgMagentaBright: [105, 49],
-          bgCyanBright: [106, 49],
-          bgWhiteBright: [107, 49]
-        }
-      };
-      styles.color.gray = styles.color.blackBright;
-      styles.bgColor.bgGray = styles.bgColor.bgBlackBright;
-      styles.color.grey = styles.color.blackBright;
-      styles.bgColor.bgGrey = styles.bgColor.bgBlackBright;
-      for (const [groupName, group] of Object.entries(styles)) {
-        for (const [styleName, style] of Object.entries(group)) {
-          styles[styleName] = {
-            open: `\x1B[${style[0]}m`,
-            close: `\x1B[${style[1]}m`
-          };
-          group[styleName] = styles[styleName];
-          codes.set(style[0], style[1]);
-        }
-        Object.defineProperty(styles, groupName, {
-          value: group,
-          enumerable: false
-        });
-      }
-      Object.defineProperty(styles, "codes", {
-        value: codes,
-        enumerable: false
-      });
-      styles.color.close = "\x1B[39m";
-      styles.bgColor.close = "\x1B[49m";
-      setLazyProperty(styles.color, "ansi", () => makeDynamicStyles(wrapAnsi16, "ansi16", ansi2ansi, false));
-      setLazyProperty(styles.color, "ansi256", () => makeDynamicStyles(wrapAnsi256, "ansi256", ansi2ansi, false));
-      setLazyProperty(styles.color, "ansi16m", () => makeDynamicStyles(wrapAnsi16m, "rgb", rgb2rgb, false));
-      setLazyProperty(styles.bgColor, "ansi", () => makeDynamicStyles(wrapAnsi16, "ansi16", ansi2ansi, true));
-      setLazyProperty(styles.bgColor, "ansi256", () => makeDynamicStyles(wrapAnsi256, "ansi256", ansi2ansi, true));
-      setLazyProperty(styles.bgColor, "ansi16m", () => makeDynamicStyles(wrapAnsi16m, "rgb", rgb2rgb, true));
-      return styles;
-    }
-    Object.defineProperty(module, "exports", {
-      enumerable: true,
-      get: assembleStyles
-    });
-  }
-});
-
-// ../node_modules/supports-color/browser.js
-var require_browser = __commonJS({
-  "../node_modules/supports-color/browser.js"(exports, module) {
-    "use strict";
-    module.exports = {
-      stdout: false,
-      stderr: false
-    };
-  }
-});
-
-// ../node_modules/chalk/source/util.js
-var require_util = __commonJS({
-  "../node_modules/chalk/source/util.js"(exports, module) {
-    "use strict";
-    var stringReplaceAll = (string, substring, replacer) => {
-      let index = string.indexOf(substring);
-      if (index === -1) {
-        return string;
-      }
-      const substringLength = substring.length;
-      let endIndex = 0;
-      let returnValue = "";
-      do {
-        returnValue += string.substr(endIndex, index - endIndex) + substring + replacer;
-        endIndex = index + substringLength;
-        index = string.indexOf(substring, endIndex);
-      } while (index !== -1);
-      returnValue += string.substr(endIndex);
-      return returnValue;
-    };
-    var stringEncaseCRLFWithFirstIndex = (string, prefix, postfix, index) => {
-      let endIndex = 0;
-      let returnValue = "";
-      do {
-        const gotCR = string[index - 1] === "\r";
-        returnValue += string.substr(endIndex, (gotCR ? index - 1 : index) - endIndex) + prefix + (gotCR ? "\r\n" : "\n") + postfix;
-        endIndex = index + 1;
-        index = string.indexOf("\n", endIndex);
-      } while (index !== -1);
-      returnValue += string.substr(endIndex);
-      return returnValue;
-    };
-    module.exports = {
-      stringReplaceAll,
-      stringEncaseCRLFWithFirstIndex
-    };
-  }
-});
-
-// ../node_modules/chalk/source/templates.js
-var require_templates = __commonJS({
-  "../node_modules/chalk/source/templates.js"(exports, module) {
-    "use strict";
-    var TEMPLATE_REGEX = /(?:\\(u(?:[a-f\d]{4}|\{[a-f\d]{1,6}\})|x[a-f\d]{2}|.))|(?:\{(~)?(\w+(?:\([^)]*\))?(?:\.\w+(?:\([^)]*\))?)*)(?:[ \t]|(?=\r?\n)))|(\})|((?:.|[\r\n\f])+?)/gi;
-    var STYLE_REGEX = /(?:^|\.)(\w+)(?:\(([^)]*)\))?/g;
-    var STRING_REGEX = /^(['"])((?:\\.|(?!\1)[^\\])*)\1$/;
-    var ESCAPE_REGEX = /\\(u(?:[a-f\d]{4}|{[a-f\d]{1,6}})|x[a-f\d]{2}|.)|([^\\])/gi;
-    var ESCAPES = /* @__PURE__ */ new Map([
-      ["n", "\n"],
-      ["r", "\r"],
-      ["t", "	"],
-      ["b", "\b"],
-      ["f", "\f"],
-      ["v", "\v"],
-      ["0", "\0"],
-      ["\\", "\\"],
-      ["e", "\x1B"],
-      ["a", "\x07"]
-    ]);
-    function unescape(c) {
-      const u2 = c[0] === "u";
-      const bracket = c[1] === "{";
-      if (u2 && !bracket && c.length === 5 || c[0] === "x" && c.length === 3) {
-        return String.fromCharCode(parseInt(c.slice(1), 16));
-      }
-      if (u2 && bracket) {
-        return String.fromCodePoint(parseInt(c.slice(2, -1), 16));
-      }
-      return ESCAPES.get(c) || c;
-    }
-    function parseArguments(name, arguments_) {
-      const results = [];
-      const chunks = arguments_.trim().split(/\s*,\s*/g);
-      let matches;
-      for (const chunk of chunks) {
-        const number = Number(chunk);
-        if (!Number.isNaN(number)) {
-          results.push(number);
-        } else if (matches = chunk.match(STRING_REGEX)) {
-          results.push(matches[2].replace(ESCAPE_REGEX, (m, escape, character) => escape ? unescape(escape) : character));
-        } else {
-          throw new Error(`Invalid Chalk template style argument: ${chunk} (in style '${name}')`);
-        }
-      }
-      return results;
-    }
-    function parseStyle2(style) {
-      STYLE_REGEX.lastIndex = 0;
-      const results = [];
-      let matches;
-      while ((matches = STYLE_REGEX.exec(style)) !== null) {
-        const name = matches[1];
-        if (matches[2]) {
-          const args = parseArguments(name, matches[2]);
-          results.push([name].concat(args));
-        } else {
-          results.push([name]);
-        }
-      }
-      return results;
-    }
-    function buildStyle(chalk2, styles) {
-      const enabled = {};
-      for (const layer of styles) {
-        for (const style of layer.styles) {
-          enabled[style[0]] = layer.inverse ? null : style.slice(1);
-        }
-      }
-      let current = chalk2;
-      for (const [styleName, styles2] of Object.entries(enabled)) {
-        if (!Array.isArray(styles2)) {
-          continue;
-        }
-        if (!(styleName in current)) {
-          throw new Error(`Unknown Chalk style: ${styleName}`);
-        }
-        current = styles2.length > 0 ? current[styleName](...styles2) : current[styleName];
-      }
-      return current;
-    }
-    module.exports = (chalk2, temporary) => {
-      const styles = [];
-      const chunks = [];
-      let chunk = [];
-      temporary.replace(TEMPLATE_REGEX, (m, escapeCharacter, inverse, style, close, character) => {
-        if (escapeCharacter) {
-          chunk.push(unescape(escapeCharacter));
-        } else if (style) {
-          const string = chunk.join("");
-          chunk = [];
-          chunks.push(styles.length === 0 ? string : buildStyle(chalk2, styles)(string));
-          styles.push({ inverse, styles: parseStyle2(style) });
-        } else if (close) {
-          if (styles.length === 0) {
-            throw new Error("Found extraneous } in Chalk template literal");
-          }
-          chunks.push(buildStyle(chalk2, styles)(chunk.join("")));
-          chunk = [];
-          styles.pop();
-        } else {
-          chunk.push(character);
-        }
-      });
-      chunks.push(chunk.join(""));
-      if (styles.length > 0) {
-        const errMessage = `Chalk template literal is missing ${styles.length} closing bracket${styles.length === 1 ? "" : "s"} (\`}\`)`;
-        throw new Error(errMessage);
-      }
-      return chunks.join("");
-    };
-  }
-});
-
-// ../node_modules/chalk/source/index.js
-var require_source = __commonJS({
-  "../node_modules/chalk/source/index.js"(exports, module) {
-    "use strict";
-    var ansiStyles = require_ansi_styles();
-    var { stdout: stdoutColor, stderr: stderrColor } = require_browser();
-    var {
-      stringReplaceAll,
-      stringEncaseCRLFWithFirstIndex
-    } = require_util();
-    var { isArray: isArray3 } = Array;
-    var levelMapping = [
-      "ansi",
-      "ansi",
-      "ansi256",
-      "ansi16m"
+    var IDENT_RE = "[A-Za-z$_][0-9A-Za-z$_]*";
+    var KEYWORDS = [
+      "as",
+      // for exports
+      "in",
+      "of",
+      "if",
+      "for",
+      "while",
+      "finally",
+      "var",
+      "new",
+      "function",
+      "do",
+      "return",
+      "void",
+      "else",
+      "break",
+      "catch",
+      "instanceof",
+      "with",
+      "throw",
+      "case",
+      "default",
+      "try",
+      "switch",
+      "continue",
+      "typeof",
+      "delete",
+      "let",
+      "yield",
+      "const",
+      "class",
+      // JS handles these with a special rule
+      // "get",
+      // "set",
+      "debugger",
+      "async",
+      "await",
+      "static",
+      "import",
+      "from",
+      "export",
+      "extends",
+      // It's reached stage 3, which is "recommended for implementation":
+      "using"
     ];
-    var styles = /* @__PURE__ */ Object.create(null);
-    var applyOptions = (object, options = {}) => {
-      if (options.level && !(Number.isInteger(options.level) && options.level >= 0 && options.level <= 3)) {
-        throw new Error("The `level` option should be an integer from 0 to 3");
-      }
-      const colorLevel = stdoutColor ? stdoutColor.level : 0;
-      object.level = options.level === void 0 ? colorLevel : options.level;
-    };
-    var ChalkClass = class {
-      constructor(options) {
-        return chalkFactory(options);
-      }
-    };
-    var chalkFactory = (options) => {
-      const chalk3 = {};
-      applyOptions(chalk3, options);
-      chalk3.template = (...arguments_) => chalkTag(chalk3.template, ...arguments_);
-      Object.setPrototypeOf(chalk3, Chalk.prototype);
-      Object.setPrototypeOf(chalk3.template, chalk3);
-      chalk3.template.constructor = () => {
-        throw new Error("`chalk.constructor()` is deprecated. Use `new chalk.Instance()` instead.");
+    var LITERALS = [
+      "true",
+      "false",
+      "null",
+      "undefined",
+      "NaN",
+      "Infinity"
+    ];
+    var TYPES = [
+      // Fundamental objects
+      "Object",
+      "Function",
+      "Boolean",
+      "Symbol",
+      // numbers and dates
+      "Math",
+      "Date",
+      "Number",
+      "BigInt",
+      // text
+      "String",
+      "RegExp",
+      // Indexed collections
+      "Array",
+      "Float32Array",
+      "Float64Array",
+      "Int8Array",
+      "Uint8Array",
+      "Uint8ClampedArray",
+      "Int16Array",
+      "Int32Array",
+      "Uint16Array",
+      "Uint32Array",
+      "BigInt64Array",
+      "BigUint64Array",
+      // Keyed collections
+      "Set",
+      "Map",
+      "WeakSet",
+      "WeakMap",
+      // Structured data
+      "ArrayBuffer",
+      "SharedArrayBuffer",
+      "Atomics",
+      "DataView",
+      "JSON",
+      // Control abstraction objects
+      "Promise",
+      "Generator",
+      "GeneratorFunction",
+      "AsyncFunction",
+      // Reflection
+      "Reflect",
+      "Proxy",
+      // Internationalization
+      "Intl",
+      // WebAssembly
+      "WebAssembly"
+    ];
+    var ERROR_TYPES = [
+      "Error",
+      "EvalError",
+      "InternalError",
+      "RangeError",
+      "ReferenceError",
+      "SyntaxError",
+      "TypeError",
+      "URIError"
+    ];
+    var BUILT_IN_GLOBALS = [
+      "setInterval",
+      "setTimeout",
+      "clearInterval",
+      "clearTimeout",
+      "require",
+      "exports",
+      "eval",
+      "isFinite",
+      "isNaN",
+      "parseFloat",
+      "parseInt",
+      "decodeURI",
+      "decodeURIComponent",
+      "encodeURI",
+      "encodeURIComponent",
+      "escape",
+      "unescape"
+    ];
+    var BUILT_IN_VARIABLES = [
+      "arguments",
+      "this",
+      "super",
+      "console",
+      "window",
+      "document",
+      "localStorage",
+      "sessionStorage",
+      "module",
+      "global"
+      // Node.js
+    ];
+    var BUILT_INS = [].concat(
+      BUILT_IN_GLOBALS,
+      TYPES,
+      ERROR_TYPES
+    );
+    function javascript(hljs2) {
+      const regex = hljs2.regex;
+      const hasClosingTag = (match2, { after }) => {
+        const tag = "</" + match2[0].slice(1);
+        const pos = match2.input.indexOf(tag, after);
+        return pos !== -1;
       };
-      chalk3.template.Instance = ChalkClass;
-      return chalk3.template;
-    };
-    function Chalk(options) {
-      return chalkFactory(options);
-    }
-    for (const [styleName, style] of Object.entries(ansiStyles)) {
-      styles[styleName] = {
-        get() {
-          const builder = createBuilder(this, createStyler(style.open, style.close, this._styler), this._isEmpty);
-          Object.defineProperty(this, styleName, { value: builder });
-          return builder;
+      const IDENT_RE$1 = IDENT_RE;
+      const FRAGMENT = {
+        begin: "<>",
+        end: "</>"
+      };
+      const XML_SELF_CLOSING = /<[A-Za-z0-9\\._:-]+\s*\/>/;
+      const XML_TAG = {
+        begin: /<[A-Za-z0-9\\._:-]+/,
+        end: /\/[A-Za-z0-9\\._:-]+>|\/>/,
+        /**
+         * @param {RegExpMatchArray} match
+         * @param {CallbackResponse} response
+         */
+        isTrulyOpeningTag: (match2, response) => {
+          const afterMatchIndex = match2[0].length + match2.index;
+          const nextChar = match2.input[afterMatchIndex];
+          if (
+            // HTML should not include another raw `<` inside a tag
+            // nested type?
+            // `<Array<Array<number>>`, etc.
+            nextChar === "<" || // the , gives away that this is not HTML
+            // `<T, A extends keyof T, V>`
+            nextChar === ","
+          ) {
+            response.ignoreMatch();
+            return;
+          }
+          if (nextChar === ">") {
+            if (!hasClosingTag(match2, { after: afterMatchIndex })) {
+              response.ignoreMatch();
+            }
+          }
+          let m;
+          const afterMatch = match2.input.substring(afterMatchIndex);
+          if (m = afterMatch.match(/^\s*=/)) {
+            response.ignoreMatch();
+            return;
+          }
+          if (m = afterMatch.match(/^\s+extends\s+/)) {
+            if (m.index === 0) {
+              response.ignoreMatch();
+              return;
+            }
+          }
         }
       };
-    }
-    styles.visible = {
-      get() {
-        const builder = createBuilder(this, this._styler, true);
-        Object.defineProperty(this, "visible", { value: builder });
-        return builder;
-      }
-    };
-    var usedModels = ["rgb", "hex", "keyword", "hsl", "hsv", "hwb", "ansi", "ansi256"];
-    for (const model2 of usedModels) {
-      styles[model2] = {
-        get() {
-          const { level } = this;
-          return function(...arguments_) {
-            const styler = createStyler(ansiStyles.color[levelMapping[level]][model2](...arguments_), ansiStyles.color.close, this._styler);
-            return createBuilder(this, styler, this._isEmpty);
-          };
+      const KEYWORDS$1 = {
+        $pattern: IDENT_RE,
+        keyword: KEYWORDS,
+        literal: LITERALS,
+        built_in: BUILT_INS,
+        "variable.language": BUILT_IN_VARIABLES
+      };
+      const decimalDigits = "[0-9](_?[0-9])*";
+      const frac = `\\.(${decimalDigits})`;
+      const decimalInteger = `0|[1-9](_?[0-9])*|0[0-7]*[89][0-9]*`;
+      const NUMBER = {
+        className: "number",
+        variants: [
+          // DecimalLiteral
+          { begin: `(\\b(${decimalInteger})((${frac})|\\.)?|(${frac}))[eE][+-]?(${decimalDigits})\\b` },
+          { begin: `\\b(${decimalInteger})\\b((${frac})\\b|\\.)?|(${frac})\\b` },
+          // DecimalBigIntegerLiteral
+          { begin: `\\b(0|[1-9](_?[0-9])*)n\\b` },
+          // NonDecimalIntegerLiteral
+          { begin: "\\b0[xX][0-9a-fA-F](_?[0-9a-fA-F])*n?\\b" },
+          { begin: "\\b0[bB][0-1](_?[0-1])*n?\\b" },
+          { begin: "\\b0[oO][0-7](_?[0-7])*n?\\b" },
+          // LegacyOctalIntegerLiteral (does not include underscore separators)
+          // https://tc39.es/ecma262/#sec-additional-syntax-numeric-literals
+          { begin: "\\b0[0-7]+n?\\b" }
+        ],
+        relevance: 0
+      };
+      const SUBST = {
+        className: "subst",
+        begin: "\\$\\{",
+        end: "\\}",
+        keywords: KEYWORDS$1,
+        contains: []
+        // defined later
+      };
+      const HTML_TEMPLATE = {
+        begin: ".?html`",
+        end: "",
+        starts: {
+          end: "`",
+          returnEnd: false,
+          contains: [
+            hljs2.BACKSLASH_ESCAPE,
+            SUBST
+          ],
+          subLanguage: "xml"
         }
       };
-    }
-    for (const model2 of usedModels) {
-      const bgModel = "bg" + model2[0].toUpperCase() + model2.slice(1);
-      styles[bgModel] = {
-        get() {
-          const { level } = this;
-          return function(...arguments_) {
-            const styler = createStyler(ansiStyles.bgColor[levelMapping[level]][model2](...arguments_), ansiStyles.bgColor.close, this._styler);
-            return createBuilder(this, styler, this._isEmpty);
-          };
+      const CSS_TEMPLATE = {
+        begin: ".?css`",
+        end: "",
+        starts: {
+          end: "`",
+          returnEnd: false,
+          contains: [
+            hljs2.BACKSLASH_ESCAPE,
+            SUBST
+          ],
+          subLanguage: "css"
         }
       };
-    }
-    var proto = Object.defineProperties(() => {
-    }, __spreadProps(__spreadValues({}, styles), {
-      level: {
-        enumerable: true,
-        get() {
-          return this._generator.level;
+      const GRAPHQL_TEMPLATE = {
+        begin: ".?gql`",
+        end: "",
+        starts: {
+          end: "`",
+          returnEnd: false,
+          contains: [
+            hljs2.BACKSLASH_ESCAPE,
+            SUBST
+          ],
+          subLanguage: "graphql"
+        }
+      };
+      const TEMPLATE_STRING = {
+        className: "string",
+        begin: "`",
+        end: "`",
+        contains: [
+          hljs2.BACKSLASH_ESCAPE,
+          SUBST
+        ]
+      };
+      const JSDOC_COMMENT = hljs2.COMMENT(
+        /\/\*\*(?!\/)/,
+        "\\*/",
+        {
+          relevance: 0,
+          contains: [
+            {
+              begin: "(?=@[A-Za-z]+)",
+              relevance: 0,
+              contains: [
+                {
+                  className: "doctag",
+                  begin: "@[A-Za-z]+"
+                },
+                {
+                  className: "type",
+                  begin: "\\{",
+                  end: "\\}",
+                  excludeEnd: true,
+                  excludeBegin: true,
+                  relevance: 0
+                },
+                {
+                  className: "variable",
+                  begin: IDENT_RE$1 + "(?=\\s*(-)|$)",
+                  endsParent: true,
+                  relevance: 0
+                },
+                // eat spaces (not newlines) so we can find
+                // types or variables
+                {
+                  begin: /(?=[^\n])\s/,
+                  relevance: 0
+                }
+              ]
+            }
+          ]
+        }
+      );
+      const COMMENT = {
+        className: "comment",
+        variants: [
+          JSDOC_COMMENT,
+          hljs2.C_BLOCK_COMMENT_MODE,
+          hljs2.C_LINE_COMMENT_MODE
+        ]
+      };
+      const SUBST_INTERNALS = [
+        hljs2.APOS_STRING_MODE,
+        hljs2.QUOTE_STRING_MODE,
+        HTML_TEMPLATE,
+        CSS_TEMPLATE,
+        GRAPHQL_TEMPLATE,
+        TEMPLATE_STRING,
+        // Skip numbers when they are part of a variable name
+        { match: /\$\d+/ },
+        NUMBER
+        // This is intentional:
+        // See https://github.com/highlightjs/highlight.js/issues/3288
+        // hljs.REGEXP_MODE
+      ];
+      SUBST.contains = SUBST_INTERNALS.concat({
+        // we need to pair up {} inside our subst to prevent
+        // it from ending too early by matching another }
+        begin: /\{/,
+        end: /\}/,
+        keywords: KEYWORDS$1,
+        contains: [
+          "self"
+        ].concat(SUBST_INTERNALS)
+      });
+      const SUBST_AND_COMMENTS = [].concat(COMMENT, SUBST.contains);
+      const PARAMS_CONTAINS = SUBST_AND_COMMENTS.concat([
+        // eat recursive parens in sub expressions
+        {
+          begin: /(\s*)\(/,
+          end: /\)/,
+          keywords: KEYWORDS$1,
+          contains: ["self"].concat(SUBST_AND_COMMENTS)
+        }
+      ]);
+      const PARAMS = {
+        className: "params",
+        // convert this to negative lookbehind in v12
+        begin: /(\s*)\(/,
+        // to match the parms with
+        end: /\)/,
+        excludeBegin: true,
+        excludeEnd: true,
+        keywords: KEYWORDS$1,
+        contains: PARAMS_CONTAINS
+      };
+      const CLASS_OR_EXTENDS = {
+        variants: [
+          // class Car extends vehicle
+          {
+            match: [
+              /class/,
+              /\s+/,
+              IDENT_RE$1,
+              /\s+/,
+              /extends/,
+              /\s+/,
+              regex.concat(IDENT_RE$1, "(", regex.concat(/\./, IDENT_RE$1), ")*")
+            ],
+            scope: {
+              1: "keyword",
+              3: "title.class",
+              5: "keyword",
+              7: "title.class.inherited"
+            }
+          },
+          // class Car
+          {
+            match: [
+              /class/,
+              /\s+/,
+              IDENT_RE$1
+            ],
+            scope: {
+              1: "keyword",
+              3: "title.class"
+            }
+          }
+        ]
+      };
+      const CLASS_REFERENCE = {
+        relevance: 0,
+        match: regex.either(
+          // Hard coded exceptions
+          /\bJSON/,
+          // Float32Array, OutT
+          /\b[A-Z][a-z]+([A-Z][a-z]*|\d)*/,
+          // CSSFactory, CSSFactoryT
+          /\b[A-Z]{2,}([A-Z][a-z]+|\d)+([A-Z][a-z]*)*/,
+          // FPs, FPsT
+          /\b[A-Z]{2,}[a-z]+([A-Z][a-z]+|\d)*([A-Z][a-z]*)*/
+          // P
+          // single letters are not highlighted
+          // BLAH
+          // this will be flagged as a UPPER_CASE_CONSTANT instead
+        ),
+        className: "title.class",
+        keywords: {
+          _: [
+            // se we still get relevance credit for JS library classes
+            ...TYPES,
+            ...ERROR_TYPES
+          ]
+        }
+      };
+      const USE_STRICT = {
+        label: "use_strict",
+        className: "meta",
+        relevance: 10,
+        begin: /^\s*['"]use (strict|asm)['"]/
+      };
+      const FUNCTION_DEFINITION = {
+        variants: [
+          {
+            match: [
+              /function/,
+              /\s+/,
+              IDENT_RE$1,
+              /(?=\s*\()/
+            ]
+          },
+          // anonymous function
+          {
+            match: [
+              /function/,
+              /\s*(?=\()/
+            ]
+          }
+        ],
+        className: {
+          1: "keyword",
+          3: "title.function"
         },
-        set(level) {
-          this._generator.level = level;
-        }
+        label: "func.def",
+        contains: [PARAMS],
+        illegal: /%/
+      };
+      const UPPER_CASE_CONSTANT = {
+        relevance: 0,
+        match: /\b[A-Z][A-Z_0-9]+\b/,
+        className: "variable.constant"
+      };
+      function noneOf(list) {
+        return regex.concat("(?!", list.join("|"), ")");
       }
-    }));
-    var createStyler = (open, close, parent) => {
-      let openAll;
-      let closeAll;
-      if (parent === void 0) {
-        openAll = open;
-        closeAll = close;
-      } else {
-        openAll = parent.openAll + open;
-        closeAll = close + parent.closeAll;
-      }
+      const FUNCTION_CALL = {
+        match: regex.concat(
+          /\b/,
+          noneOf([
+            ...BUILT_IN_GLOBALS,
+            "super",
+            "import"
+          ].map((x) => `${x}\\s*\\(`)),
+          IDENT_RE$1,
+          regex.lookahead(/\s*\(/)
+        ),
+        className: "title.function",
+        relevance: 0
+      };
+      const PROPERTY_ACCESS = {
+        begin: regex.concat(/\./, regex.lookahead(
+          regex.concat(IDENT_RE$1, /(?![0-9A-Za-z$_(])/)
+        )),
+        end: IDENT_RE$1,
+        excludeBegin: true,
+        keywords: "prototype",
+        className: "property",
+        relevance: 0
+      };
+      const GETTER_OR_SETTER = {
+        match: [
+          /get|set/,
+          /\s+/,
+          IDENT_RE$1,
+          /(?=\()/
+        ],
+        className: {
+          1: "keyword",
+          3: "title.function"
+        },
+        contains: [
+          {
+            // eat to avoid empty params
+            begin: /\(\)/
+          },
+          PARAMS
+        ]
+      };
+      const FUNC_LEAD_IN_RE = "(\\([^()]*(\\([^()]*(\\([^()]*\\)[^()]*)*\\)[^()]*)*\\)|" + hljs2.UNDERSCORE_IDENT_RE + ")\\s*=>";
+      const FUNCTION_VARIABLE = {
+        match: [
+          /const|var|let/,
+          /\s+/,
+          IDENT_RE$1,
+          /\s*/,
+          /=\s*/,
+          /(async\s*)?/,
+          // async is optional
+          regex.lookahead(FUNC_LEAD_IN_RE)
+        ],
+        keywords: "async",
+        className: {
+          1: "keyword",
+          3: "title.function"
+        },
+        contains: [
+          PARAMS
+        ]
+      };
       return {
-        open,
-        close,
-        openAll,
-        closeAll,
-        parent
+        name: "JavaScript",
+        aliases: ["js", "jsx", "mjs", "cjs"],
+        keywords: KEYWORDS$1,
+        // this will be extended by TypeScript
+        exports: { PARAMS_CONTAINS, CLASS_REFERENCE },
+        illegal: /#(?![$_A-z])/,
+        contains: [
+          hljs2.SHEBANG({
+            label: "shebang",
+            binary: "node",
+            relevance: 5
+          }),
+          USE_STRICT,
+          hljs2.APOS_STRING_MODE,
+          hljs2.QUOTE_STRING_MODE,
+          HTML_TEMPLATE,
+          CSS_TEMPLATE,
+          GRAPHQL_TEMPLATE,
+          TEMPLATE_STRING,
+          COMMENT,
+          // Skip numbers when they are part of a variable name
+          { match: /\$\d+/ },
+          NUMBER,
+          CLASS_REFERENCE,
+          {
+            scope: "attr",
+            match: IDENT_RE$1 + regex.lookahead(":"),
+            relevance: 0
+          },
+          FUNCTION_VARIABLE,
+          {
+            // "value" container
+            begin: "(" + hljs2.RE_STARTERS_RE + "|\\b(case|return|throw)\\b)\\s*",
+            keywords: "return throw case",
+            relevance: 0,
+            contains: [
+              COMMENT,
+              hljs2.REGEXP_MODE,
+              {
+                className: "function",
+                // we have to count the parens to make sure we actually have the
+                // correct bounding ( ) before the =>.  There could be any number of
+                // sub-expressions inside also surrounded by parens.
+                begin: FUNC_LEAD_IN_RE,
+                returnBegin: true,
+                end: "\\s*=>",
+                contains: [
+                  {
+                    className: "params",
+                    variants: [
+                      {
+                        begin: hljs2.UNDERSCORE_IDENT_RE,
+                        relevance: 0
+                      },
+                      {
+                        className: null,
+                        begin: /\(\s*\)/,
+                        skip: true
+                      },
+                      {
+                        begin: /(\s*)\(/,
+                        end: /\)/,
+                        excludeBegin: true,
+                        excludeEnd: true,
+                        keywords: KEYWORDS$1,
+                        contains: PARAMS_CONTAINS
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                // could be a comma delimited list of params to a function call
+                begin: /,/,
+                relevance: 0
+              },
+              {
+                match: /\s+/,
+                relevance: 0
+              },
+              {
+                // JSX
+                variants: [
+                  { begin: FRAGMENT.begin, end: FRAGMENT.end },
+                  { match: XML_SELF_CLOSING },
+                  {
+                    begin: XML_TAG.begin,
+                    // we carefully check the opening tag to see if it truly
+                    // is a tag and not a false positive
+                    "on:begin": XML_TAG.isTrulyOpeningTag,
+                    end: XML_TAG.end
+                  }
+                ],
+                subLanguage: "xml",
+                contains: [
+                  {
+                    begin: XML_TAG.begin,
+                    end: XML_TAG.end,
+                    skip: true,
+                    contains: ["self"]
+                  }
+                ]
+              }
+            ]
+          },
+          FUNCTION_DEFINITION,
+          {
+            // prevent this from getting swallowed up by function
+            // since they appear "function like"
+            beginKeywords: "while if switch catch for"
+          },
+          {
+            // we have to count the parens to make sure we actually have the correct
+            // bounding ( ).  There could be any number of sub-expressions inside
+            // also surrounded by parens.
+            begin: "\\b(?!function)" + hljs2.UNDERSCORE_IDENT_RE + "\\([^()]*(\\([^()]*(\\([^()]*\\)[^()]*)*\\)[^()]*)*\\)\\s*\\{",
+            // end parens
+            returnBegin: true,
+            label: "func.def",
+            contains: [
+              PARAMS,
+              hljs2.inherit(hljs2.TITLE_MODE, { begin: IDENT_RE$1, className: "title.function" })
+            ]
+          },
+          // catch ... so it won't trigger the property rule below
+          {
+            match: /\.\.\./,
+            relevance: 0
+          },
+          PROPERTY_ACCESS,
+          // hack: prevents detection of keywords in some circumstances
+          // .keyword()
+          // $keyword = x
+          {
+            match: "\\$" + IDENT_RE$1,
+            relevance: 0
+          },
+          {
+            match: [/\bconstructor(?=\s*\()/],
+            className: { 1: "title.function" },
+            contains: [PARAMS]
+          },
+          FUNCTION_CALL,
+          UPPER_CASE_CONSTANT,
+          CLASS_OR_EXTENDS,
+          GETTER_OR_SETTER,
+          {
+            match: /\$[(.]/
+            // relevance booster for a pattern common to JS libs: `$(something)` and `$.something`
+          }
+        ]
       };
-    };
-    var createBuilder = (self2, _styler, _isEmpty) => {
-      const builder = (...arguments_) => {
-        if (isArray3(arguments_[0]) && isArray3(arguments_[0].raw)) {
-          return applyStyle(builder, chalkTag(builder, ...arguments_));
+    }
+    function typescript2(hljs2) {
+      const regex = hljs2.regex;
+      const tsLanguage = javascript(hljs2);
+      const IDENT_RE$1 = IDENT_RE;
+      const TYPES2 = [
+        "any",
+        "void",
+        "number",
+        "boolean",
+        "string",
+        "object",
+        "never",
+        "symbol",
+        "bigint",
+        "unknown"
+      ];
+      const NAMESPACE = {
+        begin: [
+          /namespace/,
+          /\s+/,
+          hljs2.IDENT_RE
+        ],
+        beginScope: {
+          1: "keyword",
+          3: "title.class"
         }
-        return applyStyle(builder, arguments_.length === 1 ? "" + arguments_[0] : arguments_.join(" "));
       };
-      Object.setPrototypeOf(builder, proto);
-      builder._generator = self2;
-      builder._styler = _styler;
-      builder._isEmpty = _isEmpty;
-      return builder;
-    };
-    var applyStyle = (self2, string) => {
-      if (self2.level <= 0 || !string) {
-        return self2._isEmpty ? "" : string;
-      }
-      let styler = self2._styler;
-      if (styler === void 0) {
-        return string;
-      }
-      const { openAll, closeAll } = styler;
-      if (string.indexOf("\x1B") !== -1) {
-        while (styler !== void 0) {
-          string = stringReplaceAll(string, styler.close, styler.open);
-          styler = styler.parent;
+      const INTERFACE = {
+        beginKeywords: "interface",
+        end: /\{/,
+        excludeEnd: true,
+        keywords: {
+          keyword: "interface extends",
+          built_in: TYPES2
+        },
+        contains: [tsLanguage.exports.CLASS_REFERENCE]
+      };
+      const USE_STRICT = {
+        className: "meta",
+        relevance: 10,
+        begin: /^\s*['"]use strict['"]/
+      };
+      const TS_SPECIFIC_KEYWORDS = [
+        "type",
+        // "namespace",
+        "interface",
+        "public",
+        "private",
+        "protected",
+        "implements",
+        "declare",
+        "abstract",
+        "readonly",
+        "enum",
+        "override",
+        "satisfies"
+      ];
+      const KEYWORDS$1 = {
+        $pattern: IDENT_RE,
+        keyword: KEYWORDS.concat(TS_SPECIFIC_KEYWORDS),
+        literal: LITERALS,
+        built_in: BUILT_INS.concat(TYPES2),
+        "variable.language": BUILT_IN_VARIABLES
+      };
+      const DECORATOR = {
+        className: "meta",
+        begin: "@" + IDENT_RE$1
+      };
+      const swapMode = (mode, label, replacement) => {
+        const indx = mode.contains.findIndex((m) => m.label === label);
+        if (indx === -1) {
+          throw new Error("can not find mode to replace");
         }
-      }
-      const lfIndex = string.indexOf("\n");
-      if (lfIndex !== -1) {
-        string = stringEncaseCRLFWithFirstIndex(string, closeAll, openAll, lfIndex);
-      }
-      return openAll + string + closeAll;
-    };
-    var template;
-    var chalkTag = (chalk3, ...strings) => {
-      const [firstString] = strings;
-      if (!isArray3(firstString) || !isArray3(firstString.raw)) {
-        return strings.join(" ");
-      }
-      const arguments_ = strings.slice(1);
-      const parts = [firstString.raw[0]];
-      for (let i = 1; i < firstString.length; i++) {
-        parts.push(
-          String(arguments_[i - 1]).replace(/[{}\\]/g, "\\$&"),
-          String(firstString.raw[i])
-        );
-      }
-      if (template === void 0) {
-        template = require_templates();
-      }
-      return template(chalk3, parts.join(""));
-    };
-    Object.defineProperties(Chalk.prototype, styles);
-    var chalk2 = Chalk();
-    chalk2.supportsColor = stdoutColor;
-    chalk2.stderr = Chalk({ level: stderrColor ? stderrColor.level : 0 });
-    chalk2.stderr.supportsColor = stderrColor;
-    module.exports = chalk2;
+        mode.contains.splice(indx, 1, replacement);
+      };
+      Object.assign(tsLanguage.keywords, KEYWORDS$1);
+      tsLanguage.exports.PARAMS_CONTAINS.push(DECORATOR);
+      const ATTRIBUTE_HIGHLIGHT = tsLanguage.contains.find((c) => c.scope === "attr");
+      const OPTIONAL_KEY_OR_ARGUMENT = Object.assign(
+        {},
+        ATTRIBUTE_HIGHLIGHT,
+        { match: regex.concat(IDENT_RE$1, regex.lookahead(/\s*\?:/)) }
+      );
+      tsLanguage.exports.PARAMS_CONTAINS.push([
+        tsLanguage.exports.CLASS_REFERENCE,
+        // class reference for highlighting the params types
+        ATTRIBUTE_HIGHLIGHT,
+        // highlight the params key
+        OPTIONAL_KEY_OR_ARGUMENT
+        // Added for optional property assignment highlighting
+      ]);
+      tsLanguage.contains = tsLanguage.contains.concat([
+        DECORATOR,
+        NAMESPACE,
+        INTERFACE,
+        OPTIONAL_KEY_OR_ARGUMENT
+        // Added for optional property assignment highlighting
+      ]);
+      swapMode(tsLanguage, "shebang", hljs2.SHEBANG());
+      swapMode(tsLanguage, "use_strict", USE_STRICT);
+      const functionDeclaration = tsLanguage.contains.find((m) => m.label === "func.def");
+      functionDeclaration.relevance = 0;
+      Object.assign(tsLanguage, {
+        name: "TypeScript",
+        aliases: [
+          "ts",
+          "tsx",
+          "mts",
+          "cts"
+        ]
+      });
+      return tsLanguage;
+    }
+    module.exports = typescript2;
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/utils.js
+// node_modules/handlebars/dist/cjs/handlebars/utils.js
 var require_utils = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/utils.js"(exports) {
+  "node_modules/handlebars/dist/cjs/handlebars/utils.js"(exports) {
     "use strict";
     exports.__esModule = true;
     exports.extend = extend2;
@@ -3091,9 +2465,9 @@ var require_utils = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/exception.js
+// node_modules/handlebars/dist/cjs/handlebars/exception.js
 var require_exception = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/exception.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/exception.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     var errorProps = ["description", "fileName", "lineNumber", "endLineNumber", "message", "name", "number", "stack"];
@@ -3140,17 +2514,17 @@ var require_exception = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/helpers/block-helper-missing.js
+// node_modules/handlebars/dist/cjs/handlebars/helpers/block-helper-missing.js
 var require_block_helper_missing = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/helpers/block-helper-missing.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/helpers/block-helper-missing.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     var _utils = require_utils();
     exports["default"] = function(instance) {
       instance.registerHelper("blockHelperMissing", function(context2, options) {
-        var inverse = options.inverse, fn2 = options.fn;
+        var inverse = options.inverse, fn = options.fn;
         if (context2 === true) {
-          return fn2(this);
+          return fn(this);
         } else if (context2 === false || context2 == null) {
           return inverse(this);
         } else if (_utils.isArray(context2)) {
@@ -3168,7 +2542,7 @@ var require_block_helper_missing = __commonJS({
             data.contextPath = _utils.appendContextPath(options.data.contextPath, options.name);
             options = { data };
           }
-          return fn2(context2, options);
+          return fn(context2, options);
         }
       });
     };
@@ -3176,9 +2550,9 @@ var require_block_helper_missing = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/helpers/each.js
+// node_modules/handlebars/dist/cjs/handlebars/helpers/each.js
 var require_each = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/helpers/each.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/helpers/each.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     function _interopRequireDefault(obj) {
@@ -3192,7 +2566,7 @@ var require_each = __commonJS({
         if (!options) {
           throw new _exception2["default"]("Must pass iterator to #each");
         }
-        var fn2 = options.fn, inverse = options.inverse, i = 0, ret = "", data = void 0, contextPath = void 0;
+        var fn = options.fn, inverse = options.inverse, i = 0, ret = "", data = void 0, contextPath = void 0;
         if (options.data && options.ids) {
           contextPath = _utils.appendContextPath(options.data.contextPath, options.ids[0]) + ".";
         }
@@ -3212,14 +2586,14 @@ var require_each = __commonJS({
               data.contextPath = contextPath + field;
             }
           }
-          ret = ret + fn2(context2[field], {
+          ret = ret + fn(context2[field], {
             data,
             blockParams: _utils.blockParams([context2[field], field], [contextPath + field, null])
           });
         }
         if (context2 && typeof context2 === "object") {
           if (_utils.isArray(context2)) {
-            for (var j2 = context2.length; i < j2; i++) {
+            for (var j = context2.length; i < j; i++) {
               if (i in context2) {
                 execIteration(i, i, i === context2.length - 1);
               }
@@ -3227,11 +2601,11 @@ var require_each = __commonJS({
           } else if (typeof Symbol === "function" && context2[Symbol.iterator]) {
             var newContext = [];
             var iterator2 = context2[Symbol.iterator]();
-            for (var it2 = iterator2.next(); !it2.done; it2 = iterator2.next()) {
-              newContext.push(it2.value);
+            for (var it = iterator2.next(); !it.done; it = iterator2.next()) {
+              newContext.push(it.value);
             }
             context2 = newContext;
-            for (var j2 = context2.length; i < j2; i++) {
+            for (var j = context2.length; i < j; i++) {
               execIteration(i, i, i === context2.length - 1);
             }
           } else {
@@ -3260,9 +2634,9 @@ var require_each = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/helpers/helper-missing.js
+// node_modules/handlebars/dist/cjs/handlebars/helpers/helper-missing.js
 var require_helper_missing = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/helpers/helper-missing.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/helpers/helper-missing.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     function _interopRequireDefault(obj) {
@@ -3283,9 +2657,9 @@ var require_helper_missing = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/helpers/if.js
+// node_modules/handlebars/dist/cjs/handlebars/helpers/if.js
 var require_if = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/helpers/if.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/helpers/if.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     function _interopRequireDefault(obj) {
@@ -3323,9 +2697,9 @@ var require_if = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/helpers/log.js
+// node_modules/handlebars/dist/cjs/handlebars/helpers/log.js
 var require_log = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/helpers/log.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/helpers/log.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     exports["default"] = function(instance) {
@@ -3348,9 +2722,9 @@ var require_log = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/helpers/lookup.js
+// node_modules/handlebars/dist/cjs/handlebars/helpers/lookup.js
 var require_lookup = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/helpers/lookup.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/helpers/lookup.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     exports["default"] = function(instance) {
@@ -3365,9 +2739,9 @@ var require_lookup = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/helpers/with.js
+// node_modules/handlebars/dist/cjs/handlebars/helpers/with.js
 var require_with = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/helpers/with.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/helpers/with.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     function _interopRequireDefault(obj) {
@@ -3384,14 +2758,14 @@ var require_with = __commonJS({
         if (_utils.isFunction(context2)) {
           context2 = context2.call(this);
         }
-        var fn2 = options.fn;
+        var fn = options.fn;
         if (!_utils.isEmpty(context2)) {
           var data = options.data;
           if (options.data && options.ids) {
             data = _utils.createFrame(options.data);
             data.contextPath = _utils.appendContextPath(options.data.contextPath, options.ids[0]);
           }
-          return fn2(context2, {
+          return fn(context2, {
             data,
             blockParams: _utils.blockParams([context2], [data && data.contextPath])
           });
@@ -3404,9 +2778,9 @@ var require_with = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/helpers.js
+// node_modules/handlebars/dist/cjs/handlebars/helpers.js
 var require_helpers = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/helpers.js"(exports) {
+  "node_modules/handlebars/dist/cjs/handlebars/helpers.js"(exports) {
     "use strict";
     exports.__esModule = true;
     exports.registerDefaultHelpers = registerDefaultHelpers;
@@ -3448,21 +2822,21 @@ var require_helpers = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/decorators/inline.js
+// node_modules/handlebars/dist/cjs/handlebars/decorators/inline.js
 var require_inline = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/decorators/inline.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/decorators/inline.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     var _utils = require_utils();
     exports["default"] = function(instance) {
-      instance.registerDecorator("inline", function(fn2, props, container2, options) {
-        var ret = fn2;
+      instance.registerDecorator("inline", function(fn, props, container2, options) {
+        var ret = fn;
         if (!props.partials) {
           props.partials = {};
           ret = function(context2, options2) {
             var original = container2.partials;
             container2.partials = _utils.extend({}, original, props.partials);
-            var ret2 = fn2(context2, options2);
+            var ret2 = fn(context2, options2);
             container2.partials = original;
             return ret2;
           };
@@ -3475,9 +2849,9 @@ var require_inline = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/decorators.js
+// node_modules/handlebars/dist/cjs/handlebars/decorators.js
 var require_decorators = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/decorators.js"(exports) {
+  "node_modules/handlebars/dist/cjs/handlebars/decorators.js"(exports) {
     "use strict";
     exports.__esModule = true;
     exports.registerDefaultDecorators = registerDefaultDecorators;
@@ -3492,9 +2866,9 @@ var require_decorators = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/logger.js
+// node_modules/handlebars/dist/cjs/handlebars/logger.js
 var require_logger = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/logger.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/logger.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     var _utils = require_utils();
@@ -3533,9 +2907,9 @@ var require_logger = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/internal/create-new-lookup-object.js
+// node_modules/handlebars/dist/cjs/handlebars/internal/create-new-lookup-object.js
 var require_create_new_lookup_object = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/internal/create-new-lookup-object.js"(exports) {
+  "node_modules/handlebars/dist/cjs/handlebars/internal/create-new-lookup-object.js"(exports) {
     "use strict";
     exports.__esModule = true;
     exports.createNewLookupObject = createNewLookupObject;
@@ -3549,9 +2923,9 @@ var require_create_new_lookup_object = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/internal/proto-access.js
+// node_modules/handlebars/dist/cjs/handlebars/internal/proto-access.js
 var require_proto_access = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/internal/proto-access.js"(exports) {
+  "node_modules/handlebars/dist/cjs/handlebars/internal/proto-access.js"(exports) {
     "use strict";
     exports.__esModule = true;
     exports.createProtoAccessControl = createProtoAccessControl;
@@ -3614,9 +2988,9 @@ var require_proto_access = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/base.js
+// node_modules/handlebars/dist/cjs/handlebars/base.js
 var require_base = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/base.js"(exports) {
+  "node_modules/handlebars/dist/cjs/handlebars/base.js"(exports) {
     "use strict";
     exports.__esModule = true;
     exports.HandlebarsEnvironment = HandlebarsEnvironment;
@@ -3661,14 +3035,14 @@ var require_base = __commonJS({
       constructor: HandlebarsEnvironment,
       logger: _logger2["default"],
       log: _logger2["default"].log,
-      registerHelper: function registerHelper(name, fn2) {
+      registerHelper: function registerHelper(name, fn) {
         if (_utils.toString.call(name) === objectType) {
-          if (fn2) {
+          if (fn) {
             throw new _exception2["default"]("Arg not supported with multiple helpers");
           }
           _utils.extend(this.helpers, name);
         } else {
-          this.helpers[name] = fn2;
+          this.helpers[name] = fn;
         }
       },
       unregisterHelper: function unregisterHelper(name) {
@@ -3687,14 +3061,14 @@ var require_base = __commonJS({
       unregisterPartial: function unregisterPartial(name) {
         delete this.partials[name];
       },
-      registerDecorator: function registerDecorator(name, fn2) {
+      registerDecorator: function registerDecorator(name, fn) {
         if (_utils.toString.call(name) === objectType) {
-          if (fn2) {
+          if (fn) {
             throw new _exception2["default"]("Arg not supported with multiple decorators");
           }
           _utils.extend(this.decorators, name);
         } else {
-          this.decorators[name] = fn2;
+          this.decorators[name] = fn;
         }
       },
       unregisterDecorator: function unregisterDecorator(name) {
@@ -3715,9 +3089,9 @@ var require_base = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/safe-string.js
+// node_modules/handlebars/dist/cjs/handlebars/safe-string.js
 var require_safe_string = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/safe-string.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/safe-string.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     function SafeString(string) {
@@ -3731,9 +3105,9 @@ var require_safe_string = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/internal/wrapHelper.js
+// node_modules/handlebars/dist/cjs/handlebars/internal/wrapHelper.js
 var require_wrapHelper = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/internal/wrapHelper.js"(exports) {
+  "node_modules/handlebars/dist/cjs/handlebars/internal/wrapHelper.js"(exports) {
     "use strict";
     exports.__esModule = true;
     exports.wrapHelper = wrapHelper;
@@ -3751,9 +3125,9 @@ var require_wrapHelper = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/runtime.js
+// node_modules/handlebars/dist/cjs/handlebars/runtime.js
 var require_runtime = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/runtime.js"(exports) {
+  "node_modules/handlebars/dist/cjs/handlebars/runtime.js"(exports) {
     "use strict";
     exports.__esModule = true;
     exports.checkRevision = checkRevision;
@@ -3878,18 +3252,18 @@ var require_runtime = __commonJS({
         },
         escapeExpression: Utils.escapeExpression,
         invokePartial: invokePartialWrapper,
-        fn: function fn2(i) {
+        fn: function fn(i) {
           var ret2 = templateSpec[i];
           ret2.decorator = templateSpec[i + "_d"];
           return ret2;
         },
         programs: [],
         program: function program(i, data, declaredBlockParams, blockParams, depths) {
-          var programWrapper = this.programs[i], fn2 = this.fn(i);
+          var programWrapper = this.programs[i], fn = this.fn(i);
           if (data || depths || blockParams || declaredBlockParams) {
-            programWrapper = wrapProgram(this, i, fn2, data, declaredBlockParams, blockParams, depths);
+            programWrapper = wrapProgram(this, i, fn, data, declaredBlockParams, blockParams, depths);
           } else if (!programWrapper) {
-            programWrapper = this.programs[i] = wrapProgram(this, i, fn2);
+            programWrapper = this.programs[i] = wrapProgram(this, i, fn);
           }
           return programWrapper;
         },
@@ -3968,16 +3342,16 @@ var require_runtime = __commonJS({
       };
       return ret;
     }
-    function wrapProgram(container2, i, fn2, data, declaredBlockParams, blockParams, depths) {
+    function wrapProgram(container2, i, fn, data, declaredBlockParams, blockParams, depths) {
       function prog(context2) {
         var options = arguments.length <= 1 || arguments[1] === void 0 ? {} : arguments[1];
         var currentDepths = depths;
         if (depths && context2 != depths[0] && !(context2 === container2.nullContext && depths[0] === null)) {
           currentDepths = [context2].concat(depths);
         }
-        return fn2(container2, context2, container2.helpers, container2.partials, options.data || data, blockParams && [options.blockParams].concat(blockParams), currentDepths);
+        return fn(container2, context2, container2.helpers, container2.partials, options.data || data, blockParams && [options.blockParams].concat(blockParams), currentDepths);
       }
-      prog = executeDecorators(fn2, prog, container2, depths, data, blockParams);
+      prog = executeDecorators(fn, prog, container2, depths, data, blockParams);
       prog.program = i;
       prog.depth = depths ? depths.length : 0;
       prog.blockParams = declaredBlockParams || 0;
@@ -4006,15 +3380,15 @@ var require_runtime = __commonJS({
       if (options.fn && options.fn !== noop5) {
         (function() {
           options.data = _base.createFrame(options.data);
-          var fn2 = options.fn;
+          var fn = options.fn;
           partialBlock = options.data["partial-block"] = function partialBlockWrapper(context3) {
             var options2 = arguments.length <= 1 || arguments[1] === void 0 ? {} : arguments[1];
             options2.data = _base.createFrame(options2.data);
             options2.data["partial-block"] = currentPartialBlock;
-            return fn2(context3, options2);
+            return fn(context3, options2);
           };
-          if (fn2.partials) {
-            options.partials = Utils.extend({}, options.partials, fn2.partials);
+          if (fn.partials) {
+            options.partials = Utils.extend({}, options.partials, fn.partials);
           }
         })();
       }
@@ -4037,10 +3411,10 @@ var require_runtime = __commonJS({
       }
       return data;
     }
-    function executeDecorators(fn2, prog, container2, depths, data, blockParams) {
-      if (fn2.decorator) {
+    function executeDecorators(fn, prog, container2, depths, data, blockParams) {
+      if (fn.decorator) {
         var props = {};
-        prog = fn2.decorator(prog, props, container2, depths && depths[0], data, blockParams, depths);
+        prog = fn.decorator(prog, props, container2, depths && depths[0], data, blockParams, depths);
         Utils.extend(prog, props);
       }
       return prog;
@@ -4060,9 +3434,9 @@ var require_runtime = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/no-conflict.js
+// node_modules/handlebars/dist/cjs/handlebars/no-conflict.js
 var require_no_conflict = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/no-conflict.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/no-conflict.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     exports["default"] = function(Handlebars5) {
@@ -4086,9 +3460,9 @@ var require_no_conflict = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars.runtime.js
+// node_modules/handlebars/dist/cjs/handlebars.runtime.js
 var require_handlebars_runtime = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars.runtime.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars.runtime.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     function _interopRequireDefault(obj) {
@@ -4142,9 +3516,9 @@ var require_handlebars_runtime = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/compiler/ast.js
+// node_modules/handlebars/dist/cjs/handlebars/compiler/ast.js
 var require_ast = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/compiler/ast.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/compiler/ast.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     var AST = {
@@ -4171,9 +3545,9 @@ var require_ast = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/compiler/parser.js
+// node_modules/handlebars/dist/cjs/handlebars/compiler/parser.js
 var require_parser = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/compiler/parser.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/compiler/parser.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     var handlebars = (function() {
@@ -4881,9 +4255,9 @@ var require_parser = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/compiler/visitor.js
+// node_modules/handlebars/dist/cjs/handlebars/compiler/visitor.js
 var require_visitor = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/compiler/visitor.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/compiler/visitor.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     function _interopRequireDefault(obj) {
@@ -5002,9 +4376,9 @@ var require_visitor = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/compiler/whitespace-control.js
+// node_modules/handlebars/dist/cjs/handlebars/compiler/whitespace-control.js
 var require_whitespace_control = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/compiler/whitespace-control.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/compiler/whitespace-control.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     function _interopRequireDefault(obj) {
@@ -5153,9 +4527,9 @@ var require_whitespace_control = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/compiler/helpers.js
+// node_modules/handlebars/dist/cjs/handlebars/compiler/helpers.js
 var require_helpers2 = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/compiler/helpers.js"(exports) {
+  "node_modules/handlebars/dist/cjs/handlebars/compiler/helpers.js"(exports) {
     "use strict";
     exports.__esModule = true;
     exports.SourceLocation = SourceLocation;
@@ -5341,9 +4715,9 @@ var require_helpers2 = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/compiler/base.js
+// node_modules/handlebars/dist/cjs/handlebars/compiler/base.js
 var require_base2 = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/compiler/base.js"(exports) {
+  "node_modules/handlebars/dist/cjs/handlebars/compiler/base.js"(exports) {
     "use strict";
     exports.__esModule = true;
     exports.parseWithoutProcessing = parseWithoutProcessing;
@@ -5394,9 +4768,9 @@ var require_base2 = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/compiler/compiler.js
+// node_modules/handlebars/dist/cjs/handlebars/compiler/compiler.js
 var require_compiler = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/compiler/compiler.js"(exports) {
+  "node_modules/handlebars/dist/cjs/handlebars/compiler/compiler.js"(exports) {
     "use strict";
     exports.__esModule = true;
     exports.Compiler = Compiler2;
@@ -5787,13 +5161,13 @@ var require_compiler = __commonJS({
       };
       return ret;
     }
-    function argEquals(a, b2) {
-      if (a === b2) {
+    function argEquals(a, b) {
+      if (a === b) {
         return true;
       }
-      if (_utils.isArray(a) && _utils.isArray(b2) && a.length === b2.length) {
+      if (_utils.isArray(a) && _utils.isArray(b) && a.length === b.length) {
         for (var i = 0; i < a.length; i++) {
-          if (!argEquals(a[i], b2[i])) {
+          if (!argEquals(a[i], b[i])) {
             return false;
           }
         }
@@ -5816,9 +5190,9 @@ var require_compiler = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/node_modules/source-map/lib/base64.js
+// node_modules/handlebars/node_modules/source-map/lib/base64.js
 var require_base64 = __commonJS({
-  "../node_modules/handlebars/node_modules/source-map/lib/base64.js"(exports) {
+  "node_modules/handlebars/node_modules/source-map/lib/base64.js"(exports) {
     "use strict";
     var intToCharMap = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".split("");
     exports.encode = function(number) {
@@ -5858,9 +5232,9 @@ var require_base64 = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/node_modules/source-map/lib/base64-vlq.js
+// node_modules/handlebars/node_modules/source-map/lib/base64-vlq.js
 var require_base64_vlq = __commonJS({
-  "../node_modules/handlebars/node_modules/source-map/lib/base64-vlq.js"(exports) {
+  "node_modules/handlebars/node_modules/source-map/lib/base64-vlq.js"(exports) {
     "use strict";
     var base64 = require_base64();
     var VLQ_BASE_SHIFT = 5;
@@ -5913,9 +5287,9 @@ var require_base64_vlq = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/node_modules/source-map/lib/util.js
-var require_util2 = __commonJS({
-  "../node_modules/handlebars/node_modules/source-map/lib/util.js"(exports) {
+// node_modules/handlebars/node_modules/source-map/lib/util.js
+var require_util = __commonJS({
+  "node_modules/handlebars/node_modules/source-map/lib/util.js"(exports) {
     "use strict";
     function getArg(aArgs, aName, aDefaultValue) {
       if (aName in aArgs) {
@@ -6215,11 +5589,11 @@ var require_util2 = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/node_modules/source-map/lib/array-set.js
+// node_modules/handlebars/node_modules/source-map/lib/array-set.js
 var require_array_set = __commonJS({
-  "../node_modules/handlebars/node_modules/source-map/lib/array-set.js"(exports) {
+  "node_modules/handlebars/node_modules/source-map/lib/array-set.js"(exports) {
     "use strict";
-    var util = require_util2();
+    var util = require_util();
     var has = Object.prototype.hasOwnProperty;
     var hasNativeMap = typeof Map !== "undefined";
     function ArraySet() {
@@ -6286,11 +5660,11 @@ var require_array_set = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/node_modules/source-map/lib/mapping-list.js
+// node_modules/handlebars/node_modules/source-map/lib/mapping-list.js
 var require_mapping_list = __commonJS({
-  "../node_modules/handlebars/node_modules/source-map/lib/mapping-list.js"(exports) {
+  "node_modules/handlebars/node_modules/source-map/lib/mapping-list.js"(exports) {
     "use strict";
-    var util = require_util2();
+    var util = require_util();
     function generatedPositionAfter(mappingA, mappingB) {
       var lineA = mappingA.generatedLine;
       var lineB = mappingB.generatedLine;
@@ -6326,12 +5700,12 @@ var require_mapping_list = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/node_modules/source-map/lib/source-map-generator.js
+// node_modules/handlebars/node_modules/source-map/lib/source-map-generator.js
 var require_source_map_generator = __commonJS({
-  "../node_modules/handlebars/node_modules/source-map/lib/source-map-generator.js"(exports) {
+  "node_modules/handlebars/node_modules/source-map/lib/source-map-generator.js"(exports) {
     "use strict";
     var base64VLQ = require_base64_vlq();
-    var util = require_util2();
+    var util = require_util();
     var ArraySet = require_array_set().ArraySet;
     var MappingList = require_mapping_list().MappingList;
     function SourceMapGenerator(aArgs) {
@@ -6603,9 +5977,9 @@ var require_source_map_generator = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/node_modules/source-map/lib/binary-search.js
+// node_modules/handlebars/node_modules/source-map/lib/binary-search.js
 var require_binary_search = __commonJS({
-  "../node_modules/handlebars/node_modules/source-map/lib/binary-search.js"(exports) {
+  "node_modules/handlebars/node_modules/source-map/lib/binary-search.js"(exports) {
     "use strict";
     exports.GREATEST_LOWER_BOUND = 1;
     exports.LEAST_UPPER_BOUND = 2;
@@ -6660,14 +6034,14 @@ var require_binary_search = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/node_modules/source-map/lib/quick-sort.js
+// node_modules/handlebars/node_modules/source-map/lib/quick-sort.js
 var require_quick_sort = __commonJS({
-  "../node_modules/handlebars/node_modules/source-map/lib/quick-sort.js"(exports) {
+  "node_modules/handlebars/node_modules/source-map/lib/quick-sort.js"(exports) {
     "use strict";
-    function swap(ary, x, y2) {
+    function swap(ary, x, y) {
       var temp = ary[x];
-      ary[x] = ary[y2];
-      ary[y2] = temp;
+      ary[x] = ary[y];
+      ary[y] = temp;
     }
     function randomIntInRange(low, high) {
       return Math.round(low + Math.random() * (high - low));
@@ -6678,16 +6052,16 @@ var require_quick_sort = __commonJS({
         var i = p - 1;
         swap(ary, pivotIndex, r);
         var pivot = ary[r];
-        for (var j2 = p; j2 < r; j2++) {
-          if (comparator(ary[j2], pivot) <= 0) {
+        for (var j = p; j < r; j++) {
+          if (comparator(ary[j], pivot) <= 0) {
             i += 1;
-            swap(ary, i, j2);
+            swap(ary, i, j);
           }
         }
-        swap(ary, i + 1, j2);
-        var q2 = i + 1;
-        doQuickSort(ary, comparator, p, q2 - 1);
-        doQuickSort(ary, comparator, q2 + 1, r);
+        swap(ary, i + 1, j);
+        var q = i + 1;
+        doQuickSort(ary, comparator, p, q - 1);
+        doQuickSort(ary, comparator, q + 1, r);
       }
     }
     exports.quickSort = function(ary, comparator) {
@@ -6696,11 +6070,11 @@ var require_quick_sort = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/node_modules/source-map/lib/source-map-consumer.js
+// node_modules/handlebars/node_modules/source-map/lib/source-map-consumer.js
 var require_source_map_consumer = __commonJS({
-  "../node_modules/handlebars/node_modules/source-map/lib/source-map-consumer.js"(exports) {
+  "node_modules/handlebars/node_modules/source-map/lib/source-map-consumer.js"(exports) {
     "use strict";
-    var util = require_util2();
+    var util = require_util();
     var binarySearch = require_binary_search();
     var ArraySet = require_array_set().ArraySet;
     var base64VLQ = require_base64_vlq();
@@ -7182,8 +6556,8 @@ var require_source_map_consumer = __commonJS({
       get: function() {
         var sources = [];
         for (var i = 0; i < this._sections.length; i++) {
-          for (var j2 = 0; j2 < this._sections[i].consumer.sources.length; j2++) {
-            sources.push(this._sections[i].consumer.sources[j2]);
+          for (var j = 0; j < this._sections[i].consumer.sources.length; j++) {
+            sources.push(this._sections[i].consumer.sources[j]);
           }
         }
         return sources;
@@ -7265,8 +6639,8 @@ var require_source_map_consumer = __commonJS({
       for (var i = 0; i < this._sections.length; i++) {
         var section = this._sections[i];
         var sectionMappings = section.consumer._generatedMappings;
-        for (var j2 = 0; j2 < sectionMappings.length; j2++) {
-          var mapping = sectionMappings[j2];
+        for (var j = 0; j < sectionMappings.length; j++) {
+          var mapping = sectionMappings[j];
           var source = section.consumer._sources.at(mapping.source);
           source = util.computeSourceURL(section.consumer.sourceRoot, source, this._sourceMapURL);
           this._sources.add(source);
@@ -7298,12 +6672,12 @@ var require_source_map_consumer = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/node_modules/source-map/lib/source-node.js
+// node_modules/handlebars/node_modules/source-map/lib/source-node.js
 var require_source_node = __commonJS({
-  "../node_modules/handlebars/node_modules/source-map/lib/source-node.js"(exports) {
+  "node_modules/handlebars/node_modules/source-map/lib/source-node.js"(exports) {
     "use strict";
     var SourceMapGenerator = require_source_map_generator().SourceMapGenerator;
-    var util = require_util2();
+    var util = require_util();
     var REGEX_NEWLINE = /(\r?\n)/;
     var NEWLINE_CODE = 10;
     var isSourceNode = "$$$isSourceNode$$$";
@@ -7564,9 +6938,9 @@ var require_source_node = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/node_modules/source-map/source-map.js
+// node_modules/handlebars/node_modules/source-map/source-map.js
 var require_source_map = __commonJS({
-  "../node_modules/handlebars/node_modules/source-map/source-map.js"(exports) {
+  "node_modules/handlebars/node_modules/source-map/source-map.js"(exports) {
     "use strict";
     exports.SourceMapGenerator = require_source_map_generator().SourceMapGenerator;
     exports.SourceMapConsumer = require_source_map_consumer().SourceMapConsumer;
@@ -7574,9 +6948,9 @@ var require_source_map = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/compiler/code-gen.js
+// node_modules/handlebars/dist/cjs/handlebars/compiler/code-gen.js
 var require_code_gen = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/compiler/code-gen.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/compiler/code-gen.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     var _utils = require_utils();
@@ -7667,9 +7041,9 @@ var require_code_gen = __commonJS({
         chunk = castChunk(chunk, this, loc);
         return new SourceNode(loc.start.line, loc.start.column, this.srcFile, chunk);
       },
-      functionCall: function functionCall(fn2, type2, params) {
+      functionCall: function functionCall(fn, type2, params) {
         params = this.generateList(params);
-        return this.wrap([fn2, type2 ? "." + type2 + "(" : "(", params, ")"]);
+        return this.wrap([fn, type2 ? "." + type2 + "(" : "(", params, ")"]);
       },
       quotedString: function quotedString(str) {
         return '"' + (str + "").replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n").replace(/\r/g, "\\r").replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029") + '"';
@@ -7710,9 +7084,9 @@ var require_code_gen = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars/compiler/javascript-compiler.js
+// node_modules/handlebars/dist/cjs/handlebars/compiler/javascript-compiler.js
 var require_javascript_compiler = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars/compiler/javascript-compiler.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars/compiler/javascript-compiler.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     function _interopRequireDefault(obj) {
@@ -7816,11 +7190,11 @@ var require_javascript_compiler = __commonJS({
         } else {
           this.decorators = void 0;
         }
-        var fn2 = this.createFunctionContext(asObject);
+        var fn = this.createFunctionContext(asObject);
         if (!this.isChild) {
           var ret = {
             compiler: this.compilerInfo(),
-            main: fn2
+            main: fn
           };
           if (this.decorators) {
             ret.main_d = this.decorators;
@@ -7868,7 +7242,7 @@ var require_javascript_compiler = __commonJS({
           }
           return ret;
         } else {
-          return fn2;
+          return fn;
         }
       },
       preamble: function preamble() {
@@ -8626,9 +8000,9 @@ var require_javascript_compiler = __commonJS({
   }
 });
 
-// ../node_modules/handlebars/dist/cjs/handlebars.js
+// node_modules/handlebars/dist/cjs/handlebars.js
 var require_handlebars = __commonJS({
-  "../node_modules/handlebars/dist/cjs/handlebars.js"(exports, module) {
+  "node_modules/handlebars/dist/cjs/handlebars.js"(exports, module) {
     "use strict";
     exports.__esModule = true;
     function _interopRequireDefault(obj) {
@@ -8673,9 +8047,9 @@ var require_handlebars = __commonJS({
   }
 });
 
-// ../node_modules/jszip/dist/jszip.min.js
+// node_modules/jszip/dist/jszip.min.js
 var require_jszip_min = __commonJS({
-  "../node_modules/jszip/dist/jszip.min.js"(exports, module) {
+  "node_modules/jszip/dist/jszip.min.js"(exports, module) {
     "use strict";
     !(function(e) {
       if ("object" == typeof exports && "undefined" != typeof module) module.exports = e();
@@ -8804,25 +8178,25 @@ var require_jszip_min = __commonJS({
           return n2;
         }
         function n(e2, t2, r2, n2, i2, s2) {
-          var a, o, h = e2.file, u2 = e2.compression, l = s2 !== O3.utf8encode, f = I3.transformTo("string", s2(h.name)), c = I3.transformTo("string", O3.utf8encode(h.name)), d = h.comment, p = I3.transformTo("string", s2(d)), m = I3.transformTo("string", O3.utf8encode(d)), _2 = c.length !== h.name.length, g2 = m.length !== d.length, b2 = "", v2 = "", y2 = "", w2 = h.dir, k2 = h.date, x = { crc32: 0, compressedSize: 0, uncompressedSize: 0 };
+          var a, o, h = e2.file, u2 = e2.compression, l = s2 !== O2.utf8encode, f = I2.transformTo("string", s2(h.name)), c = I2.transformTo("string", O2.utf8encode(h.name)), d = h.comment, p = I2.transformTo("string", s2(d)), m = I2.transformTo("string", O2.utf8encode(d)), _ = c.length !== h.name.length, g = m.length !== d.length, b = "", v = "", y = "", w = h.dir, k = h.date, x = { crc32: 0, compressedSize: 0, uncompressedSize: 0 };
           t2 && !r2 || (x.crc32 = e2.crc32, x.compressedSize = e2.compressedSize, x.uncompressedSize = e2.uncompressedSize);
-          var S3 = 0;
-          t2 && (S3 |= 8), l || !_2 && !g2 || (S3 |= 2048);
-          var z2 = 0, C2 = 0;
-          w2 && (z2 |= 16), "UNIX" === i2 ? (C2 = 798, z2 |= (function(e3, t3) {
+          var S2 = 0;
+          t2 && (S2 |= 8), l || !_ && !g || (S2 |= 2048);
+          var z = 0, C2 = 0;
+          w && (z |= 16), "UNIX" === i2 ? (C2 = 798, z |= (function(e3, t3) {
             var r3 = e3;
             return e3 || (r3 = t3 ? 16893 : 33204), (65535 & r3) << 16;
-          })(h.unixPermissions, w2)) : (C2 = 20, z2 |= (function(e3) {
+          })(h.unixPermissions, w)) : (C2 = 20, z |= (function(e3) {
             return 63 & (e3 || 0);
-          })(h.dosPermissions)), a = k2.getUTCHours(), a <<= 6, a |= k2.getUTCMinutes(), a <<= 5, a |= k2.getUTCSeconds() / 2, o = k2.getUTCFullYear() - 1980, o <<= 4, o |= k2.getUTCMonth() + 1, o <<= 5, o |= k2.getUTCDate(), _2 && (v2 = A2(1, 1) + A2(B3(f), 4) + c, b2 += "up" + A2(v2.length, 2) + v2), g2 && (y2 = A2(1, 1) + A2(B3(p), 4) + m, b2 += "uc" + A2(y2.length, 2) + y2);
+          })(h.dosPermissions)), a = k.getUTCHours(), a <<= 6, a |= k.getUTCMinutes(), a <<= 5, a |= k.getUTCSeconds() / 2, o = k.getUTCFullYear() - 1980, o <<= 4, o |= k.getUTCMonth() + 1, o <<= 5, o |= k.getUTCDate(), _ && (v = A2(1, 1) + A2(B2(f), 4) + c, b += "up" + A2(v.length, 2) + v), g && (y = A2(1, 1) + A2(B2(p), 4) + m, b += "uc" + A2(y.length, 2) + y);
           var E2 = "";
-          return E2 += "\n\0", E2 += A2(S3, 2), E2 += u2.magic, E2 += A2(a, 2), E2 += A2(o, 2), E2 += A2(x.crc32, 4), E2 += A2(x.compressedSize, 4), E2 += A2(x.uncompressedSize, 4), E2 += A2(f.length, 2), E2 += A2(b2.length, 2), { fileRecord: R3.LOCAL_FILE_HEADER + E2 + f + b2, dirRecord: R3.CENTRAL_FILE_HEADER + A2(C2, 2) + E2 + A2(p.length, 2) + "\0\0\0\0" + A2(z2, 4) + A2(n2, 4) + f + b2 + p };
+          return E2 += "\n\0", E2 += A2(S2, 2), E2 += u2.magic, E2 += A2(a, 2), E2 += A2(o, 2), E2 += A2(x.crc32, 4), E2 += A2(x.compressedSize, 4), E2 += A2(x.uncompressedSize, 4), E2 += A2(f.length, 2), E2 += A2(b.length, 2), { fileRecord: R2.LOCAL_FILE_HEADER + E2 + f + b, dirRecord: R2.CENTRAL_FILE_HEADER + A2(C2, 2) + E2 + A2(p.length, 2) + "\0\0\0\0" + A2(z, 4) + A2(n2, 4) + f + b + p };
         }
-        var I3 = e("../utils"), i = e("../stream/GenericWorker"), O3 = e("../utf8"), B3 = e("../crc32"), R3 = e("../signature");
+        var I2 = e("../utils"), i = e("../stream/GenericWorker"), O2 = e("../utf8"), B2 = e("../crc32"), R2 = e("../signature");
         function s(e2, t2, r2, n2) {
           i.call(this, "ZipFileWorker"), this.bytesWritten = 0, this.zipComment = t2, this.zipPlatform = r2, this.encodeFileName = n2, this.streamFiles = e2, this.accumulate = false, this.contentBuffer = [], this.dirRecords = [], this.currentSourceOffset = 0, this.entriesCount = 0, this.currentFile = null, this._sources = [];
         }
-        I3.inherits(s, i), s.prototype.push = function(e2) {
+        I2.inherits(s, i), s.prototype.push = function(e2) {
           var t2 = e2.meta.percent || 0, r2 = this.entriesCount, n2 = this._sources.length;
           this.accumulate ? this.contentBuffer.push(e2) : (this.bytesWritten += e2.data.length, i.prototype.push.call(this, { data: e2.data, meta: { currentFile: this.currentFile, percent: r2 ? (t2 + 100 * (r2 - n2 - 1)) / r2 : 100 } }));
         }, s.prototype.openedSource = function(e2) {
@@ -8836,15 +8210,15 @@ var require_jszip_min = __commonJS({
           this.accumulate = false;
           var t2 = this.streamFiles && !e2.file.dir, r2 = n(e2, t2, true, this.currentSourceOffset, this.zipPlatform, this.encodeFileName);
           if (this.dirRecords.push(r2.dirRecord), t2) this.push({ data: (function(e3) {
-            return R3.DATA_DESCRIPTOR + A2(e3.crc32, 4) + A2(e3.compressedSize, 4) + A2(e3.uncompressedSize, 4);
+            return R2.DATA_DESCRIPTOR + A2(e3.crc32, 4) + A2(e3.compressedSize, 4) + A2(e3.uncompressedSize, 4);
           })(e2), meta: { percent: 100 } });
           else for (this.push({ data: r2.fileRecord, meta: { percent: 0 } }); this.contentBuffer.length; ) this.push(this.contentBuffer.shift());
           this.currentFile = null;
         }, s.prototype.flush = function() {
           for (var e2 = this.bytesWritten, t2 = 0; t2 < this.dirRecords.length; t2++) this.push({ data: this.dirRecords[t2], meta: { percent: 100 } });
           var r2 = this.bytesWritten - e2, n2 = (function(e3, t3, r3, n3, i2) {
-            var s2 = I3.transformTo("string", i2(n3));
-            return R3.CENTRAL_DIRECTORY_END + "\0\0\0\0" + A2(e3, 2) + A2(e3, 2) + A2(t3, 4) + A2(r3, 4) + A2(s2.length, 2) + s2;
+            var s2 = I2.transformTo("string", i2(n3));
+            return R2.CENTRAL_DIRECTORY_END + "\0\0\0\0" + A2(e3, 2) + A2(e3, 2) + A2(t3, 4) + A2(r3, 4) + A2(s2.length, 2) + s2;
           })(this.dirRecords.length, r2, e2, this.zipComment, this.encodeFileName);
           this.push({ data: n2, meta: { percent: 100 } });
         }, s.prototype.prepareNextSource = function() {
@@ -8993,7 +8367,7 @@ var require_jszip_min = __commonJS({
         "use strict";
         function s(e2, t2, r2) {
           var n2, i2 = u2.getTypeOf(t2), s2 = u2.extend(r2 || {}, f);
-          s2.date = s2.date || /* @__PURE__ */ new Date(), null !== s2.compression && (s2.compression = s2.compression.toUpperCase()), "string" == typeof s2.unixPermissions && (s2.unixPermissions = parseInt(s2.unixPermissions, 8)), s2.unixPermissions && 16384 & s2.unixPermissions && (s2.dir = true), s2.dosPermissions && 16 & s2.dosPermissions && (s2.dir = true), s2.dir && (e2 = g2(e2)), s2.createFolders && (n2 = _2(e2)) && b2.call(this, n2, true);
+          s2.date = s2.date || /* @__PURE__ */ new Date(), null !== s2.compression && (s2.compression = s2.compression.toUpperCase()), "string" == typeof s2.unixPermissions && (s2.unixPermissions = parseInt(s2.unixPermissions, 8)), s2.unixPermissions && 16384 & s2.unixPermissions && (s2.dir = true), s2.dosPermissions && 16 & s2.dosPermissions && (s2.dir = true), s2.dir && (e2 = g(e2)), s2.createFolders && (n2 = _(e2)) && b.call(this, n2, true);
           var a2 = "string" === i2 && false === s2.binary && false === s2.base64;
           r2 && void 0 !== r2.binary || (s2.binary = !a2), (t2 instanceof c && 0 === t2.uncompressedSize || s2.dir || !t2 || 0 === t2.length) && (s2.base64 = false, s2.binary = true, t2 = "", s2.compression = "STORE", i2 = "string");
           var o2 = null;
@@ -9001,14 +8375,14 @@ var require_jszip_min = __commonJS({
           var h2 = new d(e2, o2, s2);
           this.files[e2] = h2;
         }
-        var i = e("./utf8"), u2 = e("./utils"), l = e("./stream/GenericWorker"), a = e("./stream/StreamHelper"), f = e("./defaults"), c = e("./compressedObject"), d = e("./zipObject"), o = e("./generate"), p = e("./nodejsUtils"), m = e("./nodejs/NodejsStreamInputAdapter"), _2 = function(e2) {
+        var i = e("./utf8"), u2 = e("./utils"), l = e("./stream/GenericWorker"), a = e("./stream/StreamHelper"), f = e("./defaults"), c = e("./compressedObject"), d = e("./zipObject"), o = e("./generate"), p = e("./nodejsUtils"), m = e("./nodejs/NodejsStreamInputAdapter"), _ = function(e2) {
           "/" === e2.slice(-1) && (e2 = e2.substring(0, e2.length - 1));
           var t2 = e2.lastIndexOf("/");
           return 0 < t2 ? e2.substring(0, t2) : "";
-        }, g2 = function(e2) {
+        }, g = function(e2) {
           return "/" !== e2.slice(-1) && (e2 += "/"), e2;
-        }, b2 = function(e2, t2) {
-          return t2 = void 0 !== t2 ? t2 : f.createFolders, e2 = g2(e2), this.files[e2] || s.call(this, e2, null, { dir: true, createFolders: t2 }), this.files[e2];
+        }, b = function(e2, t2) {
+          return t2 = void 0 !== t2 ? t2 : f.createFolders, e2 = g(e2), this.files[e2] || s.call(this, e2, null, { dir: true, createFolders: t2 }), this.files[e2];
         };
         function h(e2) {
           return "[object RegExp]" === Object.prototype.toString.call(e2);
@@ -9038,7 +8412,7 @@ var require_jszip_min = __commonJS({
           if (h(r2)) return this.filter(function(e3, t3) {
             return t3.dir && r2.test(e3);
           });
-          var e2 = this.root + r2, t2 = b2.call(this, e2), n2 = this.clone();
+          var e2 = this.root + r2, t2 = b.call(this, e2), n2 = this.clone();
           return n2.root = t2.name, n2;
         }, remove: function(r2) {
           r2 = this.root + r2;
@@ -9947,7 +9321,7 @@ var require_jszip_min = __commonJS({
         };
       }, { "./utils/common": 41, "./utils/strings": 42, "./zlib/deflate": 46, "./zlib/messages": 51, "./zlib/zstream": 53 }], 40: [function(e, t, r) {
         "use strict";
-        var c = e("./zlib/inflate"), d = e("./utils/common"), p = e("./utils/strings"), m = e("./zlib/constants"), n = e("./zlib/messages"), i = e("./zlib/zstream"), s = e("./zlib/gzheader"), _2 = Object.prototype.toString;
+        var c = e("./zlib/inflate"), d = e("./utils/common"), p = e("./utils/strings"), m = e("./zlib/constants"), n = e("./zlib/messages"), i = e("./zlib/zstream"), s = e("./zlib/gzheader"), _ = Object.prototype.toString;
         function a(e2) {
           if (!(this instanceof a)) return new a(e2);
           this.options = d.assign({ chunkSize: 16384, windowBits: 0, to: "" }, e2 || {});
@@ -9965,9 +9339,9 @@ var require_jszip_min = __commonJS({
         a.prototype.push = function(e2, t2) {
           var r2, n2, i2, s2, a2, o2, h = this.strm, u2 = this.options.chunkSize, l = this.options.dictionary, f = false;
           if (this.ended) return false;
-          n2 = t2 === ~~t2 ? t2 : true === t2 ? m.Z_FINISH : m.Z_NO_FLUSH, "string" == typeof e2 ? h.input = p.binstring2buf(e2) : "[object ArrayBuffer]" === _2.call(e2) ? h.input = new Uint8Array(e2) : h.input = e2, h.next_in = 0, h.avail_in = h.input.length;
+          n2 = t2 === ~~t2 ? t2 : true === t2 ? m.Z_FINISH : m.Z_NO_FLUSH, "string" == typeof e2 ? h.input = p.binstring2buf(e2) : "[object ArrayBuffer]" === _.call(e2) ? h.input = new Uint8Array(e2) : h.input = e2, h.next_in = 0, h.avail_in = h.input.length;
           do {
-            if (0 === h.avail_out && (h.output = new d.Buf8(u2), h.next_out = 0, h.avail_out = u2), (r2 = c.inflate(h, m.Z_NO_FLUSH)) === m.Z_NEED_DICT && l && (o2 = "string" == typeof l ? p.string2buf(l) : "[object ArrayBuffer]" === _2.call(l) ? new Uint8Array(l) : l, r2 = c.inflateSetDictionary(this.strm, o2)), r2 === m.Z_BUF_ERROR && true === f && (r2 = m.Z_OK, f = false), r2 !== m.Z_STREAM_END && r2 !== m.Z_OK) return this.onEnd(r2), !(this.ended = true);
+            if (0 === h.avail_out && (h.output = new d.Buf8(u2), h.next_out = 0, h.avail_out = u2), (r2 = c.inflate(h, m.Z_NO_FLUSH)) === m.Z_NEED_DICT && l && (o2 = "string" == typeof l ? p.string2buf(l) : "[object ArrayBuffer]" === _.call(l) ? new Uint8Array(l) : l, r2 = c.inflateSetDictionary(this.strm, o2)), r2 === m.Z_BUF_ERROR && true === f && (r2 = m.Z_OK, f = false), r2 !== m.Z_STREAM_END && r2 !== m.Z_OK) return this.onEnd(r2), !(this.ended = true);
             h.next_out && (0 !== h.avail_out && r2 !== m.Z_STREAM_END && (0 !== h.avail_in || n2 !== m.Z_FINISH && n2 !== m.Z_SYNC_FLUSH) || ("string" === this.options.to ? (i2 = p.utf8border(h.output, h.next_out), s2 = h.next_out - i2, a2 = p.buf2string(h.output, i2), h.next_out = s2, h.avail_out = u2 - s2, s2 && d.arraySet(h.output, h.output, i2, s2, 0), this.onData(a2)) : this.onData(d.shrinkBuf(h.output, h.next_out)))), 0 === h.avail_in && 0 === h.avail_out && (f = true);
           } while ((0 < h.avail_in || 0 === h.avail_out) && r2 !== m.Z_STREAM_END);
           return r2 === m.Z_STREAM_END && (n2 = m.Z_FINISH), n2 === m.Z_FINISH ? (r2 = c.inflateEnd(this.strm), this.onEnd(r2), this.ended = true, r2 === m.Z_OK) : n2 !== m.Z_SYNC_FLUSH || (this.onEnd(m.Z_OK), !(h.avail_out = 0));
@@ -10082,11 +9456,11 @@ var require_jszip_min = __commonJS({
         };
       }, {}], 46: [function(e, t, r) {
         "use strict";
-        var h, c = e("../utils/common"), u2 = e("./trees"), d = e("./adler32"), p = e("./crc32"), n = e("./messages"), l = 0, f = 4, m = 0, _2 = -2, g2 = -1, b2 = 4, i = 2, v2 = 8, y2 = 9, s = 286, a = 30, o = 19, w2 = 2 * s + 1, k2 = 15, x = 3, S3 = 258, z2 = S3 + x + 1, C2 = 42, E2 = 113, A2 = 1, I3 = 2, O3 = 3, B3 = 4;
-        function R3(e2, t2) {
+        var h, c = e("../utils/common"), u2 = e("./trees"), d = e("./adler32"), p = e("./crc32"), n = e("./messages"), l = 0, f = 4, m = 0, _ = -2, g = -1, b = 4, i = 2, v = 8, y = 9, s = 286, a = 30, o = 19, w = 2 * s + 1, k = 15, x = 3, S2 = 258, z = S2 + x + 1, C2 = 42, E2 = 113, A2 = 1, I2 = 2, O2 = 3, B2 = 4;
+        function R2(e2, t2) {
           return e2.msg = n[t2], t2;
         }
-        function T3(e2) {
+        function T2(e2) {
           return (e2 << 1) - (4 < e2 ? 9 : 0);
         }
         function D2(e2) {
@@ -10096,24 +9470,24 @@ var require_jszip_min = __commonJS({
           var t2 = e2.state, r2 = t2.pending;
           r2 > e2.avail_out && (r2 = e2.avail_out), 0 !== r2 && (c.arraySet(e2.output, t2.pending_buf, t2.pending_out, r2, e2.next_out), e2.next_out += r2, t2.pending_out += r2, e2.total_out += r2, e2.avail_out -= r2, t2.pending -= r2, 0 === t2.pending && (t2.pending_out = 0));
         }
-        function N3(e2, t2) {
+        function N2(e2, t2) {
           u2._tr_flush_block(e2, 0 <= e2.block_start ? e2.block_start : -1, e2.strstart - e2.block_start, t2), e2.block_start = e2.strstart, F13(e2.strm);
         }
-        function U3(e2, t2) {
+        function U2(e2, t2) {
           e2.pending_buf[e2.pending++] = t2;
         }
-        function P3(e2, t2) {
+        function P2(e2, t2) {
           e2.pending_buf[e2.pending++] = t2 >>> 8 & 255, e2.pending_buf[e2.pending++] = 255 & t2;
         }
-        function L3(e2, t2) {
-          var r2, n2, i2 = e2.max_chain_length, s2 = e2.strstart, a2 = e2.prev_length, o2 = e2.nice_match, h2 = e2.strstart > e2.w_size - z2 ? e2.strstart - (e2.w_size - z2) : 0, u3 = e2.window, l2 = e2.w_mask, f2 = e2.prev, c2 = e2.strstart + S3, d2 = u3[s2 + a2 - 1], p2 = u3[s2 + a2];
+        function L2(e2, t2) {
+          var r2, n2, i2 = e2.max_chain_length, s2 = e2.strstart, a2 = e2.prev_length, o2 = e2.nice_match, h2 = e2.strstart > e2.w_size - z ? e2.strstart - (e2.w_size - z) : 0, u3 = e2.window, l2 = e2.w_mask, f2 = e2.prev, c2 = e2.strstart + S2, d2 = u3[s2 + a2 - 1], p2 = u3[s2 + a2];
           e2.prev_length >= e2.good_match && (i2 >>= 2), o2 > e2.lookahead && (o2 = e2.lookahead);
           do {
             if (u3[(r2 = t2) + a2] === p2 && u3[r2 + a2 - 1] === d2 && u3[r2] === u3[s2] && u3[++r2] === u3[s2 + 1]) {
               s2 += 2, r2++;
               do {
               } while (u3[++s2] === u3[++r2] && u3[++s2] === u3[++r2] && u3[++s2] === u3[++r2] && u3[++s2] === u3[++r2] && u3[++s2] === u3[++r2] && u3[++s2] === u3[++r2] && u3[++s2] === u3[++r2] && u3[++s2] === u3[++r2] && s2 < c2);
-              if (n2 = S3 - (c2 - s2), s2 = c2 - S3, a2 < n2) {
+              if (n2 = S2 - (c2 - s2), s2 = c2 - S2, a2 < n2) {
                 if (e2.match_start = t2, o2 <= (a2 = n2)) break;
                 d2 = u3[s2 + a2 - 1], p2 = u3[s2 + a2];
               }
@@ -10121,100 +9495,100 @@ var require_jszip_min = __commonJS({
           } while ((t2 = f2[t2 & l2]) > h2 && 0 != --i2);
           return a2 <= e2.lookahead ? a2 : e2.lookahead;
         }
-        function j2(e2) {
+        function j(e2) {
           var t2, r2, n2, i2, s2, a2, o2, h2, u3, l2, f2 = e2.w_size;
           do {
-            if (i2 = e2.window_size - e2.lookahead - e2.strstart, e2.strstart >= f2 + (f2 - z2)) {
+            if (i2 = e2.window_size - e2.lookahead - e2.strstart, e2.strstart >= f2 + (f2 - z)) {
               for (c.arraySet(e2.window, e2.window, f2, f2, 0), e2.match_start -= f2, e2.strstart -= f2, e2.block_start -= f2, t2 = r2 = e2.hash_size; n2 = e2.head[--t2], e2.head[t2] = f2 <= n2 ? n2 - f2 : 0, --r2; ) ;
               for (t2 = r2 = f2; n2 = e2.prev[--t2], e2.prev[t2] = f2 <= n2 ? n2 - f2 : 0, --r2; ) ;
               i2 += f2;
             }
             if (0 === e2.strm.avail_in) break;
             if (a2 = e2.strm, o2 = e2.window, h2 = e2.strstart + e2.lookahead, u3 = i2, l2 = void 0, l2 = a2.avail_in, u3 < l2 && (l2 = u3), r2 = 0 === l2 ? 0 : (a2.avail_in -= l2, c.arraySet(o2, a2.input, a2.next_in, l2, h2), 1 === a2.state.wrap ? a2.adler = d(a2.adler, o2, l2, h2) : 2 === a2.state.wrap && (a2.adler = p(a2.adler, o2, l2, h2)), a2.next_in += l2, a2.total_in += l2, l2), e2.lookahead += r2, e2.lookahead + e2.insert >= x) for (s2 = e2.strstart - e2.insert, e2.ins_h = e2.window[s2], e2.ins_h = (e2.ins_h << e2.hash_shift ^ e2.window[s2 + 1]) & e2.hash_mask; e2.insert && (e2.ins_h = (e2.ins_h << e2.hash_shift ^ e2.window[s2 + x - 1]) & e2.hash_mask, e2.prev[s2 & e2.w_mask] = e2.head[e2.ins_h], e2.head[e2.ins_h] = s2, s2++, e2.insert--, !(e2.lookahead + e2.insert < x)); ) ;
-          } while (e2.lookahead < z2 && 0 !== e2.strm.avail_in);
+          } while (e2.lookahead < z && 0 !== e2.strm.avail_in);
         }
-        function Z3(e2, t2) {
+        function Z2(e2, t2) {
           for (var r2, n2; ; ) {
-            if (e2.lookahead < z2) {
-              if (j2(e2), e2.lookahead < z2 && t2 === l) return A2;
+            if (e2.lookahead < z) {
+              if (j(e2), e2.lookahead < z && t2 === l) return A2;
               if (0 === e2.lookahead) break;
             }
-            if (r2 = 0, e2.lookahead >= x && (e2.ins_h = (e2.ins_h << e2.hash_shift ^ e2.window[e2.strstart + x - 1]) & e2.hash_mask, r2 = e2.prev[e2.strstart & e2.w_mask] = e2.head[e2.ins_h], e2.head[e2.ins_h] = e2.strstart), 0 !== r2 && e2.strstart - r2 <= e2.w_size - z2 && (e2.match_length = L3(e2, r2)), e2.match_length >= x) if (n2 = u2._tr_tally(e2, e2.strstart - e2.match_start, e2.match_length - x), e2.lookahead -= e2.match_length, e2.match_length <= e2.max_lazy_match && e2.lookahead >= x) {
+            if (r2 = 0, e2.lookahead >= x && (e2.ins_h = (e2.ins_h << e2.hash_shift ^ e2.window[e2.strstart + x - 1]) & e2.hash_mask, r2 = e2.prev[e2.strstart & e2.w_mask] = e2.head[e2.ins_h], e2.head[e2.ins_h] = e2.strstart), 0 !== r2 && e2.strstart - r2 <= e2.w_size - z && (e2.match_length = L2(e2, r2)), e2.match_length >= x) if (n2 = u2._tr_tally(e2, e2.strstart - e2.match_start, e2.match_length - x), e2.lookahead -= e2.match_length, e2.match_length <= e2.max_lazy_match && e2.lookahead >= x) {
               for (e2.match_length--; e2.strstart++, e2.ins_h = (e2.ins_h << e2.hash_shift ^ e2.window[e2.strstart + x - 1]) & e2.hash_mask, r2 = e2.prev[e2.strstart & e2.w_mask] = e2.head[e2.ins_h], e2.head[e2.ins_h] = e2.strstart, 0 != --e2.match_length; ) ;
               e2.strstart++;
             } else e2.strstart += e2.match_length, e2.match_length = 0, e2.ins_h = e2.window[e2.strstart], e2.ins_h = (e2.ins_h << e2.hash_shift ^ e2.window[e2.strstart + 1]) & e2.hash_mask;
             else n2 = u2._tr_tally(e2, 0, e2.window[e2.strstart]), e2.lookahead--, e2.strstart++;
-            if (n2 && (N3(e2, false), 0 === e2.strm.avail_out)) return A2;
+            if (n2 && (N2(e2, false), 0 === e2.strm.avail_out)) return A2;
           }
-          return e2.insert = e2.strstart < x - 1 ? e2.strstart : x - 1, t2 === f ? (N3(e2, true), 0 === e2.strm.avail_out ? O3 : B3) : e2.last_lit && (N3(e2, false), 0 === e2.strm.avail_out) ? A2 : I3;
+          return e2.insert = e2.strstart < x - 1 ? e2.strstart : x - 1, t2 === f ? (N2(e2, true), 0 === e2.strm.avail_out ? O2 : B2) : e2.last_lit && (N2(e2, false), 0 === e2.strm.avail_out) ? A2 : I2;
         }
-        function W3(e2, t2) {
+        function W2(e2, t2) {
           for (var r2, n2, i2; ; ) {
-            if (e2.lookahead < z2) {
-              if (j2(e2), e2.lookahead < z2 && t2 === l) return A2;
+            if (e2.lookahead < z) {
+              if (j(e2), e2.lookahead < z && t2 === l) return A2;
               if (0 === e2.lookahead) break;
             }
-            if (r2 = 0, e2.lookahead >= x && (e2.ins_h = (e2.ins_h << e2.hash_shift ^ e2.window[e2.strstart + x - 1]) & e2.hash_mask, r2 = e2.prev[e2.strstart & e2.w_mask] = e2.head[e2.ins_h], e2.head[e2.ins_h] = e2.strstart), e2.prev_length = e2.match_length, e2.prev_match = e2.match_start, e2.match_length = x - 1, 0 !== r2 && e2.prev_length < e2.max_lazy_match && e2.strstart - r2 <= e2.w_size - z2 && (e2.match_length = L3(e2, r2), e2.match_length <= 5 && (1 === e2.strategy || e2.match_length === x && 4096 < e2.strstart - e2.match_start) && (e2.match_length = x - 1)), e2.prev_length >= x && e2.match_length <= e2.prev_length) {
+            if (r2 = 0, e2.lookahead >= x && (e2.ins_h = (e2.ins_h << e2.hash_shift ^ e2.window[e2.strstart + x - 1]) & e2.hash_mask, r2 = e2.prev[e2.strstart & e2.w_mask] = e2.head[e2.ins_h], e2.head[e2.ins_h] = e2.strstart), e2.prev_length = e2.match_length, e2.prev_match = e2.match_start, e2.match_length = x - 1, 0 !== r2 && e2.prev_length < e2.max_lazy_match && e2.strstart - r2 <= e2.w_size - z && (e2.match_length = L2(e2, r2), e2.match_length <= 5 && (1 === e2.strategy || e2.match_length === x && 4096 < e2.strstart - e2.match_start) && (e2.match_length = x - 1)), e2.prev_length >= x && e2.match_length <= e2.prev_length) {
               for (i2 = e2.strstart + e2.lookahead - x, n2 = u2._tr_tally(e2, e2.strstart - 1 - e2.prev_match, e2.prev_length - x), e2.lookahead -= e2.prev_length - 1, e2.prev_length -= 2; ++e2.strstart <= i2 && (e2.ins_h = (e2.ins_h << e2.hash_shift ^ e2.window[e2.strstart + x - 1]) & e2.hash_mask, r2 = e2.prev[e2.strstart & e2.w_mask] = e2.head[e2.ins_h], e2.head[e2.ins_h] = e2.strstart), 0 != --e2.prev_length; ) ;
-              if (e2.match_available = 0, e2.match_length = x - 1, e2.strstart++, n2 && (N3(e2, false), 0 === e2.strm.avail_out)) return A2;
+              if (e2.match_available = 0, e2.match_length = x - 1, e2.strstart++, n2 && (N2(e2, false), 0 === e2.strm.avail_out)) return A2;
             } else if (e2.match_available) {
-              if ((n2 = u2._tr_tally(e2, 0, e2.window[e2.strstart - 1])) && N3(e2, false), e2.strstart++, e2.lookahead--, 0 === e2.strm.avail_out) return A2;
+              if ((n2 = u2._tr_tally(e2, 0, e2.window[e2.strstart - 1])) && N2(e2, false), e2.strstart++, e2.lookahead--, 0 === e2.strm.avail_out) return A2;
             } else e2.match_available = 1, e2.strstart++, e2.lookahead--;
           }
-          return e2.match_available && (n2 = u2._tr_tally(e2, 0, e2.window[e2.strstart - 1]), e2.match_available = 0), e2.insert = e2.strstart < x - 1 ? e2.strstart : x - 1, t2 === f ? (N3(e2, true), 0 === e2.strm.avail_out ? O3 : B3) : e2.last_lit && (N3(e2, false), 0 === e2.strm.avail_out) ? A2 : I3;
+          return e2.match_available && (n2 = u2._tr_tally(e2, 0, e2.window[e2.strstart - 1]), e2.match_available = 0), e2.insert = e2.strstart < x - 1 ? e2.strstart : x - 1, t2 === f ? (N2(e2, true), 0 === e2.strm.avail_out ? O2 : B2) : e2.last_lit && (N2(e2, false), 0 === e2.strm.avail_out) ? A2 : I2;
         }
-        function M3(e2, t2, r2, n2, i2) {
+        function M2(e2, t2, r2, n2, i2) {
           this.good_length = e2, this.max_lazy = t2, this.nice_length = r2, this.max_chain = n2, this.func = i2;
         }
-        function H3() {
-          this.strm = null, this.status = 0, this.pending_buf = null, this.pending_buf_size = 0, this.pending_out = 0, this.pending = 0, this.wrap = 0, this.gzhead = null, this.gzindex = 0, this.method = v2, this.last_flush = -1, this.w_size = 0, this.w_bits = 0, this.w_mask = 0, this.window = null, this.window_size = 0, this.prev = null, this.head = null, this.ins_h = 0, this.hash_size = 0, this.hash_bits = 0, this.hash_mask = 0, this.hash_shift = 0, this.block_start = 0, this.match_length = 0, this.prev_match = 0, this.match_available = 0, this.strstart = 0, this.match_start = 0, this.lookahead = 0, this.prev_length = 0, this.max_chain_length = 0, this.max_lazy_match = 0, this.level = 0, this.strategy = 0, this.good_match = 0, this.nice_match = 0, this.dyn_ltree = new c.Buf16(2 * w2), this.dyn_dtree = new c.Buf16(2 * (2 * a + 1)), this.bl_tree = new c.Buf16(2 * (2 * o + 1)), D2(this.dyn_ltree), D2(this.dyn_dtree), D2(this.bl_tree), this.l_desc = null, this.d_desc = null, this.bl_desc = null, this.bl_count = new c.Buf16(k2 + 1), this.heap = new c.Buf16(2 * s + 1), D2(this.heap), this.heap_len = 0, this.heap_max = 0, this.depth = new c.Buf16(2 * s + 1), D2(this.depth), this.l_buf = 0, this.lit_bufsize = 0, this.last_lit = 0, this.d_buf = 0, this.opt_len = 0, this.static_len = 0, this.matches = 0, this.insert = 0, this.bi_buf = 0, this.bi_valid = 0;
+        function H2() {
+          this.strm = null, this.status = 0, this.pending_buf = null, this.pending_buf_size = 0, this.pending_out = 0, this.pending = 0, this.wrap = 0, this.gzhead = null, this.gzindex = 0, this.method = v, this.last_flush = -1, this.w_size = 0, this.w_bits = 0, this.w_mask = 0, this.window = null, this.window_size = 0, this.prev = null, this.head = null, this.ins_h = 0, this.hash_size = 0, this.hash_bits = 0, this.hash_mask = 0, this.hash_shift = 0, this.block_start = 0, this.match_length = 0, this.prev_match = 0, this.match_available = 0, this.strstart = 0, this.match_start = 0, this.lookahead = 0, this.prev_length = 0, this.max_chain_length = 0, this.max_lazy_match = 0, this.level = 0, this.strategy = 0, this.good_match = 0, this.nice_match = 0, this.dyn_ltree = new c.Buf16(2 * w), this.dyn_dtree = new c.Buf16(2 * (2 * a + 1)), this.bl_tree = new c.Buf16(2 * (2 * o + 1)), D2(this.dyn_ltree), D2(this.dyn_dtree), D2(this.bl_tree), this.l_desc = null, this.d_desc = null, this.bl_desc = null, this.bl_count = new c.Buf16(k + 1), this.heap = new c.Buf16(2 * s + 1), D2(this.heap), this.heap_len = 0, this.heap_max = 0, this.depth = new c.Buf16(2 * s + 1), D2(this.depth), this.l_buf = 0, this.lit_bufsize = 0, this.last_lit = 0, this.d_buf = 0, this.opt_len = 0, this.static_len = 0, this.matches = 0, this.insert = 0, this.bi_buf = 0, this.bi_valid = 0;
         }
-        function G3(e2) {
+        function G2(e2) {
           var t2;
-          return e2 && e2.state ? (e2.total_in = e2.total_out = 0, e2.data_type = i, (t2 = e2.state).pending = 0, t2.pending_out = 0, t2.wrap < 0 && (t2.wrap = -t2.wrap), t2.status = t2.wrap ? C2 : E2, e2.adler = 2 === t2.wrap ? 0 : 1, t2.last_flush = l, u2._tr_init(t2), m) : R3(e2, _2);
+          return e2 && e2.state ? (e2.total_in = e2.total_out = 0, e2.data_type = i, (t2 = e2.state).pending = 0, t2.pending_out = 0, t2.wrap < 0 && (t2.wrap = -t2.wrap), t2.status = t2.wrap ? C2 : E2, e2.adler = 2 === t2.wrap ? 0 : 1, t2.last_flush = l, u2._tr_init(t2), m) : R2(e2, _);
         }
-        function K3(e2) {
-          var t2 = G3(e2);
+        function K2(e2) {
+          var t2 = G2(e2);
           return t2 === m && (function(e3) {
             e3.window_size = 2 * e3.w_size, D2(e3.head), e3.max_lazy_match = h[e3.level].max_lazy, e3.good_match = h[e3.level].good_length, e3.nice_match = h[e3.level].nice_length, e3.max_chain_length = h[e3.level].max_chain, e3.strstart = 0, e3.block_start = 0, e3.lookahead = 0, e3.insert = 0, e3.match_length = e3.prev_length = x - 1, e3.match_available = 0, e3.ins_h = 0;
           })(e2.state), t2;
         }
-        function Y4(e2, t2, r2, n2, i2, s2) {
-          if (!e2) return _2;
+        function Y3(e2, t2, r2, n2, i2, s2) {
+          if (!e2) return _;
           var a2 = 1;
-          if (t2 === g2 && (t2 = 6), n2 < 0 ? (a2 = 0, n2 = -n2) : 15 < n2 && (a2 = 2, n2 -= 16), i2 < 1 || y2 < i2 || r2 !== v2 || n2 < 8 || 15 < n2 || t2 < 0 || 9 < t2 || s2 < 0 || b2 < s2) return R3(e2, _2);
+          if (t2 === g && (t2 = 6), n2 < 0 ? (a2 = 0, n2 = -n2) : 15 < n2 && (a2 = 2, n2 -= 16), i2 < 1 || y < i2 || r2 !== v || n2 < 8 || 15 < n2 || t2 < 0 || 9 < t2 || s2 < 0 || b < s2) return R2(e2, _);
           8 === n2 && (n2 = 9);
-          var o2 = new H3();
-          return (e2.state = o2).strm = e2, o2.wrap = a2, o2.gzhead = null, o2.w_bits = n2, o2.w_size = 1 << o2.w_bits, o2.w_mask = o2.w_size - 1, o2.hash_bits = i2 + 7, o2.hash_size = 1 << o2.hash_bits, o2.hash_mask = o2.hash_size - 1, o2.hash_shift = ~~((o2.hash_bits + x - 1) / x), o2.window = new c.Buf8(2 * o2.w_size), o2.head = new c.Buf16(o2.hash_size), o2.prev = new c.Buf16(o2.w_size), o2.lit_bufsize = 1 << i2 + 6, o2.pending_buf_size = 4 * o2.lit_bufsize, o2.pending_buf = new c.Buf8(o2.pending_buf_size), o2.d_buf = 1 * o2.lit_bufsize, o2.l_buf = 3 * o2.lit_bufsize, o2.level = t2, o2.strategy = s2, o2.method = r2, K3(e2);
+          var o2 = new H2();
+          return (e2.state = o2).strm = e2, o2.wrap = a2, o2.gzhead = null, o2.w_bits = n2, o2.w_size = 1 << o2.w_bits, o2.w_mask = o2.w_size - 1, o2.hash_bits = i2 + 7, o2.hash_size = 1 << o2.hash_bits, o2.hash_mask = o2.hash_size - 1, o2.hash_shift = ~~((o2.hash_bits + x - 1) / x), o2.window = new c.Buf8(2 * o2.w_size), o2.head = new c.Buf16(o2.hash_size), o2.prev = new c.Buf16(o2.w_size), o2.lit_bufsize = 1 << i2 + 6, o2.pending_buf_size = 4 * o2.lit_bufsize, o2.pending_buf = new c.Buf8(o2.pending_buf_size), o2.d_buf = 1 * o2.lit_bufsize, o2.l_buf = 3 * o2.lit_bufsize, o2.level = t2, o2.strategy = s2, o2.method = r2, K2(e2);
         }
-        h = [new M3(0, 0, 0, 0, function(e2, t2) {
+        h = [new M2(0, 0, 0, 0, function(e2, t2) {
           var r2 = 65535;
           for (r2 > e2.pending_buf_size - 5 && (r2 = e2.pending_buf_size - 5); ; ) {
             if (e2.lookahead <= 1) {
-              if (j2(e2), 0 === e2.lookahead && t2 === l) return A2;
+              if (j(e2), 0 === e2.lookahead && t2 === l) return A2;
               if (0 === e2.lookahead) break;
             }
             e2.strstart += e2.lookahead, e2.lookahead = 0;
             var n2 = e2.block_start + r2;
-            if ((0 === e2.strstart || e2.strstart >= n2) && (e2.lookahead = e2.strstart - n2, e2.strstart = n2, N3(e2, false), 0 === e2.strm.avail_out)) return A2;
-            if (e2.strstart - e2.block_start >= e2.w_size - z2 && (N3(e2, false), 0 === e2.strm.avail_out)) return A2;
+            if ((0 === e2.strstart || e2.strstart >= n2) && (e2.lookahead = e2.strstart - n2, e2.strstart = n2, N2(e2, false), 0 === e2.strm.avail_out)) return A2;
+            if (e2.strstart - e2.block_start >= e2.w_size - z && (N2(e2, false), 0 === e2.strm.avail_out)) return A2;
           }
-          return e2.insert = 0, t2 === f ? (N3(e2, true), 0 === e2.strm.avail_out ? O3 : B3) : (e2.strstart > e2.block_start && (N3(e2, false), e2.strm.avail_out), A2);
-        }), new M3(4, 4, 8, 4, Z3), new M3(4, 5, 16, 8, Z3), new M3(4, 6, 32, 32, Z3), new M3(4, 4, 16, 16, W3), new M3(8, 16, 32, 32, W3), new M3(8, 16, 128, 128, W3), new M3(8, 32, 128, 256, W3), new M3(32, 128, 258, 1024, W3), new M3(32, 258, 258, 4096, W3)], r.deflateInit = function(e2, t2) {
-          return Y4(e2, t2, v2, 15, 8, 0);
-        }, r.deflateInit2 = Y4, r.deflateReset = K3, r.deflateResetKeep = G3, r.deflateSetHeader = function(e2, t2) {
-          return e2 && e2.state ? 2 !== e2.state.wrap ? _2 : (e2.state.gzhead = t2, m) : _2;
+          return e2.insert = 0, t2 === f ? (N2(e2, true), 0 === e2.strm.avail_out ? O2 : B2) : (e2.strstart > e2.block_start && (N2(e2, false), e2.strm.avail_out), A2);
+        }), new M2(4, 4, 8, 4, Z2), new M2(4, 5, 16, 8, Z2), new M2(4, 6, 32, 32, Z2), new M2(4, 4, 16, 16, W2), new M2(8, 16, 32, 32, W2), new M2(8, 16, 128, 128, W2), new M2(8, 32, 128, 256, W2), new M2(32, 128, 258, 1024, W2), new M2(32, 258, 258, 4096, W2)], r.deflateInit = function(e2, t2) {
+          return Y3(e2, t2, v, 15, 8, 0);
+        }, r.deflateInit2 = Y3, r.deflateReset = K2, r.deflateResetKeep = G2, r.deflateSetHeader = function(e2, t2) {
+          return e2 && e2.state ? 2 !== e2.state.wrap ? _ : (e2.state.gzhead = t2, m) : _;
         }, r.deflate = function(e2, t2) {
           var r2, n2, i2, s2;
-          if (!e2 || !e2.state || 5 < t2 || t2 < 0) return e2 ? R3(e2, _2) : _2;
-          if (n2 = e2.state, !e2.output || !e2.input && 0 !== e2.avail_in || 666 === n2.status && t2 !== f) return R3(e2, 0 === e2.avail_out ? -5 : _2);
-          if (n2.strm = e2, r2 = n2.last_flush, n2.last_flush = t2, n2.status === C2) if (2 === n2.wrap) e2.adler = 0, U3(n2, 31), U3(n2, 139), U3(n2, 8), n2.gzhead ? (U3(n2, (n2.gzhead.text ? 1 : 0) + (n2.gzhead.hcrc ? 2 : 0) + (n2.gzhead.extra ? 4 : 0) + (n2.gzhead.name ? 8 : 0) + (n2.gzhead.comment ? 16 : 0)), U3(n2, 255 & n2.gzhead.time), U3(n2, n2.gzhead.time >> 8 & 255), U3(n2, n2.gzhead.time >> 16 & 255), U3(n2, n2.gzhead.time >> 24 & 255), U3(n2, 9 === n2.level ? 2 : 2 <= n2.strategy || n2.level < 2 ? 4 : 0), U3(n2, 255 & n2.gzhead.os), n2.gzhead.extra && n2.gzhead.extra.length && (U3(n2, 255 & n2.gzhead.extra.length), U3(n2, n2.gzhead.extra.length >> 8 & 255)), n2.gzhead.hcrc && (e2.adler = p(e2.adler, n2.pending_buf, n2.pending, 0)), n2.gzindex = 0, n2.status = 69) : (U3(n2, 0), U3(n2, 0), U3(n2, 0), U3(n2, 0), U3(n2, 0), U3(n2, 9 === n2.level ? 2 : 2 <= n2.strategy || n2.level < 2 ? 4 : 0), U3(n2, 3), n2.status = E2);
+          if (!e2 || !e2.state || 5 < t2 || t2 < 0) return e2 ? R2(e2, _) : _;
+          if (n2 = e2.state, !e2.output || !e2.input && 0 !== e2.avail_in || 666 === n2.status && t2 !== f) return R2(e2, 0 === e2.avail_out ? -5 : _);
+          if (n2.strm = e2, r2 = n2.last_flush, n2.last_flush = t2, n2.status === C2) if (2 === n2.wrap) e2.adler = 0, U2(n2, 31), U2(n2, 139), U2(n2, 8), n2.gzhead ? (U2(n2, (n2.gzhead.text ? 1 : 0) + (n2.gzhead.hcrc ? 2 : 0) + (n2.gzhead.extra ? 4 : 0) + (n2.gzhead.name ? 8 : 0) + (n2.gzhead.comment ? 16 : 0)), U2(n2, 255 & n2.gzhead.time), U2(n2, n2.gzhead.time >> 8 & 255), U2(n2, n2.gzhead.time >> 16 & 255), U2(n2, n2.gzhead.time >> 24 & 255), U2(n2, 9 === n2.level ? 2 : 2 <= n2.strategy || n2.level < 2 ? 4 : 0), U2(n2, 255 & n2.gzhead.os), n2.gzhead.extra && n2.gzhead.extra.length && (U2(n2, 255 & n2.gzhead.extra.length), U2(n2, n2.gzhead.extra.length >> 8 & 255)), n2.gzhead.hcrc && (e2.adler = p(e2.adler, n2.pending_buf, n2.pending, 0)), n2.gzindex = 0, n2.status = 69) : (U2(n2, 0), U2(n2, 0), U2(n2, 0), U2(n2, 0), U2(n2, 0), U2(n2, 9 === n2.level ? 2 : 2 <= n2.strategy || n2.level < 2 ? 4 : 0), U2(n2, 3), n2.status = E2);
           else {
-            var a2 = v2 + (n2.w_bits - 8 << 4) << 8;
-            a2 |= (2 <= n2.strategy || n2.level < 2 ? 0 : n2.level < 6 ? 1 : 6 === n2.level ? 2 : 3) << 6, 0 !== n2.strstart && (a2 |= 32), a2 += 31 - a2 % 31, n2.status = E2, P3(n2, a2), 0 !== n2.strstart && (P3(n2, e2.adler >>> 16), P3(n2, 65535 & e2.adler)), e2.adler = 1;
+            var a2 = v + (n2.w_bits - 8 << 4) << 8;
+            a2 |= (2 <= n2.strategy || n2.level < 2 ? 0 : n2.level < 6 ? 1 : 6 === n2.level ? 2 : 3) << 6, 0 !== n2.strstart && (a2 |= 32), a2 += 31 - a2 % 31, n2.status = E2, P2(n2, a2), 0 !== n2.strstart && (P2(n2, e2.adler >>> 16), P2(n2, 65535 & e2.adler)), e2.adler = 1;
           }
           if (69 === n2.status) if (n2.gzhead.extra) {
-            for (i2 = n2.pending; n2.gzindex < (65535 & n2.gzhead.extra.length) && (n2.pending !== n2.pending_buf_size || (n2.gzhead.hcrc && n2.pending > i2 && (e2.adler = p(e2.adler, n2.pending_buf, n2.pending - i2, i2)), F13(e2), i2 = n2.pending, n2.pending !== n2.pending_buf_size)); ) U3(n2, 255 & n2.gzhead.extra[n2.gzindex]), n2.gzindex++;
+            for (i2 = n2.pending; n2.gzindex < (65535 & n2.gzhead.extra.length) && (n2.pending !== n2.pending_buf_size || (n2.gzhead.hcrc && n2.pending > i2 && (e2.adler = p(e2.adler, n2.pending_buf, n2.pending - i2, i2)), F13(e2), i2 = n2.pending, n2.pending !== n2.pending_buf_size)); ) U2(n2, 255 & n2.gzhead.extra[n2.gzindex]), n2.gzindex++;
             n2.gzhead.hcrc && n2.pending > i2 && (e2.adler = p(e2.adler, n2.pending_buf, n2.pending - i2, i2)), n2.gzindex === n2.gzhead.extra.length && (n2.gzindex = 0, n2.status = 73);
           } else n2.status = 73;
           if (73 === n2.status) if (n2.gzhead.name) {
@@ -10224,7 +9598,7 @@ var require_jszip_min = __commonJS({
                 s2 = 1;
                 break;
               }
-              s2 = n2.gzindex < n2.gzhead.name.length ? 255 & n2.gzhead.name.charCodeAt(n2.gzindex++) : 0, U3(n2, s2);
+              s2 = n2.gzindex < n2.gzhead.name.length ? 255 & n2.gzhead.name.charCodeAt(n2.gzindex++) : 0, U2(n2, s2);
             } while (0 !== s2);
             n2.gzhead.hcrc && n2.pending > i2 && (e2.adler = p(e2.adler, n2.pending_buf, n2.pending - i2, i2)), 0 === s2 && (n2.gzindex = 0, n2.status = 91);
           } else n2.status = 91;
@@ -10235,54 +9609,54 @@ var require_jszip_min = __commonJS({
                 s2 = 1;
                 break;
               }
-              s2 = n2.gzindex < n2.gzhead.comment.length ? 255 & n2.gzhead.comment.charCodeAt(n2.gzindex++) : 0, U3(n2, s2);
+              s2 = n2.gzindex < n2.gzhead.comment.length ? 255 & n2.gzhead.comment.charCodeAt(n2.gzindex++) : 0, U2(n2, s2);
             } while (0 !== s2);
             n2.gzhead.hcrc && n2.pending > i2 && (e2.adler = p(e2.adler, n2.pending_buf, n2.pending - i2, i2)), 0 === s2 && (n2.status = 103);
           } else n2.status = 103;
-          if (103 === n2.status && (n2.gzhead.hcrc ? (n2.pending + 2 > n2.pending_buf_size && F13(e2), n2.pending + 2 <= n2.pending_buf_size && (U3(n2, 255 & e2.adler), U3(n2, e2.adler >> 8 & 255), e2.adler = 0, n2.status = E2)) : n2.status = E2), 0 !== n2.pending) {
+          if (103 === n2.status && (n2.gzhead.hcrc ? (n2.pending + 2 > n2.pending_buf_size && F13(e2), n2.pending + 2 <= n2.pending_buf_size && (U2(n2, 255 & e2.adler), U2(n2, e2.adler >> 8 & 255), e2.adler = 0, n2.status = E2)) : n2.status = E2), 0 !== n2.pending) {
             if (F13(e2), 0 === e2.avail_out) return n2.last_flush = -1, m;
-          } else if (0 === e2.avail_in && T3(t2) <= T3(r2) && t2 !== f) return R3(e2, -5);
-          if (666 === n2.status && 0 !== e2.avail_in) return R3(e2, -5);
+          } else if (0 === e2.avail_in && T2(t2) <= T2(r2) && t2 !== f) return R2(e2, -5);
+          if (666 === n2.status && 0 !== e2.avail_in) return R2(e2, -5);
           if (0 !== e2.avail_in || 0 !== n2.lookahead || t2 !== l && 666 !== n2.status) {
             var o2 = 2 === n2.strategy ? (function(e3, t3) {
               for (var r3; ; ) {
-                if (0 === e3.lookahead && (j2(e3), 0 === e3.lookahead)) {
+                if (0 === e3.lookahead && (j(e3), 0 === e3.lookahead)) {
                   if (t3 === l) return A2;
                   break;
                 }
-                if (e3.match_length = 0, r3 = u2._tr_tally(e3, 0, e3.window[e3.strstart]), e3.lookahead--, e3.strstart++, r3 && (N3(e3, false), 0 === e3.strm.avail_out)) return A2;
+                if (e3.match_length = 0, r3 = u2._tr_tally(e3, 0, e3.window[e3.strstart]), e3.lookahead--, e3.strstart++, r3 && (N2(e3, false), 0 === e3.strm.avail_out)) return A2;
               }
-              return e3.insert = 0, t3 === f ? (N3(e3, true), 0 === e3.strm.avail_out ? O3 : B3) : e3.last_lit && (N3(e3, false), 0 === e3.strm.avail_out) ? A2 : I3;
+              return e3.insert = 0, t3 === f ? (N2(e3, true), 0 === e3.strm.avail_out ? O2 : B2) : e3.last_lit && (N2(e3, false), 0 === e3.strm.avail_out) ? A2 : I2;
             })(n2, t2) : 3 === n2.strategy ? (function(e3, t3) {
               for (var r3, n3, i3, s3, a3 = e3.window; ; ) {
-                if (e3.lookahead <= S3) {
-                  if (j2(e3), e3.lookahead <= S3 && t3 === l) return A2;
+                if (e3.lookahead <= S2) {
+                  if (j(e3), e3.lookahead <= S2 && t3 === l) return A2;
                   if (0 === e3.lookahead) break;
                 }
                 if (e3.match_length = 0, e3.lookahead >= x && 0 < e3.strstart && (n3 = a3[i3 = e3.strstart - 1]) === a3[++i3] && n3 === a3[++i3] && n3 === a3[++i3]) {
-                  s3 = e3.strstart + S3;
+                  s3 = e3.strstart + S2;
                   do {
                   } while (n3 === a3[++i3] && n3 === a3[++i3] && n3 === a3[++i3] && n3 === a3[++i3] && n3 === a3[++i3] && n3 === a3[++i3] && n3 === a3[++i3] && n3 === a3[++i3] && i3 < s3);
-                  e3.match_length = S3 - (s3 - i3), e3.match_length > e3.lookahead && (e3.match_length = e3.lookahead);
+                  e3.match_length = S2 - (s3 - i3), e3.match_length > e3.lookahead && (e3.match_length = e3.lookahead);
                 }
-                if (e3.match_length >= x ? (r3 = u2._tr_tally(e3, 1, e3.match_length - x), e3.lookahead -= e3.match_length, e3.strstart += e3.match_length, e3.match_length = 0) : (r3 = u2._tr_tally(e3, 0, e3.window[e3.strstart]), e3.lookahead--, e3.strstart++), r3 && (N3(e3, false), 0 === e3.strm.avail_out)) return A2;
+                if (e3.match_length >= x ? (r3 = u2._tr_tally(e3, 1, e3.match_length - x), e3.lookahead -= e3.match_length, e3.strstart += e3.match_length, e3.match_length = 0) : (r3 = u2._tr_tally(e3, 0, e3.window[e3.strstart]), e3.lookahead--, e3.strstart++), r3 && (N2(e3, false), 0 === e3.strm.avail_out)) return A2;
               }
-              return e3.insert = 0, t3 === f ? (N3(e3, true), 0 === e3.strm.avail_out ? O3 : B3) : e3.last_lit && (N3(e3, false), 0 === e3.strm.avail_out) ? A2 : I3;
+              return e3.insert = 0, t3 === f ? (N2(e3, true), 0 === e3.strm.avail_out ? O2 : B2) : e3.last_lit && (N2(e3, false), 0 === e3.strm.avail_out) ? A2 : I2;
             })(n2, t2) : h[n2.level].func(n2, t2);
-            if (o2 !== O3 && o2 !== B3 || (n2.status = 666), o2 === A2 || o2 === O3) return 0 === e2.avail_out && (n2.last_flush = -1), m;
-            if (o2 === I3 && (1 === t2 ? u2._tr_align(n2) : 5 !== t2 && (u2._tr_stored_block(n2, 0, 0, false), 3 === t2 && (D2(n2.head), 0 === n2.lookahead && (n2.strstart = 0, n2.block_start = 0, n2.insert = 0))), F13(e2), 0 === e2.avail_out)) return n2.last_flush = -1, m;
+            if (o2 !== O2 && o2 !== B2 || (n2.status = 666), o2 === A2 || o2 === O2) return 0 === e2.avail_out && (n2.last_flush = -1), m;
+            if (o2 === I2 && (1 === t2 ? u2._tr_align(n2) : 5 !== t2 && (u2._tr_stored_block(n2, 0, 0, false), 3 === t2 && (D2(n2.head), 0 === n2.lookahead && (n2.strstart = 0, n2.block_start = 0, n2.insert = 0))), F13(e2), 0 === e2.avail_out)) return n2.last_flush = -1, m;
           }
-          return t2 !== f ? m : n2.wrap <= 0 ? 1 : (2 === n2.wrap ? (U3(n2, 255 & e2.adler), U3(n2, e2.adler >> 8 & 255), U3(n2, e2.adler >> 16 & 255), U3(n2, e2.adler >> 24 & 255), U3(n2, 255 & e2.total_in), U3(n2, e2.total_in >> 8 & 255), U3(n2, e2.total_in >> 16 & 255), U3(n2, e2.total_in >> 24 & 255)) : (P3(n2, e2.adler >>> 16), P3(n2, 65535 & e2.adler)), F13(e2), 0 < n2.wrap && (n2.wrap = -n2.wrap), 0 !== n2.pending ? m : 1);
+          return t2 !== f ? m : n2.wrap <= 0 ? 1 : (2 === n2.wrap ? (U2(n2, 255 & e2.adler), U2(n2, e2.adler >> 8 & 255), U2(n2, e2.adler >> 16 & 255), U2(n2, e2.adler >> 24 & 255), U2(n2, 255 & e2.total_in), U2(n2, e2.total_in >> 8 & 255), U2(n2, e2.total_in >> 16 & 255), U2(n2, e2.total_in >> 24 & 255)) : (P2(n2, e2.adler >>> 16), P2(n2, 65535 & e2.adler)), F13(e2), 0 < n2.wrap && (n2.wrap = -n2.wrap), 0 !== n2.pending ? m : 1);
         }, r.deflateEnd = function(e2) {
           var t2;
-          return e2 && e2.state ? (t2 = e2.state.status) !== C2 && 69 !== t2 && 73 !== t2 && 91 !== t2 && 103 !== t2 && t2 !== E2 && 666 !== t2 ? R3(e2, _2) : (e2.state = null, t2 === E2 ? R3(e2, -3) : m) : _2;
+          return e2 && e2.state ? (t2 = e2.state.status) !== C2 && 69 !== t2 && 73 !== t2 && 91 !== t2 && 103 !== t2 && t2 !== E2 && 666 !== t2 ? R2(e2, _) : (e2.state = null, t2 === E2 ? R2(e2, -3) : m) : _;
         }, r.deflateSetDictionary = function(e2, t2) {
           var r2, n2, i2, s2, a2, o2, h2, u3, l2 = t2.length;
-          if (!e2 || !e2.state) return _2;
-          if (2 === (s2 = (r2 = e2.state).wrap) || 1 === s2 && r2.status !== C2 || r2.lookahead) return _2;
-          for (1 === s2 && (e2.adler = d(e2.adler, t2, l2, 0)), r2.wrap = 0, l2 >= r2.w_size && (0 === s2 && (D2(r2.head), r2.strstart = 0, r2.block_start = 0, r2.insert = 0), u3 = new c.Buf8(r2.w_size), c.arraySet(u3, t2, l2 - r2.w_size, r2.w_size, 0), t2 = u3, l2 = r2.w_size), a2 = e2.avail_in, o2 = e2.next_in, h2 = e2.input, e2.avail_in = l2, e2.next_in = 0, e2.input = t2, j2(r2); r2.lookahead >= x; ) {
+          if (!e2 || !e2.state) return _;
+          if (2 === (s2 = (r2 = e2.state).wrap) || 1 === s2 && r2.status !== C2 || r2.lookahead) return _;
+          for (1 === s2 && (e2.adler = d(e2.adler, t2, l2, 0)), r2.wrap = 0, l2 >= r2.w_size && (0 === s2 && (D2(r2.head), r2.strstart = 0, r2.block_start = 0, r2.insert = 0), u3 = new c.Buf8(r2.w_size), c.arraySet(u3, t2, l2 - r2.w_size, r2.w_size, 0), t2 = u3, l2 = r2.w_size), a2 = e2.avail_in, o2 = e2.next_in, h2 = e2.input, e2.avail_in = l2, e2.next_in = 0, e2.input = t2, j(r2); r2.lookahead >= x; ) {
             for (n2 = r2.strstart, i2 = r2.lookahead - (x - 1); r2.ins_h = (r2.ins_h << r2.hash_shift ^ r2.window[n2 + x - 1]) & r2.hash_mask, r2.prev[n2 & r2.w_mask] = r2.head[r2.ins_h], r2.head[r2.ins_h] = n2, n2++, --i2; ) ;
-            r2.strstart = n2, r2.lookahead = x - 1, j2(r2);
+            r2.strstart = n2, r2.lookahead = x - 1, j(r2);
           }
           return r2.strstart += r2.lookahead, r2.block_start = r2.strstart, r2.insert = r2.lookahead, r2.lookahead = 0, r2.match_length = r2.prev_length = x - 1, r2.match_available = 0, e2.next_in = o2, e2.input = h2, e2.avail_in = a2, r2.wrap = s2, m;
         }, r.deflateInfo = "pako deflate (from Nodeca project)";
@@ -10294,66 +9668,66 @@ var require_jszip_min = __commonJS({
       }, {}], 48: [function(e, t, r) {
         "use strict";
         t.exports = function(e2, t2) {
-          var r2, n, i, s, a, o, h, u2, l, f, c, d, p, m, _2, g2, b2, v2, y2, w2, k2, x, S3, z2, C2;
-          r2 = e2.state, n = e2.next_in, z2 = e2.input, i = n + (e2.avail_in - 5), s = e2.next_out, C2 = e2.output, a = s - (t2 - e2.avail_out), o = s + (e2.avail_out - 257), h = r2.dmax, u2 = r2.wsize, l = r2.whave, f = r2.wnext, c = r2.window, d = r2.hold, p = r2.bits, m = r2.lencode, _2 = r2.distcode, g2 = (1 << r2.lenbits) - 1, b2 = (1 << r2.distbits) - 1;
+          var r2, n, i, s, a, o, h, u2, l, f, c, d, p, m, _, g, b, v, y, w, k, x, S2, z, C2;
+          r2 = e2.state, n = e2.next_in, z = e2.input, i = n + (e2.avail_in - 5), s = e2.next_out, C2 = e2.output, a = s - (t2 - e2.avail_out), o = s + (e2.avail_out - 257), h = r2.dmax, u2 = r2.wsize, l = r2.whave, f = r2.wnext, c = r2.window, d = r2.hold, p = r2.bits, m = r2.lencode, _ = r2.distcode, g = (1 << r2.lenbits) - 1, b = (1 << r2.distbits) - 1;
           e: do {
-            p < 15 && (d += z2[n++] << p, p += 8, d += z2[n++] << p, p += 8), v2 = m[d & g2];
+            p < 15 && (d += z[n++] << p, p += 8, d += z[n++] << p, p += 8), v = m[d & g];
             t: for (; ; ) {
-              if (d >>>= y2 = v2 >>> 24, p -= y2, 0 === (y2 = v2 >>> 16 & 255)) C2[s++] = 65535 & v2;
+              if (d >>>= y = v >>> 24, p -= y, 0 === (y = v >>> 16 & 255)) C2[s++] = 65535 & v;
               else {
-                if (!(16 & y2)) {
-                  if (0 == (64 & y2)) {
-                    v2 = m[(65535 & v2) + (d & (1 << y2) - 1)];
+                if (!(16 & y)) {
+                  if (0 == (64 & y)) {
+                    v = m[(65535 & v) + (d & (1 << y) - 1)];
                     continue t;
                   }
-                  if (32 & y2) {
+                  if (32 & y) {
                     r2.mode = 12;
                     break e;
                   }
                   e2.msg = "invalid literal/length code", r2.mode = 30;
                   break e;
                 }
-                w2 = 65535 & v2, (y2 &= 15) && (p < y2 && (d += z2[n++] << p, p += 8), w2 += d & (1 << y2) - 1, d >>>= y2, p -= y2), p < 15 && (d += z2[n++] << p, p += 8, d += z2[n++] << p, p += 8), v2 = _2[d & b2];
+                w = 65535 & v, (y &= 15) && (p < y && (d += z[n++] << p, p += 8), w += d & (1 << y) - 1, d >>>= y, p -= y), p < 15 && (d += z[n++] << p, p += 8, d += z[n++] << p, p += 8), v = _[d & b];
                 r: for (; ; ) {
-                  if (d >>>= y2 = v2 >>> 24, p -= y2, !(16 & (y2 = v2 >>> 16 & 255))) {
-                    if (0 == (64 & y2)) {
-                      v2 = _2[(65535 & v2) + (d & (1 << y2) - 1)];
+                  if (d >>>= y = v >>> 24, p -= y, !(16 & (y = v >>> 16 & 255))) {
+                    if (0 == (64 & y)) {
+                      v = _[(65535 & v) + (d & (1 << y) - 1)];
                       continue r;
                     }
                     e2.msg = "invalid distance code", r2.mode = 30;
                     break e;
                   }
-                  if (k2 = 65535 & v2, p < (y2 &= 15) && (d += z2[n++] << p, (p += 8) < y2 && (d += z2[n++] << p, p += 8)), h < (k2 += d & (1 << y2) - 1)) {
+                  if (k = 65535 & v, p < (y &= 15) && (d += z[n++] << p, (p += 8) < y && (d += z[n++] << p, p += 8)), h < (k += d & (1 << y) - 1)) {
                     e2.msg = "invalid distance too far back", r2.mode = 30;
                     break e;
                   }
-                  if (d >>>= y2, p -= y2, (y2 = s - a) < k2) {
-                    if (l < (y2 = k2 - y2) && r2.sane) {
+                  if (d >>>= y, p -= y, (y = s - a) < k) {
+                    if (l < (y = k - y) && r2.sane) {
                       e2.msg = "invalid distance too far back", r2.mode = 30;
                       break e;
                     }
-                    if (S3 = c, (x = 0) === f) {
-                      if (x += u2 - y2, y2 < w2) {
-                        for (w2 -= y2; C2[s++] = c[x++], --y2; ) ;
-                        x = s - k2, S3 = C2;
+                    if (S2 = c, (x = 0) === f) {
+                      if (x += u2 - y, y < w) {
+                        for (w -= y; C2[s++] = c[x++], --y; ) ;
+                        x = s - k, S2 = C2;
                       }
-                    } else if (f < y2) {
-                      if (x += u2 + f - y2, (y2 -= f) < w2) {
-                        for (w2 -= y2; C2[s++] = c[x++], --y2; ) ;
-                        if (x = 0, f < w2) {
-                          for (w2 -= y2 = f; C2[s++] = c[x++], --y2; ) ;
-                          x = s - k2, S3 = C2;
+                    } else if (f < y) {
+                      if (x += u2 + f - y, (y -= f) < w) {
+                        for (w -= y; C2[s++] = c[x++], --y; ) ;
+                        if (x = 0, f < w) {
+                          for (w -= y = f; C2[s++] = c[x++], --y; ) ;
+                          x = s - k, S2 = C2;
                         }
                       }
-                    } else if (x += f - y2, y2 < w2) {
-                      for (w2 -= y2; C2[s++] = c[x++], --y2; ) ;
-                      x = s - k2, S3 = C2;
+                    } else if (x += f - y, y < w) {
+                      for (w -= y; C2[s++] = c[x++], --y; ) ;
+                      x = s - k, S2 = C2;
                     }
-                    for (; 2 < w2; ) C2[s++] = S3[x++], C2[s++] = S3[x++], C2[s++] = S3[x++], w2 -= 3;
-                    w2 && (C2[s++] = S3[x++], 1 < w2 && (C2[s++] = S3[x++]));
+                    for (; 2 < w; ) C2[s++] = S2[x++], C2[s++] = S2[x++], C2[s++] = S2[x++], w -= 3;
+                    w && (C2[s++] = S2[x++], 1 < w && (C2[s++] = S2[x++]));
                   } else {
-                    for (x = s - k2; C2[s++] = C2[x++], C2[s++] = C2[x++], C2[s++] = C2[x++], 2 < (w2 -= 3); ) ;
-                    w2 && (C2[s++] = C2[x++], 1 < w2 && (C2[s++] = C2[x++]));
+                    for (x = s - k; C2[s++] = C2[x++], C2[s++] = C2[x++], C2[s++] = C2[x++], 2 < (w -= 3); ) ;
+                    w && (C2[s++] = C2[x++], 1 < w && (C2[s++] = C2[x++]));
                   }
                   break;
                 }
@@ -10361,58 +9735,58 @@ var require_jszip_min = __commonJS({
               break;
             }
           } while (n < i && s < o);
-          n -= w2 = p >> 3, d &= (1 << (p -= w2 << 3)) - 1, e2.next_in = n, e2.next_out = s, e2.avail_in = n < i ? i - n + 5 : 5 - (n - i), e2.avail_out = s < o ? o - s + 257 : 257 - (s - o), r2.hold = d, r2.bits = p;
+          n -= w = p >> 3, d &= (1 << (p -= w << 3)) - 1, e2.next_in = n, e2.next_out = s, e2.avail_in = n < i ? i - n + 5 : 5 - (n - i), e2.avail_out = s < o ? o - s + 257 : 257 - (s - o), r2.hold = d, r2.bits = p;
         };
       }, {}], 49: [function(e, t, r) {
         "use strict";
-        var I3 = e("../utils/common"), O3 = e("./adler32"), B3 = e("./crc32"), R3 = e("./inffast"), T3 = e("./inftrees"), D2 = 1, F13 = 2, N3 = 0, U3 = -2, P3 = 1, n = 852, i = 592;
-        function L3(e2) {
+        var I2 = e("../utils/common"), O2 = e("./adler32"), B2 = e("./crc32"), R2 = e("./inffast"), T2 = e("./inftrees"), D2 = 1, F13 = 2, N2 = 0, U2 = -2, P2 = 1, n = 852, i = 592;
+        function L2(e2) {
           return (e2 >>> 24 & 255) + (e2 >>> 8 & 65280) + ((65280 & e2) << 8) + ((255 & e2) << 24);
         }
         function s() {
-          this.mode = 0, this.last = false, this.wrap = 0, this.havedict = false, this.flags = 0, this.dmax = 0, this.check = 0, this.total = 0, this.head = null, this.wbits = 0, this.wsize = 0, this.whave = 0, this.wnext = 0, this.window = null, this.hold = 0, this.bits = 0, this.length = 0, this.offset = 0, this.extra = 0, this.lencode = null, this.distcode = null, this.lenbits = 0, this.distbits = 0, this.ncode = 0, this.nlen = 0, this.ndist = 0, this.have = 0, this.next = null, this.lens = new I3.Buf16(320), this.work = new I3.Buf16(288), this.lendyn = null, this.distdyn = null, this.sane = 0, this.back = 0, this.was = 0;
+          this.mode = 0, this.last = false, this.wrap = 0, this.havedict = false, this.flags = 0, this.dmax = 0, this.check = 0, this.total = 0, this.head = null, this.wbits = 0, this.wsize = 0, this.whave = 0, this.wnext = 0, this.window = null, this.hold = 0, this.bits = 0, this.length = 0, this.offset = 0, this.extra = 0, this.lencode = null, this.distcode = null, this.lenbits = 0, this.distbits = 0, this.ncode = 0, this.nlen = 0, this.ndist = 0, this.have = 0, this.next = null, this.lens = new I2.Buf16(320), this.work = new I2.Buf16(288), this.lendyn = null, this.distdyn = null, this.sane = 0, this.back = 0, this.was = 0;
         }
         function a(e2) {
           var t2;
-          return e2 && e2.state ? (t2 = e2.state, e2.total_in = e2.total_out = t2.total = 0, e2.msg = "", t2.wrap && (e2.adler = 1 & t2.wrap), t2.mode = P3, t2.last = 0, t2.havedict = 0, t2.dmax = 32768, t2.head = null, t2.hold = 0, t2.bits = 0, t2.lencode = t2.lendyn = new I3.Buf32(n), t2.distcode = t2.distdyn = new I3.Buf32(i), t2.sane = 1, t2.back = -1, N3) : U3;
+          return e2 && e2.state ? (t2 = e2.state, e2.total_in = e2.total_out = t2.total = 0, e2.msg = "", t2.wrap && (e2.adler = 1 & t2.wrap), t2.mode = P2, t2.last = 0, t2.havedict = 0, t2.dmax = 32768, t2.head = null, t2.hold = 0, t2.bits = 0, t2.lencode = t2.lendyn = new I2.Buf32(n), t2.distcode = t2.distdyn = new I2.Buf32(i), t2.sane = 1, t2.back = -1, N2) : U2;
         }
         function o(e2) {
           var t2;
-          return e2 && e2.state ? ((t2 = e2.state).wsize = 0, t2.whave = 0, t2.wnext = 0, a(e2)) : U3;
+          return e2 && e2.state ? ((t2 = e2.state).wsize = 0, t2.whave = 0, t2.wnext = 0, a(e2)) : U2;
         }
         function h(e2, t2) {
           var r2, n2;
-          return e2 && e2.state ? (n2 = e2.state, t2 < 0 ? (r2 = 0, t2 = -t2) : (r2 = 1 + (t2 >> 4), t2 < 48 && (t2 &= 15)), t2 && (t2 < 8 || 15 < t2) ? U3 : (null !== n2.window && n2.wbits !== t2 && (n2.window = null), n2.wrap = r2, n2.wbits = t2, o(e2))) : U3;
+          return e2 && e2.state ? (n2 = e2.state, t2 < 0 ? (r2 = 0, t2 = -t2) : (r2 = 1 + (t2 >> 4), t2 < 48 && (t2 &= 15)), t2 && (t2 < 8 || 15 < t2) ? U2 : (null !== n2.window && n2.wbits !== t2 && (n2.window = null), n2.wrap = r2, n2.wbits = t2, o(e2))) : U2;
         }
         function u2(e2, t2) {
           var r2, n2;
-          return e2 ? (n2 = new s(), (e2.state = n2).window = null, (r2 = h(e2, t2)) !== N3 && (e2.state = null), r2) : U3;
+          return e2 ? (n2 = new s(), (e2.state = n2).window = null, (r2 = h(e2, t2)) !== N2 && (e2.state = null), r2) : U2;
         }
         var l, f, c = true;
-        function j2(e2) {
+        function j(e2) {
           if (c) {
             var t2;
-            for (l = new I3.Buf32(512), f = new I3.Buf32(32), t2 = 0; t2 < 144; ) e2.lens[t2++] = 8;
+            for (l = new I2.Buf32(512), f = new I2.Buf32(32), t2 = 0; t2 < 144; ) e2.lens[t2++] = 8;
             for (; t2 < 256; ) e2.lens[t2++] = 9;
             for (; t2 < 280; ) e2.lens[t2++] = 7;
             for (; t2 < 288; ) e2.lens[t2++] = 8;
-            for (T3(D2, e2.lens, 0, 288, l, 0, e2.work, { bits: 9 }), t2 = 0; t2 < 32; ) e2.lens[t2++] = 5;
-            T3(F13, e2.lens, 0, 32, f, 0, e2.work, { bits: 5 }), c = false;
+            for (T2(D2, e2.lens, 0, 288, l, 0, e2.work, { bits: 9 }), t2 = 0; t2 < 32; ) e2.lens[t2++] = 5;
+            T2(F13, e2.lens, 0, 32, f, 0, e2.work, { bits: 5 }), c = false;
           }
           e2.lencode = l, e2.lenbits = 9, e2.distcode = f, e2.distbits = 5;
         }
-        function Z3(e2, t2, r2, n2) {
+        function Z2(e2, t2, r2, n2) {
           var i2, s2 = e2.state;
-          return null === s2.window && (s2.wsize = 1 << s2.wbits, s2.wnext = 0, s2.whave = 0, s2.window = new I3.Buf8(s2.wsize)), n2 >= s2.wsize ? (I3.arraySet(s2.window, t2, r2 - s2.wsize, s2.wsize, 0), s2.wnext = 0, s2.whave = s2.wsize) : (n2 < (i2 = s2.wsize - s2.wnext) && (i2 = n2), I3.arraySet(s2.window, t2, r2 - n2, i2, s2.wnext), (n2 -= i2) ? (I3.arraySet(s2.window, t2, r2 - n2, n2, 0), s2.wnext = n2, s2.whave = s2.wsize) : (s2.wnext += i2, s2.wnext === s2.wsize && (s2.wnext = 0), s2.whave < s2.wsize && (s2.whave += i2))), 0;
+          return null === s2.window && (s2.wsize = 1 << s2.wbits, s2.wnext = 0, s2.whave = 0, s2.window = new I2.Buf8(s2.wsize)), n2 >= s2.wsize ? (I2.arraySet(s2.window, t2, r2 - s2.wsize, s2.wsize, 0), s2.wnext = 0, s2.whave = s2.wsize) : (n2 < (i2 = s2.wsize - s2.wnext) && (i2 = n2), I2.arraySet(s2.window, t2, r2 - n2, i2, s2.wnext), (n2 -= i2) ? (I2.arraySet(s2.window, t2, r2 - n2, n2, 0), s2.wnext = n2, s2.whave = s2.wsize) : (s2.wnext += i2, s2.wnext === s2.wsize && (s2.wnext = 0), s2.whave < s2.wsize && (s2.whave += i2))), 0;
         }
         r.inflateReset = o, r.inflateReset2 = h, r.inflateResetKeep = a, r.inflateInit = function(e2) {
           return u2(e2, 15);
         }, r.inflateInit2 = u2, r.inflate = function(e2, t2) {
-          var r2, n2, i2, s2, a2, o2, h2, u3, l2, f2, c2, d, p, m, _2, g2, b2, v2, y2, w2, k2, x, S3, z2, C2 = 0, E2 = new I3.Buf8(4), A2 = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15];
-          if (!e2 || !e2.state || !e2.output || !e2.input && 0 !== e2.avail_in) return U3;
-          12 === (r2 = e2.state).mode && (r2.mode = 13), a2 = e2.next_out, i2 = e2.output, h2 = e2.avail_out, s2 = e2.next_in, n2 = e2.input, o2 = e2.avail_in, u3 = r2.hold, l2 = r2.bits, f2 = o2, c2 = h2, x = N3;
+          var r2, n2, i2, s2, a2, o2, h2, u3, l2, f2, c2, d, p, m, _, g, b, v, y, w, k, x, S2, z, C2 = 0, E2 = new I2.Buf8(4), A2 = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15];
+          if (!e2 || !e2.state || !e2.output || !e2.input && 0 !== e2.avail_in) return U2;
+          12 === (r2 = e2.state).mode && (r2.mode = 13), a2 = e2.next_out, i2 = e2.output, h2 = e2.avail_out, s2 = e2.next_in, n2 = e2.input, o2 = e2.avail_in, u3 = r2.hold, l2 = r2.bits, f2 = o2, c2 = h2, x = N2;
           e: for (; ; ) switch (r2.mode) {
-            case P3:
+            case P2:
               if (0 === r2.wrap) {
                 r2.mode = 13;
                 break;
@@ -10422,7 +9796,7 @@ var require_jszip_min = __commonJS({
                 o2--, u3 += n2[s2++] << l2, l2 += 8;
               }
               if (2 & r2.wrap && 35615 === u3) {
-                E2[r2.check = 0] = 255 & u3, E2[1] = u3 >>> 8 & 255, r2.check = B3(r2.check, E2, 2, 0), l2 = u3 = 0, r2.mode = 2;
+                E2[r2.check = 0] = 255 & u3, E2[1] = u3 >>> 8 & 255, r2.check = B2(r2.check, E2, 2, 0), l2 = u3 = 0, r2.mode = 2;
                 break;
               }
               if (r2.flags = 0, r2.head && (r2.head.done = false), !(1 & r2.wrap) || (((255 & u3) << 8) + (u3 >> 8)) % 31) {
@@ -10433,12 +9807,12 @@ var require_jszip_min = __commonJS({
                 e2.msg = "unknown compression method", r2.mode = 30;
                 break;
               }
-              if (l2 -= 4, k2 = 8 + (15 & (u3 >>>= 4)), 0 === r2.wbits) r2.wbits = k2;
-              else if (k2 > r2.wbits) {
+              if (l2 -= 4, k = 8 + (15 & (u3 >>>= 4)), 0 === r2.wbits) r2.wbits = k;
+              else if (k > r2.wbits) {
                 e2.msg = "invalid window size", r2.mode = 30;
                 break;
               }
-              r2.dmax = 1 << k2, e2.adler = r2.check = 1, r2.mode = 512 & u3 ? 10 : 12, l2 = u3 = 0;
+              r2.dmax = 1 << k, e2.adler = r2.check = 1, r2.mode = 512 & u3 ? 10 : 12, l2 = u3 = 0;
               break;
             case 2:
               for (; l2 < 16; ) {
@@ -10453,43 +9827,43 @@ var require_jszip_min = __commonJS({
                 e2.msg = "unknown header flags set", r2.mode = 30;
                 break;
               }
-              r2.head && (r2.head.text = u3 >> 8 & 1), 512 & r2.flags && (E2[0] = 255 & u3, E2[1] = u3 >>> 8 & 255, r2.check = B3(r2.check, E2, 2, 0)), l2 = u3 = 0, r2.mode = 3;
+              r2.head && (r2.head.text = u3 >> 8 & 1), 512 & r2.flags && (E2[0] = 255 & u3, E2[1] = u3 >>> 8 & 255, r2.check = B2(r2.check, E2, 2, 0)), l2 = u3 = 0, r2.mode = 3;
             case 3:
               for (; l2 < 32; ) {
                 if (0 === o2) break e;
                 o2--, u3 += n2[s2++] << l2, l2 += 8;
               }
-              r2.head && (r2.head.time = u3), 512 & r2.flags && (E2[0] = 255 & u3, E2[1] = u3 >>> 8 & 255, E2[2] = u3 >>> 16 & 255, E2[3] = u3 >>> 24 & 255, r2.check = B3(r2.check, E2, 4, 0)), l2 = u3 = 0, r2.mode = 4;
+              r2.head && (r2.head.time = u3), 512 & r2.flags && (E2[0] = 255 & u3, E2[1] = u3 >>> 8 & 255, E2[2] = u3 >>> 16 & 255, E2[3] = u3 >>> 24 & 255, r2.check = B2(r2.check, E2, 4, 0)), l2 = u3 = 0, r2.mode = 4;
             case 4:
               for (; l2 < 16; ) {
                 if (0 === o2) break e;
                 o2--, u3 += n2[s2++] << l2, l2 += 8;
               }
-              r2.head && (r2.head.xflags = 255 & u3, r2.head.os = u3 >> 8), 512 & r2.flags && (E2[0] = 255 & u3, E2[1] = u3 >>> 8 & 255, r2.check = B3(r2.check, E2, 2, 0)), l2 = u3 = 0, r2.mode = 5;
+              r2.head && (r2.head.xflags = 255 & u3, r2.head.os = u3 >> 8), 512 & r2.flags && (E2[0] = 255 & u3, E2[1] = u3 >>> 8 & 255, r2.check = B2(r2.check, E2, 2, 0)), l2 = u3 = 0, r2.mode = 5;
             case 5:
               if (1024 & r2.flags) {
                 for (; l2 < 16; ) {
                   if (0 === o2) break e;
                   o2--, u3 += n2[s2++] << l2, l2 += 8;
                 }
-                r2.length = u3, r2.head && (r2.head.extra_len = u3), 512 & r2.flags && (E2[0] = 255 & u3, E2[1] = u3 >>> 8 & 255, r2.check = B3(r2.check, E2, 2, 0)), l2 = u3 = 0;
+                r2.length = u3, r2.head && (r2.head.extra_len = u3), 512 & r2.flags && (E2[0] = 255 & u3, E2[1] = u3 >>> 8 & 255, r2.check = B2(r2.check, E2, 2, 0)), l2 = u3 = 0;
               } else r2.head && (r2.head.extra = null);
               r2.mode = 6;
             case 6:
-              if (1024 & r2.flags && (o2 < (d = r2.length) && (d = o2), d && (r2.head && (k2 = r2.head.extra_len - r2.length, r2.head.extra || (r2.head.extra = new Array(r2.head.extra_len)), I3.arraySet(r2.head.extra, n2, s2, d, k2)), 512 & r2.flags && (r2.check = B3(r2.check, n2, d, s2)), o2 -= d, s2 += d, r2.length -= d), r2.length)) break e;
+              if (1024 & r2.flags && (o2 < (d = r2.length) && (d = o2), d && (r2.head && (k = r2.head.extra_len - r2.length, r2.head.extra || (r2.head.extra = new Array(r2.head.extra_len)), I2.arraySet(r2.head.extra, n2, s2, d, k)), 512 & r2.flags && (r2.check = B2(r2.check, n2, d, s2)), o2 -= d, s2 += d, r2.length -= d), r2.length)) break e;
               r2.length = 0, r2.mode = 7;
             case 7:
               if (2048 & r2.flags) {
                 if (0 === o2) break e;
-                for (d = 0; k2 = n2[s2 + d++], r2.head && k2 && r2.length < 65536 && (r2.head.name += String.fromCharCode(k2)), k2 && d < o2; ) ;
-                if (512 & r2.flags && (r2.check = B3(r2.check, n2, d, s2)), o2 -= d, s2 += d, k2) break e;
+                for (d = 0; k = n2[s2 + d++], r2.head && k && r2.length < 65536 && (r2.head.name += String.fromCharCode(k)), k && d < o2; ) ;
+                if (512 & r2.flags && (r2.check = B2(r2.check, n2, d, s2)), o2 -= d, s2 += d, k) break e;
               } else r2.head && (r2.head.name = null);
               r2.length = 0, r2.mode = 8;
             case 8:
               if (4096 & r2.flags) {
                 if (0 === o2) break e;
-                for (d = 0; k2 = n2[s2 + d++], r2.head && k2 && r2.length < 65536 && (r2.head.comment += String.fromCharCode(k2)), k2 && d < o2; ) ;
-                if (512 & r2.flags && (r2.check = B3(r2.check, n2, d, s2)), o2 -= d, s2 += d, k2) break e;
+                for (d = 0; k = n2[s2 + d++], r2.head && k && r2.length < 65536 && (r2.head.comment += String.fromCharCode(k)), k && d < o2; ) ;
+                if (512 & r2.flags && (r2.check = B2(r2.check, n2, d, s2)), o2 -= d, s2 += d, k) break e;
               } else r2.head && (r2.head.comment = null);
               r2.mode = 9;
             case 9:
@@ -10511,7 +9885,7 @@ var require_jszip_min = __commonJS({
                 if (0 === o2) break e;
                 o2--, u3 += n2[s2++] << l2, l2 += 8;
               }
-              e2.adler = r2.check = L3(u3), l2 = u3 = 0, r2.mode = 11;
+              e2.adler = r2.check = L2(u3), l2 = u3 = 0, r2.mode = 11;
             case 11:
               if (0 === r2.havedict) return e2.next_out = a2, e2.avail_out = h2, e2.next_in = s2, e2.avail_in = o2, r2.hold = u3, r2.bits = l2, 2;
               e2.adler = r2.check = 1, r2.mode = 12;
@@ -10531,7 +9905,7 @@ var require_jszip_min = __commonJS({
                   r2.mode = 14;
                   break;
                 case 1:
-                  if (j2(r2), r2.mode = 20, 6 !== t2) break;
+                  if (j(r2), r2.mode = 20, 6 !== t2) break;
                   u3 >>>= 2, l2 -= 2;
                   break e;
                 case 2:
@@ -10557,7 +9931,7 @@ var require_jszip_min = __commonJS({
             case 16:
               if (d = r2.length) {
                 if (o2 < d && (d = o2), h2 < d && (d = h2), 0 === d) break e;
-                I3.arraySet(i2, n2, s2, d, a2), o2 -= d, s2 += d, h2 -= d, a2 += d, r2.length -= d;
+                I2.arraySet(i2, n2, s2, d, a2), o2 -= d, s2 += d, h2 -= d, a2 += d, r2.length -= d;
                 break;
               }
               r2.mode = 12;
@@ -10581,47 +9955,47 @@ var require_jszip_min = __commonJS({
                 r2.lens[A2[r2.have++]] = 7 & u3, u3 >>>= 3, l2 -= 3;
               }
               for (; r2.have < 19; ) r2.lens[A2[r2.have++]] = 0;
-              if (r2.lencode = r2.lendyn, r2.lenbits = 7, S3 = { bits: r2.lenbits }, x = T3(0, r2.lens, 0, 19, r2.lencode, 0, r2.work, S3), r2.lenbits = S3.bits, x) {
+              if (r2.lencode = r2.lendyn, r2.lenbits = 7, S2 = { bits: r2.lenbits }, x = T2(0, r2.lens, 0, 19, r2.lencode, 0, r2.work, S2), r2.lenbits = S2.bits, x) {
                 e2.msg = "invalid code lengths set", r2.mode = 30;
                 break;
               }
               r2.have = 0, r2.mode = 19;
             case 19:
               for (; r2.have < r2.nlen + r2.ndist; ) {
-                for (; g2 = (C2 = r2.lencode[u3 & (1 << r2.lenbits) - 1]) >>> 16 & 255, b2 = 65535 & C2, !((_2 = C2 >>> 24) <= l2); ) {
+                for (; g = (C2 = r2.lencode[u3 & (1 << r2.lenbits) - 1]) >>> 16 & 255, b = 65535 & C2, !((_ = C2 >>> 24) <= l2); ) {
                   if (0 === o2) break e;
                   o2--, u3 += n2[s2++] << l2, l2 += 8;
                 }
-                if (b2 < 16) u3 >>>= _2, l2 -= _2, r2.lens[r2.have++] = b2;
+                if (b < 16) u3 >>>= _, l2 -= _, r2.lens[r2.have++] = b;
                 else {
-                  if (16 === b2) {
-                    for (z2 = _2 + 2; l2 < z2; ) {
+                  if (16 === b) {
+                    for (z = _ + 2; l2 < z; ) {
                       if (0 === o2) break e;
                       o2--, u3 += n2[s2++] << l2, l2 += 8;
                     }
-                    if (u3 >>>= _2, l2 -= _2, 0 === r2.have) {
+                    if (u3 >>>= _, l2 -= _, 0 === r2.have) {
                       e2.msg = "invalid bit length repeat", r2.mode = 30;
                       break;
                     }
-                    k2 = r2.lens[r2.have - 1], d = 3 + (3 & u3), u3 >>>= 2, l2 -= 2;
-                  } else if (17 === b2) {
-                    for (z2 = _2 + 3; l2 < z2; ) {
+                    k = r2.lens[r2.have - 1], d = 3 + (3 & u3), u3 >>>= 2, l2 -= 2;
+                  } else if (17 === b) {
+                    for (z = _ + 3; l2 < z; ) {
                       if (0 === o2) break e;
                       o2--, u3 += n2[s2++] << l2, l2 += 8;
                     }
-                    l2 -= _2, k2 = 0, d = 3 + (7 & (u3 >>>= _2)), u3 >>>= 3, l2 -= 3;
+                    l2 -= _, k = 0, d = 3 + (7 & (u3 >>>= _)), u3 >>>= 3, l2 -= 3;
                   } else {
-                    for (z2 = _2 + 7; l2 < z2; ) {
+                    for (z = _ + 7; l2 < z; ) {
                       if (0 === o2) break e;
                       o2--, u3 += n2[s2++] << l2, l2 += 8;
                     }
-                    l2 -= _2, k2 = 0, d = 11 + (127 & (u3 >>>= _2)), u3 >>>= 7, l2 -= 7;
+                    l2 -= _, k = 0, d = 11 + (127 & (u3 >>>= _)), u3 >>>= 7, l2 -= 7;
                   }
                   if (r2.have + d > r2.nlen + r2.ndist) {
                     e2.msg = "invalid bit length repeat", r2.mode = 30;
                     break;
                   }
-                  for (; d--; ) r2.lens[r2.have++] = k2;
+                  for (; d--; ) r2.lens[r2.have++] = k;
                 }
               }
               if (30 === r2.mode) break;
@@ -10629,11 +10003,11 @@ var require_jszip_min = __commonJS({
                 e2.msg = "invalid code -- missing end-of-block", r2.mode = 30;
                 break;
               }
-              if (r2.lenbits = 9, S3 = { bits: r2.lenbits }, x = T3(D2, r2.lens, 0, r2.nlen, r2.lencode, 0, r2.work, S3), r2.lenbits = S3.bits, x) {
+              if (r2.lenbits = 9, S2 = { bits: r2.lenbits }, x = T2(D2, r2.lens, 0, r2.nlen, r2.lencode, 0, r2.work, S2), r2.lenbits = S2.bits, x) {
                 e2.msg = "invalid literal/lengths set", r2.mode = 30;
                 break;
               }
-              if (r2.distbits = 6, r2.distcode = r2.distdyn, S3 = { bits: r2.distbits }, x = T3(F13, r2.lens, r2.nlen, r2.ndist, r2.distcode, 0, r2.work, S3), r2.distbits = S3.bits, x) {
+              if (r2.distbits = 6, r2.distcode = r2.distdyn, S2 = { bits: r2.distbits }, x = T2(F13, r2.lens, r2.nlen, r2.ndist, r2.distcode, 0, r2.work, S2), r2.distbits = S2.bits, x) {
                 e2.msg = "invalid distances set", r2.mode = 30;
                 break;
               }
@@ -10642,36 +10016,36 @@ var require_jszip_min = __commonJS({
               r2.mode = 21;
             case 21:
               if (6 <= o2 && 258 <= h2) {
-                e2.next_out = a2, e2.avail_out = h2, e2.next_in = s2, e2.avail_in = o2, r2.hold = u3, r2.bits = l2, R3(e2, c2), a2 = e2.next_out, i2 = e2.output, h2 = e2.avail_out, s2 = e2.next_in, n2 = e2.input, o2 = e2.avail_in, u3 = r2.hold, l2 = r2.bits, 12 === r2.mode && (r2.back = -1);
+                e2.next_out = a2, e2.avail_out = h2, e2.next_in = s2, e2.avail_in = o2, r2.hold = u3, r2.bits = l2, R2(e2, c2), a2 = e2.next_out, i2 = e2.output, h2 = e2.avail_out, s2 = e2.next_in, n2 = e2.input, o2 = e2.avail_in, u3 = r2.hold, l2 = r2.bits, 12 === r2.mode && (r2.back = -1);
                 break;
               }
-              for (r2.back = 0; g2 = (C2 = r2.lencode[u3 & (1 << r2.lenbits) - 1]) >>> 16 & 255, b2 = 65535 & C2, !((_2 = C2 >>> 24) <= l2); ) {
+              for (r2.back = 0; g = (C2 = r2.lencode[u3 & (1 << r2.lenbits) - 1]) >>> 16 & 255, b = 65535 & C2, !((_ = C2 >>> 24) <= l2); ) {
                 if (0 === o2) break e;
                 o2--, u3 += n2[s2++] << l2, l2 += 8;
               }
-              if (g2 && 0 == (240 & g2)) {
-                for (v2 = _2, y2 = g2, w2 = b2; g2 = (C2 = r2.lencode[w2 + ((u3 & (1 << v2 + y2) - 1) >> v2)]) >>> 16 & 255, b2 = 65535 & C2, !(v2 + (_2 = C2 >>> 24) <= l2); ) {
+              if (g && 0 == (240 & g)) {
+                for (v = _, y = g, w = b; g = (C2 = r2.lencode[w + ((u3 & (1 << v + y) - 1) >> v)]) >>> 16 & 255, b = 65535 & C2, !(v + (_ = C2 >>> 24) <= l2); ) {
                   if (0 === o2) break e;
                   o2--, u3 += n2[s2++] << l2, l2 += 8;
                 }
-                u3 >>>= v2, l2 -= v2, r2.back += v2;
+                u3 >>>= v, l2 -= v, r2.back += v;
               }
-              if (u3 >>>= _2, l2 -= _2, r2.back += _2, r2.length = b2, 0 === g2) {
+              if (u3 >>>= _, l2 -= _, r2.back += _, r2.length = b, 0 === g) {
                 r2.mode = 26;
                 break;
               }
-              if (32 & g2) {
+              if (32 & g) {
                 r2.back = -1, r2.mode = 12;
                 break;
               }
-              if (64 & g2) {
+              if (64 & g) {
                 e2.msg = "invalid literal/length code", r2.mode = 30;
                 break;
               }
-              r2.extra = 15 & g2, r2.mode = 22;
+              r2.extra = 15 & g, r2.mode = 22;
             case 22:
               if (r2.extra) {
-                for (z2 = r2.extra; l2 < z2; ) {
+                for (z = r2.extra; l2 < z; ) {
                   if (0 === o2) break e;
                   o2--, u3 += n2[s2++] << l2, l2 += 8;
                 }
@@ -10679,25 +10053,25 @@ var require_jszip_min = __commonJS({
               }
               r2.was = r2.length, r2.mode = 23;
             case 23:
-              for (; g2 = (C2 = r2.distcode[u3 & (1 << r2.distbits) - 1]) >>> 16 & 255, b2 = 65535 & C2, !((_2 = C2 >>> 24) <= l2); ) {
+              for (; g = (C2 = r2.distcode[u3 & (1 << r2.distbits) - 1]) >>> 16 & 255, b = 65535 & C2, !((_ = C2 >>> 24) <= l2); ) {
                 if (0 === o2) break e;
                 o2--, u3 += n2[s2++] << l2, l2 += 8;
               }
-              if (0 == (240 & g2)) {
-                for (v2 = _2, y2 = g2, w2 = b2; g2 = (C2 = r2.distcode[w2 + ((u3 & (1 << v2 + y2) - 1) >> v2)]) >>> 16 & 255, b2 = 65535 & C2, !(v2 + (_2 = C2 >>> 24) <= l2); ) {
+              if (0 == (240 & g)) {
+                for (v = _, y = g, w = b; g = (C2 = r2.distcode[w + ((u3 & (1 << v + y) - 1) >> v)]) >>> 16 & 255, b = 65535 & C2, !(v + (_ = C2 >>> 24) <= l2); ) {
                   if (0 === o2) break e;
                   o2--, u3 += n2[s2++] << l2, l2 += 8;
                 }
-                u3 >>>= v2, l2 -= v2, r2.back += v2;
+                u3 >>>= v, l2 -= v, r2.back += v;
               }
-              if (u3 >>>= _2, l2 -= _2, r2.back += _2, 64 & g2) {
+              if (u3 >>>= _, l2 -= _, r2.back += _, 64 & g) {
                 e2.msg = "invalid distance code", r2.mode = 30;
                 break;
               }
-              r2.offset = b2, r2.extra = 15 & g2, r2.mode = 24;
+              r2.offset = b, r2.extra = 15 & g, r2.mode = 24;
             case 24:
               if (r2.extra) {
-                for (z2 = r2.extra; l2 < z2; ) {
+                for (z = r2.extra; l2 < z; ) {
                   if (0 === o2) break e;
                   o2--, u3 += n2[s2++] << l2, l2 += 8;
                 }
@@ -10730,7 +10104,7 @@ var require_jszip_min = __commonJS({
                   if (0 === o2) break e;
                   o2--, u3 |= n2[s2++] << l2, l2 += 8;
                 }
-                if (c2 -= h2, e2.total_out += c2, r2.total += c2, c2 && (e2.adler = r2.check = r2.flags ? B3(r2.check, i2, c2, a2 - c2) : O3(r2.check, i2, c2, a2 - c2)), c2 = h2, (r2.flags ? u3 : L3(u3)) !== r2.check) {
+                if (c2 -= h2, e2.total_out += c2, r2.total += c2, c2 && (e2.adler = r2.check = r2.flags ? B2(r2.check, i2, c2, a2 - c2) : O2(r2.check, i2, c2, a2 - c2)), c2 = h2, (r2.flags ? u3 : L2(u3)) !== r2.check) {
                   e2.msg = "incorrect data check", r2.mode = 30;
                   break;
                 }
@@ -10760,49 +10134,49 @@ var require_jszip_min = __commonJS({
               return -4;
             case 32:
             default:
-              return U3;
+              return U2;
           }
-          return e2.next_out = a2, e2.avail_out = h2, e2.next_in = s2, e2.avail_in = o2, r2.hold = u3, r2.bits = l2, (r2.wsize || c2 !== e2.avail_out && r2.mode < 30 && (r2.mode < 27 || 4 !== t2)) && Z3(e2, e2.output, e2.next_out, c2 - e2.avail_out) ? (r2.mode = 31, -4) : (f2 -= e2.avail_in, c2 -= e2.avail_out, e2.total_in += f2, e2.total_out += c2, r2.total += c2, r2.wrap && c2 && (e2.adler = r2.check = r2.flags ? B3(r2.check, i2, c2, e2.next_out - c2) : O3(r2.check, i2, c2, e2.next_out - c2)), e2.data_type = r2.bits + (r2.last ? 64 : 0) + (12 === r2.mode ? 128 : 0) + (20 === r2.mode || 15 === r2.mode ? 256 : 0), (0 == f2 && 0 === c2 || 4 === t2) && x === N3 && (x = -5), x);
+          return e2.next_out = a2, e2.avail_out = h2, e2.next_in = s2, e2.avail_in = o2, r2.hold = u3, r2.bits = l2, (r2.wsize || c2 !== e2.avail_out && r2.mode < 30 && (r2.mode < 27 || 4 !== t2)) && Z2(e2, e2.output, e2.next_out, c2 - e2.avail_out) ? (r2.mode = 31, -4) : (f2 -= e2.avail_in, c2 -= e2.avail_out, e2.total_in += f2, e2.total_out += c2, r2.total += c2, r2.wrap && c2 && (e2.adler = r2.check = r2.flags ? B2(r2.check, i2, c2, e2.next_out - c2) : O2(r2.check, i2, c2, e2.next_out - c2)), e2.data_type = r2.bits + (r2.last ? 64 : 0) + (12 === r2.mode ? 128 : 0) + (20 === r2.mode || 15 === r2.mode ? 256 : 0), (0 == f2 && 0 === c2 || 4 === t2) && x === N2 && (x = -5), x);
         }, r.inflateEnd = function(e2) {
-          if (!e2 || !e2.state) return U3;
+          if (!e2 || !e2.state) return U2;
           var t2 = e2.state;
-          return t2.window && (t2.window = null), e2.state = null, N3;
+          return t2.window && (t2.window = null), e2.state = null, N2;
         }, r.inflateGetHeader = function(e2, t2) {
           var r2;
-          return e2 && e2.state ? 0 == (2 & (r2 = e2.state).wrap) ? U3 : ((r2.head = t2).done = false, N3) : U3;
+          return e2 && e2.state ? 0 == (2 & (r2 = e2.state).wrap) ? U2 : ((r2.head = t2).done = false, N2) : U2;
         }, r.inflateSetDictionary = function(e2, t2) {
           var r2, n2 = t2.length;
-          return e2 && e2.state ? 0 !== (r2 = e2.state).wrap && 11 !== r2.mode ? U3 : 11 === r2.mode && O3(1, t2, n2, 0) !== r2.check ? -3 : Z3(e2, t2, n2, n2) ? (r2.mode = 31, -4) : (r2.havedict = 1, N3) : U3;
+          return e2 && e2.state ? 0 !== (r2 = e2.state).wrap && 11 !== r2.mode ? U2 : 11 === r2.mode && O2(1, t2, n2, 0) !== r2.check ? -3 : Z2(e2, t2, n2, n2) ? (r2.mode = 31, -4) : (r2.havedict = 1, N2) : U2;
         }, r.inflateInfo = "pako inflate (from Nodeca project)";
       }, { "../utils/common": 41, "./adler32": 43, "./crc32": 45, "./inffast": 48, "./inftrees": 50 }], 50: [function(e, t, r) {
         "use strict";
-        var D2 = e("../utils/common"), F13 = [3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258, 0, 0], N3 = [16, 16, 16, 16, 16, 16, 16, 16, 17, 17, 17, 17, 18, 18, 18, 18, 19, 19, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21, 16, 72, 78], U3 = [1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193, 257, 385, 513, 769, 1025, 1537, 2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577, 0, 0], P3 = [16, 16, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23, 24, 24, 25, 25, 26, 26, 27, 27, 28, 28, 29, 29, 64, 64];
+        var D2 = e("../utils/common"), F13 = [3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258, 0, 0], N2 = [16, 16, 16, 16, 16, 16, 16, 16, 17, 17, 17, 17, 18, 18, 18, 18, 19, 19, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21, 16, 72, 78], U2 = [1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193, 257, 385, 513, 769, 1025, 1537, 2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577, 0, 0], P2 = [16, 16, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23, 24, 24, 25, 25, 26, 26, 27, 27, 28, 28, 29, 29, 64, 64];
         t.exports = function(e2, t2, r2, n, i, s, a, o) {
-          var h, u2, l, f, c, d, p, m, _2, g2 = o.bits, b2 = 0, v2 = 0, y2 = 0, w2 = 0, k2 = 0, x = 0, S3 = 0, z2 = 0, C2 = 0, E2 = 0, A2 = null, I3 = 0, O3 = new D2.Buf16(16), B3 = new D2.Buf16(16), R3 = null, T3 = 0;
-          for (b2 = 0; b2 <= 15; b2++) O3[b2] = 0;
-          for (v2 = 0; v2 < n; v2++) O3[t2[r2 + v2]]++;
-          for (k2 = g2, w2 = 15; 1 <= w2 && 0 === O3[w2]; w2--) ;
-          if (w2 < k2 && (k2 = w2), 0 === w2) return i[s++] = 20971520, i[s++] = 20971520, o.bits = 1, 0;
-          for (y2 = 1; y2 < w2 && 0 === O3[y2]; y2++) ;
-          for (k2 < y2 && (k2 = y2), b2 = z2 = 1; b2 <= 15; b2++) if (z2 <<= 1, (z2 -= O3[b2]) < 0) return -1;
-          if (0 < z2 && (0 === e2 || 1 !== w2)) return -1;
-          for (B3[1] = 0, b2 = 1; b2 < 15; b2++) B3[b2 + 1] = B3[b2] + O3[b2];
-          for (v2 = 0; v2 < n; v2++) 0 !== t2[r2 + v2] && (a[B3[t2[r2 + v2]]++] = v2);
-          if (d = 0 === e2 ? (A2 = R3 = a, 19) : 1 === e2 ? (A2 = F13, I3 -= 257, R3 = N3, T3 -= 257, 256) : (A2 = U3, R3 = P3, -1), b2 = y2, c = s, S3 = v2 = E2 = 0, l = -1, f = (C2 = 1 << (x = k2)) - 1, 1 === e2 && 852 < C2 || 2 === e2 && 592 < C2) return 1;
+          var h, u2, l, f, c, d, p, m, _, g = o.bits, b = 0, v = 0, y = 0, w = 0, k = 0, x = 0, S2 = 0, z = 0, C2 = 0, E2 = 0, A2 = null, I2 = 0, O2 = new D2.Buf16(16), B2 = new D2.Buf16(16), R2 = null, T2 = 0;
+          for (b = 0; b <= 15; b++) O2[b] = 0;
+          for (v = 0; v < n; v++) O2[t2[r2 + v]]++;
+          for (k = g, w = 15; 1 <= w && 0 === O2[w]; w--) ;
+          if (w < k && (k = w), 0 === w) return i[s++] = 20971520, i[s++] = 20971520, o.bits = 1, 0;
+          for (y = 1; y < w && 0 === O2[y]; y++) ;
+          for (k < y && (k = y), b = z = 1; b <= 15; b++) if (z <<= 1, (z -= O2[b]) < 0) return -1;
+          if (0 < z && (0 === e2 || 1 !== w)) return -1;
+          for (B2[1] = 0, b = 1; b < 15; b++) B2[b + 1] = B2[b] + O2[b];
+          for (v = 0; v < n; v++) 0 !== t2[r2 + v] && (a[B2[t2[r2 + v]]++] = v);
+          if (d = 0 === e2 ? (A2 = R2 = a, 19) : 1 === e2 ? (A2 = F13, I2 -= 257, R2 = N2, T2 -= 257, 256) : (A2 = U2, R2 = P2, -1), b = y, c = s, S2 = v = E2 = 0, l = -1, f = (C2 = 1 << (x = k)) - 1, 1 === e2 && 852 < C2 || 2 === e2 && 592 < C2) return 1;
           for (; ; ) {
-            for (p = b2 - S3, _2 = a[v2] < d ? (m = 0, a[v2]) : a[v2] > d ? (m = R3[T3 + a[v2]], A2[I3 + a[v2]]) : (m = 96, 0), h = 1 << b2 - S3, y2 = u2 = 1 << x; i[c + (E2 >> S3) + (u2 -= h)] = p << 24 | m << 16 | _2 | 0, 0 !== u2; ) ;
-            for (h = 1 << b2 - 1; E2 & h; ) h >>= 1;
-            if (0 !== h ? (E2 &= h - 1, E2 += h) : E2 = 0, v2++, 0 == --O3[b2]) {
-              if (b2 === w2) break;
-              b2 = t2[r2 + a[v2]];
+            for (p = b - S2, _ = a[v] < d ? (m = 0, a[v]) : a[v] > d ? (m = R2[T2 + a[v]], A2[I2 + a[v]]) : (m = 96, 0), h = 1 << b - S2, y = u2 = 1 << x; i[c + (E2 >> S2) + (u2 -= h)] = p << 24 | m << 16 | _ | 0, 0 !== u2; ) ;
+            for (h = 1 << b - 1; E2 & h; ) h >>= 1;
+            if (0 !== h ? (E2 &= h - 1, E2 += h) : E2 = 0, v++, 0 == --O2[b]) {
+              if (b === w) break;
+              b = t2[r2 + a[v]];
             }
-            if (k2 < b2 && (E2 & f) !== l) {
-              for (0 === S3 && (S3 = k2), c += y2, z2 = 1 << (x = b2 - S3); x + S3 < w2 && !((z2 -= O3[x + S3]) <= 0); ) x++, z2 <<= 1;
+            if (k < b && (E2 & f) !== l) {
+              for (0 === S2 && (S2 = k), c += y, z = 1 << (x = b - S2); x + S2 < w && !((z -= O2[x + S2]) <= 0); ) x++, z <<= 1;
               if (C2 += 1 << x, 1 === e2 && 852 < C2 || 2 === e2 && 592 < C2) return 1;
-              i[l = E2 & f] = k2 << 24 | x << 16 | c - s | 0;
+              i[l = E2 & f] = k << 24 | x << 16 | c - s | 0;
             }
           }
-          return 0 !== E2 && (i[c + E2] = b2 - S3 << 24 | 64 << 16 | 0), o.bits = k2, 0;
+          return 0 !== E2 && (i[c + E2] = b - S2 << 24 | 64 << 16 | 0), o.bits = k, 0;
         };
       }, { "../utils/common": 41 }], 51: [function(e, t, r) {
         "use strict";
@@ -10813,80 +10187,80 @@ var require_jszip_min = __commonJS({
         function n(e2) {
           for (var t2 = e2.length; 0 <= --t2; ) e2[t2] = 0;
         }
-        var s = 0, a = 29, u2 = 256, l = u2 + 1 + a, f = 30, c = 19, _2 = 2 * l + 1, g2 = 15, d = 16, p = 7, m = 256, b2 = 16, v2 = 17, y2 = 18, w2 = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0], k2 = [0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13], x = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 7], S3 = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15], z2 = new Array(2 * (l + 2));
-        n(z2);
+        var s = 0, a = 29, u2 = 256, l = u2 + 1 + a, f = 30, c = 19, _ = 2 * l + 1, g = 15, d = 16, p = 7, m = 256, b = 16, v = 17, y = 18, w = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0], k = [0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13], x = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 7], S2 = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15], z = new Array(2 * (l + 2));
+        n(z);
         var C2 = new Array(2 * f);
         n(C2);
         var E2 = new Array(512);
         n(E2);
         var A2 = new Array(256);
         n(A2);
-        var I3 = new Array(a);
-        n(I3);
-        var O3, B3, R3, T3 = new Array(f);
+        var I2 = new Array(a);
+        n(I2);
+        var O2, B2, R2, T2 = new Array(f);
         function D2(e2, t2, r2, n2, i2) {
           this.static_tree = e2, this.extra_bits = t2, this.extra_base = r2, this.elems = n2, this.max_length = i2, this.has_stree = e2 && e2.length;
         }
         function F13(e2, t2) {
           this.dyn_tree = e2, this.max_code = 0, this.stat_desc = t2;
         }
-        function N3(e2) {
+        function N2(e2) {
           return e2 < 256 ? E2[e2] : E2[256 + (e2 >>> 7)];
         }
-        function U3(e2, t2) {
+        function U2(e2, t2) {
           e2.pending_buf[e2.pending++] = 255 & t2, e2.pending_buf[e2.pending++] = t2 >>> 8 & 255;
         }
-        function P3(e2, t2, r2) {
-          e2.bi_valid > d - r2 ? (e2.bi_buf |= t2 << e2.bi_valid & 65535, U3(e2, e2.bi_buf), e2.bi_buf = t2 >> d - e2.bi_valid, e2.bi_valid += r2 - d) : (e2.bi_buf |= t2 << e2.bi_valid & 65535, e2.bi_valid += r2);
+        function P2(e2, t2, r2) {
+          e2.bi_valid > d - r2 ? (e2.bi_buf |= t2 << e2.bi_valid & 65535, U2(e2, e2.bi_buf), e2.bi_buf = t2 >> d - e2.bi_valid, e2.bi_valid += r2 - d) : (e2.bi_buf |= t2 << e2.bi_valid & 65535, e2.bi_valid += r2);
         }
-        function L3(e2, t2, r2) {
-          P3(e2, r2[2 * t2], r2[2 * t2 + 1]);
+        function L2(e2, t2, r2) {
+          P2(e2, r2[2 * t2], r2[2 * t2 + 1]);
         }
-        function j2(e2, t2) {
+        function j(e2, t2) {
           for (var r2 = 0; r2 |= 1 & e2, e2 >>>= 1, r2 <<= 1, 0 < --t2; ) ;
           return r2 >>> 1;
         }
-        function Z3(e2, t2, r2) {
-          var n2, i2, s2 = new Array(g2 + 1), a2 = 0;
-          for (n2 = 1; n2 <= g2; n2++) s2[n2] = a2 = a2 + r2[n2 - 1] << 1;
+        function Z2(e2, t2, r2) {
+          var n2, i2, s2 = new Array(g + 1), a2 = 0;
+          for (n2 = 1; n2 <= g; n2++) s2[n2] = a2 = a2 + r2[n2 - 1] << 1;
           for (i2 = 0; i2 <= t2; i2++) {
             var o2 = e2[2 * i2 + 1];
-            0 !== o2 && (e2[2 * i2] = j2(s2[o2]++, o2));
+            0 !== o2 && (e2[2 * i2] = j(s2[o2]++, o2));
           }
         }
-        function W3(e2) {
+        function W2(e2) {
           var t2;
           for (t2 = 0; t2 < l; t2++) e2.dyn_ltree[2 * t2] = 0;
           for (t2 = 0; t2 < f; t2++) e2.dyn_dtree[2 * t2] = 0;
           for (t2 = 0; t2 < c; t2++) e2.bl_tree[2 * t2] = 0;
           e2.dyn_ltree[2 * m] = 1, e2.opt_len = e2.static_len = 0, e2.last_lit = e2.matches = 0;
         }
-        function M3(e2) {
-          8 < e2.bi_valid ? U3(e2, e2.bi_buf) : 0 < e2.bi_valid && (e2.pending_buf[e2.pending++] = e2.bi_buf), e2.bi_buf = 0, e2.bi_valid = 0;
+        function M2(e2) {
+          8 < e2.bi_valid ? U2(e2, e2.bi_buf) : 0 < e2.bi_valid && (e2.pending_buf[e2.pending++] = e2.bi_buf), e2.bi_buf = 0, e2.bi_valid = 0;
         }
-        function H3(e2, t2, r2, n2) {
+        function H2(e2, t2, r2, n2) {
           var i2 = 2 * t2, s2 = 2 * r2;
           return e2[i2] < e2[s2] || e2[i2] === e2[s2] && n2[t2] <= n2[r2];
         }
-        function G3(e2, t2, r2) {
-          for (var n2 = e2.heap[r2], i2 = r2 << 1; i2 <= e2.heap_len && (i2 < e2.heap_len && H3(t2, e2.heap[i2 + 1], e2.heap[i2], e2.depth) && i2++, !H3(t2, n2, e2.heap[i2], e2.depth)); ) e2.heap[r2] = e2.heap[i2], r2 = i2, i2 <<= 1;
+        function G2(e2, t2, r2) {
+          for (var n2 = e2.heap[r2], i2 = r2 << 1; i2 <= e2.heap_len && (i2 < e2.heap_len && H2(t2, e2.heap[i2 + 1], e2.heap[i2], e2.depth) && i2++, !H2(t2, n2, e2.heap[i2], e2.depth)); ) e2.heap[r2] = e2.heap[i2], r2 = i2, i2 <<= 1;
           e2.heap[r2] = n2;
         }
-        function K3(e2, t2, r2) {
+        function K2(e2, t2, r2) {
           var n2, i2, s2, a2, o2 = 0;
-          if (0 !== e2.last_lit) for (; n2 = e2.pending_buf[e2.d_buf + 2 * o2] << 8 | e2.pending_buf[e2.d_buf + 2 * o2 + 1], i2 = e2.pending_buf[e2.l_buf + o2], o2++, 0 === n2 ? L3(e2, i2, t2) : (L3(e2, (s2 = A2[i2]) + u2 + 1, t2), 0 !== (a2 = w2[s2]) && P3(e2, i2 -= I3[s2], a2), L3(e2, s2 = N3(--n2), r2), 0 !== (a2 = k2[s2]) && P3(e2, n2 -= T3[s2], a2)), o2 < e2.last_lit; ) ;
-          L3(e2, m, t2);
+          if (0 !== e2.last_lit) for (; n2 = e2.pending_buf[e2.d_buf + 2 * o2] << 8 | e2.pending_buf[e2.d_buf + 2 * o2 + 1], i2 = e2.pending_buf[e2.l_buf + o2], o2++, 0 === n2 ? L2(e2, i2, t2) : (L2(e2, (s2 = A2[i2]) + u2 + 1, t2), 0 !== (a2 = w[s2]) && P2(e2, i2 -= I2[s2], a2), L2(e2, s2 = N2(--n2), r2), 0 !== (a2 = k[s2]) && P2(e2, n2 -= T2[s2], a2)), o2 < e2.last_lit; ) ;
+          L2(e2, m, t2);
         }
-        function Y4(e2, t2) {
+        function Y3(e2, t2) {
           var r2, n2, i2, s2 = t2.dyn_tree, a2 = t2.stat_desc.static_tree, o2 = t2.stat_desc.has_stree, h2 = t2.stat_desc.elems, u3 = -1;
-          for (e2.heap_len = 0, e2.heap_max = _2, r2 = 0; r2 < h2; r2++) 0 !== s2[2 * r2] ? (e2.heap[++e2.heap_len] = u3 = r2, e2.depth[r2] = 0) : s2[2 * r2 + 1] = 0;
+          for (e2.heap_len = 0, e2.heap_max = _, r2 = 0; r2 < h2; r2++) 0 !== s2[2 * r2] ? (e2.heap[++e2.heap_len] = u3 = r2, e2.depth[r2] = 0) : s2[2 * r2 + 1] = 0;
           for (; e2.heap_len < 2; ) s2[2 * (i2 = e2.heap[++e2.heap_len] = u3 < 2 ? ++u3 : 0)] = 1, e2.depth[i2] = 0, e2.opt_len--, o2 && (e2.static_len -= a2[2 * i2 + 1]);
-          for (t2.max_code = u3, r2 = e2.heap_len >> 1; 1 <= r2; r2--) G3(e2, s2, r2);
-          for (i2 = h2; r2 = e2.heap[1], e2.heap[1] = e2.heap[e2.heap_len--], G3(e2, s2, 1), n2 = e2.heap[1], e2.heap[--e2.heap_max] = r2, e2.heap[--e2.heap_max] = n2, s2[2 * i2] = s2[2 * r2] + s2[2 * n2], e2.depth[i2] = (e2.depth[r2] >= e2.depth[n2] ? e2.depth[r2] : e2.depth[n2]) + 1, s2[2 * r2 + 1] = s2[2 * n2 + 1] = i2, e2.heap[1] = i2++, G3(e2, s2, 1), 2 <= e2.heap_len; ) ;
+          for (t2.max_code = u3, r2 = e2.heap_len >> 1; 1 <= r2; r2--) G2(e2, s2, r2);
+          for (i2 = h2; r2 = e2.heap[1], e2.heap[1] = e2.heap[e2.heap_len--], G2(e2, s2, 1), n2 = e2.heap[1], e2.heap[--e2.heap_max] = r2, e2.heap[--e2.heap_max] = n2, s2[2 * i2] = s2[2 * r2] + s2[2 * n2], e2.depth[i2] = (e2.depth[r2] >= e2.depth[n2] ? e2.depth[r2] : e2.depth[n2]) + 1, s2[2 * r2 + 1] = s2[2 * n2 + 1] = i2, e2.heap[1] = i2++, G2(e2, s2, 1), 2 <= e2.heap_len; ) ;
           e2.heap[--e2.heap_max] = e2.heap[1], (function(e3, t3) {
             var r3, n3, i3, s3, a3, o3, h3 = t3.dyn_tree, u4 = t3.max_code, l2 = t3.stat_desc.static_tree, f2 = t3.stat_desc.has_stree, c2 = t3.stat_desc.extra_bits, d2 = t3.stat_desc.extra_base, p2 = t3.stat_desc.max_length, m2 = 0;
-            for (s3 = 0; s3 <= g2; s3++) e3.bl_count[s3] = 0;
-            for (h3[2 * e3.heap[e3.heap_max] + 1] = 0, r3 = e3.heap_max + 1; r3 < _2; r3++) p2 < (s3 = h3[2 * h3[2 * (n3 = e3.heap[r3]) + 1] + 1] + 1) && (s3 = p2, m2++), h3[2 * n3 + 1] = s3, u4 < n3 || (e3.bl_count[s3]++, a3 = 0, d2 <= n3 && (a3 = c2[n3 - d2]), o3 = h3[2 * n3], e3.opt_len += o3 * (s3 + a3), f2 && (e3.static_len += o3 * (l2[2 * n3 + 1] + a3)));
+            for (s3 = 0; s3 <= g; s3++) e3.bl_count[s3] = 0;
+            for (h3[2 * e3.heap[e3.heap_max] + 1] = 0, r3 = e3.heap_max + 1; r3 < _; r3++) p2 < (s3 = h3[2 * h3[2 * (n3 = e3.heap[r3]) + 1] + 1] + 1) && (s3 = p2, m2++), h3[2 * n3 + 1] = s3, u4 < n3 || (e3.bl_count[s3]++, a3 = 0, d2 <= n3 && (a3 = c2[n3 - d2]), o3 = h3[2 * n3], e3.opt_len += o3 * (s3 + a3), f2 && (e3.static_len += o3 * (l2[2 * n3 + 1] + a3)));
             if (0 !== m2) {
               do {
                 for (s3 = p2 - 1; 0 === e3.bl_count[s3]; ) s3--;
@@ -10894,42 +10268,42 @@ var require_jszip_min = __commonJS({
               } while (0 < m2);
               for (s3 = p2; 0 !== s3; s3--) for (n3 = e3.bl_count[s3]; 0 !== n3; ) u4 < (i3 = e3.heap[--r3]) || (h3[2 * i3 + 1] !== s3 && (e3.opt_len += (s3 - h3[2 * i3 + 1]) * h3[2 * i3], h3[2 * i3 + 1] = s3), n3--);
             }
-          })(e2, t2), Z3(s2, u3, e2.bl_count);
+          })(e2, t2), Z2(s2, u3, e2.bl_count);
         }
-        function X4(e2, t2, r2) {
+        function X3(e2, t2, r2) {
           var n2, i2, s2 = -1, a2 = t2[1], o2 = 0, h2 = 7, u3 = 4;
-          for (0 === a2 && (h2 = 138, u3 = 3), t2[2 * (r2 + 1) + 1] = 65535, n2 = 0; n2 <= r2; n2++) i2 = a2, a2 = t2[2 * (n2 + 1) + 1], ++o2 < h2 && i2 === a2 || (o2 < u3 ? e2.bl_tree[2 * i2] += o2 : 0 !== i2 ? (i2 !== s2 && e2.bl_tree[2 * i2]++, e2.bl_tree[2 * b2]++) : o2 <= 10 ? e2.bl_tree[2 * v2]++ : e2.bl_tree[2 * y2]++, s2 = i2, u3 = (o2 = 0) === a2 ? (h2 = 138, 3) : i2 === a2 ? (h2 = 6, 3) : (h2 = 7, 4));
+          for (0 === a2 && (h2 = 138, u3 = 3), t2[2 * (r2 + 1) + 1] = 65535, n2 = 0; n2 <= r2; n2++) i2 = a2, a2 = t2[2 * (n2 + 1) + 1], ++o2 < h2 && i2 === a2 || (o2 < u3 ? e2.bl_tree[2 * i2] += o2 : 0 !== i2 ? (i2 !== s2 && e2.bl_tree[2 * i2]++, e2.bl_tree[2 * b]++) : o2 <= 10 ? e2.bl_tree[2 * v]++ : e2.bl_tree[2 * y]++, s2 = i2, u3 = (o2 = 0) === a2 ? (h2 = 138, 3) : i2 === a2 ? (h2 = 6, 3) : (h2 = 7, 4));
         }
-        function V3(e2, t2, r2) {
+        function V2(e2, t2, r2) {
           var n2, i2, s2 = -1, a2 = t2[1], o2 = 0, h2 = 7, u3 = 4;
           for (0 === a2 && (h2 = 138, u3 = 3), n2 = 0; n2 <= r2; n2++) if (i2 = a2, a2 = t2[2 * (n2 + 1) + 1], !(++o2 < h2 && i2 === a2)) {
-            if (o2 < u3) for (; L3(e2, i2, e2.bl_tree), 0 != --o2; ) ;
-            else 0 !== i2 ? (i2 !== s2 && (L3(e2, i2, e2.bl_tree), o2--), L3(e2, b2, e2.bl_tree), P3(e2, o2 - 3, 2)) : o2 <= 10 ? (L3(e2, v2, e2.bl_tree), P3(e2, o2 - 3, 3)) : (L3(e2, y2, e2.bl_tree), P3(e2, o2 - 11, 7));
+            if (o2 < u3) for (; L2(e2, i2, e2.bl_tree), 0 != --o2; ) ;
+            else 0 !== i2 ? (i2 !== s2 && (L2(e2, i2, e2.bl_tree), o2--), L2(e2, b, e2.bl_tree), P2(e2, o2 - 3, 2)) : o2 <= 10 ? (L2(e2, v, e2.bl_tree), P2(e2, o2 - 3, 3)) : (L2(e2, y, e2.bl_tree), P2(e2, o2 - 11, 7));
             s2 = i2, u3 = (o2 = 0) === a2 ? (h2 = 138, 3) : i2 === a2 ? (h2 = 6, 3) : (h2 = 7, 4);
           }
         }
-        n(T3);
-        var q2 = false;
-        function J3(e2, t2, r2, n2) {
-          P3(e2, (s << 1) + (n2 ? 1 : 0), 3), (function(e3, t3, r3, n3) {
-            M3(e3), n3 && (U3(e3, r3), U3(e3, ~r3)), i.arraySet(e3.pending_buf, e3.window, t3, r3, e3.pending), e3.pending += r3;
+        n(T2);
+        var q = false;
+        function J2(e2, t2, r2, n2) {
+          P2(e2, (s << 1) + (n2 ? 1 : 0), 3), (function(e3, t3, r3, n3) {
+            M2(e3), n3 && (U2(e3, r3), U2(e3, ~r3)), i.arraySet(e3.pending_buf, e3.window, t3, r3, e3.pending), e3.pending += r3;
           })(e2, t2, r2, true);
         }
         r._tr_init = function(e2) {
-          q2 || ((function() {
-            var e3, t2, r2, n2, i2, s2 = new Array(g2 + 1);
-            for (n2 = r2 = 0; n2 < a - 1; n2++) for (I3[n2] = r2, e3 = 0; e3 < 1 << w2[n2]; e3++) A2[r2++] = n2;
-            for (A2[r2 - 1] = n2, n2 = i2 = 0; n2 < 16; n2++) for (T3[n2] = i2, e3 = 0; e3 < 1 << k2[n2]; e3++) E2[i2++] = n2;
-            for (i2 >>= 7; n2 < f; n2++) for (T3[n2] = i2 << 7, e3 = 0; e3 < 1 << k2[n2] - 7; e3++) E2[256 + i2++] = n2;
-            for (t2 = 0; t2 <= g2; t2++) s2[t2] = 0;
-            for (e3 = 0; e3 <= 143; ) z2[2 * e3 + 1] = 8, e3++, s2[8]++;
-            for (; e3 <= 255; ) z2[2 * e3 + 1] = 9, e3++, s2[9]++;
-            for (; e3 <= 279; ) z2[2 * e3 + 1] = 7, e3++, s2[7]++;
-            for (; e3 <= 287; ) z2[2 * e3 + 1] = 8, e3++, s2[8]++;
-            for (Z3(z2, l + 1, s2), e3 = 0; e3 < f; e3++) C2[2 * e3 + 1] = 5, C2[2 * e3] = j2(e3, 5);
-            O3 = new D2(z2, w2, u2 + 1, l, g2), B3 = new D2(C2, k2, 0, f, g2), R3 = new D2(new Array(0), x, 0, c, p);
-          })(), q2 = true), e2.l_desc = new F13(e2.dyn_ltree, O3), e2.d_desc = new F13(e2.dyn_dtree, B3), e2.bl_desc = new F13(e2.bl_tree, R3), e2.bi_buf = 0, e2.bi_valid = 0, W3(e2);
-        }, r._tr_stored_block = J3, r._tr_flush_block = function(e2, t2, r2, n2) {
+          q || ((function() {
+            var e3, t2, r2, n2, i2, s2 = new Array(g + 1);
+            for (n2 = r2 = 0; n2 < a - 1; n2++) for (I2[n2] = r2, e3 = 0; e3 < 1 << w[n2]; e3++) A2[r2++] = n2;
+            for (A2[r2 - 1] = n2, n2 = i2 = 0; n2 < 16; n2++) for (T2[n2] = i2, e3 = 0; e3 < 1 << k[n2]; e3++) E2[i2++] = n2;
+            for (i2 >>= 7; n2 < f; n2++) for (T2[n2] = i2 << 7, e3 = 0; e3 < 1 << k[n2] - 7; e3++) E2[256 + i2++] = n2;
+            for (t2 = 0; t2 <= g; t2++) s2[t2] = 0;
+            for (e3 = 0; e3 <= 143; ) z[2 * e3 + 1] = 8, e3++, s2[8]++;
+            for (; e3 <= 255; ) z[2 * e3 + 1] = 9, e3++, s2[9]++;
+            for (; e3 <= 279; ) z[2 * e3 + 1] = 7, e3++, s2[7]++;
+            for (; e3 <= 287; ) z[2 * e3 + 1] = 8, e3++, s2[8]++;
+            for (Z2(z, l + 1, s2), e3 = 0; e3 < f; e3++) C2[2 * e3 + 1] = 5, C2[2 * e3] = j(e3, 5);
+            O2 = new D2(z, w, u2 + 1, l, g), B2 = new D2(C2, k, 0, f, g), R2 = new D2(new Array(0), x, 0, c, p);
+          })(), q = true), e2.l_desc = new F13(e2.dyn_ltree, O2), e2.d_desc = new F13(e2.dyn_dtree, B2), e2.bl_desc = new F13(e2.bl_tree, R2), e2.bi_buf = 0, e2.bi_valid = 0, W2(e2);
+        }, r._tr_stored_block = J2, r._tr_flush_block = function(e2, t2, r2, n2) {
           var i2, s2, a2 = 0;
           0 < e2.level ? (2 === e2.strm.data_type && (e2.strm.data_type = (function(e3) {
             var t3, r3 = 4093624447;
@@ -10937,20 +10311,20 @@ var require_jszip_min = __commonJS({
             if (0 !== e3.dyn_ltree[18] || 0 !== e3.dyn_ltree[20] || 0 !== e3.dyn_ltree[26]) return h;
             for (t3 = 32; t3 < u2; t3++) if (0 !== e3.dyn_ltree[2 * t3]) return h;
             return o;
-          })(e2)), Y4(e2, e2.l_desc), Y4(e2, e2.d_desc), a2 = (function(e3) {
+          })(e2)), Y3(e2, e2.l_desc), Y3(e2, e2.d_desc), a2 = (function(e3) {
             var t3;
-            for (X4(e3, e3.dyn_ltree, e3.l_desc.max_code), X4(e3, e3.dyn_dtree, e3.d_desc.max_code), Y4(e3, e3.bl_desc), t3 = c - 1; 3 <= t3 && 0 === e3.bl_tree[2 * S3[t3] + 1]; t3--) ;
+            for (X3(e3, e3.dyn_ltree, e3.l_desc.max_code), X3(e3, e3.dyn_dtree, e3.d_desc.max_code), Y3(e3, e3.bl_desc), t3 = c - 1; 3 <= t3 && 0 === e3.bl_tree[2 * S2[t3] + 1]; t3--) ;
             return e3.opt_len += 3 * (t3 + 1) + 5 + 5 + 4, t3;
-          })(e2), i2 = e2.opt_len + 3 + 7 >>> 3, (s2 = e2.static_len + 3 + 7 >>> 3) <= i2 && (i2 = s2)) : i2 = s2 = r2 + 5, r2 + 4 <= i2 && -1 !== t2 ? J3(e2, t2, r2, n2) : 4 === e2.strategy || s2 === i2 ? (P3(e2, 2 + (n2 ? 1 : 0), 3), K3(e2, z2, C2)) : (P3(e2, 4 + (n2 ? 1 : 0), 3), (function(e3, t3, r3, n3) {
+          })(e2), i2 = e2.opt_len + 3 + 7 >>> 3, (s2 = e2.static_len + 3 + 7 >>> 3) <= i2 && (i2 = s2)) : i2 = s2 = r2 + 5, r2 + 4 <= i2 && -1 !== t2 ? J2(e2, t2, r2, n2) : 4 === e2.strategy || s2 === i2 ? (P2(e2, 2 + (n2 ? 1 : 0), 3), K2(e2, z, C2)) : (P2(e2, 4 + (n2 ? 1 : 0), 3), (function(e3, t3, r3, n3) {
             var i3;
-            for (P3(e3, t3 - 257, 5), P3(e3, r3 - 1, 5), P3(e3, n3 - 4, 4), i3 = 0; i3 < n3; i3++) P3(e3, e3.bl_tree[2 * S3[i3] + 1], 3);
-            V3(e3, e3.dyn_ltree, t3 - 1), V3(e3, e3.dyn_dtree, r3 - 1);
-          })(e2, e2.l_desc.max_code + 1, e2.d_desc.max_code + 1, a2 + 1), K3(e2, e2.dyn_ltree, e2.dyn_dtree)), W3(e2), n2 && M3(e2);
+            for (P2(e3, t3 - 257, 5), P2(e3, r3 - 1, 5), P2(e3, n3 - 4, 4), i3 = 0; i3 < n3; i3++) P2(e3, e3.bl_tree[2 * S2[i3] + 1], 3);
+            V2(e3, e3.dyn_ltree, t3 - 1), V2(e3, e3.dyn_dtree, r3 - 1);
+          })(e2, e2.l_desc.max_code + 1, e2.d_desc.max_code + 1, a2 + 1), K2(e2, e2.dyn_ltree, e2.dyn_dtree)), W2(e2), n2 && M2(e2);
         }, r._tr_tally = function(e2, t2, r2) {
-          return e2.pending_buf[e2.d_buf + 2 * e2.last_lit] = t2 >>> 8 & 255, e2.pending_buf[e2.d_buf + 2 * e2.last_lit + 1] = 255 & t2, e2.pending_buf[e2.l_buf + e2.last_lit] = 255 & r2, e2.last_lit++, 0 === t2 ? e2.dyn_ltree[2 * r2]++ : (e2.matches++, t2--, e2.dyn_ltree[2 * (A2[r2] + u2 + 1)]++, e2.dyn_dtree[2 * N3(t2)]++), e2.last_lit === e2.lit_bufsize - 1;
+          return e2.pending_buf[e2.d_buf + 2 * e2.last_lit] = t2 >>> 8 & 255, e2.pending_buf[e2.d_buf + 2 * e2.last_lit + 1] = 255 & t2, e2.pending_buf[e2.l_buf + e2.last_lit] = 255 & r2, e2.last_lit++, 0 === t2 ? e2.dyn_ltree[2 * r2]++ : (e2.matches++, t2--, e2.dyn_ltree[2 * (A2[r2] + u2 + 1)]++, e2.dyn_dtree[2 * N2(t2)]++), e2.last_lit === e2.lit_bufsize - 1;
         }, r._tr_align = function(e2) {
-          P3(e2, 2, 3), L3(e2, m, z2), (function(e3) {
-            16 === e3.bi_valid ? (U3(e3, e3.bi_buf), e3.bi_buf = 0, e3.bi_valid = 0) : 8 <= e3.bi_valid && (e3.pending_buf[e3.pending++] = 255 & e3.bi_buf, e3.bi_buf >>= 8, e3.bi_valid -= 8);
+          P2(e2, 2, 3), L2(e2, m, z), (function(e3) {
+            16 === e3.bi_valid ? (U2(e3, e3.bi_buf), e3.bi_buf = 0, e3.bi_valid = 0) : 8 <= e3.bi_valid && (e3.pending_buf[e3.pending++] = 255 & e3.bi_buf, e3.bi_buf >>= 8, e3.bi_valid -= 8);
           })(e2);
         };
       }, { "../utils/common": 41 }], 53: [function(e, t, r) {
@@ -11040,7 +10414,7 @@ var require_jszip_min = __commonJS({
   }
 });
 
-// ../node_modules/@angular/core/fesm2022/not_found.mjs
+// node_modules/@angular/core/fesm2022/not_found.mjs
 var _currentInjector = void 0;
 function getCurrentInjector() {
   return _currentInjector;
@@ -11055,9 +10429,9 @@ function isNotFound(e) {
   return e === NOT_FOUND || e?.name === "\u0275NotFound";
 }
 
-// ../node_modules/@angular/core/fesm2022/signal.mjs
-function defaultEquals(a, b2) {
-  return Object.is(a, b2);
+// node_modules/@angular/core/fesm2022/signal.mjs
+function defaultEquals(a, b) {
+  return Object.is(a, b);
 }
 var activeConsumer = null;
 var inNotificationPhase = false;
@@ -11378,8 +10752,8 @@ var throwInvalidWriteToSignalErrorFn = defaultThrowError;
 function throwInvalidWriteToSignalError(node) {
   throwInvalidWriteToSignalErrorFn(node);
 }
-function setThrowInvalidWriteToSignalError(fn2) {
-  throwInvalidWriteToSignalErrorFn = fn2;
+function setThrowInvalidWriteToSignalError(fn) {
+  throwInvalidWriteToSignalErrorFn = fn;
 }
 var postSignalSetFn = null;
 function createSignal(initialValue, equal) {
@@ -11432,12 +10806,12 @@ function signalValueChanged(node) {
   postSignalSetFn?.(node);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/isFunction.js
+// node_modules/rxjs/dist/esm/internal/util/isFunction.js
 function isFunction(value) {
   return typeof value === "function";
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/createErrorClass.js
+// node_modules/rxjs/dist/esm/internal/util/createErrorClass.js
 function createErrorClass(createImpl) {
   const _super = (instance) => {
     Error.call(instance);
@@ -11449,7 +10823,7 @@ function createErrorClass(createImpl) {
   return ctorFunc;
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/UnsubscriptionError.js
+// node_modules/rxjs/dist/esm/internal/util/UnsubscriptionError.js
 var UnsubscriptionError = createErrorClass((_super) => function UnsubscriptionErrorImpl(errors) {
   _super(this);
   this.message = errors ? `${errors.length} errors occurred during unsubscription:
@@ -11458,7 +10832,7 @@ ${errors.map((err, i) => `${i + 1}) ${err.toString()}`).join("\n  ")}` : "";
   this.errors = errors;
 });
 
-// ../node_modules/rxjs/dist/esm/internal/util/arrRemove.js
+// node_modules/rxjs/dist/esm/internal/util/arrRemove.js
 function arrRemove(arr, item) {
   if (arr) {
     const index = arr.indexOf(item);
@@ -11466,7 +10840,7 @@ function arrRemove(arr, item) {
   }
 }
 
-// ../node_modules/rxjs/dist/esm/internal/Subscription.js
+// node_modules/rxjs/dist/esm/internal/Subscription.js
 var Subscription = class _Subscription {
   constructor(initialTeardown) {
     this.initialTeardown = initialTeardown;
@@ -11575,7 +10949,7 @@ function execFinalizer(finalizer) {
   }
 }
 
-// ../node_modules/rxjs/dist/esm/internal/config.js
+// node_modules/rxjs/dist/esm/internal/config.js
 var config = {
   onUnhandledError: null,
   onStoppedNotification: null,
@@ -11584,7 +10958,7 @@ var config = {
   useDeprecatedNextContext: false
 };
 
-// ../node_modules/rxjs/dist/esm/internal/scheduler/timeoutProvider.js
+// node_modules/rxjs/dist/esm/internal/scheduler/timeoutProvider.js
 var timeoutProvider = {
   setTimeout(handler, timeout2, ...args) {
     const { delegate } = timeoutProvider;
@@ -11600,7 +10974,7 @@ var timeoutProvider = {
   delegate: void 0
 };
 
-// ../node_modules/rxjs/dist/esm/internal/util/reportUnhandledError.js
+// node_modules/rxjs/dist/esm/internal/util/reportUnhandledError.js
 function reportUnhandledError(err) {
   timeoutProvider.setTimeout(() => {
     const { onUnhandledError } = config;
@@ -11612,11 +10986,11 @@ function reportUnhandledError(err) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/noop.js
+// node_modules/rxjs/dist/esm/internal/util/noop.js
 function noop() {
 }
 
-// ../node_modules/rxjs/dist/esm/internal/NotificationFactories.js
+// node_modules/rxjs/dist/esm/internal/NotificationFactories.js
 var COMPLETE_NOTIFICATION = (() => createNotification("C", void 0, void 0))();
 function errorNotification(error) {
   return createNotification("E", void 0, error);
@@ -11632,7 +11006,7 @@ function createNotification(kind, value, error) {
   };
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/errorContext.js
+// node_modules/rxjs/dist/esm/internal/util/errorContext.js
 var context = null;
 function errorContext(cb) {
   if (config.useDeprecatedSynchronousErrorHandling) {
@@ -11659,7 +11033,7 @@ function captureError(err) {
   }
 }
 
-// ../node_modules/rxjs/dist/esm/internal/Subscriber.js
+// node_modules/rxjs/dist/esm/internal/Subscriber.js
 var Subscriber = class extends Subscription {
   constructor(destination) {
     super();
@@ -11725,8 +11099,8 @@ var Subscriber = class extends Subscription {
   }
 };
 var _bind = Function.prototype.bind;
-function bind(fn2, thisArg) {
-  return _bind.call(fn2, thisArg);
+function bind(fn, thisArg) {
+  return _bind.call(fn, thisArg);
 }
 var ConsumerObserver = class {
   constructor(partialObserver) {
@@ -11813,15 +11187,15 @@ var EMPTY_OBSERVER = {
   complete: noop
 };
 
-// ../node_modules/rxjs/dist/esm/internal/symbol/observable.js
+// node_modules/rxjs/dist/esm/internal/symbol/observable.js
 var observable = (() => typeof Symbol === "function" && Symbol.observable || "@@observable")();
 
-// ../node_modules/rxjs/dist/esm/internal/util/identity.js
+// node_modules/rxjs/dist/esm/internal/util/identity.js
 function identity(x) {
   return x;
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/pipe.js
+// node_modules/rxjs/dist/esm/internal/util/pipe.js
 function pipe(...fns) {
   return pipeFromArray(fns);
 }
@@ -11833,11 +11207,11 @@ function pipeFromArray(fns) {
     return fns[0];
   }
   return function piped(input2) {
-    return fns.reduce((prev, fn2) => fn2(prev), input2);
+    return fns.reduce((prev, fn) => fn(prev), input2);
   };
 }
 
-// ../node_modules/rxjs/dist/esm/internal/Observable.js
+// node_modules/rxjs/dist/esm/internal/Observable.js
 var Observable = class _Observable {
   constructor(subscribe) {
     if (subscribe) {
@@ -11915,7 +11289,7 @@ function isSubscriber(value) {
   return value && value instanceof Subscriber || isObserver(value) && isSubscription(value);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/lift.js
+// node_modules/rxjs/dist/esm/internal/util/lift.js
 function hasLift(source) {
   return isFunction(source === null || source === void 0 ? void 0 : source.lift);
 }
@@ -11934,7 +11308,7 @@ function operate(init2) {
   };
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/OperatorSubscriber.js
+// node_modules/rxjs/dist/esm/internal/operators/OperatorSubscriber.js
 function createOperatorSubscriber(destination, onNext, onComplete, onError, onFinalize) {
   return new OperatorSubscriber(destination, onNext, onComplete, onError, onFinalize);
 }
@@ -11979,7 +11353,7 @@ var OperatorSubscriber = class extends Subscriber {
   }
 };
 
-// ../node_modules/rxjs/dist/esm/internal/operators/refCount.js
+// node_modules/rxjs/dist/esm/internal/operators/refCount.js
 function refCount() {
   return operate((source, subscriber) => {
     let connection = null;
@@ -12004,7 +11378,7 @@ function refCount() {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/observable/ConnectableObservable.js
+// node_modules/rxjs/dist/esm/internal/observable/ConnectableObservable.js
 var ConnectableObservable = class extends Observable {
   constructor(source, subjectFactory) {
     super();
@@ -12057,7 +11431,7 @@ var ConnectableObservable = class extends Observable {
   }
 };
 
-// ../node_modules/rxjs/dist/esm/internal/scheduler/animationFrameProvider.js
+// node_modules/rxjs/dist/esm/internal/scheduler/animationFrameProvider.js
 var animationFrameProvider = {
   schedule(callback) {
     let request = requestAnimationFrame;
@@ -12084,14 +11458,14 @@ var animationFrameProvider = {
   delegate: void 0
 };
 
-// ../node_modules/rxjs/dist/esm/internal/util/ObjectUnsubscribedError.js
+// node_modules/rxjs/dist/esm/internal/util/ObjectUnsubscribedError.js
 var ObjectUnsubscribedError = createErrorClass((_super) => function ObjectUnsubscribedErrorImpl() {
   _super(this);
   this.name = "ObjectUnsubscribedError";
   this.message = "object unsubscribed";
 });
 
-// ../node_modules/rxjs/dist/esm/internal/Subject.js
+// node_modules/rxjs/dist/esm/internal/Subject.js
 var Subject = class extends Observable {
   constructor() {
     super();
@@ -12220,7 +11594,7 @@ var AnonymousSubject = class extends Subject {
   }
 };
 
-// ../node_modules/rxjs/dist/esm/internal/BehaviorSubject.js
+// node_modules/rxjs/dist/esm/internal/BehaviorSubject.js
 var BehaviorSubject = class extends Subject {
   constructor(_value) {
     super();
@@ -12247,7 +11621,7 @@ var BehaviorSubject = class extends Subject {
   }
 };
 
-// ../node_modules/rxjs/dist/esm/internal/scheduler/dateTimestampProvider.js
+// node_modules/rxjs/dist/esm/internal/scheduler/dateTimestampProvider.js
 var dateTimestampProvider = {
   now() {
     return (dateTimestampProvider.delegate || Date).now();
@@ -12255,7 +11629,7 @@ var dateTimestampProvider = {
   delegate: void 0
 };
 
-// ../node_modules/rxjs/dist/esm/internal/ReplaySubject.js
+// node_modules/rxjs/dist/esm/internal/ReplaySubject.js
 var ReplaySubject = class extends Subject {
   constructor(_bufferSize = Infinity, _windowTime = Infinity, _timestampProvider = dateTimestampProvider) {
     super();
@@ -12304,7 +11678,7 @@ var ReplaySubject = class extends Subject {
   }
 };
 
-// ../node_modules/rxjs/dist/esm/internal/scheduler/Action.js
+// node_modules/rxjs/dist/esm/internal/scheduler/Action.js
 var Action = class extends Subscription {
   constructor(scheduler, work) {
     super();
@@ -12314,7 +11688,7 @@ var Action = class extends Subscription {
   }
 };
 
-// ../node_modules/rxjs/dist/esm/internal/scheduler/intervalProvider.js
+// node_modules/rxjs/dist/esm/internal/scheduler/intervalProvider.js
 var intervalProvider = {
   setInterval(handler, timeout2, ...args) {
     const { delegate } = intervalProvider;
@@ -12330,7 +11704,7 @@ var intervalProvider = {
   delegate: void 0
 };
 
-// ../node_modules/rxjs/dist/esm/internal/scheduler/AsyncAction.js
+// node_modules/rxjs/dist/esm/internal/scheduler/AsyncAction.js
 var AsyncAction = class extends Action {
   constructor(scheduler, work) {
     super(scheduler, work);
@@ -12408,7 +11782,7 @@ var AsyncAction = class extends Action {
   }
 };
 
-// ../node_modules/rxjs/dist/esm/internal/util/Immediate.js
+// node_modules/rxjs/dist/esm/internal/util/Immediate.js
 var nextHandle = 1;
 var resolved;
 var activeHandles = {};
@@ -12434,7 +11808,7 @@ var Immediate = {
   }
 };
 
-// ../node_modules/rxjs/dist/esm/internal/scheduler/immediateProvider.js
+// node_modules/rxjs/dist/esm/internal/scheduler/immediateProvider.js
 var { setImmediate: setImmediate2, clearImmediate } = Immediate;
 var immediateProvider = {
   setImmediate(...args) {
@@ -12448,7 +11822,7 @@ var immediateProvider = {
   delegate: void 0
 };
 
-// ../node_modules/rxjs/dist/esm/internal/scheduler/AsapAction.js
+// node_modules/rxjs/dist/esm/internal/scheduler/AsapAction.js
 var AsapAction = class extends AsyncAction {
   constructor(scheduler, work) {
     super(scheduler, work);
@@ -12478,7 +11852,7 @@ var AsapAction = class extends AsyncAction {
   }
 };
 
-// ../node_modules/rxjs/dist/esm/internal/Scheduler.js
+// node_modules/rxjs/dist/esm/internal/Scheduler.js
 var Scheduler = class _Scheduler {
   constructor(schedulerActionCtor, now2 = _Scheduler.now) {
     this.schedulerActionCtor = schedulerActionCtor;
@@ -12490,7 +11864,7 @@ var Scheduler = class _Scheduler {
 };
 Scheduler.now = dateTimestampProvider.now;
 
-// ../node_modules/rxjs/dist/esm/internal/scheduler/AsyncScheduler.js
+// node_modules/rxjs/dist/esm/internal/scheduler/AsyncScheduler.js
 var AsyncScheduler = class extends Scheduler {
   constructor(SchedulerAction, now2 = Scheduler.now) {
     super(SchedulerAction, now2);
@@ -12520,7 +11894,7 @@ var AsyncScheduler = class extends Scheduler {
   }
 };
 
-// ../node_modules/rxjs/dist/esm/internal/scheduler/AsapScheduler.js
+// node_modules/rxjs/dist/esm/internal/scheduler/AsapScheduler.js
 var AsapScheduler = class extends AsyncScheduler {
   flush(action) {
     this._active = true;
@@ -12544,14 +11918,14 @@ var AsapScheduler = class extends AsyncScheduler {
   }
 };
 
-// ../node_modules/rxjs/dist/esm/internal/scheduler/asap.js
+// node_modules/rxjs/dist/esm/internal/scheduler/asap.js
 var asapScheduler = new AsapScheduler(AsapAction);
 
-// ../node_modules/rxjs/dist/esm/internal/scheduler/async.js
+// node_modules/rxjs/dist/esm/internal/scheduler/async.js
 var asyncScheduler = new AsyncScheduler(AsyncAction);
 var async = asyncScheduler;
 
-// ../node_modules/rxjs/dist/esm/internal/scheduler/AnimationFrameAction.js
+// node_modules/rxjs/dist/esm/internal/scheduler/AnimationFrameAction.js
 var AnimationFrameAction = class extends AsyncAction {
   constructor(scheduler, work) {
     super(scheduler, work);
@@ -12579,7 +11953,7 @@ var AnimationFrameAction = class extends AsyncAction {
   }
 };
 
-// ../node_modules/rxjs/dist/esm/internal/scheduler/AnimationFrameScheduler.js
+// node_modules/rxjs/dist/esm/internal/scheduler/AnimationFrameScheduler.js
 var AnimationFrameScheduler = class extends AsyncScheduler {
   flush(action) {
     this._active = true;
@@ -12608,18 +11982,18 @@ var AnimationFrameScheduler = class extends AsyncScheduler {
   }
 };
 
-// ../node_modules/rxjs/dist/esm/internal/scheduler/animationFrame.js
+// node_modules/rxjs/dist/esm/internal/scheduler/animationFrame.js
 var animationFrameScheduler = new AnimationFrameScheduler(AnimationFrameAction);
 
-// ../node_modules/rxjs/dist/esm/internal/observable/empty.js
+// node_modules/rxjs/dist/esm/internal/observable/empty.js
 var EMPTY = new Observable((subscriber) => subscriber.complete());
 
-// ../node_modules/rxjs/dist/esm/internal/util/isScheduler.js
+// node_modules/rxjs/dist/esm/internal/util/isScheduler.js
 function isScheduler(value) {
   return value && isFunction(value.schedule);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/args.js
+// node_modules/rxjs/dist/esm/internal/util/args.js
 function last(arr) {
   return arr[arr.length - 1];
 }
@@ -12633,14 +12007,14 @@ function popNumber(args, defaultValue) {
   return typeof last(args) === "number" ? args.pop() : defaultValue;
 }
 
-// ../node_modules/tslib/tslib.es6.mjs
-function __awaiter(thisArg, _arguments, P3, generator) {
+// node_modules/tslib/tslib.es6.mjs
+function __awaiter(thisArg, _arguments, P2, generator) {
   function adopt(value) {
-    return value instanceof P3 ? value : new P3(function(resolve) {
+    return value instanceof P2 ? value : new P2(function(resolve) {
       resolve(value);
     });
   }
-  return new (P3 || (P3 = Promise))(function(resolve, reject) {
+  return new (P2 || (P2 = Promise))(function(resolve, reject) {
     function fulfilled(value) {
       try {
         step(generator.next(value));
@@ -12672,39 +12046,39 @@ function __values(o) {
   };
   throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 }
-function __await(v2) {
-  return this instanceof __await ? (this.v = v2, this) : new __await(v2);
+function __await(v) {
+  return this instanceof __await ? (this.v = v, this) : new __await(v);
 }
 function __asyncGenerator(thisArg, _arguments, generator) {
   if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-  var g2 = generator.apply(thisArg, _arguments || []), i, q2 = [];
+  var g = generator.apply(thisArg, _arguments || []), i, q = [];
   return i = Object.create((typeof AsyncIterator === "function" ? AsyncIterator : Object).prototype), verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function() {
     return this;
   }, i;
   function awaitReturn(f) {
-    return function(v2) {
-      return Promise.resolve(v2).then(f, reject);
+    return function(v) {
+      return Promise.resolve(v).then(f, reject);
     };
   }
   function verb(n, f) {
-    if (g2[n]) {
-      i[n] = function(v2) {
-        return new Promise(function(a, b2) {
-          q2.push([n, v2, a, b2]) > 1 || resume(n, v2);
+    if (g[n]) {
+      i[n] = function(v) {
+        return new Promise(function(a, b) {
+          q.push([n, v, a, b]) > 1 || resume(n, v);
         });
       };
       if (f) i[n] = f(i[n]);
     }
   }
-  function resume(n, v2) {
+  function resume(n, v) {
     try {
-      step(g2[n](v2));
+      step(g[n](v));
     } catch (e) {
-      settle(q2[0][3], e);
+      settle(q[0][3], e);
     }
   }
   function step(r) {
-    r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q2[0][2], r);
+    r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r);
   }
   function fulfill(value) {
     resume("next", value);
@@ -12712,8 +12086,8 @@ function __asyncGenerator(thisArg, _arguments, generator) {
   function reject(value) {
     resume("throw", value);
   }
-  function settle(f, v2) {
-    if (f(v2), q2.shift(), q2.length) resume(q2[0][0], q2[0][1]);
+  function settle(f, v) {
+    if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]);
   }
 }
 function __asyncValues(o) {
@@ -12723,43 +12097,43 @@ function __asyncValues(o) {
     return this;
   }, i);
   function verb(n) {
-    i[n] = o[n] && function(v2) {
+    i[n] = o[n] && function(v) {
       return new Promise(function(resolve, reject) {
-        v2 = o[n](v2), settle(resolve, reject, v2.done, v2.value);
+        v = o[n](v), settle(resolve, reject, v.done, v.value);
       });
     };
   }
-  function settle(resolve, reject, d, v2) {
-    Promise.resolve(v2).then(function(v3) {
-      resolve({ value: v3, done: d });
+  function settle(resolve, reject, d, v) {
+    Promise.resolve(v).then(function(v2) {
+      resolve({ value: v2, done: d });
     }, reject);
   }
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/isArrayLike.js
+// node_modules/rxjs/dist/esm/internal/util/isArrayLike.js
 var isArrayLike = ((x) => x && typeof x.length === "number" && typeof x !== "function");
 
-// ../node_modules/rxjs/dist/esm/internal/util/isPromise.js
+// node_modules/rxjs/dist/esm/internal/util/isPromise.js
 function isPromise(value) {
   return isFunction(value === null || value === void 0 ? void 0 : value.then);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/isInteropObservable.js
+// node_modules/rxjs/dist/esm/internal/util/isInteropObservable.js
 function isInteropObservable(input2) {
   return isFunction(input2[observable]);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/isAsyncIterable.js
+// node_modules/rxjs/dist/esm/internal/util/isAsyncIterable.js
 function isAsyncIterable(obj) {
   return Symbol.asyncIterator && isFunction(obj === null || obj === void 0 ? void 0 : obj[Symbol.asyncIterator]);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/throwUnobservableError.js
+// node_modules/rxjs/dist/esm/internal/util/throwUnobservableError.js
 function createInvalidObservableTypeError(input2) {
   return new TypeError(`You provided ${input2 !== null && typeof input2 === "object" ? "an invalid object" : `'${input2}'`} where a stream was expected. You can provide an Observable, Promise, ReadableStream, Array, AsyncIterable, or Iterable.`);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/symbol/iterator.js
+// node_modules/rxjs/dist/esm/internal/symbol/iterator.js
 function getSymbolIterator() {
   if (typeof Symbol !== "function" || !Symbol.iterator) {
     return "@@iterator";
@@ -12768,12 +12142,12 @@ function getSymbolIterator() {
 }
 var iterator = getSymbolIterator();
 
-// ../node_modules/rxjs/dist/esm/internal/util/isIterable.js
+// node_modules/rxjs/dist/esm/internal/util/isIterable.js
 function isIterable(input2) {
   return isFunction(input2 === null || input2 === void 0 ? void 0 : input2[iterator]);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/isReadableStreamLike.js
+// node_modules/rxjs/dist/esm/internal/util/isReadableStreamLike.js
 function readableStreamLikeToAsyncGenerator(readableStream) {
   return __asyncGenerator(this, arguments, function* readableStreamLikeToAsyncGenerator_1() {
     const reader = readableStream.getReader();
@@ -12794,7 +12168,7 @@ function isReadableStreamLike(obj) {
   return isFunction(obj === null || obj === void 0 ? void 0 : obj.getReader);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/observable/innerFrom.js
+// node_modules/rxjs/dist/esm/internal/observable/innerFrom.js
 function innerFrom(input2) {
   if (input2 instanceof Observable) {
     return input2;
@@ -12892,7 +12266,7 @@ function process2(asyncIterable, subscriber) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/executeSchedule.js
+// node_modules/rxjs/dist/esm/internal/util/executeSchedule.js
 function executeSchedule(parentSubscription, scheduler, work, delay = 0, repeat = false) {
   const scheduleSubscription = scheduler.schedule(function() {
     work();
@@ -12908,31 +12282,31 @@ function executeSchedule(parentSubscription, scheduler, work, delay = 0, repeat 
   }
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/observeOn.js
+// node_modules/rxjs/dist/esm/internal/operators/observeOn.js
 function observeOn(scheduler, delay = 0) {
   return operate((source, subscriber) => {
     source.subscribe(createOperatorSubscriber(subscriber, (value) => executeSchedule(subscriber, scheduler, () => subscriber.next(value), delay), () => executeSchedule(subscriber, scheduler, () => subscriber.complete(), delay), (err) => executeSchedule(subscriber, scheduler, () => subscriber.error(err), delay)));
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/subscribeOn.js
+// node_modules/rxjs/dist/esm/internal/operators/subscribeOn.js
 function subscribeOn(scheduler, delay = 0) {
   return operate((source, subscriber) => {
     subscriber.add(scheduler.schedule(() => source.subscribe(subscriber), delay));
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/scheduled/scheduleObservable.js
+// node_modules/rxjs/dist/esm/internal/scheduled/scheduleObservable.js
 function scheduleObservable(input2, scheduler) {
   return innerFrom(input2).pipe(subscribeOn(scheduler), observeOn(scheduler));
 }
 
-// ../node_modules/rxjs/dist/esm/internal/scheduled/schedulePromise.js
+// node_modules/rxjs/dist/esm/internal/scheduled/schedulePromise.js
 function schedulePromise(input2, scheduler) {
   return innerFrom(input2).pipe(subscribeOn(scheduler), observeOn(scheduler));
 }
 
-// ../node_modules/rxjs/dist/esm/internal/scheduled/scheduleArray.js
+// node_modules/rxjs/dist/esm/internal/scheduled/scheduleArray.js
 function scheduleArray(input2, scheduler) {
   return new Observable((subscriber) => {
     let i = 0;
@@ -12949,7 +12323,7 @@ function scheduleArray(input2, scheduler) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/scheduled/scheduleIterable.js
+// node_modules/rxjs/dist/esm/internal/scheduled/scheduleIterable.js
 function scheduleIterable(input2, scheduler) {
   return new Observable((subscriber) => {
     let iterator2;
@@ -12975,7 +12349,7 @@ function scheduleIterable(input2, scheduler) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/scheduled/scheduleAsyncIterable.js
+// node_modules/rxjs/dist/esm/internal/scheduled/scheduleAsyncIterable.js
 function scheduleAsyncIterable(input2, scheduler) {
   if (!input2) {
     throw new Error("Iterable cannot be null");
@@ -12996,12 +12370,12 @@ function scheduleAsyncIterable(input2, scheduler) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/scheduled/scheduleReadableStreamLike.js
+// node_modules/rxjs/dist/esm/internal/scheduled/scheduleReadableStreamLike.js
 function scheduleReadableStreamLike(input2, scheduler) {
   return scheduleAsyncIterable(readableStreamLikeToAsyncGenerator(input2), scheduler);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/scheduled/scheduled.js
+// node_modules/rxjs/dist/esm/internal/scheduled/scheduled.js
 function scheduled(input2, scheduler) {
   if (input2 != null) {
     if (isInteropObservable(input2)) {
@@ -13026,42 +12400,42 @@ function scheduled(input2, scheduler) {
   throw createInvalidObservableTypeError(input2);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/observable/from.js
+// node_modules/rxjs/dist/esm/internal/observable/from.js
 function from(input2, scheduler) {
   return scheduler ? scheduled(input2, scheduler) : innerFrom(input2);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/observable/of.js
+// node_modules/rxjs/dist/esm/internal/observable/of.js
 function of(...args) {
   const scheduler = popScheduler(args);
   return from(args, scheduler);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/observable/throwError.js
+// node_modules/rxjs/dist/esm/internal/observable/throwError.js
 function throwError(errorOrErrorFactory, scheduler) {
   const errorFactory = isFunction(errorOrErrorFactory) ? errorOrErrorFactory : () => errorOrErrorFactory;
   const init2 = (subscriber) => subscriber.error(errorFactory());
   return new Observable(scheduler ? (subscriber) => scheduler.schedule(init2, 0, subscriber) : init2);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/isObservable.js
+// node_modules/rxjs/dist/esm/internal/util/isObservable.js
 function isObservable(obj) {
   return !!obj && (obj instanceof Observable || isFunction(obj.lift) && isFunction(obj.subscribe));
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/EmptyError.js
+// node_modules/rxjs/dist/esm/internal/util/EmptyError.js
 var EmptyError = createErrorClass((_super) => function EmptyErrorImpl() {
   _super(this);
   this.name = "EmptyError";
   this.message = "no elements in sequence";
 });
 
-// ../node_modules/rxjs/dist/esm/internal/util/isDate.js
+// node_modules/rxjs/dist/esm/internal/util/isDate.js
 function isValidDate(value) {
   return value instanceof Date && !isNaN(value);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/map.js
+// node_modules/rxjs/dist/esm/internal/operators/map.js
 function map(project, thisArg) {
   return operate((source, subscriber) => {
     let index = 0;
@@ -13071,16 +12445,16 @@ function map(project, thisArg) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/mapOneOrManyArgs.js
+// node_modules/rxjs/dist/esm/internal/util/mapOneOrManyArgs.js
 var { isArray } = Array;
-function callOrApply(fn2, args) {
-  return isArray(args) ? fn2(...args) : fn2(args);
+function callOrApply(fn, args) {
+  return isArray(args) ? fn(...args) : fn(args);
 }
-function mapOneOrManyArgs(fn2) {
-  return map((args) => callOrApply(fn2, args));
+function mapOneOrManyArgs(fn) {
+  return map((args) => callOrApply(fn, args));
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/argsArgArrayOrObject.js
+// node_modules/rxjs/dist/esm/internal/util/argsArgArrayOrObject.js
 var { isArray: isArray2 } = Array;
 var { getPrototypeOf, prototype: objectProto, keys: getKeys } = Object;
 function argsArgArrayOrObject(args) {
@@ -13103,12 +12477,12 @@ function isPOJO(obj) {
   return obj && typeof obj === "object" && getPrototypeOf(obj) === objectProto;
 }
 
-// ../node_modules/rxjs/dist/esm/internal/util/createObject.js
+// node_modules/rxjs/dist/esm/internal/util/createObject.js
 function createObject(keys, values) {
   return keys.reduce((result, key, i) => (result[key] = values[i], result), {});
 }
 
-// ../node_modules/rxjs/dist/esm/internal/observable/combineLatest.js
+// node_modules/rxjs/dist/esm/internal/observable/combineLatest.js
 function combineLatest(...args) {
   const scheduler = popScheduler(args);
   const resultSelector = popResultSelector(args);
@@ -13157,7 +12531,7 @@ function maybeSchedule(scheduler, execute, subscription) {
   }
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/mergeInternals.js
+// node_modules/rxjs/dist/esm/internal/operators/mergeInternals.js
 function mergeInternals(source, subscriber, project, concurrent, onBeforeNext, expand, innerSubScheduler, additionalFinalizer) {
   const buffer = [];
   let active = 0;
@@ -13210,39 +12584,39 @@ function mergeInternals(source, subscriber, project, concurrent, onBeforeNext, e
   };
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/mergeMap.js
+// node_modules/rxjs/dist/esm/internal/operators/mergeMap.js
 function mergeMap(project, resultSelector, concurrent = Infinity) {
   if (isFunction(resultSelector)) {
-    return mergeMap((a, i) => map((b2, ii) => resultSelector(a, b2, i, ii))(innerFrom(project(a, i))), concurrent);
+    return mergeMap((a, i) => map((b, ii) => resultSelector(a, b, i, ii))(innerFrom(project(a, i))), concurrent);
   } else if (typeof resultSelector === "number") {
     concurrent = resultSelector;
   }
   return operate((source, subscriber) => mergeInternals(source, subscriber, project, concurrent));
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/mergeAll.js
+// node_modules/rxjs/dist/esm/internal/operators/mergeAll.js
 function mergeAll(concurrent = Infinity) {
   return mergeMap(identity, concurrent);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/concatAll.js
+// node_modules/rxjs/dist/esm/internal/operators/concatAll.js
 function concatAll() {
   return mergeAll(1);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/observable/concat.js
+// node_modules/rxjs/dist/esm/internal/observable/concat.js
 function concat(...args) {
   return concatAll()(from(args, popScheduler(args)));
 }
 
-// ../node_modules/rxjs/dist/esm/internal/observable/defer.js
+// node_modules/rxjs/dist/esm/internal/observable/defer.js
 function defer(observableFactory) {
   return new Observable((subscriber) => {
     innerFrom(observableFactory()).subscribe(subscriber);
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/observable/forkJoin.js
+// node_modules/rxjs/dist/esm/internal/observable/forkJoin.js
 function forkJoin(...args) {
   const resultSelector = popResultSelector(args);
   const { args: sources, keys } = argsArgArrayOrObject(args);
@@ -13276,7 +12650,7 @@ function forkJoin(...args) {
   return resultSelector ? result.pipe(mapOneOrManyArgs(resultSelector)) : result;
 }
 
-// ../node_modules/rxjs/dist/esm/internal/observable/timer.js
+// node_modules/rxjs/dist/esm/internal/observable/timer.js
 function timer(dueTime = 0, intervalOrScheduler, scheduler = async) {
   let intervalDuration = -1;
   if (intervalOrScheduler != null) {
@@ -13305,7 +12679,7 @@ function timer(dueTime = 0, intervalOrScheduler, scheduler = async) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/observable/merge.js
+// node_modules/rxjs/dist/esm/internal/observable/merge.js
 function merge(...args) {
   const scheduler = popScheduler(args);
   const concurrent = popNumber(args, Infinity);
@@ -13313,7 +12687,7 @@ function merge(...args) {
   return !sources.length ? EMPTY : sources.length === 1 ? innerFrom(sources[0]) : mergeAll(concurrent)(from(sources, scheduler));
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/filter.js
+// node_modules/rxjs/dist/esm/internal/operators/filter.js
 function filter(predicate, thisArg) {
   return operate((source, subscriber) => {
     let index = 0;
@@ -13321,7 +12695,7 @@ function filter(predicate, thisArg) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/audit.js
+// node_modules/rxjs/dist/esm/internal/operators/audit.js
 function audit(durationSelector) {
   return operate((source, subscriber) => {
     let hasValue = false;
@@ -13356,12 +12730,12 @@ function audit(durationSelector) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/auditTime.js
+// node_modules/rxjs/dist/esm/internal/operators/auditTime.js
 function auditTime(duration, scheduler = asyncScheduler) {
   return audit(() => timer(duration, scheduler));
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/catchError.js
+// node_modules/rxjs/dist/esm/internal/operators/catchError.js
 function catchError(selector) {
   return operate((source, subscriber) => {
     let innerSub = null;
@@ -13385,7 +12759,7 @@ function catchError(selector) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/scanInternals.js
+// node_modules/rxjs/dist/esm/internal/operators/scanInternals.js
 function scanInternals(accumulator, seed, hasSeed, emitOnNext, emitBeforeComplete) {
   return (source, subscriber) => {
     let hasState = hasSeed;
@@ -13402,12 +12776,12 @@ function scanInternals(accumulator, seed, hasSeed, emitOnNext, emitBeforeComplet
   };
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/concatMap.js
+// node_modules/rxjs/dist/esm/internal/operators/concatMap.js
 function concatMap(project, resultSelector) {
   return isFunction(resultSelector) ? mergeMap(project, resultSelector, 1) : mergeMap(project, 1);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/debounceTime.js
+// node_modules/rxjs/dist/esm/internal/operators/debounceTime.js
 function debounceTime(dueTime, scheduler = asyncScheduler) {
   return operate((source, subscriber) => {
     let activeTask = null;
@@ -13448,7 +12822,7 @@ function debounceTime(dueTime, scheduler = asyncScheduler) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/defaultIfEmpty.js
+// node_modules/rxjs/dist/esm/internal/operators/defaultIfEmpty.js
 function defaultIfEmpty(defaultValue) {
   return operate((source, subscriber) => {
     let hasValue = false;
@@ -13464,7 +12838,7 @@ function defaultIfEmpty(defaultValue) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/take.js
+// node_modules/rxjs/dist/esm/internal/operators/take.js
 function take(count) {
   return count <= 0 ? () => EMPTY : operate((source, subscriber) => {
     let seen = 0;
@@ -13479,7 +12853,7 @@ function take(count) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/distinctUntilChanged.js
+// node_modules/rxjs/dist/esm/internal/operators/distinctUntilChanged.js
 function distinctUntilChanged(comparator, keySelector = identity) {
   comparator = comparator !== null && comparator !== void 0 ? comparator : defaultCompare;
   return operate((source, subscriber) => {
@@ -13495,11 +12869,11 @@ function distinctUntilChanged(comparator, keySelector = identity) {
     }));
   });
 }
-function defaultCompare(a, b2) {
-  return a === b2;
+function defaultCompare(a, b) {
+  return a === b;
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/throwIfEmpty.js
+// node_modules/rxjs/dist/esm/internal/operators/throwIfEmpty.js
 function throwIfEmpty(errorFactory = defaultErrorFactory) {
   return operate((source, subscriber) => {
     let hasValue = false;
@@ -13513,7 +12887,7 @@ function defaultErrorFactory() {
   return new EmptyError();
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/finalize.js
+// node_modules/rxjs/dist/esm/internal/operators/finalize.js
 function finalize(callback) {
   return operate((source, subscriber) => {
     try {
@@ -13524,13 +12898,13 @@ function finalize(callback) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/first.js
+// node_modules/rxjs/dist/esm/internal/operators/first.js
 function first(predicate, defaultValue) {
   const hasDefaultValue = arguments.length >= 2;
-  return (source) => source.pipe(predicate ? filter((v2, i) => predicate(v2, i, source)) : identity, take(1), hasDefaultValue ? defaultIfEmpty(defaultValue) : throwIfEmpty(() => new EmptyError()));
+  return (source) => source.pipe(predicate ? filter((v, i) => predicate(v, i, source)) : identity, take(1), hasDefaultValue ? defaultIfEmpty(defaultValue) : throwIfEmpty(() => new EmptyError()));
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/takeLast.js
+// node_modules/rxjs/dist/esm/internal/operators/takeLast.js
 function takeLast(count) {
   return count <= 0 ? () => EMPTY : operate((source, subscriber) => {
     let buffer = [];
@@ -13548,13 +12922,13 @@ function takeLast(count) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/last.js
+// node_modules/rxjs/dist/esm/internal/operators/last.js
 function last2(predicate, defaultValue) {
   const hasDefaultValue = arguments.length >= 2;
-  return (source) => source.pipe(predicate ? filter((v2, i) => predicate(v2, i, source)) : identity, takeLast(1), hasDefaultValue ? defaultIfEmpty(defaultValue) : throwIfEmpty(() => new EmptyError()));
+  return (source) => source.pipe(predicate ? filter((v, i) => predicate(v, i, source)) : identity, takeLast(1), hasDefaultValue ? defaultIfEmpty(defaultValue) : throwIfEmpty(() => new EmptyError()));
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/pairwise.js
+// node_modules/rxjs/dist/esm/internal/operators/pairwise.js
 function pairwise() {
   return operate((source, subscriber) => {
     let prev;
@@ -13568,12 +12942,12 @@ function pairwise() {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/scan.js
+// node_modules/rxjs/dist/esm/internal/operators/scan.js
 function scan(accumulator, seed) {
   return operate(scanInternals(accumulator, seed, arguments.length >= 2, true));
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/share.js
+// node_modules/rxjs/dist/esm/internal/operators/share.js
 function share(options = {}) {
   const { connector = () => new Subject(), resetOnError = true, resetOnComplete = true, resetOnRefCountZero = true } = options;
   return (wrapperSource) => {
@@ -13631,12 +13005,12 @@ function share(options = {}) {
     })(wrapperSource);
   };
 }
-function handleReset(reset, on2, ...args) {
-  if (on2 === true) {
+function handleReset(reset, on, ...args) {
+  if (on === true) {
     reset();
     return;
   }
-  if (on2 === false) {
+  if (on === false) {
     return;
   }
   const onSubscriber = new SafeSubscriber({
@@ -13645,10 +13019,10 @@ function handleReset(reset, on2, ...args) {
       reset();
     }
   });
-  return innerFrom(on2(...args)).subscribe(onSubscriber);
+  return innerFrom(on(...args)).subscribe(onSubscriber);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/shareReplay.js
+// node_modules/rxjs/dist/esm/internal/operators/shareReplay.js
 function shareReplay(configOrBufferSize, windowTime, scheduler) {
   let bufferSize;
   let refCount2 = false;
@@ -13665,12 +13039,12 @@ function shareReplay(configOrBufferSize, windowTime, scheduler) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/skip.js
+// node_modules/rxjs/dist/esm/internal/operators/skip.js
 function skip(count) {
-  return filter((_2, index) => count <= index);
+  return filter((_, index) => count <= index);
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/startWith.js
+// node_modules/rxjs/dist/esm/internal/operators/startWith.js
 function startWith(...values) {
   const scheduler = popScheduler(values);
   return operate((source, subscriber) => {
@@ -13678,7 +13052,7 @@ function startWith(...values) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/switchMap.js
+// node_modules/rxjs/dist/esm/internal/operators/switchMap.js
 function switchMap(project, resultSelector) {
   return operate((source, subscriber) => {
     let innerSubscriber = null;
@@ -13700,7 +13074,7 @@ function switchMap(project, resultSelector) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/takeUntil.js
+// node_modules/rxjs/dist/esm/internal/operators/takeUntil.js
 function takeUntil(notifier) {
   return operate((source, subscriber) => {
     innerFrom(notifier).subscribe(createOperatorSubscriber(subscriber, () => subscriber.complete(), noop));
@@ -13708,7 +13082,7 @@ function takeUntil(notifier) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/takeWhile.js
+// node_modules/rxjs/dist/esm/internal/operators/takeWhile.js
 function takeWhile(predicate, inclusive = false) {
   return operate((source, subscriber) => {
     let index = 0;
@@ -13720,7 +13094,7 @@ function takeWhile(predicate, inclusive = false) {
   });
 }
 
-// ../node_modules/rxjs/dist/esm/internal/operators/tap.js
+// node_modules/rxjs/dist/esm/internal/operators/tap.js
 function tap(observerOrNext, error, complete) {
   const tapObserver = isFunction(observerOrNext) || error || complete ? { next: observerOrNext, error, complete } : observerOrNext;
   return tapObserver ? operate((source, subscriber) => {
@@ -13751,7 +13125,7 @@ function tap(observerOrNext, error, complete) {
   }) : identity;
 }
 
-// ../node_modules/@angular/core/fesm2022/effect.mjs
+// node_modules/@angular/core/fesm2022/effect.mjs
 function createLinkedSignal(sourceFn, computationFn, equalityFn) {
   const node = Object.create(LINKED_SIGNAL_NODE);
   node.source = sourceFn;
@@ -13857,7 +13231,7 @@ function runEffect(node) {
   }
 }
 
-// ../node_modules/@angular/core/fesm2022/root_effect_scheduler.mjs
+// node_modules/@angular/core/fesm2022/root_effect_scheduler.mjs
 var ERROR_DETAILS_PAGE_BASE_URL = "https://angular.dev/errors";
 var XSS_SECURITY_URL = "https://angular.dev/best-practices/security#preventing-cross-site-scripting-xss";
 var RuntimeError = class extends Error {
@@ -13965,8 +13339,8 @@ function forwardRef(forwardRefFn) {
 function resolveForwardRef(type2) {
   return isForwardRef(type2) ? type2() : type2;
 }
-function isForwardRef(fn2) {
-  return typeof fn2 === "function" && fn2.hasOwnProperty(__forward_ref__) && fn2.__forward_ref__ === forwardRef;
+function isForwardRef(fn) {
+  return typeof fn === "function" && fn.hasOwnProperty(__forward_ref__) && fn.__forward_ref__ === forwardRef;
 }
 function assertNumber(actual, msg) {
   if (!(typeof actual === "number")) {
@@ -14058,9 +13432,9 @@ function assertOneOf(value, ...validValues) {
     return true;
   throwError2(`Expected value to be one of ${JSON.stringify(validValues)} but was ${JSON.stringify(value)}.`);
 }
-function assertNotReactive(fn2) {
+function assertNotReactive(fn) {
   if (getActiveConsumer() !== null) {
-    throwError2(`${fn2}() should never be called in a reactive context.`);
+    throwError2(`${fn}() should never be called in a reactive context.`);
   }
 }
 function \u0275\u0275defineInjectable(opts) {
@@ -14275,7 +13649,7 @@ function throwMixedMultiProviderError() {
 }
 function throwInvalidProviderError(ngModuleType, providers, provider) {
   if (ngModuleType && providers) {
-    const providerDetail = providers.map((v2) => v2 == provider ? "?" + provider + "?" : "...");
+    const providerDetail = providers.map((v) => v == provider ? "?" + provider + "?" : "...");
     throw new Error(`Invalid provider for the NgModule '${stringify(ngModuleType)}' - only instances of Provider and Type are allowed, got: [${providerDetail.join(", ")}]`);
   } else if (isEnvironmentProviders(provider)) {
     if (provider.\u0275fromNgModule) {
@@ -14352,8 +13726,8 @@ function injectRootLimpMode(token, notFoundValue, flags) {
     return notFoundValue;
   throwProviderNotFoundError(token, "Injector");
 }
-function assertInjectImplementationNotEqual(fn2) {
-  ngDevMode && assertNotEqual(_injectImplementation, fn2, "Calling \u0275\u0275inject would cause infinite recursion");
+function assertInjectImplementationNotEqual(fn) {
+  ngDevMode && assertNotEqual(_injectImplementation, fn, "Calling \u0275\u0275inject would cause infinite recursion");
 }
 var _THROW_IF_NOT_FOUND = {};
 var THROW_IF_NOT_FOUND = _THROW_IF_NOT_FOUND;
@@ -14436,8 +13810,8 @@ function injectArgs(types) {
       }
       let type2 = void 0;
       let flags = 0;
-      for (let j2 = 0; j2 < arg.length; j2++) {
-        const meta = arg[j2];
+      for (let j = 0; j < arg.length; j++) {
+        const meta = arg[j];
         const flag = getInjectFlag(meta);
         if (typeof flag === "number") {
           if (flag === -1) {
@@ -14471,12 +13845,12 @@ function getFactoryDef(type2, throwNotFound) {
   }
   return hasFactoryDef ? type2[NG_FACTORY_DEF] : null;
 }
-function arrayEquals(a, b2, identityAccessor) {
-  if (a.length !== b2.length)
+function arrayEquals(a, b, identityAccessor) {
+  if (a.length !== b.length)
     return false;
   for (let i = 0; i < a.length; i++) {
     let valueA = a[i];
-    let valueB = b2[i];
+    let valueB = b[i];
     if (identityAccessor) {
       valueA = identityAccessor(valueA);
       valueB = identityAccessor(valueB);
@@ -14490,8 +13864,8 @@ function arrayEquals(a, b2, identityAccessor) {
 function flatten(list) {
   return list.flat(Number.POSITIVE_INFINITY);
 }
-function deepForEach(input2, fn2) {
-  input2.forEach((value) => Array.isArray(value) ? deepForEach(value, fn2) : fn2(value));
+function deepForEach(input2, fn) {
+  input2.forEach((value) => Array.isArray(value) ? deepForEach(value, fn) : fn(value));
 }
 function addToArray(arr, index, value) {
   if (index >= arr.length) {
@@ -14779,15 +14153,15 @@ function validateProvider(provider, providers, containerType) {
     throwInvalidProviderError(containerType, providers, provider);
   }
 }
-function deepForEachProvider(providers, fn2) {
+function deepForEachProvider(providers, fn) {
   for (let provider of providers) {
     if (isEnvironmentProviders(provider)) {
       provider = provider.\u0275providers;
     }
     if (Array.isArray(provider)) {
-      deepForEachProvider(provider, fn2);
+      deepForEachProvider(provider, fn);
     } else {
-      fn2(provider);
+      fn(provider);
     }
   }
 }
@@ -14908,7 +14282,7 @@ var R3Injector = class extends EnvironmentInjector {
     this._onDestroyHooks.push(callback);
     return () => this.removeOnDestroy(callback);
   }
-  runInContext(fn2) {
+  runInContext(fn) {
     assertNotDestroyed(this);
     const previousInjector = setCurrentInjector(this);
     const previousInjectImplementation = setInjectImplementation(void 0);
@@ -14917,7 +14291,7 @@ var R3Injector = class extends EnvironmentInjector {
       prevInjectContext = setInjectorProfilerContext({ injector: this, token: null });
     }
     try {
-      return fn2();
+      return fn();
     } finally {
       setCurrentInjector(previousInjector);
       setInjectImplementation(previousInjectImplementation);
@@ -15143,7 +14517,7 @@ function providerToFactory(provider, ngModuleType, providers) {
     } else if (isFactoryProvider(provider)) {
       factory = () => provider.useFactory(...injectArgs(provider.deps || []));
     } else if (isExistingProvider(provider)) {
-      factory = (_2, flags) => \u0275\u0275inject(resolveForwardRef(provider.useExisting), flags !== void 0 && flags & 8 ? 8 : void 0);
+      factory = (_, flags) => \u0275\u0275inject(resolveForwardRef(provider.useExisting), flags !== void 0 && flags & 8 ? 8 : void 0);
     } else {
       const classRef = resolveForwardRef(provider && (provider.useClass || provider.provide));
       if (ngDevMode && !classRef) {
@@ -15179,18 +14553,18 @@ function hasOnDestroy(value) {
 function couldBeInjectableType(value) {
   return typeof value === "function" || typeof value === "object" && value.ngMetadataName === "InjectionToken";
 }
-function forEachSingleProvider(providers, fn2) {
+function forEachSingleProvider(providers, fn) {
   for (const provider of providers) {
     if (Array.isArray(provider)) {
-      forEachSingleProvider(provider, fn2);
+      forEachSingleProvider(provider, fn);
     } else if (provider && isEnvironmentProviders(provider)) {
-      forEachSingleProvider(provider.\u0275providers, fn2);
+      forEachSingleProvider(provider.\u0275providers, fn);
     } else {
-      fn2(provider);
+      fn(provider);
     }
   }
 }
-function runInInjectionContext(injector, fn2) {
+function runInInjectionContext(injector, fn) {
   let internalInjector;
   if (injector instanceof R3Injector) {
     assertNotDestroyed(injector);
@@ -15205,7 +14579,7 @@ function runInInjectionContext(injector, fn2) {
   const prevInjector = setCurrentInjector(internalInjector);
   const previousInjectImplementation = setInjectImplementation(void 0);
   try {
-    return fn2();
+    return fn();
   } finally {
     setCurrentInjector(prevInjector);
     ngDevMode && setInjectorProfilerContext(prevInjectorProfilerContext);
@@ -16148,9 +15522,9 @@ var PendingTasks = class _PendingTasks {
    * @param fn The asynchronous function to execute
    * @developerPreview 19.0
    */
-  run(fn2) {
+  run(fn) {
     const removeTask = this.add();
-    fn2().catch(this.errorHandler).finally(removeTask);
+    fn().catch(this.errorHandler).finally(removeTask);
   }
   /** @nocollapse */
   static \u0275prov = (
@@ -16245,9 +15619,9 @@ var ZoneAwareEffectScheduler = class {
   }
 };
 
-// ../node_modules/@angular/core/fesm2022/debug_node.mjs
-function noSideEffects(fn2) {
-  return { toString: fn2 }.toString();
+// node_modules/@angular/core/fesm2022/debug_node.mjs
+function noSideEffects(fn) {
+  return { toString: fn }.toString();
 }
 var ANNOTATIONS = "__annotations__";
 var PARAMETERS = "__parameters__";
@@ -16420,8 +15794,8 @@ var angularCoreDiEnv = {
   "resolveForwardRef": resolveForwardRef
 };
 var Type = Function;
-function isType(v2) {
-  return typeof v2 === "function";
+function isType(v) {
+  return typeof v === "function";
 }
 var ES5_DELEGATE_CTOR = /^function\s+\S+\(\)\s*{[\s\S]+\.apply\(this,\s*(arguments|(?:[^()]+\(\[\],)?[^()]+\(arguments\).*)\)/;
 var ES2015_INHERITED_CLASS = /^class\s+[A-Za-z\d$_]*\s*extends\s+[^{]+{/;
@@ -17036,9 +16410,9 @@ function getParentInjectorView(location2, startView) {
   return parentView;
 }
 var includeViewProviders = true;
-function setIncludeViewProviders(v2) {
+function setIncludeViewProviders(v) {
   const oldValue = includeViewProviders;
-  includeViewProviders = v2;
+  includeViewProviders = v;
   return oldValue;
 }
 var BLOOM_SIZE = 256;
@@ -17536,8 +16910,8 @@ function reflectDependency(dep) {
     skipSelf: false
   };
   if (Array.isArray(dep) && dep.length > 0) {
-    for (let j2 = 0; j2 < dep.length; j2++) {
-      const param = dep[j2];
+    for (let j = 0; j < dep.length; j++) {
+      const param = dep[j];
       if (param === void 0) {
         continue;
       }
@@ -17718,39 +17092,39 @@ var QueryList = class {
    * See
    * [Array.map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
    */
-  map(fn2) {
-    return this._results.map(fn2);
+  map(fn) {
+    return this._results.map(fn);
   }
-  filter(fn2) {
-    return this._results.filter(fn2);
+  filter(fn) {
+    return this._results.filter(fn);
   }
   /**
    * See
    * [Array.find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
    */
-  find(fn2) {
-    return this._results.find(fn2);
+  find(fn) {
+    return this._results.find(fn);
   }
   /**
    * See
    * [Array.reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
    */
-  reduce(fn2, init2) {
-    return this._results.reduce(fn2, init2);
+  reduce(fn, init2) {
+    return this._results.reduce(fn, init2);
   }
   /**
    * See
    * [Array.forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
    */
-  forEach(fn2) {
-    this._results.forEach(fn2);
+  forEach(fn) {
+    this._results.forEach(fn);
   }
   /**
    * See
    * [Array.some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
    */
-  some(fn2) {
-    return this._results.some(fn2);
+  some(fn) {
+    return this._results.some(fn);
   }
   /**
    * Returns a copy of the internal results list as an Array.
@@ -18209,10 +17583,10 @@ function getListeners(element) {
   listeners.sort(sortListeners);
   return listeners;
 }
-function sortListeners(a, b2) {
-  if (a.name == b2.name)
+function sortListeners(a, b) {
+  if (a.name == b.name)
     return 0;
-  return a.name < b2.name ? -1 : 1;
+  return a.name < b.name ? -1 : 1;
 }
 function assertDomElement(value) {
   if (typeof Element !== "undefined" && !(value instanceof Element)) {
@@ -18799,9 +18173,9 @@ function tagSet(tags) {
 function merge2(...sets) {
   const res = {};
   for (const s of sets) {
-    for (const v2 in s) {
-      if (s.hasOwnProperty(v2))
-        res[v2] = true;
+    for (const v in s) {
+      if (s.hasOwnProperty(v))
+        res[v] = true;
     }
   }
   return res;
@@ -19517,8 +18891,8 @@ function isSelectorInSelectorList(selector, list) {
     if (selector.length !== currentSelectorInList.length) {
       continue;
     }
-    for (let j2 = 0; j2 < selector.length; j2++) {
-      if (selector[j2] !== currentSelectorInList[j2]) {
+    for (let j = 0; j < selector.length; j++) {
+      if (selector[j] !== currentSelectorInList[j]) {
         continue selectorListLoop;
       }
     }
@@ -20018,9 +19392,9 @@ function executeOnDestroys(tView, lView) {
       if (!(context2 instanceof NodeInjectorFactory)) {
         const toCall = destroyHooks[i + 1];
         if (Array.isArray(toCall)) {
-          for (let j2 = 0; j2 < toCall.length; j2 += 2) {
-            const callContext = context2[toCall[j2]];
-            const hook = toCall[j2 + 1];
+          for (let j = 0; j < toCall.length; j += 2) {
+            const callContext = context2[toCall[j]];
+            const hook = toCall[j + 1];
             profiler(4, callContext, hook);
             try {
               hook.call(callContext);
@@ -22755,10 +22129,10 @@ function setupInitialInputs(tNode, directiveIndex, isHostDirective) {
       }
     } else if (isHostDirective && hostDirectiveInputs.hasOwnProperty(attrName)) {
       const config2 = hostDirectiveInputs[attrName];
-      for (let j2 = 0; j2 < config2.length; j2 += 2) {
-        if (config2[j2] === directiveIndex) {
+      for (let j = 0; j < config2.length; j += 2) {
+        if (config2[j] === directiveIndex) {
           inputsToStore ??= [];
-          inputsToStore.push(config2[j2 + 1], attrs[i + 1]);
+          inputsToStore.push(config2[j + 1], attrs[i + 1]);
           break;
         }
       }
@@ -22890,9 +22264,9 @@ function isListLikeIterable(obj) {
   return Array.isArray(obj) || !(obj instanceof Map) && // JS Map are iterables but return entries as [k, v]
   Symbol.iterator in obj;
 }
-function areIterablesEqual(a, b2, comparator) {
+function areIterablesEqual(a, b, comparator) {
   const iterator1 = a[Symbol.iterator]();
-  const iterator2 = b2[Symbol.iterator]();
+  const iterator2 = b[Symbol.iterator]();
   while (true) {
     const item1 = iterator1.next();
     const item2 = iterator2.next();
@@ -22904,34 +22278,34 @@ function areIterablesEqual(a, b2, comparator) {
       return false;
   }
 }
-function iterateListLike(obj, fn2) {
+function iterateListLike(obj, fn) {
   if (Array.isArray(obj)) {
     for (let i = 0; i < obj.length; i++) {
-      fn2(obj[i]);
+      fn(obj[i]);
     }
   } else {
     const iterator2 = obj[Symbol.iterator]();
     let item;
     while (!(item = iterator2.next()).done) {
-      fn2(item.value);
+      fn(item.value);
     }
   }
 }
 function isJsObject(o) {
   return o !== null && (typeof o === "function" || typeof o === "object");
 }
-function devModeEqual(a, b2) {
+function devModeEqual(a, b) {
   const isListLikeIterableA = isListLikeIterable(a);
-  const isListLikeIterableB = isListLikeIterable(b2);
+  const isListLikeIterableB = isListLikeIterable(b);
   if (isListLikeIterableA && isListLikeIterableB) {
-    return areIterablesEqual(a, b2, devModeEqual);
+    return areIterablesEqual(a, b, devModeEqual);
   } else {
     const isAObject = a && (typeof a === "object" || typeof a === "function");
-    const isBObject = b2 && (typeof b2 === "object" || typeof b2 === "function");
+    const isBObject = b && (typeof b === "object" || typeof b === "function");
     if (!isListLikeIterableA && isAObject && !isListLikeIterableB && isBObject) {
       return true;
     } else {
-      return Object.is(a, b2);
+      return Object.is(a, b);
     }
   }
 }
@@ -24008,7 +23382,7 @@ function bindQueryToSignal(target, queryIndex) {
   node._lView = getLView();
   node._queryIndex = queryIndex;
   node._queryList = loadQueryInternal(node._lView, queryIndex);
-  node._queryList.onDirty(() => node._dirtyCounter.update((v2) => v2 + 1));
+  node._queryList.onDirty(() => node._dirtyCounter.update((v) => v + 1));
 }
 function refreshSignalQuery(node, firstOnly) {
   const lView = node._lView;
@@ -24194,7 +23568,7 @@ var NgModuleRef2 = class extends NgModuleRef$1 {
     ngDevMode && assertDefined(this.destroyCbs, "NgModule already destroyed");
     const injector = this._r3Injector;
     !injector.destroyed && injector.destroy();
-    this.destroyCbs.forEach((fn2) => fn2());
+    this.destroyCbs.forEach((fn) => fn());
     this.destroyCbs = null;
   }
   onDestroy(callback) {
@@ -24426,7 +23800,7 @@ function getNgDirectiveDef(directiveDefinition) {
   };
 }
 function initFeatures(definition) {
-  definition.features?.forEach((fn2) => fn2(definition));
+  definition.features?.forEach((fn) => fn(definition));
 }
 function extractDefListOrFactory(dependencies, defExtractor) {
   if (!dependencies) {
@@ -24986,12 +24360,12 @@ var EventEmitter_ = class extends Subject {
     }
     return sink;
   }
-  wrapInTimeout(fn2) {
+  wrapInTimeout(fn) {
     return (value) => {
       const taskId = this.pendingTasks?.add();
       setTimeout(() => {
         try {
-          fn2(value);
+          fn(value);
         } finally {
           if (taskId !== void 0) {
             this.pendingTasks?.remove(taskId);
@@ -25145,8 +24519,8 @@ var NgZone = class _NgZone {
    *
    * If a synchronous error happens it will be rethrown and not reported via `onError`.
    */
-  run(fn2, applyThis, applyArgs) {
-    return this._inner.run(fn2, applyThis, applyArgs);
+  run(fn, applyThis, applyArgs) {
+    return this._inner.run(fn, applyThis, applyArgs);
   }
   /**
    * Executes the `fn` function synchronously within the Angular zone as a task and returns value
@@ -25160,9 +24534,9 @@ var NgZone = class _NgZone {
    *
    * If a synchronous error happens it will be rethrown and not reported via `onError`.
    */
-  runTask(fn2, applyThis, applyArgs, name) {
+  runTask(fn, applyThis, applyArgs, name) {
     const zone = this._inner;
-    const task = zone.scheduleEventTask("NgZoneEvent: " + name, fn2, EMPTY_PAYLOAD, noop2, noop2);
+    const task = zone.scheduleEventTask("NgZoneEvent: " + name, fn, EMPTY_PAYLOAD, noop2, noop2);
     try {
       return zone.runTask(task, applyThis, applyArgs);
     } finally {
@@ -25173,8 +24547,8 @@ var NgZone = class _NgZone {
    * Same as `run`, except that synchronous errors are caught and forwarded via `onError` and not
    * rethrown.
    */
-  runGuarded(fn2, applyThis, applyArgs) {
-    return this._inner.runGuarded(fn2, applyThis, applyArgs);
+  runGuarded(fn, applyThis, applyArgs) {
+    return this._inner.runGuarded(fn, applyThis, applyArgs);
   }
   /**
    * Executes the `fn` function synchronously in Angular's parent zone and returns value returned by
@@ -25189,8 +24563,8 @@ var NgZone = class _NgZone {
    *
    * Use {@link #run} to reenter the Angular zone and do work that updates the application model.
    */
-  runOutsideAngular(fn2) {
-    return this._outer.run(fn2);
+  runOutsideAngular(fn) {
+    return this._outer.run(fn);
   }
 };
 var EMPTY_PAYLOAD = {};
@@ -25327,17 +24701,17 @@ var NoopNgZone = class {
   onMicrotaskEmpty = new EventEmitter();
   onStable = new EventEmitter();
   onError = new EventEmitter();
-  run(fn2, applyThis, applyArgs) {
-    return fn2.apply(applyThis, applyArgs);
+  run(fn, applyThis, applyArgs) {
+    return fn.apply(applyThis, applyArgs);
   }
-  runGuarded(fn2, applyThis, applyArgs) {
-    return fn2.apply(applyThis, applyArgs);
+  runGuarded(fn, applyThis, applyArgs) {
+    return fn.apply(applyThis, applyArgs);
   }
-  runOutsideAngular(fn2) {
-    return fn2();
+  runOutsideAngular(fn) {
+    return fn();
   }
-  runTask(fn2, applyThis, applyArgs, name) {
-    return fn2.apply(applyThis, applyArgs);
+  runTask(fn, applyThis, applyArgs, name) {
+    return fn.apply(applyThis, applyArgs);
   }
 };
 function shouldBeIgnoredByZone(applyArgs) {
@@ -25482,8 +24856,8 @@ var AfterRenderImpl = class _AfterRenderImpl {
       this.deferredRegistrations.delete(sequence);
     }
   }
-  maybeTrace(fn2, snapshot) {
-    return snapshot ? snapshot.run(TracingAction.AFTER_NEXT_RENDER, fn2) : fn2();
+  maybeTrace(fn, snapshot) {
+    return snapshot ? snapshot.run(TracingAction.AFTER_NEXT_RENDER, fn) : fn();
   }
   /** @nocollapse */
   static \u0275prov = (
@@ -26375,8 +25749,8 @@ function getDeferBlocks$1(lView, deferBlocks) {
       if (isLView(lContainer[HOST])) {
         getDeferBlocks$1(lContainer[HOST], deferBlocks);
       }
-      for (let j2 = CONTAINER_HEADER_OFFSET; j2 < lContainer.length; j2++) {
-        getDeferBlocks$1(lContainer[j2], deferBlocks);
+      for (let j = CONTAINER_HEADER_OFFSET; j < lContainer.length; j++) {
+        getDeferBlocks$1(lContainer[j], deferBlocks);
       }
     } else if (isLView(lView[i])) {
       getDeferBlocks$1(lView[i], deferBlocks);
@@ -27030,15 +26404,15 @@ function publishDefaultGlobalUtils$1() {
     }
   }
 }
-function publishGlobalUtil(name, fn2) {
-  publishUtil(name, fn2);
+function publishGlobalUtil(name, fn) {
+  publishUtil(name, fn);
 }
-function publishUtil(name, fn2) {
+function publishUtil(name, fn) {
   if (typeof COMPILED === "undefined" || !COMPILED) {
-    const w2 = _global;
-    ngDevMode && assertDefined(fn2, "function not defined");
-    w2[GLOBAL_PUBLISH_EXPANDO_KEY] ??= {};
-    w2[GLOBAL_PUBLISH_EXPANDO_KEY][name] = fn2;
+    const w = _global;
+    ngDevMode && assertDefined(fn, "function not defined");
+    w[GLOBAL_PUBLISH_EXPANDO_KEY] ??= {};
+    w[GLOBAL_PUBLISH_EXPANDO_KEY][name] = fn;
   }
 }
 var TESTABILITY = new InjectionToken("");
@@ -28682,7 +28056,7 @@ function getClassListFromValue(value) {
   const classes = typeof value === "function" ? value() : value;
   let classList2 = Array.isArray(classes) ? classes : null;
   if (typeof classes === "string") {
-    classList2 = classes.trim().split(/\s+/).filter((k2) => k2);
+    classList2 = classes.trim().split(/\s+/).filter((k) => k);
   }
   return classList2;
 }
@@ -28793,8 +28167,8 @@ function setupElementRegistryCleanup(elementRegistry, lView, tView, nativeElemen
 function cleanupEnterClassData(element) {
   const elementData = enterClassMap.get(element);
   if (elementData) {
-    for (const fn2 of elementData.cleanupFns) {
-      fn2();
+    for (const fn of elementData.cleanupFns) {
+      fn();
     }
     enterClassMap.delete(element);
   }
@@ -28890,8 +28264,8 @@ function trackEnterClasses(el, classList2, cleanupFns) {
     for (const klass of classList2) {
       elementData.classList.push(klass);
     }
-    for (const fn2 of cleanupFns) {
-      elementData.cleanupFns.push(fn2);
+    for (const fn of cleanupFns) {
+      elementData.cleanupFns.push(fn);
     }
   } else {
     enterClassMap.set(el, { classList: classList2, cleanupFns });
@@ -29243,7 +28617,7 @@ function reconcile(liveCollection, newCollection, trackByFn) {
     let duplicatedKeysMsg = [];
     for (const [key, idxSet] of duplicateKeys) {
       if (idxSet.size > 1) {
-        const idx = [...idxSet].sort((a, b2) => a - b2);
+        const idx = [...idxSet].sort((a, b) => a - b);
         for (let i = 1; i < idx.length; i++) {
           duplicatedKeysMsg.push(`key "${stringifyForError(key)}" at index "${idx[i - 1]}" and "${idx[i]}"`);
         }
@@ -29399,7 +28773,7 @@ var RepeaterContext = class {
 function \u0275\u0275repeaterTrackByIndex(index) {
   return index;
 }
-function \u0275\u0275repeaterTrackByIdentity(_2, value) {
+function \u0275\u0275repeaterTrackByIdentity(_, value) {
   return value;
 }
 var RepeaterMetadata = class {
@@ -29808,8 +29182,8 @@ function \u0275\u0275syntheticHostProperty(propName, value, sanitizer) {
 }
 var u = void 0;
 function plural(val) {
-  const i = Math.floor(Math.abs(val)), v2 = val.toString().replace(/^[^.]*\.?/, "").length;
-  if (i === 1 && v2 === 0)
+  const i = Math.floor(Math.abs(val)), v = val.toString().replace(/^[^.]*\.?/, "").length;
+  if (i === 1 && v === 0)
     return 1;
   return 5;
 }
@@ -30044,8 +29418,8 @@ function applyUpdateOpCodes(tView, lView, updateOpCodes, bindingsStartIndex, cha
     const skipCodes = updateOpCodes[++i];
     if (checkBit & changeMask2) {
       let value = "";
-      for (let j2 = i + 1; j2 <= i + skipCodes; j2++) {
-        const opCode = updateOpCodes[j2];
+      for (let j = i + 1; j <= i + skipCodes; j++) {
+        const opCode = updateOpCodes[j];
         if (typeof opCode == "string") {
           value += opCode;
         } else if (typeof opCode == "number") {
@@ -30055,8 +29429,8 @@ function applyUpdateOpCodes(tView, lView, updateOpCodes, bindingsStartIndex, cha
             const nodeIndex = opCode >>> 2;
             switch (opCode & 3) {
               case 1:
-                const propName = updateOpCodes[++j2];
-                const sanitizeFn = updateOpCodes[++j2];
+                const propName = updateOpCodes[++j];
+                const sanitizeFn = updateOpCodes[++j];
                 const tNodeOrTagName = tView.data[nodeIndex];
                 ngDevMode && assertDefined(tNodeOrTagName, "Experting TNode or string");
                 if (typeof tNodeOrTagName === "string") {
@@ -30342,9 +29716,9 @@ function i18nStartFirstCreatePass(tView, parentTNodeIndex, lView, index, message
     let value = msgParts[i];
     if ((i & 1) === 0) {
       const parts = i18nParseTextIntoPartsAndICU(value);
-      for (let j2 = 0; j2 < parts.length; j2++) {
-        let part = parts[j2];
-        if ((j2 & 1) === 0) {
+      for (let j = 0; j < parts.length; j++) {
+        let part = parts[j];
+        if ((j & 1) === 0) {
           const text = part;
           ngDevMode && assertString(text, "Parsed ICU part should be string");
           if (text !== "") {
@@ -30466,9 +29840,9 @@ function generateBindingUpdateOpCodes(updateOpCodes, str, destinationNode, attrN
   }
   const textParts = str.split(BINDING_REGEXP);
   let mask = 0;
-  for (let j2 = 0; j2 < textParts.length; j2++) {
-    const textValue = textParts[j2];
-    if (j2 & 1) {
+  for (let j = 0; j < textParts.length; j++) {
+    const textValue = textParts[j];
+    if (j & 1) {
       const bindingIndex = bindingStart + parseInt(textValue, 10);
       updateOpCodes.push(-1 - bindingIndex);
       mask = mask | toMaskBit(bindingIndex);
@@ -30547,11 +29921,11 @@ function icuStart(ast, tView, lView, updateOpCodes, parentIdx, icuExpression, an
   for (let i = 0; i < values.length; i++) {
     const valueArr = values[i];
     const nestedIcus = [];
-    for (let j2 = 0; j2 < valueArr.length; j2++) {
-      const value = valueArr[j2];
+    for (let j = 0; j < valueArr.length; j++) {
+      const value = valueArr[j];
       if (typeof value !== "string") {
         const icuIndex = nestedIcus.push(value) - 1;
-        valueArr[j2] = `<!--\uFFFD${icuIndex}\uFFFD-->`;
+        valueArr[j] = `<!--\uFFFD${icuIndex}\uFFFD-->`;
       }
     }
     const caseAst = [];
@@ -32034,10 +31408,10 @@ function indexOf(item, arr, begin, end) {
   }
   return -1;
 }
-function multiProvidersFactoryResolver(_2, flags, tData, lData, tNode) {
+function multiProvidersFactoryResolver(_, flags, tData, lData, tNode) {
   return multiResolve(this.multi, []);
 }
-function multiViewProvidersFactoryResolver(_2, _flags, _tData, lView, tNode) {
+function multiViewProvidersFactoryResolver(_, _flags, _tData, lView, tNode) {
   const factories = this.multi;
   let result;
   if (this.providerFactory) {
@@ -32398,8 +31772,8 @@ function recreateMatchingLViews(importMeta, id2, newDef, oldDef, rootLView) {
       if (isLView(current[HOST])) {
         recreateMatchingLViews(importMeta, id2, newDef, oldDef, current[HOST]);
       }
-      for (let j2 = CONTAINER_HEADER_OFFSET; j2 < current.length; j2++) {
-        recreateMatchingLViews(importMeta, id2, newDef, oldDef, current[j2]);
+      for (let j = CONTAINER_HEADER_OFFSET; j < current.length; j++) {
+        recreateMatchingLViews(importMeta, id2, newDef, oldDef, current[j]);
       }
     } else if (isLView(current)) {
       recreateMatchingLViews(importMeta, id2, newDef, oldDef, current);
@@ -33886,7 +33260,7 @@ var MissingTranslationStrategy;
   MissingTranslationStrategy2[MissingTranslationStrategy2["Ignore"] = 2] = "Ignore";
 })(MissingTranslationStrategy || (MissingTranslationStrategy = {}));
 
-// ../node_modules/@angular/core/fesm2022/resource.mjs
+// node_modules/@angular/core/fesm2022/resource.mjs
 var OutputEmitterRef = class {
   destroyed = false;
   listeners = null;
@@ -34054,20 +33428,20 @@ var VIEW_EFFECT_NODE = /* @__PURE__ */ (() => __spreadProps(__spreadValues({}, E
     this.view[EFFECTS]?.delete(this);
   }
 }))();
-function createViewEffect(view, notifier, fn2) {
+function createViewEffect(view, notifier, fn) {
   const node = Object.create(VIEW_EFFECT_NODE);
   node.view = view;
   node.zone = typeof Zone !== "undefined" ? Zone.current : null;
   node.notifier = notifier;
-  node.fn = createEffectFn(node, fn2);
+  node.fn = createEffectFn(node, fn);
   view[EFFECTS] ??= /* @__PURE__ */ new Set();
   view[EFFECTS].add(node);
   node.consumerMarkedDirty(node);
   return node;
 }
-function createRootEffect(fn2, scheduler, notifier) {
+function createRootEffect(fn, scheduler, notifier) {
   const node = Object.create(ROOT_EFFECT_NODE);
-  node.fn = createEffectFn(node, fn2);
+  node.fn = createEffectFn(node, fn);
   node.scheduler = scheduler;
   node.notifier = notifier;
   node.zone = typeof Zone !== "undefined" ? Zone.current : null;
@@ -34078,12 +33452,12 @@ function createRootEffect(fn2, scheduler, notifier) {
   );
   return node;
 }
-function createEffectFn(node, fn2) {
+function createEffectFn(node, fn) {
   return () => {
-    fn2((cleanupFn) => (node.cleanupFns ??= []).push(cleanupFn));
+    fn((cleanupFn) => (node.cleanupFns ??= []).push(cleanupFn));
   };
 }
-var identityFn = (v2) => v2;
+var identityFn = (v) => v;
 function linkedSignal(optionsOrComputation, options) {
   if (typeof optionsOrComputation === "function") {
     const getter = createLinkedSignal(optionsOrComputation, identityFn, options?.equal);
@@ -34344,7 +33718,7 @@ var ResourceWrappedError = class extends Error {
   }
 };
 
-// ../node_modules/@angular/core/fesm2022/core.mjs
+// node_modules/@angular/core/fesm2022/core.mjs
 var REQUIRED_UNSET_VALUE = /* @__PURE__ */ Symbol("InputSignalNode#UNSET");
 var INPUT_SIGNAL_NODE = /* @__PURE__ */ (() => {
   return __spreadProps(__spreadValues({}, SIGNAL_NODE), {
@@ -35077,13 +34451,13 @@ var DefaultIterableDiffer = class {
   constructor(trackByFn) {
     this._trackByFn = trackByFn || trackByIdentity;
   }
-  forEachItem(fn2) {
+  forEachItem(fn) {
     let record;
     for (record = this._itHead; record !== null; record = record._next) {
-      fn2(record);
+      fn(record);
     }
   }
-  forEachOperation(fn2) {
+  forEachOperation(fn) {
     let nextIt = this._itHead;
     let nextRemove = this._removalsHead;
     let addRemoveOffset = 0;
@@ -35118,38 +34492,38 @@ var DefaultIterableDiffer = class {
         }
       }
       if (adjPreviousIndex !== currentIndex) {
-        fn2(record, adjPreviousIndex, currentIndex);
+        fn(record, adjPreviousIndex, currentIndex);
       }
     }
   }
-  forEachPreviousItem(fn2) {
+  forEachPreviousItem(fn) {
     let record;
     for (record = this._previousItHead; record !== null; record = record._nextPrevious) {
-      fn2(record);
+      fn(record);
     }
   }
-  forEachAddedItem(fn2) {
+  forEachAddedItem(fn) {
     let record;
     for (record = this._additionsHead; record !== null; record = record._nextAdded) {
-      fn2(record);
+      fn(record);
     }
   }
-  forEachMovedItem(fn2) {
+  forEachMovedItem(fn) {
     let record;
     for (record = this._movesHead; record !== null; record = record._nextMoved) {
-      fn2(record);
+      fn(record);
     }
   }
-  forEachRemovedItem(fn2) {
+  forEachRemovedItem(fn) {
     let record;
     for (record = this._removalsHead; record !== null; record = record._nextRemoved) {
-      fn2(record);
+      fn(record);
     }
   }
-  forEachIdentityChange(fn2) {
+  forEachIdentityChange(fn) {
     let record;
     for (record = this._identityChangesHead; record !== null; record = record._nextIdentityChange) {
-      fn2(record);
+      fn(record);
     }
   }
   diff(collection) {
@@ -35633,34 +35007,34 @@ var DefaultKeyValueDiffer = class {
   get isDirty() {
     return this._additionsHead !== null || this._changesHead !== null || this._removalsHead !== null;
   }
-  forEachItem(fn2) {
+  forEachItem(fn) {
     let record;
     for (record = this._mapHead; record !== null; record = record._next) {
-      fn2(record);
+      fn(record);
     }
   }
-  forEachPreviousItem(fn2) {
+  forEachPreviousItem(fn) {
     let record;
     for (record = this._previousMapHead; record !== null; record = record._nextPrevious) {
-      fn2(record);
+      fn(record);
     }
   }
-  forEachChangedItem(fn2) {
+  forEachChangedItem(fn) {
     let record;
     for (record = this._changesHead; record !== null; record = record._nextChanged) {
-      fn2(record);
+      fn(record);
     }
   }
-  forEachAddedItem(fn2) {
+  forEachAddedItem(fn) {
     let record;
     for (record = this._additionsHead; record !== null; record = record._nextAdded) {
-      fn2(record);
+      fn(record);
     }
   }
-  forEachRemovedItem(fn2) {
+  forEachRemovedItem(fn) {
     let record;
     for (record = this._removalsHead; record !== null; record = record._nextRemoved) {
-      fn2(record);
+      fn(record);
     }
   }
   diff(map2) {
@@ -35812,11 +35186,11 @@ var DefaultKeyValueDiffer = class {
     }
   }
   /** @internal */
-  _forEach(obj, fn2) {
+  _forEach(obj, fn) {
     if (obj instanceof Map) {
-      obj.forEach(fn2);
+      obj.forEach(fn);
     } else {
-      Object.keys(obj).forEach((k2) => fn2(obj[k2], k2));
+      Object.keys(obj).forEach((k) => fn(obj[k], k));
     }
   }
 };
@@ -36120,7 +35494,7 @@ var AfterRenderEffectSequence = class extends AfterRenderSequence {
         return node.value;
       });
       node.signal[SIGNAL] = node;
-      node.registerCleanupFn = (fn2) => (node.cleanup ??= /* @__PURE__ */ new Set()).add(fn2);
+      node.registerCleanupFn = (fn) => (node.cleanup ??= /* @__PURE__ */ new Set()).add(fn);
       this.nodes[phase] = node;
       this.hooks[phase] = (value) => node.phaseFn(value);
       if (ngDevMode) {
@@ -36137,8 +35511,8 @@ var AfterRenderEffectSequence = class extends AfterRenderSequence {
     for (const node of this.nodes) {
       if (node) {
         try {
-          for (const fn2 of node.cleanup ?? EMPTY_CLEANUP_SET) {
-            fn2();
+          for (const fn of node.cleanup ?? EMPTY_CLEANUP_SET) {
+            fn();
           }
         } finally {
           consumerDestroy(node);
@@ -36240,7 +35614,7 @@ var REQUEST_CONTEXT = new InjectionToken(typeof ngDevMode === "undefined" || ngD
   factory: () => null
 });
 
-// ../node_modules/@angular/common/fesm2022/location.mjs
+// node_modules/@angular/common/fesm2022/location.mjs
 var _DOM = null;
 function getDOM() {
   return _DOM;
@@ -36285,15 +35659,15 @@ var BrowserPlatformLocation = class _BrowserPlatformLocation extends PlatformLoc
   getBaseHrefFromDOM() {
     return getDOM().getBaseHref(this._doc);
   }
-  onPopState(fn2) {
+  onPopState(fn) {
     const window2 = getDOM().getGlobalEventTarget(this._doc, "window");
-    window2.addEventListener("popstate", fn2, false);
-    return () => window2.removeEventListener("popstate", fn2);
+    window2.addEventListener("popstate", fn, false);
+    return () => window2.removeEventListener("popstate", fn);
   }
-  onHashChange(fn2) {
+  onHashChange(fn) {
     const window2 = getDOM().getGlobalEventTarget(this._doc, "window");
-    window2.addEventListener("hashchange", fn2, false);
-    return () => window2.removeEventListener("hashchange", fn2);
+    window2.addEventListener("hashchange", fn, false);
+    return () => window2.removeEventListener("hashchange", fn);
   }
   get href() {
     return this._location.href;
@@ -36408,8 +35782,8 @@ var PathLocationStrategy = class _PathLocationStrategy extends LocationStrategy 
       this._removeListenerFns.pop()();
     }
   }
-  onPopState(fn2) {
-    this._removeListenerFns.push(this._platformLocation.onPopState(fn2), this._platformLocation.onHashChange(fn2));
+  onPopState(fn) {
+    this._removeListenerFns.push(this._platformLocation.onPopState(fn), this._platformLocation.onHashChange(fn));
   }
   getBaseHref() {
     return this._baseHref;
@@ -36615,13 +35989,13 @@ var Location = class _Location {
    * @param fn The change handler function, which take a URL and a location history state.
    * @returns A function that, when executed, unregisters a URL change listener.
    */
-  onUrlChange(fn2) {
-    this._urlChangeListeners.push(fn2);
-    this._urlChangeSubscription ??= this.subscribe((v2) => {
-      this._notifyUrlChangeListeners(v2.url, v2.state);
+  onUrlChange(fn) {
+    this._urlChangeListeners.push(fn);
+    this._urlChangeSubscription ??= this.subscribe((v) => {
+      this._notifyUrlChangeListeners(v.url, v.state);
     });
     return () => {
-      const fnIndex = this._urlChangeListeners.indexOf(fn2);
+      const fnIndex = this._urlChangeListeners.indexOf(fn);
       this._urlChangeListeners.splice(fnIndex, 1);
       if (this._urlChangeListeners.length === 0) {
         this._urlChangeSubscription?.unsubscribe();
@@ -36631,7 +36005,7 @@ var Location = class _Location {
   }
   /** @internal */
   _notifyUrlChangeListeners(url = "", state) {
-    this._urlChangeListeners.forEach((fn2) => fn2(url, state));
+    this._urlChangeListeners.forEach((fn) => fn(url, state));
   }
   /**
    * Subscribes to the platform's `popState` events.
@@ -36727,7 +36101,7 @@ function _stripOrigin(baseHref) {
   return baseHref;
 }
 
-// ../node_modules/@angular/common/fesm2022/common_module.mjs
+// node_modules/@angular/common/fesm2022/common_module.mjs
 var HashLocationStrategy = class _HashLocationStrategy extends LocationStrategy {
   _platformLocation;
   _baseHref = "";
@@ -36745,8 +36119,8 @@ var HashLocationStrategy = class _HashLocationStrategy extends LocationStrategy 
       this._removeListenerFns.pop()();
     }
   }
-  onPopState(fn2) {
-    this._removeListenerFns.push(this._platformLocation.onPopState(fn2), this._platformLocation.onHashChange(fn2));
+  onPopState(fn) {
+    this._removeListenerFns.push(this._platformLocation.onPopState(fn), this._platformLocation.onHashChange(fn));
   }
   getBaseHref() {
     return this._baseHref;
@@ -37397,10 +36771,10 @@ function getDateTranslation(date, locale, name, width, form, extended) {
         const dayPeriods = getLocaleExtraDayPeriods(locale, form, width);
         const index = rules.findIndex((rule) => {
           if (Array.isArray(rule)) {
-            const [from2, to2] = rule;
+            const [from2, to] = rule;
             const afterFrom = currentHours >= from2.hours && currentMinutes >= from2.minutes;
-            const beforeTo = currentHours < to2.hours || currentHours === to2.hours && currentMinutes < to2.minutes;
-            if (from2.hours < to2.hours) {
+            const beforeTo = currentHours < to.hours || currentHours === to.hours && currentMinutes < to.minutes;
+            if (from2.hours < to.hours) {
               if (afterFrom && beforeTo) {
                 return true;
               }
@@ -37761,8 +37135,8 @@ function toDate(value) {
   if (typeof value === "string") {
     value = value.trim();
     if (/^(\d{4}(-\d{1,2}(-\d{1,2})?)?)$/.test(value)) {
-      const [y2, m = 1, d = 1] = value.split("-").map((val) => +val);
-      return createDate(y2, m - 1, d);
+      const [y, m = 1, d = 1] = value.split("-").map((val) => +val);
+      return createDate(y, m - 1, d);
     }
     const parsedNb = parseFloat(value);
     if (!isNaN(value - parsedNb)) {
@@ -37964,7 +37338,7 @@ function toPercent(parsedNumber) {
 function parseNumber(num) {
   let numStr = Math.abs(num) + "";
   let exponent = 0, digits, integerLen;
-  let i, j2, zeros;
+  let i, j, zeros;
   if ((integerLen = numStr.indexOf(DECIMAL_SEP)) > -1) {
     numStr = numStr.replace(DECIMAL_SEP, "");
   }
@@ -37985,8 +37359,8 @@ function parseNumber(num) {
     while (numStr.charAt(zeros) === ZERO_CHAR) zeros--;
     integerLen -= i;
     digits = [];
-    for (j2 = 0; i <= zeros; i++, j2++) {
-      digits[j2] = Number(numStr.charAt(i));
+    for (j = 0; i <= zeros; i++, j++) {
+      digits[j] = Number(numStr.charAt(i));
     }
   }
   if (integerLen > MAX_DIGITS) {
@@ -38011,8 +37385,8 @@ function roundNumber(parsedNumber, minFrac, maxFrac) {
   let digit = digits[roundAt];
   if (roundAt > 0) {
     digits.splice(Math.max(parsedNumber.integerLen, roundAt));
-    for (let j2 = roundAt; j2 < digits.length; j2++) {
-      digits[j2] = 0;
+    for (let j = roundAt; j < digits.length; j++) {
+      digits[j] = 0;
     }
   } else {
     fractionLen = Math.max(0, fractionLen);
@@ -38023,7 +37397,7 @@ function roundNumber(parsedNumber, minFrac, maxFrac) {
   }
   if (digit >= 5) {
     if (roundAt - 1 < 0) {
-      for (let k2 = 0; k2 > roundAt; k2--) {
+      for (let k = 0; k > roundAt; k--) {
         digits.unshift(0);
         parsedNumber.integerLen++;
       }
@@ -38490,11 +37864,11 @@ var NgForOf = class _NgForOf {
    * @see {@link TrackByFunction}
    * @deprecated The `ngFor` directive is deprecated. Use the `@for` block instead.
    */
-  set ngForTrackBy(fn2) {
-    if ((typeof ngDevMode === "undefined" || ngDevMode) && fn2 != null && typeof fn2 !== "function") {
-      console.warn(`trackBy must be a function, but received ${JSON.stringify(fn2)}. See https://angular.dev/api/common/NgForOf#change-propagation for more information.`);
+  set ngForTrackBy(fn) {
+    if ((typeof ngDevMode === "undefined" || ngDevMode) && fn != null && typeof fn !== "function") {
+      console.warn(`trackBy must be a function, but received ${JSON.stringify(fn)}. See https://angular.dev/api/common/NgForOf#change-propagation for more information.`);
     }
-    this._trackByFn = fn2;
+    this._trackByFn = fn;
   }
   get ngForTrackBy() {
     return this._trackByFn;
@@ -39209,7 +38583,7 @@ var PromiseStrategy = class {
     async2.then(
       // Using optional chaining because we may have set it to `null`; since the promise
       // is async, the view might be destroyed by the time the promise resolves.
-      (v2) => updateLatestValue?.(v2),
+      (v) => updateLatestValue?.(v),
       (e) => onError?.(e)
     );
     return {
@@ -39603,21 +38977,21 @@ var KeyValuePipe = class _KeyValuePipe {
 })();
 function defaultComparator(keyValueA, keyValueB) {
   const a = keyValueA.key;
-  const b2 = keyValueB.key;
-  if (a === b2) return 0;
+  const b = keyValueB.key;
+  if (a === b) return 0;
   if (a == null) return 1;
-  if (b2 == null) return -1;
-  if (typeof a == "string" && typeof b2 == "string") {
-    return a < b2 ? -1 : 1;
+  if (b == null) return -1;
+  if (typeof a == "string" && typeof b == "string") {
+    return a < b ? -1 : 1;
   }
-  if (typeof a == "number" && typeof b2 == "number") {
-    return a - b2;
+  if (typeof a == "number" && typeof b == "number") {
+    return a - b;
   }
-  if (typeof a == "boolean" && typeof b2 == "boolean") {
-    return a < b2 ? -1 : 1;
+  if (typeof a == "boolean" && typeof b == "boolean") {
+    return a < b ? -1 : 1;
   }
   const aString = String(a);
-  const bString = String(b2);
+  const bString = String(b);
   return aString == bString ? 0 : aString < bString ? -1 : 1;
 }
 var DecimalPipe = class _DecimalPipe {
@@ -39833,7 +39207,7 @@ var CommonModule = class _CommonModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/common/fesm2022/xhr.mjs
+// node_modules/@angular/common/fesm2022/xhr.mjs
 function parseCookieValue(cookieStr, name) {
   name = encodeURIComponent(name);
   for (const cookie of cookieStr.split(";")) {
@@ -39848,7 +39222,7 @@ function parseCookieValue(cookieStr, name) {
 var XhrFactory = class {
 };
 
-// ../node_modules/@angular/common/fesm2022/common.mjs
+// node_modules/@angular/common/fesm2022/common.mjs
 var PLATFORM_BROWSER_ID = "browser";
 function isPlatformBrowser(platformId) {
   return platformId === PLATFORM_BROWSER_ID;
@@ -40298,9 +39672,9 @@ var PreconnectLinkChecker = class _PreconnectLinkChecker {
     }]
   }], () => [], null);
 })();
-function deepForEach2(input2, fn2) {
+function deepForEach2(input2, fn) {
   for (let value of input2) {
-    Array.isArray(value) ? deepForEach2(value, fn2) : fn2(value);
+    Array.isArray(value) ? deepForEach2(value, fn) : fn(value);
   }
 }
 var DEFAULT_PRELOADED_IMAGES_LIMIT = 5;
@@ -40868,7 +40242,7 @@ var NgOptimizedImage = class _NgOptimizedImage {
 function processConfig(config2) {
   let sortedBreakpoints = {};
   if (config2.breakpoints) {
-    sortedBreakpoints.breakpoints = config2.breakpoints.sort((a, b2) => a - b2);
+    sortedBreakpoints.breakpoints = config2.breakpoints.sort((a, b) => a - b);
   }
   return Object.assign({}, IMAGE_CONFIG_DEFAULTS, config2, sortedBreakpoints);
 }
@@ -41151,7 +40525,7 @@ function booleanOrUrlAttribute(value) {
   return booleanAttribute(value);
 }
 
-// ../node_modules/@angular/platform-browser/fesm2022/dom_renderer.mjs
+// node_modules/@angular/platform-browser/fesm2022/dom_renderer.mjs
 var EVENT_MANAGER_PLUGINS = new InjectionToken(ngDevMode ? "EventManagerPlugins" : "");
 var EventManager = class _EventManager {
   _zone;
@@ -41451,7 +40825,7 @@ function addBaseHrefToCssSourceMap(baseHref, styles) {
     if (!cssContent.includes("sourceMappingURL=")) {
       return cssContent;
     }
-    return cssContent.replace(SOURCEMAP_URL_REGEXP, (_2, sourceMapUrl) => {
+    return cssContent.replace(SOURCEMAP_URL_REGEXP, (_, sourceMapUrl) => {
       if (sourceMapUrl[0] === "/" || sourceMapUrl.startsWith("data:") || PROTOCOL_REGEXP.test(sourceMapUrl)) {
         return `/*# sourceMappingURL=${sourceMapUrl} */`;
       }
@@ -41894,7 +41268,7 @@ var EmulatedEncapsulationDomRenderer2 = class extends NoneEncapsulationDomRender
   }
 };
 
-// ../node_modules/@angular/platform-browser/fesm2022/browser.mjs
+// node_modules/@angular/platform-browser/fesm2022/browser.mjs
 var BrowserDomAdapter = class _BrowserDomAdapter extends DomAdapter {
   supportsDOMEvents = true;
   static makeCurrent() {
@@ -42337,7 +41711,7 @@ var BrowserModule = class _BrowserModule {
   }], () => [], null);
 })();
 
-// ../node_modules/@angular/common/fesm2022/module.mjs
+// node_modules/@angular/common/fesm2022/module.mjs
 var HttpHandler = class {
 };
 var HttpBackend = class {
@@ -42572,9 +41946,9 @@ var HttpHeaders = class _HttpHeaders {
   /**
    * @internal
    */
-  forEach(fn2) {
+  forEach(fn) {
     this.init();
-    Array.from(this.normalizedNames.keys()).forEach((key) => fn2(this.normalizedNames.get(key), this.headers.get(key)));
+    Array.from(this.normalizedNames.keys()).forEach((key) => fn(this.normalizedNames.get(key), this.headers.get(key)));
   }
 };
 function assertValidHeaders(headers) {
@@ -42643,8 +42017,8 @@ var STANDARD_ENCODING_REPLACEMENTS = {
   "3F": "?",
   "2F": "/"
 };
-function standardEncoding(v2) {
-  return encodeURIComponent(v2).replace(STANDARD_ENCODING_REGEX, (s, t) => STANDARD_ENCODING_REPLACEMENTS[t] ?? s);
+function standardEncoding(v) {
+  return encodeURIComponent(v).replace(STANDARD_ENCODING_REGEX, (s, t) => STANDARD_ENCODING_REPLACEMENTS[t] ?? s);
 }
 function valueToString(value) {
   return `${value}`;
@@ -44312,7 +43686,7 @@ var HttpXhrBackend = class _HttpXhrBackend {
         };
         let onTimeout = onError;
         if (req.timeout) {
-          onTimeout = (_2) => {
+          onTimeout = (_) => {
             const {
               url
             } = partialFromXhr();
@@ -44706,7 +44080,7 @@ var HttpClientJsonpModule = class _HttpClientJsonpModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/common/fesm2022/http.mjs
+// node_modules/@angular/common/fesm2022/http.mjs
 var httpResource = (() => {
   const jsonFn = makeHttpResourceFn("json");
   jsonFn.arrayBuffer = makeHttpResourceFn("arraybuffer");
@@ -44829,7 +44203,7 @@ var HttpResourceImpl = class extends ResourceImpl {
 var HTTP_TRANSFER_CACHE_ORIGIN_MAP = new InjectionToken(ngDevMode ? "HTTP_TRANSFER_CACHE_ORIGIN_MAP" : "");
 var CACHE_OPTIONS = new InjectionToken(ngDevMode ? "HTTP_TRANSFER_STATE_CACHE_OPTIONS" : "");
 
-// ../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs
+// node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs
 var Meta = class _Meta {
   _doc;
   _dom;
@@ -45403,7 +44777,7 @@ var HydrationFeatureKind;
 })(HydrationFeatureKind || (HydrationFeatureKind = {}));
 var VERSION2 = new Version("20.2.4");
 
-// ../node_modules/@angular/router/fesm2022/router2.mjs
+// node_modules/@angular/router/fesm2022/router2.mjs
 var PRIMARY_OUTLET = "primary";
 var RouteTitleKey = /* @__PURE__ */ Symbol("RouteTitle");
 var ParamsAsMap = class {
@@ -45416,15 +44790,15 @@ var ParamsAsMap = class {
   }
   get(name) {
     if (this.has(name)) {
-      const v2 = this.params[name];
-      return Array.isArray(v2) ? v2[0] : v2;
+      const v = this.params[name];
+      return Array.isArray(v) ? v[0] : v;
     }
     return null;
   }
   getAll(name) {
     if (this.has(name)) {
-      const v2 = this.params[name];
-      return Array.isArray(v2) ? v2 : [v2];
+      const v = this.params[name];
+      return Array.isArray(v) ? v : [v];
     }
     return [];
   }
@@ -45459,23 +44833,23 @@ function defaultUrlMatcher(segments, segmentGroup, route) {
     posParams
   };
 }
-function shallowEqualArrays(a, b2) {
-  if (a.length !== b2.length) return false;
+function shallowEqualArrays(a, b) {
+  if (a.length !== b.length) return false;
   for (let i = 0; i < a.length; ++i) {
-    if (!shallowEqual(a[i], b2[i])) return false;
+    if (!shallowEqual(a[i], b[i])) return false;
   }
   return true;
 }
-function shallowEqual(a, b2) {
+function shallowEqual(a, b) {
   const k1 = a ? getDataKeys(a) : void 0;
-  const k2 = b2 ? getDataKeys(b2) : void 0;
+  const k2 = b ? getDataKeys(b) : void 0;
   if (!k1 || !k2 || k1.length != k2.length) {
     return false;
   }
   let key;
   for (let i = 0; i < k1.length; i++) {
     key = k1[i];
-    if (!equalArraysOrString(a[key], b2[key])) {
+    if (!equalArraysOrString(a[key], b[key])) {
       return false;
     }
   }
@@ -45484,14 +44858,14 @@ function shallowEqual(a, b2) {
 function getDataKeys(obj) {
   return [...Object.keys(obj), ...Object.getOwnPropertySymbols(obj)];
 }
-function equalArraysOrString(a, b2) {
-  if (Array.isArray(a) && Array.isArray(b2)) {
-    if (a.length !== b2.length) return false;
+function equalArraysOrString(a, b) {
+  if (Array.isArray(a) && Array.isArray(b)) {
+    if (a.length !== b.length) return false;
     const aSorted = [...a].sort();
-    const bSorted = [...b2].sort();
+    const bSorted = [...b].sort();
     return aSorted.every((val, index) => bSorted[index] === val);
   } else {
-    return a === b2;
+    return a === b;
   }
 }
 function last3(a) {
@@ -45603,7 +44977,7 @@ var UrlSegmentGroup = class {
   constructor(segments, children2) {
     this.segments = segments;
     this.children = children2;
-    Object.values(children2).forEach((v2) => v2.parent = this);
+    Object.values(children2).forEach((v) => v.parent = this);
   }
   /** Whether the segment has child segments */
   hasChildren() {
@@ -45643,16 +45017,16 @@ function equalPath(as, bs) {
   if (as.length !== bs.length) return false;
   return as.every((a, i) => a.path === bs[i].path);
 }
-function mapChildrenIntoArray(segment, fn2) {
+function mapChildrenIntoArray(segment, fn) {
   let res = [];
   Object.entries(segment.children).forEach(([childOutlet, child]) => {
     if (childOutlet === PRIMARY_OUTLET) {
-      res = res.concat(fn2(child, childOutlet));
+      res = res.concat(fn(child, childOutlet));
     }
   });
   Object.entries(segment.children).forEach(([childOutlet, child]) => {
     if (childOutlet !== PRIMARY_OUTLET) {
-      res = res.concat(fn2(child, childOutlet));
+      res = res.concat(fn(child, childOutlet));
     }
   });
   return res;
@@ -45701,18 +45075,18 @@ function serializeSegment(segment, root2) {
   if (root2) {
     const primary = segment.children[PRIMARY_OUTLET] ? serializeSegment(segment.children[PRIMARY_OUTLET], false) : "";
     const children2 = [];
-    Object.entries(segment.children).forEach(([k2, v2]) => {
-      if (k2 !== PRIMARY_OUTLET) {
-        children2.push(`${k2}:${serializeSegment(v2, false)}`);
+    Object.entries(segment.children).forEach(([k, v]) => {
+      if (k !== PRIMARY_OUTLET) {
+        children2.push(`${k}:${serializeSegment(v, false)}`);
       }
     });
     return children2.length > 0 ? `${primary}(${children2.join("//")})` : primary;
   } else {
-    const children2 = mapChildrenIntoArray(segment, (v2, k2) => {
-      if (k2 === PRIMARY_OUTLET) {
+    const children2 = mapChildrenIntoArray(segment, (v, k) => {
+      if (k === PRIMARY_OUTLET) {
         return [serializeSegment(segment.children[PRIMARY_OUTLET], false)];
       }
-      return [`${k2}:${serializeSegment(v2, false)}`];
+      return [`${k}:${serializeSegment(v, false)}`];
     });
     if (Object.keys(segment.children).length === 1 && segment.children[PRIMARY_OUTLET] != null) {
       return `${serializePaths(segment)}/${children2[0]}`;
@@ -45746,7 +45120,7 @@ function serializeMatrixParams(params) {
 }
 function serializeQueryParams(params) {
   const strParams = Object.entries(params).map(([name, value]) => {
-    return Array.isArray(value) ? value.map((v2) => `${encodeUriQuery(name)}=${encodeUriQuery(v2)}`).join("&") : `${encodeUriQuery(name)}=${encodeUriQuery(value)}`;
+    return Array.isArray(value) ? value.map((v) => `${encodeUriQuery(name)}=${encodeUriQuery(v)}`).join("&") : `${encodeUriQuery(name)}=${encodeUriQuery(value)}`;
   }).filter((s) => s);
   return strParams.length ? `?${strParams.join("&")}` : "";
 }
@@ -45952,8 +45326,8 @@ function mergeTrivialChildren(s) {
   }
   return s;
 }
-function isUrlTree(v2) {
-  return v2 instanceof UrlTree;
+function isUrlTree(v) {
+  return v instanceof UrlTree;
 }
 function createUrlTreeFromSnapshot(relativeTo, commands, queryParams = null, fragment = null) {
   const relativeToUrlSegmentGroup = createSegmentGroupFromRoute(relativeTo);
@@ -46003,7 +45377,7 @@ function tree(oldRoot, oldSegmentGroup, newSegmentGroup, queryParams, fragment) 
   let qp = {};
   if (queryParams) {
     Object.entries(queryParams).forEach(([name, value]) => {
-      qp[name] = Array.isArray(value) ? value.map((v2) => `${v2}`) : `${value}`;
+      qp[name] = Array.isArray(value) ? value.map((v) => `${v}`) : `${value}`;
     });
   }
   let rootCandidate;
@@ -46112,18 +45486,18 @@ function findStartingPositionForTargetGroup(nav, root2, target) {
   return createPositionApplyingDoubleDots(target, index, nav.numberOfDoubleDots);
 }
 function createPositionApplyingDoubleDots(group, index, numberOfDoubleDots) {
-  let g2 = group;
+  let g = group;
   let ci = index;
   let dd = numberOfDoubleDots;
   while (dd > ci) {
     dd -= ci;
-    g2 = g2.parent;
-    if (!g2) {
+    g = g.parent;
+    if (!g) {
       throw new RuntimeError(4005, (typeof ngDevMode === "undefined" || ngDevMode) && "Invalid number of '../'");
     }
-    ci = g2.segments.length;
+    ci = g.segments.length;
   }
-  return new Position(g2, false, ci - dd);
+  return new Position(g, false, ci - dd);
 }
 function getOutlets(commands) {
   if (isCommandWithOutlets(commands[0])) {
@@ -46141,9 +45515,9 @@ function updateSegmentGroup(segmentGroup, startIndex, commands) {
   const m = prefixedWith(segmentGroup, startIndex, commands);
   const slicedCommands = commands.slice(m.commandIndex);
   if (m.match && m.pathIndex < segmentGroup.segments.length) {
-    const g2 = new UrlSegmentGroup(segmentGroup.segments.slice(0, m.pathIndex), {});
-    g2.children[PRIMARY_OUTLET] = new UrlSegmentGroup(segmentGroup.segments.slice(m.pathIndex), segmentGroup.children);
-    return updateSegmentGroupChildren(g2, 0, slicedCommands);
+    const g = new UrlSegmentGroup(segmentGroup.segments.slice(0, m.pathIndex), {});
+    g.children[PRIMARY_OUTLET] = new UrlSegmentGroup(segmentGroup.segments.slice(m.pathIndex), segmentGroup.children);
+    return updateSegmentGroupChildren(g, 0, slicedCommands);
   } else if (m.match && slicedCommands.length === 0) {
     return new UrlSegmentGroup(segmentGroup.segments, {});
   } else if (m.match && !segmentGroup.hasChildren()) {
@@ -46254,7 +45628,7 @@ function createNewSegmentChildren(outlets) {
 }
 function stringify2(params) {
   const res = {};
-  Object.entries(params).forEach(([k2, v2]) => res[k2] = `${v2}`);
+  Object.entries(params).forEach(([k, v]) => res[k] = `${v}`);
   return res;
 }
 function compare(path, params, segment) {
@@ -47137,10 +46511,10 @@ function advanceActivatedRoute(route) {
     route.dataSubject.next(route._futureSnapshot.data);
   }
 }
-function equalParamsAndUrlSegments(a, b2) {
-  const equalUrlParams = shallowEqual(a.params, b2.params) && equalSegments(a.url, b2.url);
-  const parentsMismatch = !a.parent !== !b2.parent;
-  return equalUrlParams && !parentsMismatch && (!a.parent || equalParamsAndUrlSegments(a.parent, b2.parent));
+function equalParamsAndUrlSegments(a, b) {
+  const equalUrlParams = shallowEqual(a.params, b.params) && equalSegments(a.url, b.url);
+  const parentsMismatch = !a.parent !== !b.parent;
+  return equalUrlParams && !parentsMismatch && (!a.parent || equalParamsAndUrlSegments(a.parent, b.parent));
 }
 function hasStaticTitle(config2) {
   return typeof config2.title === "string" || config2.title === null;
@@ -47572,8 +46946,8 @@ var ActivateRoutes = class {
       this.deactivateRoutes(futureChild, children2[childOutletName], contexts);
       delete children2[childOutletName];
     });
-    Object.values(children2).forEach((v2) => {
-      this.deactivateRouteAndItsChildren(v2, contexts);
+    Object.values(children2).forEach((v) => {
+      this.deactivateRouteAndItsChildren(v, contexts);
     });
   }
   deactivateRoutes(futureNode, currNode, parentContext) {
@@ -47741,7 +47115,7 @@ function getChildRouteGuards(futureNode, currNode, contexts, futurePath, checks 
     getRouteGuards(c, prevChildren[c.value.outlet], contexts, futurePath.concat([c.value]), checks);
     delete prevChildren[c.value.outlet];
   });
-  Object.entries(prevChildren).forEach(([k2, v2]) => deactivateRouteAndItsChildren(v2, contexts.getContext(k2), checks));
+  Object.entries(prevChildren).forEach(([k, v]) => deactivateRouteAndItsChildren(v, contexts.getContext(k), checks));
   return checks;
 }
 function getRouteGuards(futureNode, currNode, parentContexts, futurePath, checks = {
@@ -47818,11 +47192,11 @@ function deactivateRouteAndItsChildren(route, context2, checks) {
     checks.canDeactivateChecks.push(new CanDeactivate(null, r));
   }
 }
-function isFunction2(v2) {
-  return typeof v2 === "function";
+function isFunction2(v) {
+  return typeof v === "function";
 }
-function isBoolean(v2) {
-  return typeof v2 === "boolean";
+function isBoolean(v) {
+  return typeof v === "boolean";
 }
 function isCanLoad(guard) {
   return guard && isFunction2(guard.canLoad);
@@ -47923,7 +47297,7 @@ function runCanActivate(futureRSS, futureARS, injector) {
 }
 function runCanActivateChild(futureRSS, path, injector) {
   const futureARS = path[path.length - 1];
-  const canActivateChildGuards = path.slice(0, path.length - 1).reverse().map((p) => getCanActivateChild(p)).filter((_2) => _2 !== null);
+  const canActivateChildGuards = path.slice(0, path.length - 1).reverse().map((p) => getCanActivateChild(p)).filter((_) => _ !== null);
   const canActivateChildGuardsMapped = canActivateChildGuards.map((d) => {
     return defer(() => {
       const guardsMapped = d.guards.map((canActivateChild) => {
@@ -48037,13 +47411,13 @@ var ApplyRedirects = class {
   }
   createQueryParams(redirectToParams, actualParams) {
     const res = {};
-    Object.entries(redirectToParams).forEach(([k2, v2]) => {
-      const copySourceValue = typeof v2 === "string" && v2[0] === ":";
+    Object.entries(redirectToParams).forEach(([k, v]) => {
+      const copySourceValue = typeof v === "string" && v[0] === ":";
       if (copySourceValue) {
-        const sourceName = v2.substring(1);
-        res[k2] = actualParams[sourceName];
+        const sourceName = v.substring(1);
+        res[k] = actualParams[sourceName];
       } else {
-        res[k2] = v2;
+        res[k] = v;
       }
     });
     return res;
@@ -48115,7 +47489,7 @@ function matchWithChecks(segmentGroup, route, segments, injector, urlSerializer)
     return of(result);
   }
   injector = getOrCreateRouteInjectorIfNeeded(route, injector);
-  return runCanMatchGuards(injector, route, segments, urlSerializer).pipe(map((v2) => v2 === true ? result : __spreadValues({}, noMatch)));
+  return runCanMatchGuards(injector, route, segments, urlSerializer).pipe(map((v) => v === true ? result : __spreadValues({}, noMatch)));
 }
 function match(segmentGroup, route, segments) {
   if (route.path === "**") {
@@ -48137,8 +47511,8 @@ function match(segmentGroup, route, segments) {
   const res = matcher(segments, segmentGroup, route);
   if (!res) return __spreadValues({}, noMatch);
   const posParams = {};
-  Object.entries(res.posParams ?? {}).forEach(([k2, v2]) => {
-    posParams[k2] = v2.path;
+  Object.entries(res.posParams ?? {}).forEach(([k, v]) => {
+    posParams[k] = v.path;
   });
   const parameters = res.consumed.length > 0 ? __spreadValues(__spreadValues({}, posParams), res.consumed[res.consumed.length - 1].parameters) : posParams;
   return {
@@ -48452,10 +47826,10 @@ This is currently a dev mode only error but will become a call stack size exceed
   }
 };
 function sortActivatedRouteSnapshots(nodes) {
-  nodes.sort((a, b2) => {
+  nodes.sort((a, b) => {
     if (a.value.outlet === PRIMARY_OUTLET) return -1;
-    if (b2.value.outlet === PRIMARY_OUTLET) return 1;
-    return a.value.outlet.localeCompare(b2.value.outlet);
+    if (b.value.outlet === PRIMARY_OUTLET) return 1;
+    return a.value.outlet.localeCompare(b.value.outlet);
   });
 }
 function hasEmptyPathConfig(node) {
@@ -48542,7 +47916,7 @@ function resolveData(paramsInheritanceStrategy, injector) {
         route.data = getInherited(route, route.parent, paramsInheritanceStrategy).resolve;
         return of(void 0);
       }
-    }), tap(() => routesProcessed++), takeLast(1), mergeMap((_2) => routesProcessed === routesNeedingDataUpdates.size ? of(t) : EMPTY));
+    }), tap(() => routesProcessed++), takeLast(1), mergeMap((_) => routesProcessed === routesNeedingDataUpdates.size ? of(t) : EMPTY));
   });
 }
 function flattenRouteTree(route) {
@@ -48584,12 +47958,12 @@ function getResolver(injectionToken, futureARS, futureRSS, injector) {
   return wrapIntoObservable(resolverValue);
 }
 function switchTap(next) {
-  return switchMap((v2) => {
-    const nextResult = next(v2);
+  return switchMap((v) => {
+    const nextResult = next(v);
     if (nextResult) {
-      return from(nextResult).pipe(map(() => v2));
+      return from(nextResult).pipe(map(() => v));
     }
-    return of(v2);
+    return of(v);
   });
 }
 var TitleStrategy = class _TitleStrategy {
@@ -48831,7 +48205,7 @@ var DefaultUrlHandlingStrategy = class _DefaultUrlHandlingStrategy {
 })();
 var CREATE_VIEW_TRANSITION = new InjectionToken(ngDevMode ? "view transition helper" : "");
 var VIEW_TRANSITION_OPTIONS = new InjectionToken(ngDevMode ? "view transition options" : "");
-function createViewTransition(injector, from2, to2) {
+function createViewTransition(injector, from2, to) {
   const transitionOptions = injector.get(VIEW_TRANSITION_OPTIONS);
   const document2 = injector.get(DOCUMENT);
   if (!document2.startViewTransition || transitionOptions.skipNextTransition) {
@@ -48858,7 +48232,7 @@ function createViewTransition(injector, from2, to2) {
     runInInjectionContext(injector, () => onViewTransitionCreated({
       transition: transition2,
       from: from2,
-      to: to2
+      to
     }));
   }
   return viewTransitionStarted;
@@ -49215,11 +48589,11 @@ var NavigationTransitions = class _NavigationTransitions {
                   this.events.next(navigationError);
                   throw e;
                 }
-              } catch (ee2) {
+              } catch (ee) {
                 if (this.options.resolveNavigationPromiseOnError) {
                   overallTransitionState.resolve(false);
                 } else {
-                  overallTransitionState.reject(ee2);
+                  overallTransitionState.reject(ee);
                 }
               }
             }
@@ -49908,19 +49282,19 @@ var Router = class _Router {
       preserveFragment
     } = navigationExtras;
     const f = preserveFragment ? this.currentUrlTree.fragment : fragment;
-    let q2 = null;
+    let q = null;
     switch (queryParamsHandling ?? this.options.defaultQueryParamsHandling) {
       case "merge":
-        q2 = __spreadValues(__spreadValues({}, this.currentUrlTree.queryParams), queryParams);
+        q = __spreadValues(__spreadValues({}, this.currentUrlTree.queryParams), queryParams);
         break;
       case "preserve":
-        q2 = this.currentUrlTree.queryParams;
+        q = this.currentUrlTree.queryParams;
         break;
       default:
-        q2 = queryParams || null;
+        q = queryParams || null;
     }
-    if (q2 !== null) {
-      q2 = this.removeEmptyProps(q2);
+    if (q !== null) {
+      q = this.removeEmptyProps(q);
     }
     let relativeToUrlSegmentGroup;
     try {
@@ -49932,7 +49306,7 @@ var Router = class _Router {
       }
       relativeToUrlSegmentGroup = this.currentUrlTree.root;
     }
-    return createUrlTreeFromSegmentGroup(relativeToUrlSegmentGroup, commands, q2, f ?? null);
+    return createUrlTreeFromSegmentGroup(relativeToUrlSegmentGroup, commands, q, f ?? null);
   }
   /**
    * Navigates to a view using an absolute route path.
@@ -50100,7 +49474,7 @@ function validateCommands(commands) {
   }
 }
 
-// ../node_modules/@angular/router/fesm2022/router_module.mjs
+// node_modules/@angular/router/fesm2022/router_module.mjs
 var RouterLink = class _RouterLink {
   router;
   route;
@@ -50519,7 +49893,7 @@ var RouterLinkActive = class _RouterLinkActive {
   }
   /** @docs-private */
   ngAfterContentInit() {
-    of(this.links.changes, of(null)).pipe(mergeAll()).subscribe((_2) => {
+    of(this.links.changes, of(null)).pipe(mergeAll()).subscribe((_) => {
       this.update();
       this.subscribeToEachLinkOnChanges();
     });
@@ -50594,8 +49968,8 @@ var RouterLinkActive = class _RouterLinkActive {
         \u0275\u0275contentQuery(dirIndex, RouterLink, 5);
       }
       if (rf & 2) {
-        let _t2;
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx.links = _t2);
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.links = _t);
       }
     },
     inputs: {
@@ -50657,8 +50031,8 @@ function isActiveMatchOptions(options) {
 var PreloadingStrategy = class {
 };
 var PreloadAllModules = class _PreloadAllModules {
-  preload(route, fn2) {
-    return fn2().pipe(catchError(() => of(null)));
+  preload(route, fn) {
+    return fn().pipe(catchError(() => of(null)));
   }
   static \u0275fac = function PreloadAllModules_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _PreloadAllModules)();
@@ -50678,7 +50052,7 @@ var PreloadAllModules = class _PreloadAllModules {
   }], null, null);
 })();
 var NoPreloading = class _NoPreloading {
-  preload(route, fn2) {
+  preload(route, fn) {
     return of(null);
   }
   static \u0275fac = function NoPreloading_Factory(__ngFactoryType__) {
@@ -51219,10 +50593,10 @@ function provideRouterInitializer() {
   ];
 }
 
-// ../node_modules/@angular/router/fesm2022/router.mjs
+// node_modules/@angular/router/fesm2022/router.mjs
 var VERSION3 = new Version("20.2.4");
 
-// ../node_modules/@angular/material/fesm2022/icon-registry.mjs
+// node_modules/@angular/material/fesm2022/icon-registry.mjs
 var policy2;
 function getPolicy2() {
   if (policy2 === void 0) {
@@ -51754,7 +51128,7 @@ function isSafeUrlWithOptions(value) {
   return !!(value.url && value.options);
 }
 
-// ../node_modules/@angular/cdk/fesm2022/fake-event-detection.mjs
+// node_modules/@angular/cdk/fesm2022/fake-event-detection.mjs
 function isFakeMousedownFromScreenReader(event) {
   return event.buttons === 0 || event.detail === 0;
 }
@@ -51763,7 +51137,7 @@ function isFakeTouchstartFromScreenReader(event) {
   return !!touch && touch.identifier === -1 && (touch.radiusX == null || touch.radiusX === 1) && (touch.radiusY == null || touch.radiusY === 1);
 }
 
-// ../node_modules/@angular/cdk/fesm2022/keycodes2.mjs
+// node_modules/@angular/cdk/fesm2022/keycodes2.mjs
 var TAB = 9;
 var ENTER = 13;
 var SHIFT = 16;
@@ -51786,7 +51160,7 @@ var Z = 90;
 var META = 91;
 var MAC_META = 224;
 
-// ../node_modules/@angular/cdk/fesm2022/shadow-dom.mjs
+// node_modules/@angular/cdk/fesm2022/shadow-dom.mjs
 var shadowDomIsSupported;
 function _supportsShadowDom() {
   if (shadowDomIsSupported == null) {
@@ -51820,7 +51194,7 @@ function _getEventTarget(event) {
   return event.composedPath ? event.composedPath()[0] : event.target;
 }
 
-// ../node_modules/@angular/cdk/fesm2022/platform2.mjs
+// node_modules/@angular/cdk/fesm2022/platform2.mjs
 var hasV8BreakIterator;
 try {
   hasV8BreakIterator = typeof Intl !== "undefined" && Intl.v8BreakIterator;
@@ -51881,7 +51255,7 @@ var Platform = class _Platform {
   }], () => [], null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/passive-listeners.mjs
+// node_modules/@angular/cdk/fesm2022/passive-listeners.mjs
 var supportsPassiveEvents;
 function supportsPassiveEventListeners() {
   if (supportsPassiveEvents == null && typeof window !== "undefined") {
@@ -51899,7 +51273,7 @@ function normalizePassiveListenerOptions(options) {
   return supportsPassiveEventListeners() ? options : !!options.capture;
 }
 
-// ../node_modules/@angular/cdk/fesm2022/element.mjs
+// node_modules/@angular/cdk/fesm2022/element.mjs
 function coerceNumberProperty(value, fallbackValue = 0) {
   if (_isNumberValue(value)) {
     return Number(value);
@@ -51913,7 +51287,7 @@ function coerceElement(elementOrRef) {
   return elementOrRef instanceof ElementRef ? elementOrRef.nativeElement : elementOrRef;
 }
 
-// ../node_modules/@angular/cdk/fesm2022/focus-monitor.mjs
+// node_modules/@angular/cdk/fesm2022/focus-monitor.mjs
 var INPUT_MODALITY_DETECTOR_OPTIONS = new InjectionToken("cdk-input-modality-detector-options");
 var INPUT_MODALITY_DETECTOR_DEFAULT_OPTIONS = {
   ignoreKeys: [ALT, CONTROL, MAC_META, META, SHIFT]
@@ -52393,7 +51767,7 @@ var CdkMonitorFocus = class _CdkMonitorFocus {
   });
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/style-loader.mjs
+// node_modules/@angular/cdk/fesm2022/style-loader.mjs
 var appsWithLoaders = /* @__PURE__ */ new WeakMap();
 var _CdkPrivateStyleLoader = class __CdkPrivateStyleLoader {
   _appRef;
@@ -52442,7 +51816,7 @@ var _CdkPrivateStyleLoader = class __CdkPrivateStyleLoader {
   }], null, null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/private.mjs
+// node_modules/@angular/cdk/fesm2022/private.mjs
 var _VisuallyHiddenLoader = class __VisuallyHiddenLoader {
   static \u0275fac = function _VisuallyHiddenLoader_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || __VisuallyHiddenLoader)();
@@ -52473,12 +51847,12 @@ var _VisuallyHiddenLoader = class __VisuallyHiddenLoader {
   }], null, null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/array.mjs
+// node_modules/@angular/cdk/fesm2022/array.mjs
 function coerceArray(value) {
   return Array.isArray(value) ? value : [value];
 }
 
-// ../node_modules/@angular/cdk/fesm2022/breakpoints-observer.mjs
+// node_modules/@angular/cdk/fesm2022/breakpoints-observer.mjs
 var mediaQueriesForWebkitCompatibility = /* @__PURE__ */ new Set();
 var mediaQueryStyleNode;
 var MediaMatcher = class _MediaMatcher {
@@ -52650,7 +52024,7 @@ function splitQueries(queries) {
   return queries.map((query) => query.split(",")).reduce((a1, a2) => a1.concat(a2)).map((query) => query.trim());
 }
 
-// ../node_modules/@angular/cdk/fesm2022/observers.mjs
+// node_modules/@angular/cdk/fesm2022/observers.mjs
 function shouldIgnoreRecord(record) {
   if (record.type === "characterData" && record.target instanceof Comment) {
     return true;
@@ -52699,7 +52073,7 @@ var ContentObserver = class _ContentObserver {
   constructor() {
   }
   ngOnDestroy() {
-    this._observedElements.forEach((_2, element) => this._cleanupObserver(element));
+    this._observedElements.forEach((_, element) => this._cleanupObserver(element));
   }
   observe(elementOrRef) {
     const element = coerceElement(elementOrRef);
@@ -52895,7 +52269,7 @@ var ObserversModule = class _ObserversModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/a11y-module.mjs
+// node_modules/@angular/cdk/fesm2022/a11y-module.mjs
 var InteractivityChecker = class _InteractivityChecker {
   _platform = inject2(Platform);
   constructor() {
@@ -53285,13 +52659,13 @@ var FocusTrap = class {
     }
   }
   /** Executes a function when the zone is stable. */
-  _executeOnStable(fn2) {
+  _executeOnStable(fn) {
     if (this._injector) {
-      afterNextRender(fn2, {
+      afterNextRender(fn, {
         injector: this._injector
       });
     } else {
-      setTimeout(fn2);
+      setTimeout(fn);
     }
   }
 };
@@ -53737,7 +53111,7 @@ var A11yModule = class _A11yModule {
   }], () => [], null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/id-generator.mjs
+// node_modules/@angular/cdk/fesm2022/id-generator.mjs
 var counters = {};
 var _IdGenerator = class __IdGenerator {
   _appId = inject2(APP_ID);
@@ -53772,7 +53146,7 @@ var _IdGenerator = class __IdGenerator {
   }], null, null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/typeahead.mjs
+// node_modules/@angular/cdk/fesm2022/typeahead.mjs
 var DEFAULT_TYPEAHEAD_DEBOUNCE_INTERVAL_MS = 200;
 var Typeahead = class {
   _letterKeyStream = new Subject();
@@ -53836,7 +53210,7 @@ var Typeahead = class {
   }
 };
 
-// ../node_modules/@angular/cdk/fesm2022/keycodes.mjs
+// node_modules/@angular/cdk/fesm2022/keycodes.mjs
 function hasModifierKey(event, ...modifiers) {
   if (modifiers.length) {
     return modifiers.some((modifier) => event[modifier]);
@@ -53844,7 +53218,7 @@ function hasModifierKey(event, ...modifiers) {
   return event.altKey || event.shiftKey || event.ctrlKey || event.metaKey;
 }
 
-// ../node_modules/@angular/cdk/fesm2022/list-key-manager.mjs
+// node_modules/@angular/cdk/fesm2022/list-key-manager.mjs
 var ListKeyManager = class {
   _items;
   _activeItemIndex = signal(-1, ...ngDevMode ? [{ debugName: "_activeItemIndex" }] : []);
@@ -54176,7 +53550,7 @@ var ListKeyManager = class {
   }
 };
 
-// ../node_modules/@angular/cdk/fesm2022/activedescendant-key-manager.mjs
+// node_modules/@angular/cdk/fesm2022/activedescendant-key-manager.mjs
 var ActiveDescendantKeyManager = class extends ListKeyManager {
   setActiveItem(index) {
     if (this.activeItem) {
@@ -54189,7 +53563,7 @@ var ActiveDescendantKeyManager = class extends ListKeyManager {
   }
 };
 
-// ../node_modules/@angular/cdk/fesm2022/a11y.mjs
+// node_modules/@angular/cdk/fesm2022/a11y.mjs
 var ID_DELIMITER = " ";
 function addAriaReferencedId(el, attr, id2) {
   const ids = getAriaReferenceIds(el, attr);
@@ -54481,7 +53855,7 @@ var FocusTrapManager = class _FocusTrapManager {
    * the new FocusTrap onto the stack.
    */
   register(focusTrap) {
-    this._focusTrapStack = this._focusTrapStack.filter((ft2) => ft2 !== focusTrap);
+    this._focusTrapStack = this._focusTrapStack.filter((ft) => ft !== focusTrap);
     let stack = this._focusTrapStack;
     if (stack.length) {
       stack[stack.length - 1]._disable();
@@ -54565,7 +53939,7 @@ var ConfigurableFocusTrapFactory = class _ConfigurableFocusTrapFactory {
   }], () => [], null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/directionality.mjs
+// node_modules/@angular/cdk/fesm2022/directionality.mjs
 var DIR_DOCUMENT = new InjectionToken("cdk-dir-doc", {
   providedIn: "root",
   factory: DIR_DOCUMENT_FACTORY
@@ -54625,7 +53999,7 @@ var Directionality = class _Directionality {
   }], () => [], null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/bidi.mjs
+// node_modules/@angular/cdk/fesm2022/bidi.mjs
 var Dir = class _Dir {
   /** Whether the `value` has been set to its initial value. */
   _isInitialized = false;
@@ -54729,7 +54103,7 @@ var BidiModule = class _BidiModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/common-module.mjs
+// node_modules/@angular/material/fesm2022/common-module.mjs
 var MATERIAL_SANITY_CHECKS = new InjectionToken("mat-sanity-checks", {
   providedIn: "root",
   factory: () => true
@@ -54760,7 +54134,7 @@ var MatCommonModule = class _MatCommonModule {
   }], () => [], null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/icon.mjs
+// node_modules/@angular/material/fesm2022/icon.mjs
 var _c0 = ["*"];
 var MAT_ICON_DEFAULT_OPTIONS = new InjectionToken("MAT_ICON_DEFAULT_OPTIONS");
 var MAT_ICON_LOCATION = new InjectionToken("mat-icon-location", {
@@ -55133,825 +54507,9 @@ var MatIconModule = class _MatIconModule {
   }], null, null);
 })();
 
-// ../node_modules/highlight.js/es/core.js
-var import_core29 = __toESM(require_core(), 1);
-var core_default = import_core29.default;
-
-// ../node_modules/highlight.js/es/languages/typescript.js
-var IDENT_RE = "[A-Za-z$_][0-9A-Za-z$_]*";
-var KEYWORDS = [
-  "as",
-  // for exports
-  "in",
-  "of",
-  "if",
-  "for",
-  "while",
-  "finally",
-  "var",
-  "new",
-  "function",
-  "do",
-  "return",
-  "void",
-  "else",
-  "break",
-  "catch",
-  "instanceof",
-  "with",
-  "throw",
-  "case",
-  "default",
-  "try",
-  "switch",
-  "continue",
-  "typeof",
-  "delete",
-  "let",
-  "yield",
-  "const",
-  "class",
-  // JS handles these with a special rule
-  // "get",
-  // "set",
-  "debugger",
-  "async",
-  "await",
-  "static",
-  "import",
-  "from",
-  "export",
-  "extends",
-  // It's reached stage 3, which is "recommended for implementation":
-  "using"
-];
-var LITERALS = [
-  "true",
-  "false",
-  "null",
-  "undefined",
-  "NaN",
-  "Infinity"
-];
-var TYPES = [
-  // Fundamental objects
-  "Object",
-  "Function",
-  "Boolean",
-  "Symbol",
-  // numbers and dates
-  "Math",
-  "Date",
-  "Number",
-  "BigInt",
-  // text
-  "String",
-  "RegExp",
-  // Indexed collections
-  "Array",
-  "Float32Array",
-  "Float64Array",
-  "Int8Array",
-  "Uint8Array",
-  "Uint8ClampedArray",
-  "Int16Array",
-  "Int32Array",
-  "Uint16Array",
-  "Uint32Array",
-  "BigInt64Array",
-  "BigUint64Array",
-  // Keyed collections
-  "Set",
-  "Map",
-  "WeakSet",
-  "WeakMap",
-  // Structured data
-  "ArrayBuffer",
-  "SharedArrayBuffer",
-  "Atomics",
-  "DataView",
-  "JSON",
-  // Control abstraction objects
-  "Promise",
-  "Generator",
-  "GeneratorFunction",
-  "AsyncFunction",
-  // Reflection
-  "Reflect",
-  "Proxy",
-  // Internationalization
-  "Intl",
-  // WebAssembly
-  "WebAssembly"
-];
-var ERROR_TYPES = [
-  "Error",
-  "EvalError",
-  "InternalError",
-  "RangeError",
-  "ReferenceError",
-  "SyntaxError",
-  "TypeError",
-  "URIError"
-];
-var BUILT_IN_GLOBALS = [
-  "setInterval",
-  "setTimeout",
-  "clearInterval",
-  "clearTimeout",
-  "require",
-  "exports",
-  "eval",
-  "isFinite",
-  "isNaN",
-  "parseFloat",
-  "parseInt",
-  "decodeURI",
-  "decodeURIComponent",
-  "encodeURI",
-  "encodeURIComponent",
-  "escape",
-  "unescape"
-];
-var BUILT_IN_VARIABLES = [
-  "arguments",
-  "this",
-  "super",
-  "console",
-  "window",
-  "document",
-  "localStorage",
-  "sessionStorage",
-  "module",
-  "global"
-  // Node.js
-];
-var BUILT_INS = [].concat(
-  BUILT_IN_GLOBALS,
-  TYPES,
-  ERROR_TYPES
-);
-function javascript(hljs) {
-  const regex = hljs.regex;
-  const hasClosingTag = (match2, { after }) => {
-    const tag = "</" + match2[0].slice(1);
-    const pos = match2.input.indexOf(tag, after);
-    return pos !== -1;
-  };
-  const IDENT_RE$1 = IDENT_RE;
-  const FRAGMENT = {
-    begin: "<>",
-    end: "</>"
-  };
-  const XML_SELF_CLOSING = /<[A-Za-z0-9\\._:-]+\s*\/>/;
-  const XML_TAG = {
-    begin: /<[A-Za-z0-9\\._:-]+/,
-    end: /\/[A-Za-z0-9\\._:-]+>|\/>/,
-    /**
-     * @param {RegExpMatchArray} match
-     * @param {CallbackResponse} response
-     */
-    isTrulyOpeningTag: (match2, response) => {
-      const afterMatchIndex = match2[0].length + match2.index;
-      const nextChar = match2.input[afterMatchIndex];
-      if (
-        // HTML should not include another raw `<` inside a tag
-        // nested type?
-        // `<Array<Array<number>>`, etc.
-        nextChar === "<" || // the , gives away that this is not HTML
-        // `<T, A extends keyof T, V>`
-        nextChar === ","
-      ) {
-        response.ignoreMatch();
-        return;
-      }
-      if (nextChar === ">") {
-        if (!hasClosingTag(match2, { after: afterMatchIndex })) {
-          response.ignoreMatch();
-        }
-      }
-      let m;
-      const afterMatch = match2.input.substring(afterMatchIndex);
-      if (m = afterMatch.match(/^\s*=/)) {
-        response.ignoreMatch();
-        return;
-      }
-      if (m = afterMatch.match(/^\s+extends\s+/)) {
-        if (m.index === 0) {
-          response.ignoreMatch();
-          return;
-        }
-      }
-    }
-  };
-  const KEYWORDS$1 = {
-    $pattern: IDENT_RE,
-    keyword: KEYWORDS,
-    literal: LITERALS,
-    built_in: BUILT_INS,
-    "variable.language": BUILT_IN_VARIABLES
-  };
-  const decimalDigits = "[0-9](_?[0-9])*";
-  const frac = `\\.(${decimalDigits})`;
-  const decimalInteger = `0|[1-9](_?[0-9])*|0[0-7]*[89][0-9]*`;
-  const NUMBER = {
-    className: "number",
-    variants: [
-      // DecimalLiteral
-      { begin: `(\\b(${decimalInteger})((${frac})|\\.)?|(${frac}))[eE][+-]?(${decimalDigits})\\b` },
-      { begin: `\\b(${decimalInteger})\\b((${frac})\\b|\\.)?|(${frac})\\b` },
-      // DecimalBigIntegerLiteral
-      { begin: `\\b(0|[1-9](_?[0-9])*)n\\b` },
-      // NonDecimalIntegerLiteral
-      { begin: "\\b0[xX][0-9a-fA-F](_?[0-9a-fA-F])*n?\\b" },
-      { begin: "\\b0[bB][0-1](_?[0-1])*n?\\b" },
-      { begin: "\\b0[oO][0-7](_?[0-7])*n?\\b" },
-      // LegacyOctalIntegerLiteral (does not include underscore separators)
-      // https://tc39.es/ecma262/#sec-additional-syntax-numeric-literals
-      { begin: "\\b0[0-7]+n?\\b" }
-    ],
-    relevance: 0
-  };
-  const SUBST = {
-    className: "subst",
-    begin: "\\$\\{",
-    end: "\\}",
-    keywords: KEYWORDS$1,
-    contains: []
-    // defined later
-  };
-  const HTML_TEMPLATE = {
-    begin: ".?html`",
-    end: "",
-    starts: {
-      end: "`",
-      returnEnd: false,
-      contains: [
-        hljs.BACKSLASH_ESCAPE,
-        SUBST
-      ],
-      subLanguage: "xml"
-    }
-  };
-  const CSS_TEMPLATE = {
-    begin: ".?css`",
-    end: "",
-    starts: {
-      end: "`",
-      returnEnd: false,
-      contains: [
-        hljs.BACKSLASH_ESCAPE,
-        SUBST
-      ],
-      subLanguage: "css"
-    }
-  };
-  const GRAPHQL_TEMPLATE = {
-    begin: ".?gql`",
-    end: "",
-    starts: {
-      end: "`",
-      returnEnd: false,
-      contains: [
-        hljs.BACKSLASH_ESCAPE,
-        SUBST
-      ],
-      subLanguage: "graphql"
-    }
-  };
-  const TEMPLATE_STRING = {
-    className: "string",
-    begin: "`",
-    end: "`",
-    contains: [
-      hljs.BACKSLASH_ESCAPE,
-      SUBST
-    ]
-  };
-  const JSDOC_COMMENT = hljs.COMMENT(
-    /\/\*\*(?!\/)/,
-    "\\*/",
-    {
-      relevance: 0,
-      contains: [
-        {
-          begin: "(?=@[A-Za-z]+)",
-          relevance: 0,
-          contains: [
-            {
-              className: "doctag",
-              begin: "@[A-Za-z]+"
-            },
-            {
-              className: "type",
-              begin: "\\{",
-              end: "\\}",
-              excludeEnd: true,
-              excludeBegin: true,
-              relevance: 0
-            },
-            {
-              className: "variable",
-              begin: IDENT_RE$1 + "(?=\\s*(-)|$)",
-              endsParent: true,
-              relevance: 0
-            },
-            // eat spaces (not newlines) so we can find
-            // types or variables
-            {
-              begin: /(?=[^\n])\s/,
-              relevance: 0
-            }
-          ]
-        }
-      ]
-    }
-  );
-  const COMMENT = {
-    className: "comment",
-    variants: [
-      JSDOC_COMMENT,
-      hljs.C_BLOCK_COMMENT_MODE,
-      hljs.C_LINE_COMMENT_MODE
-    ]
-  };
-  const SUBST_INTERNALS = [
-    hljs.APOS_STRING_MODE,
-    hljs.QUOTE_STRING_MODE,
-    HTML_TEMPLATE,
-    CSS_TEMPLATE,
-    GRAPHQL_TEMPLATE,
-    TEMPLATE_STRING,
-    // Skip numbers when they are part of a variable name
-    { match: /\$\d+/ },
-    NUMBER
-    // This is intentional:
-    // See https://github.com/highlightjs/highlight.js/issues/3288
-    // hljs.REGEXP_MODE
-  ];
-  SUBST.contains = SUBST_INTERNALS.concat({
-    // we need to pair up {} inside our subst to prevent
-    // it from ending too early by matching another }
-    begin: /\{/,
-    end: /\}/,
-    keywords: KEYWORDS$1,
-    contains: [
-      "self"
-    ].concat(SUBST_INTERNALS)
-  });
-  const SUBST_AND_COMMENTS = [].concat(COMMENT, SUBST.contains);
-  const PARAMS_CONTAINS = SUBST_AND_COMMENTS.concat([
-    // eat recursive parens in sub expressions
-    {
-      begin: /(\s*)\(/,
-      end: /\)/,
-      keywords: KEYWORDS$1,
-      contains: ["self"].concat(SUBST_AND_COMMENTS)
-    }
-  ]);
-  const PARAMS = {
-    className: "params",
-    // convert this to negative lookbehind in v12
-    begin: /(\s*)\(/,
-    // to match the parms with
-    end: /\)/,
-    excludeBegin: true,
-    excludeEnd: true,
-    keywords: KEYWORDS$1,
-    contains: PARAMS_CONTAINS
-  };
-  const CLASS_OR_EXTENDS = {
-    variants: [
-      // class Car extends vehicle
-      {
-        match: [
-          /class/,
-          /\s+/,
-          IDENT_RE$1,
-          /\s+/,
-          /extends/,
-          /\s+/,
-          regex.concat(IDENT_RE$1, "(", regex.concat(/\./, IDENT_RE$1), ")*")
-        ],
-        scope: {
-          1: "keyword",
-          3: "title.class",
-          5: "keyword",
-          7: "title.class.inherited"
-        }
-      },
-      // class Car
-      {
-        match: [
-          /class/,
-          /\s+/,
-          IDENT_RE$1
-        ],
-        scope: {
-          1: "keyword",
-          3: "title.class"
-        }
-      }
-    ]
-  };
-  const CLASS_REFERENCE = {
-    relevance: 0,
-    match: regex.either(
-      // Hard coded exceptions
-      /\bJSON/,
-      // Float32Array, OutT
-      /\b[A-Z][a-z]+([A-Z][a-z]*|\d)*/,
-      // CSSFactory, CSSFactoryT
-      /\b[A-Z]{2,}([A-Z][a-z]+|\d)+([A-Z][a-z]*)*/,
-      // FPs, FPsT
-      /\b[A-Z]{2,}[a-z]+([A-Z][a-z]+|\d)*([A-Z][a-z]*)*/
-      // P
-      // single letters are not highlighted
-      // BLAH
-      // this will be flagged as a UPPER_CASE_CONSTANT instead
-    ),
-    className: "title.class",
-    keywords: {
-      _: [
-        // se we still get relevance credit for JS library classes
-        ...TYPES,
-        ...ERROR_TYPES
-      ]
-    }
-  };
-  const USE_STRICT = {
-    label: "use_strict",
-    className: "meta",
-    relevance: 10,
-    begin: /^\s*['"]use (strict|asm)['"]/
-  };
-  const FUNCTION_DEFINITION = {
-    variants: [
-      {
-        match: [
-          /function/,
-          /\s+/,
-          IDENT_RE$1,
-          /(?=\s*\()/
-        ]
-      },
-      // anonymous function
-      {
-        match: [
-          /function/,
-          /\s*(?=\()/
-        ]
-      }
-    ],
-    className: {
-      1: "keyword",
-      3: "title.function"
-    },
-    label: "func.def",
-    contains: [PARAMS],
-    illegal: /%/
-  };
-  const UPPER_CASE_CONSTANT = {
-    relevance: 0,
-    match: /\b[A-Z][A-Z_0-9]+\b/,
-    className: "variable.constant"
-  };
-  function noneOf(list) {
-    return regex.concat("(?!", list.join("|"), ")");
-  }
-  const FUNCTION_CALL = {
-    match: regex.concat(
-      /\b/,
-      noneOf([
-        ...BUILT_IN_GLOBALS,
-        "super",
-        "import"
-      ].map((x) => `${x}\\s*\\(`)),
-      IDENT_RE$1,
-      regex.lookahead(/\s*\(/)
-    ),
-    className: "title.function",
-    relevance: 0
-  };
-  const PROPERTY_ACCESS = {
-    begin: regex.concat(/\./, regex.lookahead(
-      regex.concat(IDENT_RE$1, /(?![0-9A-Za-z$_(])/)
-    )),
-    end: IDENT_RE$1,
-    excludeBegin: true,
-    keywords: "prototype",
-    className: "property",
-    relevance: 0
-  };
-  const GETTER_OR_SETTER = {
-    match: [
-      /get|set/,
-      /\s+/,
-      IDENT_RE$1,
-      /(?=\()/
-    ],
-    className: {
-      1: "keyword",
-      3: "title.function"
-    },
-    contains: [
-      {
-        // eat to avoid empty params
-        begin: /\(\)/
-      },
-      PARAMS
-    ]
-  };
-  const FUNC_LEAD_IN_RE = "(\\([^()]*(\\([^()]*(\\([^()]*\\)[^()]*)*\\)[^()]*)*\\)|" + hljs.UNDERSCORE_IDENT_RE + ")\\s*=>";
-  const FUNCTION_VARIABLE = {
-    match: [
-      /const|var|let/,
-      /\s+/,
-      IDENT_RE$1,
-      /\s*/,
-      /=\s*/,
-      /(async\s*)?/,
-      // async is optional
-      regex.lookahead(FUNC_LEAD_IN_RE)
-    ],
-    keywords: "async",
-    className: {
-      1: "keyword",
-      3: "title.function"
-    },
-    contains: [
-      PARAMS
-    ]
-  };
-  return {
-    name: "JavaScript",
-    aliases: ["js", "jsx", "mjs", "cjs"],
-    keywords: KEYWORDS$1,
-    // this will be extended by TypeScript
-    exports: { PARAMS_CONTAINS, CLASS_REFERENCE },
-    illegal: /#(?![$_A-z])/,
-    contains: [
-      hljs.SHEBANG({
-        label: "shebang",
-        binary: "node",
-        relevance: 5
-      }),
-      USE_STRICT,
-      hljs.APOS_STRING_MODE,
-      hljs.QUOTE_STRING_MODE,
-      HTML_TEMPLATE,
-      CSS_TEMPLATE,
-      GRAPHQL_TEMPLATE,
-      TEMPLATE_STRING,
-      COMMENT,
-      // Skip numbers when they are part of a variable name
-      { match: /\$\d+/ },
-      NUMBER,
-      CLASS_REFERENCE,
-      {
-        scope: "attr",
-        match: IDENT_RE$1 + regex.lookahead(":"),
-        relevance: 0
-      },
-      FUNCTION_VARIABLE,
-      {
-        // "value" container
-        begin: "(" + hljs.RE_STARTERS_RE + "|\\b(case|return|throw)\\b)\\s*",
-        keywords: "return throw case",
-        relevance: 0,
-        contains: [
-          COMMENT,
-          hljs.REGEXP_MODE,
-          {
-            className: "function",
-            // we have to count the parens to make sure we actually have the
-            // correct bounding ( ) before the =>.  There could be any number of
-            // sub-expressions inside also surrounded by parens.
-            begin: FUNC_LEAD_IN_RE,
-            returnBegin: true,
-            end: "\\s*=>",
-            contains: [
-              {
-                className: "params",
-                variants: [
-                  {
-                    begin: hljs.UNDERSCORE_IDENT_RE,
-                    relevance: 0
-                  },
-                  {
-                    className: null,
-                    begin: /\(\s*\)/,
-                    skip: true
-                  },
-                  {
-                    begin: /(\s*)\(/,
-                    end: /\)/,
-                    excludeBegin: true,
-                    excludeEnd: true,
-                    keywords: KEYWORDS$1,
-                    contains: PARAMS_CONTAINS
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            // could be a comma delimited list of params to a function call
-            begin: /,/,
-            relevance: 0
-          },
-          {
-            match: /\s+/,
-            relevance: 0
-          },
-          {
-            // JSX
-            variants: [
-              { begin: FRAGMENT.begin, end: FRAGMENT.end },
-              { match: XML_SELF_CLOSING },
-              {
-                begin: XML_TAG.begin,
-                // we carefully check the opening tag to see if it truly
-                // is a tag and not a false positive
-                "on:begin": XML_TAG.isTrulyOpeningTag,
-                end: XML_TAG.end
-              }
-            ],
-            subLanguage: "xml",
-            contains: [
-              {
-                begin: XML_TAG.begin,
-                end: XML_TAG.end,
-                skip: true,
-                contains: ["self"]
-              }
-            ]
-          }
-        ]
-      },
-      FUNCTION_DEFINITION,
-      {
-        // prevent this from getting swallowed up by function
-        // since they appear "function like"
-        beginKeywords: "while if switch catch for"
-      },
-      {
-        // we have to count the parens to make sure we actually have the correct
-        // bounding ( ).  There could be any number of sub-expressions inside
-        // also surrounded by parens.
-        begin: "\\b(?!function)" + hljs.UNDERSCORE_IDENT_RE + "\\([^()]*(\\([^()]*(\\([^()]*\\)[^()]*)*\\)[^()]*)*\\)\\s*\\{",
-        // end parens
-        returnBegin: true,
-        label: "func.def",
-        contains: [
-          PARAMS,
-          hljs.inherit(hljs.TITLE_MODE, { begin: IDENT_RE$1, className: "title.function" })
-        ]
-      },
-      // catch ... so it won't trigger the property rule below
-      {
-        match: /\.\.\./,
-        relevance: 0
-      },
-      PROPERTY_ACCESS,
-      // hack: prevents detection of keywords in some circumstances
-      // .keyword()
-      // $keyword = x
-      {
-        match: "\\$" + IDENT_RE$1,
-        relevance: 0
-      },
-      {
-        match: [/\bconstructor(?=\s*\()/],
-        className: { 1: "title.function" },
-        contains: [PARAMS]
-      },
-      FUNCTION_CALL,
-      UPPER_CASE_CONSTANT,
-      CLASS_OR_EXTENDS,
-      GETTER_OR_SETTER,
-      {
-        match: /\$[(.]/
-        // relevance booster for a pattern common to JS libs: `$(something)` and `$.something`
-      }
-    ]
-  };
-}
-function typescript(hljs) {
-  const regex = hljs.regex;
-  const tsLanguage = javascript(hljs);
-  const IDENT_RE$1 = IDENT_RE;
-  const TYPES2 = [
-    "any",
-    "void",
-    "number",
-    "boolean",
-    "string",
-    "object",
-    "never",
-    "symbol",
-    "bigint",
-    "unknown"
-  ];
-  const NAMESPACE = {
-    begin: [
-      /namespace/,
-      /\s+/,
-      hljs.IDENT_RE
-    ],
-    beginScope: {
-      1: "keyword",
-      3: "title.class"
-    }
-  };
-  const INTERFACE = {
-    beginKeywords: "interface",
-    end: /\{/,
-    excludeEnd: true,
-    keywords: {
-      keyword: "interface extends",
-      built_in: TYPES2
-    },
-    contains: [tsLanguage.exports.CLASS_REFERENCE]
-  };
-  const USE_STRICT = {
-    className: "meta",
-    relevance: 10,
-    begin: /^\s*['"]use strict['"]/
-  };
-  const TS_SPECIFIC_KEYWORDS = [
-    "type",
-    // "namespace",
-    "interface",
-    "public",
-    "private",
-    "protected",
-    "implements",
-    "declare",
-    "abstract",
-    "readonly",
-    "enum",
-    "override",
-    "satisfies"
-  ];
-  const KEYWORDS$1 = {
-    $pattern: IDENT_RE,
-    keyword: KEYWORDS.concat(TS_SPECIFIC_KEYWORDS),
-    literal: LITERALS,
-    built_in: BUILT_INS.concat(TYPES2),
-    "variable.language": BUILT_IN_VARIABLES
-  };
-  const DECORATOR = {
-    className: "meta",
-    begin: "@" + IDENT_RE$1
-  };
-  const swapMode = (mode, label, replacement) => {
-    const indx = mode.contains.findIndex((m) => m.label === label);
-    if (indx === -1) {
-      throw new Error("can not find mode to replace");
-    }
-    mode.contains.splice(indx, 1, replacement);
-  };
-  Object.assign(tsLanguage.keywords, KEYWORDS$1);
-  tsLanguage.exports.PARAMS_CONTAINS.push(DECORATOR);
-  const ATTRIBUTE_HIGHLIGHT = tsLanguage.contains.find((c) => c.scope === "attr");
-  const OPTIONAL_KEY_OR_ARGUMENT = Object.assign(
-    {},
-    ATTRIBUTE_HIGHLIGHT,
-    { match: regex.concat(IDENT_RE$1, regex.lookahead(/\s*\?:/)) }
-  );
-  tsLanguage.exports.PARAMS_CONTAINS.push([
-    tsLanguage.exports.CLASS_REFERENCE,
-    // class reference for highlighting the params types
-    ATTRIBUTE_HIGHLIGHT,
-    // highlight the params key
-    OPTIONAL_KEY_OR_ARGUMENT
-    // Added for optional property assignment highlighting
-  ]);
-  tsLanguage.contains = tsLanguage.contains.concat([
-    DECORATOR,
-    NAMESPACE,
-    INTERFACE,
-    OPTIONAL_KEY_OR_ARGUMENT
-    // Added for optional property assignment highlighting
-  ]);
-  swapMode(tsLanguage, "shebang", hljs.SHEBANG());
-  swapMode(tsLanguage, "use_strict", USE_STRICT);
-  const functionDeclaration = tsLanguage.contains.find((m) => m.label === "func.def");
-  functionDeclaration.relevance = 0;
-  Object.assign(tsLanguage, {
-    name: "TypeScript",
-    aliases: [
-      "ts",
-      "tsx",
-      "mts",
-      "cts"
-    ]
-  });
-  return tsLanguage;
-}
-
 // src/Infrastructure/Presentation/components/code-display/code-display.component.ts
+var import_core30 = __toESM(require_core());
+var import_typescript = __toESM(require_typescript());
 var _c02 = ["codeBlock"];
 function CodeDisplayComponent_mat_icon_8_Template(rf, ctx) {
   if (rf & 1) {
@@ -55999,7 +54557,7 @@ var CodeDisplayComponent = class _CodeDisplayComponent {
   }
   initHighlightJs() {
     if (!_CodeDisplayComponent.hljsInitialized) {
-      core_default.registerLanguage("typescript", typescript);
+      import_core30.default.registerLanguage("typescript", import_typescript.default);
       _CodeDisplayComponent.hljsInitialized = true;
     }
   }
@@ -56014,7 +54572,7 @@ var CodeDisplayComponent = class _CodeDisplayComponent {
       element.className = element.className.replace(/\bhljs\b/g, "").trim();
       element.textContent = this.highlightedCode;
       element.className += " language-typescript";
-      core_default.highlightElement(element);
+      import_core30.default.highlightElement(element);
     }
   }
   copyToClipboard() {
@@ -56059,8 +54617,8 @@ var CodeDisplayComponent = class _CodeDisplayComponent {
       \u0275\u0275viewQuery(_c02, 5);
     }
     if (rf & 2) {
-      let _t2;
-      \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx.codeBlock = _t2.first);
+      let _t;
+      \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.codeBlock = _t.first);
     }
   }, inputs: { filename: "filename", content: "content", code: "code" }, features: [\u0275\u0275NgOnChangesFeature], decls: 18, vars: 8, consts: [["codeBlock", ""], [1, "code-display-container"], [1, "code-header"], [1, "file-info"], ["viewBox", "0 0 20 20", "fill", "currentColor", 1, "file-icon"], ["d", "M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2h-5L9 1H4z"], [1, "filename"], ["title", "Copy to clipboard", 1, "copy-button", 3, "click"], ["class", "copy-icon", "fontIcon", "content_copy", 4, "ngIf"], ["class", "check-icon", "fontIcon", "check", 4, "ngIf"], [1, "copy-text"], [1, "code-content"], [1, "line-numbers"], ["class", "line-number", 4, "ngFor", "ngForOf"], [1, "code-block"], [3, "innerHTML"], ["fontIcon", "content_copy", 1, "copy-icon"], ["fontIcon", "check", 1, "check-icon"], [1, "line-number"]], template: function CodeDisplayComponent_Template(rf, ctx) {
     if (rf & 1) {
@@ -56810,7 +55368,7 @@ var HomepageComponent = class _HomepageComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(HomepageComponent, { className: "HomepageComponent", filePath: "src/infrastructure/presentation/marketing/homepage/homepage.component.ts", lineNumber: 27 });
 })();
 
-// ../node_modules/@angular/forms/fesm2022/forms.mjs
+// node_modules/@angular/forms/fesm2022/forms.mjs
 var BaseControlValueAccessor = class _BaseControlValueAccessor {
   _renderer;
   _elementRef;
@@ -56819,7 +55377,7 @@ var BaseControlValueAccessor = class _BaseControlValueAccessor {
    * element.
    * @docs-private
    */
-  onChange = (_2) => {
+  onChange = (_) => {
   };
   /**
    * The registered callback function called when a blur event occurs on the input element.
@@ -56843,15 +55401,15 @@ var BaseControlValueAccessor = class _BaseControlValueAccessor {
    * Registers a function called when the control is touched.
    * @docs-private
    */
-  registerOnTouched(fn2) {
-    this.onTouched = fn2;
+  registerOnTouched(fn) {
+    this.onTouched = fn;
   }
   /**
    * Registers a function called when the control value changes.
    * @docs-private
    */
-  registerOnChange(fn2) {
-    this.onChange = fn2;
+  registerOnChange(fn) {
+    this.onChange = fn;
   }
   /**
    * Sets the "disabled" property on the range input element.
@@ -57514,15 +56072,15 @@ function hasValidator(validators, validator) {
 function addValidators(validators, currentValidators) {
   const current = makeValidatorsArray(currentValidators);
   const validatorsToAdd = makeValidatorsArray(validators);
-  validatorsToAdd.forEach((v2) => {
-    if (!hasValidator(current, v2)) {
-      current.push(v2);
+  validatorsToAdd.forEach((v) => {
+    if (!hasValidator(current, v)) {
+      current.push(v);
     }
   });
   return current;
 }
 function removeValidators(validators, currentValidators) {
-  return makeValidatorsArray(currentValidators).filter((v2) => !hasValidator(validators, v2));
+  return makeValidatorsArray(currentValidators).filter((v) => !hasValidator(validators, v));
 }
 var AbstractControlDirective = class {
   /**
@@ -57710,8 +56268,8 @@ var AbstractControlDirective = class {
    * when directive instance is being destroyed.
    * @internal
    */
-  _registerOnDestroy(fn2) {
-    this._onDestroyCallbacks.push(fn2);
+  _registerOnDestroy(fn) {
+    this._onDestroyCallbacks.push(fn);
   }
   /**
    * Internal function to invoke all registered "on destroy" callbacks.
@@ -57719,7 +56277,7 @@ var AbstractControlDirective = class {
    * @internal
    */
   _invokeOnDestroyCallbacks() {
-    this._onDestroyCallbacks.forEach((fn2) => fn2());
+    this._onDestroyCallbacks.forEach((fn) => fn());
     this._onDestroyCallbacks = [];
   }
   /**
@@ -58196,7 +56754,7 @@ function assertControlPresent(parent, isGroup, key) {
   }
 }
 function assertAllValuesPresent(control, isGroup, value) {
-  control._forEachChild((_2, key) => {
+  control._forEachChild((_, key) => {
     if (value[key] === void 0) {
       throw new RuntimeError(1002, typeof ngDevMode === "undefined" || ngDevMode ? missingControlValueError(isGroup, key) : "");
     }
@@ -58317,8 +56875,8 @@ var AbstractControl = class {
   get status() {
     return untracked2(this.statusReactive);
   }
-  set status(v2) {
-    untracked2(() => this.statusReactive.set(v2));
+  set status(v) {
+    untracked2(() => this.statusReactive.set(v));
   }
   /** @internal */
   _status = computed(() => this.statusReactive(), ...ngDevMode ? [{
@@ -58401,8 +56959,8 @@ var AbstractControl = class {
   get pristine() {
     return untracked2(this.pristineReactive);
   }
-  set pristine(v2) {
-    untracked2(() => this.pristineReactive.set(v2));
+  set pristine(v) {
+    untracked2(() => this.pristineReactive.set(v));
   }
   /** @internal */
   _pristine = computed(() => this.pristineReactive(), ...ngDevMode ? [{
@@ -58430,8 +56988,8 @@ var AbstractControl = class {
   get touched() {
     return untracked2(this.touchedReactive);
   }
-  set touched(v2) {
-    untracked2(() => this.touchedReactive.set(v2));
+  set touched(v) {
+    untracked2(() => this.touchedReactive.set(v));
   }
   /** @internal */
   _touched = computed(() => this.touchedReactive(), ...ngDevMode ? [{
@@ -59089,8 +57647,8 @@ var AbstractControl = class {
   /** @internal */
   _onDisabledChange = [];
   /** @internal */
-  _registerOnCollectionChange(fn2) {
-    this._onCollectionChange = fn2;
+  _registerOnCollectionChange(fn) {
+    this._onCollectionChange = fn;
   }
   /** @internal */
   _setUpdateStrategy(opts) {
@@ -59430,10 +57988,10 @@ var FormGroup = class extends AbstractControl {
     });
   }
   /** @internal */
-  _reduceChildren(initValue, fn2) {
+  _reduceChildren(initValue, fn) {
     let res = initValue;
     this._forEachChild((control, name) => {
-      res = fn2(res, control, name);
+      res = fn(res, control, name);
     });
     return res;
   }
@@ -59648,15 +58206,15 @@ function selectValueAccessor(dir, valueAccessors) {
   let defaultAccessor = void 0;
   let builtinAccessor = void 0;
   let customAccessor = void 0;
-  valueAccessors.forEach((v2) => {
-    if (v2.constructor === DefaultValueAccessor) {
-      defaultAccessor = v2;
-    } else if (isBuiltInAccessor(v2)) {
+  valueAccessors.forEach((v) => {
+    if (v.constructor === DefaultValueAccessor) {
+      defaultAccessor = v;
+    } else if (isBuiltInAccessor(v)) {
       if (builtinAccessor && (typeof ngDevMode === "undefined" || ngDevMode)) _throwError(dir, "More than one built-in value accessor matches form control with");
-      builtinAccessor = v2;
+      builtinAccessor = v;
     } else {
       if (customAccessor && (typeof ngDevMode === "undefined" || ngDevMode)) _throwError(dir, "More than one custom value accessor matches form control with");
-      customAccessor = v2;
+      customAccessor = v;
     }
   });
   if (customAccessor) return customAccessor;
@@ -60043,19 +58601,19 @@ var FormControl = class FormControl2 extends AbstractControl {
   _allControlsDisabled() {
     return this.disabled;
   }
-  registerOnChange(fn2) {
-    this._onChange.push(fn2);
+  registerOnChange(fn) {
+    this._onChange.push(fn);
   }
   /** @internal */
-  _unregisterOnChange(fn2) {
-    removeListItem(this._onChange, fn2);
+  _unregisterOnChange(fn) {
+    removeListItem(this._onChange, fn);
   }
-  registerOnDisabledChange(fn2) {
-    this._onDisabledChange.push(fn2);
+  registerOnDisabledChange(fn) {
+    this._onDisabledChange.push(fn);
   }
   /** @internal */
-  _unregisterOnDisabledChange(fn2) {
-    removeListItem(this._onDisabledChange, fn2);
+  _unregisterOnDisabledChange(fn) {
+    removeListItem(this._onDisabledChange, fn);
   }
   /** @internal */
   _forEachChild(cb) {
@@ -60609,9 +59167,9 @@ var NumberValueAccessor = class _NumberValueAccessor extends BuiltInControlValue
    * Registers a function called when the control value changes.
    * @docs-private
    */
-  registerOnChange(fn2) {
+  registerOnChange(fn) {
     this.onChange = (value) => {
-      fn2(value == "" ? null : parseFloat(value));
+      fn(value == "" ? null : parseFloat(value));
     };
   }
   static \u0275fac = /* @__PURE__ */ (() => {
@@ -60779,10 +59337,10 @@ var RadioControlValueAccessor = class _RadioControlValueAccessor extends BuiltIn
    * Registers a function called when the control value changes.
    * @docs-private
    */
-  registerOnChange(fn2) {
-    this._fn = fn2;
+  registerOnChange(fn) {
+    this._fn = fn;
     this.onChange = () => {
-      fn2(this.value);
+      fn(this.value);
       this._registry.select(this);
     };
   }
@@ -60880,9 +59438,9 @@ var RangeValueAccessor = class _RangeValueAccessor extends BuiltInControlValueAc
    * Registers a function called when the control value changes.
    * @docs-private
    */
-  registerOnChange(fn2) {
+  registerOnChange(fn) {
     this.onChange = (value) => {
-      fn2(value == "" ? null : parseFloat(value));
+      fn(value == "" ? null : parseFloat(value));
     };
   }
   static \u0275fac = /* @__PURE__ */ (() => {
@@ -61944,11 +60502,11 @@ var SelectControlValueAccessor = class _SelectControlValueAccessor extends Built
    * Tracks the option comparison algorithm for tracking identities when
    * checking for changes.
    */
-  set compareWith(fn2) {
-    if (typeof fn2 !== "function" && (typeof ngDevMode === "undefined" || ngDevMode)) {
-      throw new RuntimeError(1201, `compareWith must be a function, but received ${JSON.stringify(fn2)}`);
+  set compareWith(fn) {
+    if (typeof fn !== "function" && (typeof ngDevMode === "undefined" || ngDevMode)) {
+      throw new RuntimeError(1201, `compareWith must be a function, but received ${JSON.stringify(fn)}`);
     }
-    this._compareWith = fn2;
+    this._compareWith = fn;
   }
   _compareWith = Object.is;
   // We need this because we might be in the process of destroying the root
@@ -62011,10 +60569,10 @@ var SelectControlValueAccessor = class _SelectControlValueAccessor extends Built
    * Registers a function called when the control value changes.
    * @docs-private
    */
-  registerOnChange(fn2) {
+  registerOnChange(fn) {
     this.onChange = (valueString) => {
       this.value = this._getOptionValue(valueString);
-      fn2(this.value);
+      fn(this.value);
     };
   }
   /** @internal */
@@ -62193,11 +60751,11 @@ var SelectMultipleControlValueAccessor = class _SelectMultipleControlValueAccess
    * Tracks the option comparison algorithm for tracking identities when
    * checking for changes.
    */
-  set compareWith(fn2) {
-    if (typeof fn2 !== "function" && (typeof ngDevMode === "undefined" || ngDevMode)) {
-      throw new RuntimeError(1201, `compareWith must be a function, but received ${JSON.stringify(fn2)}`);
+  set compareWith(fn) {
+    if (typeof fn !== "function" && (typeof ngDevMode === "undefined" || ngDevMode)) {
+      throw new RuntimeError(1201, `compareWith must be a function, but received ${JSON.stringify(fn)}`);
     }
-    this._compareWith = fn2;
+    this._compareWith = fn;
   }
   _compareWith = Object.is;
   /**
@@ -62208,7 +60766,7 @@ var SelectMultipleControlValueAccessor = class _SelectMultipleControlValueAccess
     this.value = value;
     let optionSelectedStateSetter;
     if (Array.isArray(value)) {
-      const ids = value.map((v2) => this._getOptionId(v2));
+      const ids = value.map((v) => this._getOptionId(v));
       optionSelectedStateSetter = (opt, o) => {
         opt._setSelected(ids.indexOf(o.toString()) > -1);
       };
@@ -62224,7 +60782,7 @@ var SelectMultipleControlValueAccessor = class _SelectMultipleControlValueAccess
    * and writes an array of the selected options.
    * @docs-private
    */
-  registerOnChange(fn2) {
+  registerOnChange(fn) {
     this.onChange = (element) => {
       const selected = [];
       const selectedOptions = element.selectedOptions;
@@ -62246,7 +60804,7 @@ var SelectMultipleControlValueAccessor = class _SelectMultipleControlValueAccess
         }
       }
       this.value = selected;
-      fn2(selected);
+      fn(selected);
     };
   }
   /** @internal */
@@ -62440,8 +60998,8 @@ var AbstractValidatorDirective = class _AbstractValidatorDirective {
     return this._validator(control);
   }
   /** @docs-private */
-  registerOnValidatorChange(fn2) {
-    this._onChange = fn2;
+  registerOnValidatorChange(fn) {
+    this._onChange = fn;
   }
   /**
    * @description
@@ -63634,7 +62192,7 @@ var ReactiveFormsModule = class _ReactiveFormsModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/card.mjs
+// node_modules/@angular/material/fesm2022/card.mjs
 var _c03 = ["*"];
 var _c1 = [[["mat-card-title"], ["mat-card-subtitle"], ["", "mat-card-title", ""], ["", "mat-card-subtitle", ""], ["", "matCardTitle", ""], ["", "matCardSubtitle", ""]], [["", "mat-card-image", ""], ["", "matCardImage", ""], ["", "mat-card-sm-image", ""], ["", "matCardImageSmall", ""], ["", "mat-card-md-image", ""], ["", "matCardImageMedium", ""], ["", "mat-card-lg-image", ""], ["", "matCardImageLarge", ""], ["", "mat-card-xl-image", ""], ["", "matCardImageXLarge", ""]], "*"];
 var _c2 = ["mat-card-title, mat-card-subtitle,\n      [mat-card-title], [mat-card-subtitle],\n      [matCardTitle], [matCardSubtitle]", "[mat-card-image], [matCardImage],\n                    [mat-card-sm-image], [matCardImageSmall],\n                    [mat-card-md-image], [matCardImageMedium],\n                    [mat-card-lg-image], [matCardImageLarge],\n                    [mat-card-xl-image], [matCardImageXLarge]", "*"];
@@ -64058,7 +62616,7 @@ var MatCardModule = class _MatCardModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/css-pixel-value.mjs
+// node_modules/@angular/cdk/fesm2022/css-pixel-value.mjs
 function coerceCssPixelValue(value) {
   if (value == null) {
     return "";
@@ -64066,12 +62624,12 @@ function coerceCssPixelValue(value) {
   return typeof value === "string" ? value : `${value}px`;
 }
 
-// ../node_modules/@angular/cdk/fesm2022/coercion.mjs
+// node_modules/@angular/cdk/fesm2022/coercion.mjs
 function coerceBooleanProperty(value) {
   return value != null && `${value}` !== "false";
 }
 
-// ../node_modules/@angular/cdk/fesm2022/scrolling2.mjs
+// node_modules/@angular/cdk/fesm2022/scrolling2.mjs
 var RtlScrollAxisType;
 (function(RtlScrollAxisType2) {
   RtlScrollAxisType2[RtlScrollAxisType2["NORMAL"] = 0] = "NORMAL";
@@ -64128,7 +62686,7 @@ function getRtlScrollAxisType() {
   return rtlScrollAxisType;
 }
 
-// ../node_modules/@angular/cdk/fesm2022/test-environment.mjs
+// node_modules/@angular/cdk/fesm2022/test-environment.mjs
 function _isTestEnvironment() {
   return (
     // @ts-ignore
@@ -64139,7 +62697,7 @@ function _isTestEnvironment() {
   );
 }
 
-// ../node_modules/@angular/cdk/fesm2022/platform.mjs
+// node_modules/@angular/cdk/fesm2022/platform.mjs
 var PlatformModule = class _PlatformModule {
   static \u0275fac = function PlatformModule_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _PlatformModule)();
@@ -64200,7 +62758,7 @@ function getSupportedInputTypes() {
   return supportedInputTypes;
 }
 
-// ../node_modules/@angular/cdk/fesm2022/observers/private.mjs
+// node_modules/@angular/cdk/fesm2022/observers/private.mjs
 var loopLimitExceededErrorHandler = (e) => {
   if (e instanceof ErrorEvent && e.message === "ResizeObserver loop limit exceeded") {
     console.error(`${e.message}. This could indicate a performance issue with your app. See https://github.com/WICG/resize-observer/blob/master/explainer.md#error-handling`);
@@ -64313,7 +62871,7 @@ var SharedResizeObserver = class _SharedResizeObserver {
   }], () => [], null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/layout.mjs
+// node_modules/@angular/cdk/fesm2022/layout.mjs
 var LayoutModule = class _LayoutModule {
   static \u0275fac = function LayoutModule_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _LayoutModule)();
@@ -64346,7 +62904,7 @@ var Breakpoints = {
   WebLandscape: "(min-width: 1280px) and (orientation: landscape)"
 };
 
-// ../node_modules/@angular/material/fesm2022/animation.mjs
+// node_modules/@angular/material/fesm2022/animation.mjs
 var MATERIAL_ANIMATIONS = new InjectionToken("MATERIAL_ANIMATIONS");
 var reducedMotion = null;
 function _getAnimationsState() {
@@ -64360,7 +62918,7 @@ function _animationsDisabled() {
   return _getAnimationsState() !== "enabled";
 }
 
-// ../node_modules/@angular/material/fesm2022/form-field2.mjs
+// node_modules/@angular/material/fesm2022/form-field2.mjs
 var _c04 = ["notch"];
 var _c12 = ["matFormFieldNotchedOutline", ""];
 var _c22 = ["*"];
@@ -64900,8 +63458,8 @@ var MatFormFieldNotchedOutline = class _MatFormFieldNotchedOutline {
         \u0275\u0275viewQuery(_c04, 5);
       }
       if (rf & 2) {
-        let _t2;
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._notch = _t2.first);
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._notch = _t.first);
       }
     },
     hostAttrs: [1, "mdc-notched-outline"],
@@ -65532,12 +64090,12 @@ var MatFormField = class _MatFormField {
       }
       if (rf & 2) {
         \u0275\u0275queryAdvance();
-        let _t2;
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._formFieldControl = _t2.first);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._prefixChildren = _t2);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._suffixChildren = _t2);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._errorChildren = _t2);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._hintChildren = _t2);
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._formFieldControl = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._prefixChildren = _t);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._suffixChildren = _t);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._errorChildren = _t);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._hintChildren = _t);
       }
     },
     viewQuery: function MatFormField_Query(rf, ctx) {
@@ -65557,15 +64115,15 @@ var MatFormField = class _MatFormField {
       }
       if (rf & 2) {
         \u0275\u0275queryAdvance(4);
-        let _t2;
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._textField = _t2.first);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._iconPrefixContainer = _t2.first);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._textPrefixContainer = _t2.first);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._iconSuffixContainer = _t2.first);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._textSuffixContainer = _t2.first);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._floatingLabel = _t2.first);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._notchedOutline = _t2.first);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._lineRipple = _t2.first);
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._textField = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._iconPrefixContainer = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._textPrefixContainer = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._iconSuffixContainer = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._textSuffixContainer = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._floatingLabel = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._notchedOutline = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._lineRipple = _t.first);
       }
     },
     hostAttrs: [1, "mat-mdc-form-field"],
@@ -65784,7 +64342,7 @@ var MatFormField = class _MatFormField {
   });
 })();
 
-// ../node_modules/@angular/material/fesm2022/form-field-module.mjs
+// node_modules/@angular/material/fesm2022/form-field-module.mjs
 var MatFormFieldModule = class _MatFormFieldModule {
   static \u0275fac = function MatFormFieldModule_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _MatFormFieldModule)();
@@ -65808,7 +64366,7 @@ var MatFormFieldModule = class _MatFormFieldModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/text-field.mjs
+// node_modules/@angular/cdk/fesm2022/text-field.mjs
 var _CdkTextFieldStyleLoader = class __CdkTextFieldStyleLoader {
   static \u0275fac = function _CdkTextFieldStyleLoader_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || __CdkTextFieldStyleLoader)();
@@ -66268,10 +64826,10 @@ var TextFieldModule = class _TextFieldModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/input-value-accessor.mjs
+// node_modules/@angular/material/fesm2022/input-value-accessor.mjs
 var MAT_INPUT_VALUE_ACCESSOR = new InjectionToken("MAT_INPUT_VALUE_ACCESSOR");
 
-// ../node_modules/@angular/material/fesm2022/error-options.mjs
+// node_modules/@angular/material/fesm2022/error-options.mjs
 var ShowOnDirtyErrorStateMatcher = class _ShowOnDirtyErrorStateMatcher {
   isErrorState(control, form) {
     return !!(control && control.invalid && (control.dirty || form && form.submitted));
@@ -66311,7 +64869,7 @@ var ErrorStateMatcher = class _ErrorStateMatcher {
   }], null, null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/error-state.mjs
+// node_modules/@angular/material/fesm2022/error-state.mjs
 var _ErrorStateTracker = class {
   _defaultMatcher;
   ngControl;
@@ -66343,7 +64901,7 @@ var _ErrorStateTracker = class {
   }
 };
 
-// ../node_modules/@angular/material/fesm2022/input.mjs
+// node_modules/@angular/material/fesm2022/input.mjs
 function getMatInputUnsupportedTypeError(type2) {
   return Error(`Input type "${type2}" isn't supported by matInput.`);
 }
@@ -66868,7 +65426,7 @@ var MatInputModule = class _MatInputModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/ripple.mjs
+// node_modules/@angular/material/fesm2022/ripple.mjs
 var RippleState;
 (function(RippleState2) {
   RippleState2[RippleState2["FADING_IN"] = 0] = "FADING_IN";
@@ -67036,16 +65594,16 @@ var RippleRenderer = class _RippleRenderer {
    * @param y Coordinate within the element, along the Y axis at which to start the ripple.
    * @param config Extra ripple options.
    */
-  fadeInRipple(x, y2, config2 = {}) {
+  fadeInRipple(x, y, config2 = {}) {
     const containerRect = this._containerRect = this._containerRect || this._containerElement.getBoundingClientRect();
     const animationConfig = __spreadValues(__spreadValues({}, defaultRippleAnimationConfig), config2.animation);
     if (config2.centered) {
       x = containerRect.left + containerRect.width / 2;
-      y2 = containerRect.top + containerRect.height / 2;
+      y = containerRect.top + containerRect.height / 2;
     }
-    const radius = config2.radius || distanceToFurthestCorner(x, y2, containerRect);
+    const radius = config2.radius || distanceToFurthestCorner(x, y, containerRect);
     const offsetX = x - containerRect.left;
-    const offsetY = y2 - containerRect.top;
+    const offsetY = y - containerRect.top;
     const enterDuration = animationConfig.enterDuration;
     const ripple = document.createElement("div");
     ripple.classList.add("mat-ripple-element");
@@ -67249,9 +65807,9 @@ var RippleRenderer = class _RippleRenderer {
     }
   }
 };
-function distanceToFurthestCorner(x, y2, rect) {
+function distanceToFurthestCorner(x, y, rect) {
   const distX = Math.max(Math.abs(x - rect.left), Math.abs(x - rect.right));
-  const distY = Math.max(Math.abs(y2 - rect.top), Math.abs(y2 - rect.bottom));
+  const distY = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
   return Math.sqrt(distX * distX + distY * distY);
 }
 var MAT_RIPPLE_GLOBAL_OPTIONS = new InjectionToken("mat-ripple-global-options");
@@ -67367,9 +65925,9 @@ var MatRipple = class _MatRipple {
     }
   }
   /** Launches a manual ripple at the specified coordinated or just by the ripple config. */
-  launch(configOrX, y2 = 0, config2) {
+  launch(configOrX, y = 0, config2) {
     if (typeof configOrX === "number") {
-      return this._rippleRenderer.fadeInRipple(configOrX, y2, __spreadValues(__spreadValues({}, this.rippleConfig), config2));
+      return this._rippleRenderer.fadeInRipple(configOrX, y, __spreadValues(__spreadValues({}, this.rippleConfig), config2));
     } else {
       return this._rippleRenderer.fadeInRipple(0, 0, __spreadValues(__spreadValues({}, this.rippleConfig), configOrX));
     }
@@ -67442,7 +66000,7 @@ var MatRipple = class _MatRipple {
   });
 })();
 
-// ../node_modules/@angular/material/fesm2022/pseudo-checkbox.mjs
+// node_modules/@angular/material/fesm2022/pseudo-checkbox.mjs
 var MatPseudoCheckbox = class _MatPseudoCheckbox {
   _animationsDisabled = _animationsDisabled();
   /** Display state of the checkbox. */
@@ -67515,7 +66073,7 @@ var MatPseudoCheckbox = class _MatPseudoCheckbox {
   });
 })();
 
-// ../node_modules/@angular/material/fesm2022/structural-styles.mjs
+// node_modules/@angular/material/fesm2022/structural-styles.mjs
 var _StructuralStylesLoader = class __StructuralStylesLoader {
   static \u0275fac = function _StructuralStylesLoader_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || __StructuralStylesLoader)();
@@ -67545,7 +66103,7 @@ var _StructuralStylesLoader = class __StructuralStylesLoader {
   }], null, null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/option.mjs
+// node_modules/@angular/material/fesm2022/option.mjs
 var _c05 = ["*", [["mat-option"], ["ng-container"]]];
 var _c13 = ["*", "mat-option, ng-container"];
 var _c23 = ["text"];
@@ -67869,8 +66427,8 @@ var MatOption = class _MatOption {
         \u0275\u0275viewQuery(_c23, 7);
       }
       if (rf & 2) {
-        let _t2;
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._text = _t2.first);
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._text = _t.first);
       }
     },
     hostAttrs: ["role", "option", 1, "mat-mdc-option", "mdc-list-item"],
@@ -68046,14 +66604,14 @@ function _getOptionScrollPosition(optionOffset, optionHeight, currentScrollPosit
   return currentScrollPosition;
 }
 
-// ../node_modules/@angular/cdk/fesm2022/data-source.mjs
+// node_modules/@angular/cdk/fesm2022/data-source.mjs
 var DataSource = class {
 };
 function isDataSource(value) {
   return value && typeof value.connect === "function" && !(value instanceof ConnectableObservable);
 }
 
-// ../node_modules/@angular/cdk/fesm2022/recycle-view-repeater-strategy.mjs
+// node_modules/@angular/cdk/fesm2022/recycle-view-repeater-strategy.mjs
 var ArrayDataSource = class extends DataSource {
   _data;
   constructor(_data) {
@@ -68170,7 +66728,7 @@ var _RecycleViewRepeaterStrategy = class {
   }
 };
 
-// ../node_modules/@angular/cdk/fesm2022/scrolling.mjs
+// node_modules/@angular/cdk/fesm2022/scrolling.mjs
 var _c06 = ["contentWrapper"];
 var _c14 = ["*"];
 var VIRTUAL_SCROLL_STRATEGY = new InjectionToken("VIRTUAL_SCROLL_STRATEGY");
@@ -68452,7 +67010,7 @@ var ScrollDispatcher = class _ScrollDispatcher {
   ngOnDestroy() {
     this._cleanupGlobalListener?.();
     this._cleanupGlobalListener = void 0;
-    this.scrollContainers.forEach((_2, container2) => this.deregister(container2));
+    this.scrollContainers.forEach((_, container2) => this.deregister(container2));
     this._scrolled.complete();
   }
   /**
@@ -69013,15 +67571,15 @@ var CdkVirtualScrollViewport = class _CdkVirtualScrollViewport extends CdkVirtua
    * Sets the offset from the start of the viewport to either the start or end of the rendered data
    * (in pixels).
    */
-  setRenderedContentOffset(offset, to2 = "to-start") {
-    offset = this.appendOnly && to2 === "to-start" ? 0 : offset;
+  setRenderedContentOffset(offset, to = "to-start") {
+    offset = this.appendOnly && to === "to-start" ? 0 : offset;
     const isRtl = this.dir && this.dir.value == "rtl";
     const isHorizontal = this.orientation == "horizontal";
     const axis = isHorizontal ? "X" : "Y";
     const axisDirection = isHorizontal && isRtl ? -1 : 1;
     let transform2 = `translate${axis}(${Number(axisDirection * offset)}px)`;
     this._renderedContentOffset = offset;
-    if (to2 === "to-end") {
+    if (to === "to-end") {
       transform2 += ` translate${axis}(-100%)`;
       this._renderedContentOffsetNeedsRewrite = true;
     }
@@ -69152,8 +67710,8 @@ var CdkVirtualScrollViewport = class _CdkVirtualScrollViewport extends CdkVirtua
         this._changeDetectionNeeded.set(false);
         const runAfterChangeDetection = this._runAfterChangeDetection;
         this._runAfterChangeDetection = [];
-        for (const fn2 of runAfterChangeDetection) {
-          fn2();
+        for (const fn of runAfterChangeDetection) {
+          fn();
         }
       }, {
         injector: this._injector
@@ -69176,8 +67734,8 @@ var CdkVirtualScrollViewport = class _CdkVirtualScrollViewport extends CdkVirtua
         \u0275\u0275viewQuery(_c06, 7);
       }
       if (rf & 2) {
-        let _t2;
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._contentWrapper = _t2.first);
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._contentWrapper = _t.first);
       }
     },
     hostAttrs: [1, "cdk-virtual-scroll-viewport"],
@@ -69305,9 +67863,9 @@ var CdkVirtualForOf = class _CdkVirtualForOf {
   get cdkVirtualForTrackBy() {
     return this._cdkVirtualForTrackBy;
   }
-  set cdkVirtualForTrackBy(fn2) {
+  set cdkVirtualForTrackBy(fn) {
     this._needsUpdate = true;
-    this._cdkVirtualForTrackBy = fn2 ? (index, item) => fn2(index + (this._renderedRange ? this._renderedRange.start : 0), item) : void 0;
+    this._cdkVirtualForTrackBy = fn ? (index, item) => fn(index + (this._renderedRange ? this._renderedRange.start : 0), item) : void 0;
   }
   _cdkVirtualForTrackBy;
   /** The template used to stamp out new elements. */
@@ -69650,7 +68208,7 @@ var ScrollingModule = class _ScrollingModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/portal.mjs
+// node_modules/@angular/cdk/fesm2022/portal.mjs
 function throwNullPortalError() {
   throw Error("Must provide a portal to attach");
 }
@@ -69823,8 +68381,8 @@ var BasePortalOutlet = class {
     this._isDisposed = true;
   }
   /** @docs-private */
-  setDisposeFn(fn2) {
-    this._disposeFn = fn2;
+  setDisposeFn(fn) {
+    this._disposeFn = fn;
   }
   _invokeDisposeFn() {
     if (this._disposeFn) {
@@ -70202,7 +68760,7 @@ var PortalModule = class _PortalModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/overlay-module.mjs
+// node_modules/@angular/cdk/fesm2022/overlay-module.mjs
 var scrollBehaviorSupported2 = supportsScrollBehavior();
 function createBlockScrollStrategy(injector) {
   return new BlockScrollStrategy(injector.get(ViewportRuler), injector.get(DOCUMENT));
@@ -71583,18 +70141,18 @@ var FlexibleConnectedPositionStrategy = class {
     if (containerRect.left < 0) {
       x -= containerRect.left;
     }
-    let y2;
+    let y;
     if (pos.originY == "center") {
-      y2 = originRect.top + originRect.height / 2;
+      y = originRect.top + originRect.height / 2;
     } else {
-      y2 = pos.originY == "top" ? originRect.top : originRect.bottom;
+      y = pos.originY == "top" ? originRect.top : originRect.bottom;
     }
     if (containerRect.top < 0) {
-      y2 -= containerRect.top;
+      y -= containerRect.top;
     }
     return {
       x,
-      y: y2
+      y
     };
   }
   /**
@@ -71626,7 +70184,7 @@ var FlexibleConnectedPositionStrategy = class {
     const overlay = getRoundedBoundingClientRect(rawOverlayRect);
     let {
       x,
-      y: y2
+      y
     } = point;
     let offsetX = this._getOffset(position, "x");
     let offsetY = this._getOffset(position, "y");
@@ -71634,12 +70192,12 @@ var FlexibleConnectedPositionStrategy = class {
       x += offsetX;
     }
     if (offsetY) {
-      y2 += offsetY;
+      y += offsetY;
     }
     let leftOverflow = 0 - x;
     let rightOverflow = x + overlay.width - viewport.width;
-    let topOverflow = 0 - y2;
-    let bottomOverflow = y2 + overlay.height - viewport.height;
+    let topOverflow = 0 - y;
+    let bottomOverflow = y + overlay.height - viewport.height;
     let visibleWidth = this._subtractOverflows(overlay.width, leftOverflow, rightOverflow);
     let visibleHeight = this._subtractOverflows(overlay.height, topOverflow, bottomOverflow);
     let visibleArea = visibleWidth * visibleHeight;
@@ -72091,11 +70649,11 @@ function getRoundedBoundingClientRect(clientRect) {
     height: Math.floor(clientRect.height)
   };
 }
-function compareScrollVisibility(a, b2) {
-  if (a === b2) {
+function compareScrollVisibility(a, b) {
+  if (a === b) {
     return true;
   }
-  return a.isOriginClipped === b2.isOriginClipped && a.isOriginOutsideView === b2.isOriginOutsideView && a.isOverlayClipped === b2.isOverlayClipped && a.isOverlayOutsideView === b2.isOverlayOutsideView;
+  return a.isOriginClipped === b.isOriginClipped && a.isOriginOutsideView === b.isOriginOutsideView && a.isOverlayClipped === b.isOverlayClipped && a.isOverlayOutsideView === b.isOverlayOutsideView;
 }
 var wrapperClass = "cdk-global-overlay-wrapper";
 function createGlobalPositionStrategy(_injector) {
@@ -72932,7 +71490,7 @@ var OverlayModule = class _OverlayModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/overlay.mjs
+// node_modules/@angular/cdk/fesm2022/overlay.mjs
 var FullscreenOverlayContainer = class _FullscreenOverlayContainer extends OverlayContainer {
   _renderer = inject2(RendererFactory2).createRenderer(null, null);
   _fullScreenEventName;
@@ -73003,7 +71561,7 @@ var FullscreenOverlayContainer = class _FullscreenOverlayContainer extends Overl
   }], () => [], null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/selection-model.mjs
+// node_modules/@angular/cdk/fesm2022/selection-model.mjs
 var SelectionModel = class {
   _multiple;
   _emitChanges;
@@ -73207,7 +71765,7 @@ function getMultipleValuesInSingleSelectionError() {
   return Error("Cannot pass multiple values into SelectionModel with single-value mode.");
 }
 
-// ../node_modules/@angular/material/fesm2022/ripple-module.mjs
+// node_modules/@angular/material/fesm2022/ripple-module.mjs
 var MatRippleModule = class _MatRippleModule {
   static \u0275fac = function MatRippleModule_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _MatRippleModule)();
@@ -73231,7 +71789,7 @@ var MatRippleModule = class _MatRippleModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/pseudo-checkbox-module.mjs
+// node_modules/@angular/material/fesm2022/pseudo-checkbox-module.mjs
 var MatPseudoCheckboxModule = class _MatPseudoCheckboxModule {
   static \u0275fac = function MatPseudoCheckboxModule_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _MatPseudoCheckboxModule)();
@@ -73255,7 +71813,7 @@ var MatPseudoCheckboxModule = class _MatPseudoCheckboxModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/option-module.mjs
+// node_modules/@angular/material/fesm2022/option-module.mjs
 var MatOptionModule = class _MatOptionModule {
   static \u0275fac = function MatOptionModule_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _MatOptionModule)();
@@ -73279,7 +71837,7 @@ var MatOptionModule = class _MatOptionModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/select-module.mjs
+// node_modules/@angular/material/fesm2022/select-module.mjs
 var _c07 = ["trigger"];
 var _c15 = ["panel"];
 var _c24 = [[["mat-select-trigger"]], "*"];
@@ -73593,11 +72151,11 @@ var MatSelect = class _MatSelect {
   get compareWith() {
     return this._compareWith;
   }
-  set compareWith(fn2) {
-    if (typeof fn2 !== "function" && (typeof ngDevMode === "undefined" || ngDevMode)) {
+  set compareWith(fn) {
+    if (typeof fn !== "function" && (typeof ngDevMode === "undefined" || ngDevMode)) {
       throw getMatSelectNonFunctionValueError();
     }
-    this._compareWith = fn2;
+    this._compareWith = fn;
     if (this._selectionModel) {
       this._initializeSelection();
     }
@@ -73897,8 +72455,8 @@ var MatSelect = class _MatSelect {
    *
    * @param fn Callback to be triggered when the value changes.
    */
-  registerOnChange(fn2) {
-    this._onChange = fn2;
+  registerOnChange(fn) {
+    this._onChange = fn;
   }
   /**
    * Saves a callback function to be invoked when the select is blurred
@@ -73907,8 +72465,8 @@ var MatSelect = class _MatSelect {
    *
    * @param fn Callback to be triggered when the component has been touched.
    */
-  registerOnTouched(fn2) {
-    this._onTouched = fn2;
+  registerOnTouched(fn) {
+    this._onTouched = fn;
   }
   /**
    * Disables the select. Part of the ControlValueAccessor interface required
@@ -74206,8 +72764,8 @@ var MatSelect = class _MatSelect {
   _sortValues() {
     if (this.multiple) {
       const options = this.options.toArray();
-      this._selectionModel.sort((a, b2) => {
-        return this.sortComparator ? this.sortComparator(a, b2, options) : options.indexOf(a) - options.indexOf(b2);
+      this._selectionModel.sort((a, b) => {
+        return this.sortComparator ? this.sortComparator(a, b, options) : options.indexOf(a) - options.indexOf(b);
       });
       this.stateChanges.next();
     }
@@ -74333,10 +72891,10 @@ var MatSelect = class _MatSelect {
         \u0275\u0275contentQuery(dirIndex, MAT_OPTGROUP, 5);
       }
       if (rf & 2) {
-        let _t2;
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx.customTrigger = _t2.first);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx.options = _t2);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx.optionGroups = _t2);
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.customTrigger = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.options = _t);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.optionGroups = _t);
       }
     },
     viewQuery: function MatSelect_Query(rf, ctx) {
@@ -74346,10 +72904,10 @@ var MatSelect = class _MatSelect {
         \u0275\u0275viewQuery(CdkConnectedOverlay, 5);
       }
       if (rf & 2) {
-        let _t2;
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx.trigger = _t2.first);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx.panel = _t2.first);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._overlayDir = _t2.first);
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.trigger = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.panel = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._overlayDir = _t.first);
       }
     },
     hostAttrs: ["role", "combobox", "aria-haspopup", "listbox", 1, "mat-mdc-select"],
@@ -74744,7 +73302,7 @@ var MatSelectModule = class _MatSelectModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/ripple-loader.mjs
+// node_modules/@angular/material/fesm2022/ripple-loader.mjs
 var eventListenerOptions2 = {
   capture: true
 };
@@ -74881,7 +73439,7 @@ var MatRippleLoader = class _MatRippleLoader {
   }], () => [], null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/icon-button.mjs
+// node_modules/@angular/material/fesm2022/icon-button.mjs
 var _c08 = ["mat-icon-button", ""];
 var _c16 = ["*"];
 var MAT_BUTTON_CONFIG = new InjectionToken("MAT_BUTTON_CONFIG");
@@ -75165,7 +73723,7 @@ var MatIconButton = class _MatIconButton extends MatButtonBase {
   }], () => [], null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/button.mjs
+// node_modules/@angular/material/fesm2022/button.mjs
 var _c09 = ["matButton", ""];
 var _c17 = [[["", 8, "material-icons", 3, "iconPositionEnd", ""], ["mat-icon", 3, "iconPositionEnd", ""], ["", "matButtonIcon", "", 3, "iconPositionEnd", ""]], "*", [["", "iconPositionEnd", "", 8, "material-icons"], ["mat-icon", "iconPositionEnd", ""], ["", "matButtonIcon", "", "iconPositionEnd", ""]]];
 var _c25 = [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"];
@@ -75516,7 +74074,7 @@ var MatButtonModule = class _MatButtonModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/cdk/fesm2022/dialog.mjs
+// node_modules/@angular/cdk/fesm2022/dialog.mjs
 function CdkDialogContainer_ng_template_0_Template(rf, ctx) {
 }
 var DialogConfig = class {
@@ -75875,8 +74433,8 @@ var CdkDialogContainer = class _CdkDialogContainer extends BasePortalOutlet {
         \u0275\u0275viewQuery(CdkPortalOutlet, 7);
       }
       if (rf & 2) {
-        let _t2;
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._portalOutlet = _t2.first);
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._portalOutlet = _t.first);
       }
     },
     hostAttrs: ["tabindex", "-1", 1, "cdk-dialog-container"],
@@ -76380,7 +74938,7 @@ var DialogModule = class _DialogModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/dialog-module.mjs
+// node_modules/@angular/material/fesm2022/dialog-module.mjs
 function MatDialogContainer_ng_template_2_Template(rf, ctx) {
 }
 var MatDialogConfig = class {
@@ -77295,7 +75853,7 @@ var MatDialogModule = class _MatDialogModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/progress-spinner.mjs
+// node_modules/@angular/material/fesm2022/progress-spinner.mjs
 var _c010 = ["determinateSpinner"];
 function MatProgressSpinner_ng_template_0_Template(rf, ctx) {
   if (rf & 1) {
@@ -77378,8 +75936,8 @@ var MatProgressSpinner = class _MatProgressSpinner {
   get value() {
     return this.mode === "determinate" ? this._value : 0;
   }
-  set value(v2) {
-    this._value = Math.max(0, Math.min(100, v2 || 0));
+  set value(v) {
+    this._value = Math.max(0, Math.min(100, v || 0));
   }
   _value = 0;
   /** The diameter of the progress spinner (will set width and height of svg). */
@@ -77433,8 +75991,8 @@ var MatProgressSpinner = class _MatProgressSpinner {
         \u0275\u0275viewQuery(_c010, 5);
       }
       if (rf & 2) {
-        let _t2;
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._determinateCircle = _t2.first);
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._determinateCircle = _t.first);
       }
     },
     hostAttrs: ["role", "progressbar", "tabindex", "-1", 1, "mat-mdc-progress-spinner", "mdc-circular-progress"],
@@ -77583,7 +76141,7 @@ var MatProgressSpinnerModule = class _MatProgressSpinnerModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/internal-form-field.mjs
+// node_modules/@angular/material/fesm2022/internal-form-field.mjs
 var _c011 = ["mat-internal-form-field", ""];
 var _c18 = ["*"];
 var _MatInternalFormField = class __MatInternalFormField {
@@ -77644,7 +76202,7 @@ var _MatInternalFormField = class __MatInternalFormField {
   });
 })();
 
-// ../node_modules/@angular/material/fesm2022/slide-toggle.mjs
+// node_modules/@angular/material/fesm2022/slide-toggle.mjs
 var _c012 = ["switch"];
 var _c19 = ["*"];
 function MatSlideToggle_Conditional_11_Template(rf, ctx) {
@@ -77680,7 +76238,7 @@ var MatSlideToggle = class _MatSlideToggle {
   _focusMonitor = inject2(FocusMonitor);
   _changeDetectorRef = inject2(ChangeDetectorRef);
   defaults = inject2(MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS);
-  _onChange = (_2) => {
+  _onChange = (_) => {
   };
   _onTouched = () => {
   };
@@ -77801,12 +76359,12 @@ var MatSlideToggle = class _MatSlideToggle {
     this.checked = !!value;
   }
   /** Implemented as part of ControlValueAccessor. */
-  registerOnChange(fn2) {
-    this._onChange = fn2;
+  registerOnChange(fn) {
+    this._onChange = fn;
   }
   /** Implemented as part of ControlValueAccessor. */
-  registerOnTouched(fn2) {
-    this._onTouched = fn2;
+  registerOnTouched(fn) {
+    this._onTouched = fn;
   }
   /** Implemented as a part of Validator. */
   validate(control) {
@@ -77815,8 +76373,8 @@ var MatSlideToggle = class _MatSlideToggle {
     } : null;
   }
   /** Implemented as a part of Validator. */
-  registerOnValidatorChange(fn2) {
-    this._validatorOnChange = fn2;
+  registerOnValidatorChange(fn) {
+    this._validatorOnChange = fn;
   }
   /** Implemented as a part of ControlValueAccessor. */
   setDisabledState(isDisabled) {
@@ -77863,8 +76421,8 @@ var MatSlideToggle = class _MatSlideToggle {
         \u0275\u0275viewQuery(_c012, 5);
       }
       if (rf & 2) {
-        let _t2;
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._switchElement = _t2.first);
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._switchElement = _t.first);
       }
     },
     hostAttrs: [1, "mat-mdc-slide-toggle"],
@@ -78158,7 +76716,7 @@ var MatSlideToggleModule = class _MatSlideToggleModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/snack-bar.mjs
+// node_modules/@angular/material/fesm2022/snack-bar.mjs
 function SimpleSnackBar_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
@@ -78680,9 +77238,9 @@ var MatSnackBarContainer = class _MatSnackBarContainer extends BasePortalOutlet 
         \u0275\u0275viewQuery(_c013, 7);
       }
       if (rf & 2) {
-        let _t2;
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._portalOutlet = _t2.first);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._label = _t2.first);
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._portalOutlet = _t.first);
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._label = _t.first);
       }
     },
     hostAttrs: [1, "mdc-snackbar", "mat-mdc-snack-bar-container"],
@@ -79007,7 +77565,7 @@ var MatSnackBarModule = class _MatSnackBarModule {
   }], null, null);
 })();
 
-// ../node_modules/@angular/material/fesm2022/progress-bar.mjs
+// node_modules/@angular/material/fesm2022/progress-bar.mjs
 function MatProgressBar_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275domElement(0, "div", 2);
@@ -79071,8 +77629,8 @@ var MatProgressBar = class _MatProgressBar {
   get value() {
     return this._value;
   }
-  set value(v2) {
-    this._value = clamp(v2 || 0);
+  set value(v) {
+    this._value = clamp(v || 0);
     this._changeDetectorRef.markForCheck();
   }
   _value = 0;
@@ -79080,8 +77638,8 @@ var MatProgressBar = class _MatProgressBar {
   get bufferValue() {
     return this._bufferValue || 0;
   }
-  set bufferValue(v2) {
-    this._bufferValue = clamp(v2 || 0);
+  set bufferValue(v) {
+    this._bufferValue = clamp(v || 0);
     this._changeDetectorRef.markForCheck();
   }
   _bufferValue = 0;
@@ -79266,8 +77824,8 @@ var MatProgressBar = class _MatProgressBar {
     }]
   });
 })();
-function clamp(v2, min2 = 0, max2 = 100) {
-  return Math.max(min2, Math.min(max2, v2));
+function clamp(v, min2 = 0, max2 = 100) {
+  return Math.max(min2, Math.min(max2, v));
 }
 var MatProgressBarModule = class _MatProgressBarModule {
   static \u0275fac = function MatProgressBarModule_Factory(__ngFactoryType__) {
@@ -79292,18 +77850,411 @@ var MatProgressBarModule = class _MatProgressBarModule {
   }], null, null);
 })();
 
-// src/Domain/Entities/NodeType.ts
-var NodeTypeDisplayNames = {
-  ["entity" /* ENTITY */]: "Entity",
-  ["domain" /* DOMAIN_SERVICE */]: "Domain Service",
-  ["application" /* APPLICATION_SERVICE */]: "Application Service",
-  ["repository" /* REPOSITORY */]: "Repository"
+// ../lib/Domain/Entities/OnionRing.ts
+var OnionRing = class _OnionRing {
+  constructor(_value) {
+    this._value = _value;
+  }
+  static ENTITIES = new _OnionRing("Entities");
+  static DOMAIN_SERVICES = new _OnionRing("Domain Services");
+  static APPLICATION_SERVICES = new _OnionRing("Application Services");
+  static REPOSITORIES = new _OnionRing("Repositories");
+  get value() {
+    return this._value;
+  }
+  toString() {
+    return this._value;
+  }
+  equals(other) {
+    return this._value === other._value;
+  }
+  static getAllRings() {
+    return [
+      _OnionRing.ENTITIES,
+      _OnionRing.DOMAIN_SERVICES,
+      _OnionRing.APPLICATION_SERVICES,
+      _OnionRing.REPOSITORIES
+    ];
+  }
 };
-function getNodeTypeDisplayName(nodeType) {
-  return NodeTypeDisplayNames[nodeType];
-}
 
-// ../node_modules/awilix/lib/awilix.browser.mjs
+// ../lib/Application/Services/OnionConfigConnectionAppService.ts
+var OnionConfigConnectionAppService = class {
+  constructor(stateService, repositoryService) {
+    this.stateService = stateService;
+    this.repositoryService = repositoryService;
+  }
+  addConnection(source, target) {
+    const data = this.stateService.getData();
+    if (!data) {
+      return { success: false, message: "No data loaded", data: null };
+    }
+    const { entities, domainServices, applicationServices } = data;
+    const sourceIsEntity = entities.includes(source);
+    const sourceIsDomain = domainServices.includes(source);
+    const sourceIsApp = applicationServices.includes(source);
+    const sourceIsRepo = this.repositoryService.isRepositoryName(source) && this.repositoryService.isValidRepository(source, entities);
+    const targetIsEntity = entities.includes(target);
+    const targetIsDomain = domainServices.includes(target);
+    const targetIsApp = applicationServices.includes(target);
+    const targetIsRepo = this.repositoryService.isRepositoryName(target) && this.repositoryService.isValidRepository(target, entities);
+    const isValid = sourceIsApp && targetIsDomain || sourceIsApp && targetIsRepo || sourceIsRepo && targetIsApp || sourceIsDomain && targetIsApp || sourceIsDomain && targetIsEntity || sourceIsEntity && targetIsDomain;
+    if (!isValid) {
+      return {
+        success: false,
+        message: `Connections must be of ONE-RING Distance`,
+        data: null
+      };
+    }
+    if (sourceIsEntity && targetIsDomain) {
+      return this.toggleRecordConnection(
+        data.domainServiceConnections,
+        target,
+        source
+      );
+    }
+    if (sourceIsDomain && targetIsEntity) {
+      return this.toggleRecordConnection(
+        data.domainServiceConnections,
+        source,
+        target
+      );
+    }
+    if (sourceIsApp && targetIsDomain) {
+      return this.toggleAppDependency(source, target, "domainServices");
+    }
+    if (sourceIsApp && targetIsRepo) {
+      return this.toggleAppDependency(source, target, "repositories");
+    }
+    if (sourceIsRepo && targetIsApp) {
+      const currentData = this.stateService.getData();
+      if (!currentData.applicationServiceDependencies[target]) {
+        currentData.applicationServiceDependencies[target] = {
+          domainServices: [],
+          repositories: []
+        };
+      }
+      const repos = currentData.applicationServiceDependencies[target].repositories;
+      if (!repos.includes(source)) {
+        repos.push(source);
+        return {
+          success: true,
+          message: `Connection from "${source}" to "${target}" added`,
+          data: currentData
+        };
+      } else {
+        repos.splice(repos.indexOf(source), 1);
+        return {
+          success: true,
+          message: `Connection from "${source}" to "${target}" removed`,
+          data: currentData
+        };
+      }
+    }
+    if (sourceIsDomain && targetIsApp) {
+      return this.toggleAppDependency(target, source, "domainServices");
+    }
+    return {
+      success: false,
+      message: "Unexpected error handling connection",
+      data: null
+    };
+  }
+  removeConnection(source, target) {
+    const data = this.stateService.getData();
+    const newData = __spreadValues({}, data);
+    const sourceRing = this.repositoryService.getRing(source, data);
+    const sourceIsRepo = this.repositoryService.isRepositoryName(source) && this.repositoryService.isValidRepository(source, data.entities || []);
+    let connectionRemoved = false;
+    if (sourceRing === OnionRing.DOMAIN_SERVICES && newData.domainServiceConnections?.[source]) {
+      const connections = newData.domainServiceConnections[source];
+      const index = connections.indexOf(target);
+      if (index > -1) {
+        connections.splice(index, 1);
+        connectionRemoved = true;
+      }
+    } else if (sourceRing === OnionRing.APPLICATION_SERVICES && newData.applicationServiceDependencies?.[source]) {
+      const domainDeps = newData.applicationServiceDependencies[source].domainServices;
+      const domainIndex = domainDeps.indexOf(target);
+      if (domainIndex > -1) {
+        domainDeps.splice(domainIndex, 1);
+        connectionRemoved = true;
+      } else {
+        const repoDeps = newData.applicationServiceDependencies[source].repositories;
+        const repoIndex = repoDeps.indexOf(target);
+        if (repoIndex > -1) {
+          repoDeps.splice(repoIndex, 1);
+          connectionRemoved = true;
+        }
+      }
+    } else if (sourceIsRepo && this.repositoryService.getRing(target, data) === OnionRing.APPLICATION_SERVICES) {
+      const repoDeps = newData.applicationServiceDependencies?.[target]?.repositories;
+      if (repoDeps) {
+        const repoIndex = repoDeps.indexOf(source);
+        if (repoIndex > -1) {
+          repoDeps.splice(repoIndex, 1);
+          connectionRemoved = true;
+        }
+      }
+    }
+    if (!connectionRemoved) {
+      return {
+        success: false,
+        message: "Connection not found"
+      };
+    }
+    this.stateService.setData(newData);
+    return {
+      success: true,
+      message: "Connection removed successfully",
+      data: newData
+    };
+  }
+  hasConnection(source, target) {
+    const data = this.stateService.getData();
+    const sourceRing = this.repositoryService.getRing(source, data);
+    const sourceIsRepo = this.repositoryService.isRepositoryName(source) && this.repositoryService.isValidRepository(source, data.entities || []);
+    if (sourceRing === OnionRing.DOMAIN_SERVICES) {
+      return data.domainServiceConnections?.[source]?.includes(target) || false;
+    } else if (sourceRing === OnionRing.APPLICATION_SERVICES) {
+      const hasDomainConnection = data.applicationServiceDependencies?.[source]?.domainServices?.includes(
+        target
+      ) || false;
+      const hasRepoConnection = data.applicationServiceDependencies?.[source]?.repositories?.includes(
+        target
+      ) || false;
+      return hasDomainConnection || hasRepoConnection;
+    } else if (sourceIsRepo && this.repositoryService.getRing(target, data) === OnionRing.APPLICATION_SERVICES) {
+      const deps = data.applicationServiceDependencies?.[target];
+      return deps?.repositories?.includes(source) || false;
+    }
+    return false;
+  }
+  getPossibleTargets(sourceNode) {
+    const data = this.stateService.getData();
+    if (!data) return [];
+    const { entities, domainServices, applicationServices } = data;
+    const sourceIsRepo = this.repositoryService.isRepositoryName(sourceNode) && this.repositoryService.isValidRepository(sourceNode, entities || []);
+    if (entities?.includes(sourceNode)) {
+      return domainServices ?? [];
+    }
+    if (domainServices?.includes(sourceNode)) {
+      return [...entities ?? [], ...applicationServices ?? []];
+    }
+    if (applicationServices?.includes(sourceNode)) {
+      const repositories = this.repositoryService.getRepositories(
+        entities || []
+      );
+      return [...domainServices ?? [], ...repositories];
+    }
+    if (sourceIsRepo) {
+      return applicationServices ?? [];
+    }
+    return [];
+  }
+  getCurrentTargets(source) {
+    const data = this.stateService.getData();
+    const sourceRing = this.repositoryService.getRing(source, data);
+    const sourceIsRepo = this.repositoryService.isRepositoryName(source) && this.repositoryService.isValidRepository(source, data.entities || []);
+    if (sourceRing === OnionRing.DOMAIN_SERVICES) {
+      return data.domainServiceConnections?.[source] || [];
+    } else if (sourceRing === OnionRing.APPLICATION_SERVICES) {
+      const deps = data.applicationServiceDependencies?.[source];
+      if (!deps) {
+        return [];
+      }
+      return [...deps.domainServices || [], ...deps.repositories || []];
+    } else if (sourceIsRepo) {
+      const appServices = data.applicationServices || [];
+      return appServices.filter((appService) => {
+        const deps = data.applicationServiceDependencies?.[appService];
+        return deps?.repositories?.includes(source) || false;
+      });
+    }
+    return [];
+  }
+  validateConnection(source, target) {
+    const data = this.stateService.getData();
+    const sourceRing = this.repositoryService.getRing(source, data);
+    const targetRing = this.repositoryService.getRing(target, data);
+    const sourceIsRepo = this.repositoryService.isRepositoryName(source) && this.repositoryService.isValidRepository(source, data.entities || []);
+    const targetIsRepo = this.repositoryService.isRepositoryName(target) && this.repositoryService.isValidRepository(target, data.entities || []);
+    if (!sourceRing && !sourceIsRepo) return false;
+    if (!targetRing && !targetIsRepo) return false;
+    if (sourceRing === OnionRing.DOMAIN_SERVICES && targetRing !== OnionRing.ENTITIES)
+      return false;
+    if (sourceRing === OnionRing.APPLICATION_SERVICES && targetRing !== OnionRing.DOMAIN_SERVICES && !targetIsRepo)
+      return false;
+    if (sourceIsRepo && targetRing !== OnionRing.APPLICATION_SERVICES)
+      return false;
+    if (sourceRing === OnionRing.ENTITIES) return false;
+    if (source === target) return false;
+    return true;
+  }
+  toggleAppDependency(appService, dependency, dependencyType = "domainServices") {
+    const data = this.stateService.getData();
+    if (!data.applicationServiceDependencies[appService]) {
+      data.applicationServiceDependencies[appService] = {
+        domainServices: [],
+        repositories: []
+      };
+    }
+    const deps = data.applicationServiceDependencies[appService];
+    const dependencyArray = deps[dependencyType];
+    const index = dependencyArray.indexOf(dependency);
+    if (index > -1) {
+      dependencyArray.splice(index, 1);
+      return {
+        success: true,
+        message: `Connection from "${appService}" to "${dependency}" removed`,
+        data
+      };
+    } else {
+      dependencyArray.push(dependency);
+      return {
+        success: true,
+        message: `Connection from "${appService}" to "${dependency}" added`,
+        data
+      };
+    }
+  }
+  toggleRecordConnection(record, key, value) {
+    if (!record[key]) {
+      record[key] = [];
+    }
+    const index = record[key].indexOf(value);
+    if (index > -1) {
+      record[key].splice(index, 1);
+      return {
+        success: true,
+        message: `Connection from "${key}" to "${value}" removed`,
+        data: this.stateService.getData()
+      };
+    } else {
+      record[key].push(value);
+      return {
+        success: true,
+        message: `Connection from "${key}" to "${value}" added`,
+        data: this.stateService.getData()
+      };
+    }
+  }
+};
+
+// ../lib/Domain/Entities/FileEntity.ts
+var FileEntity = class {
+  constructor(filePath, content) {
+    this.filePath = filePath;
+    this.content = content;
+  }
+};
+
+// ../lib/Application/Services/LintAppService.ts
+var LintAppService = class {
+  constructor(fileService, pathService) {
+    this.fileService = fileService;
+    this.pathService = pathService;
+  }
+  createFlatEslintConfig(folderPath) {
+    const configContent = `
+import js from '@eslint/js';
+import ts from '@typescript-eslint/eslint-plugin';
+import parser from '@typescript-eslint/parser';
+import prettier from 'eslint-plugin-prettier';
+
+export default [
+  js.configs.recommended,
+  {
+    files: ['**/*.ts'],
+    languageOptions: {
+      parser,
+      parserOptions: {
+        tsconfigRootDir: process.cwd(),
+      },
+      globals: {
+        process: "readonly",
+      },
+    },
+    plugins: {
+      '@typescript-eslint': ts,
+      prettier,
+    },
+    rules: {
+      'prettier/prettier': 'error',
+    },
+  },
+];
+`.trim();
+    const filePath = this.pathService.join(folderPath, "eslint.config.js");
+    this.fileService.createFile(new FileEntity(filePath, configContent));
+  }
+  addLintScripts(folderPath) {
+    return __async(this, null, function* () {
+      const pkgPath = this.pathService.join(folderPath, "package.json");
+      const pkgFile = yield this.fileService.readFile(pkgPath);
+      const pkg = JSON.parse(pkgFile.content);
+      pkg.scripts = __spreadProps(__spreadValues({}, pkg.scripts || {}), {
+        lint: "eslint . --ext .ts",
+        format: "prettier --write ."
+      });
+      yield this.fileService.createFile(
+        new FileEntity(pkgPath, JSON.stringify(pkg, null, 2))
+      );
+    });
+  }
+  addTypeModuleToPackageJson(folderPath) {
+    return __async(this, null, function* () {
+      const pkgPath = this.pathService.join(folderPath, "package.json");
+      const pkgFile = yield this.fileService.readFile(pkgPath);
+      const pkg = JSON.parse(pkgFile.content);
+      pkg.type = "module";
+      yield this.fileService.createFile(
+        new FileEntity(pkgPath, JSON.stringify(pkg, null, 2))
+      );
+    });
+  }
+};
+
+// src/Application/Services/HelpAppService.ts
+var HELP_TEXT = `Onion Architecture Generator
+\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+Erzeugt eine vollst\xE4ndige Onion-Architektur (Domain, Application, Infrastructure)
+inklusive Frontend-Ger\xFCst und best\xFCckter Ordnerstruktur.
+
+USAGE
+  onion                         Interaktive Eingabe aller ben\xF6tigten Werte
+  onion --config <file>         Vollautomatischer Lauf auf Basis einer JSON-Konfiguration
+  onion --scan <src> <json>     Vorhandenes Projekt scannen und JSON-Config erzeugen
+
+FEATURES
+  \u2022 Onion-Ordnerstruktur mit Domain, Application und Infrastructure
+  \u2022 Generatoren f\xFCr Entities, Domain- & Application-Services
+  \u2022 Repository-Interface + Implementierungsskelett
+  \u2022 Dependency-Injection via Awilix
+  \u2022 Vorgefertigte Prettier- & ESLint-Konfiguration
+  \u2022 Frontend-Setup: Lit, React, Angular, Vue oder Vanilla
+  \u2022 Wahlweise interaktive Prompts oder reine JSON-Config
+
+EXAMPLES
+  onion                                   # startet interaktiv
+  onion --config myConfig.json            # nutzt vorhandene Konfig-Datei
+  onion --scan .\\react\\ reactConfig.json  # erstellt Konfig aus bestehendem Projekt
+
+CONFIG NOTES
+  \u2022 Services ohne Abh\xE4ngigkeiten brauchen ein leeres Array, z. B. "UserService": []
+  \u2022 Zul\xE4ssige uiFramework-Werte: react | angular | vue | lit | vanilla
+  \u2022 "folderPath" darf relativ oder absolut sein.
+`;
+var HelpAppService = class {
+  handleHelp() {
+    if (process.argv.includes("--help") || process.argv.includes("-h")) {
+      console.log(HELP_TEXT);
+      process.exit(0);
+    }
+  }
+};
+
+// node_modules/awilix/lib/awilix.browser.mjs
 var EOL = "\n";
 var ExtendableError = class extends Error {
   /**
@@ -79454,8 +78405,8 @@ var Lifetime = {
    */
   SCOPED: "SCOPED"
 };
-function isLifetimeLonger(a, b2) {
-  return a === Lifetime.SINGLETON && b2 !== Lifetime.SINGLETON || a === Lifetime.SCOPED && b2 === Lifetime.TRANSIENT;
+function isLifetimeLonger(a, b) {
+  return a === Lifetime.SINGLETON && b !== Lifetime.SINGLETON || a === Lifetime.SCOPED && b === Lifetime.TRANSIENT;
 }
 function createTokenizer(source) {
   const end = source.length;
@@ -79652,11 +78603,11 @@ function nameValueToObject(name, value) {
 function last4(arr) {
   return arr[arr.length - 1];
 }
-function isClass(fn2) {
-  if (typeof fn2 !== "function") {
+function isClass(fn) {
+  if (typeof fn !== "function") {
     return false;
   }
-  const tokenizer = createTokenizer(fn2.toString());
+  const tokenizer = createTokenizer(fn.toString());
   const first2 = tokenizer.next();
   if (first2.type === "class") {
     return true;
@@ -79779,15 +78730,15 @@ function parseParameterList(source) {
   }
 }
 var RESOLVER = Symbol("Awilix Resolver Config");
-function asFunction(fn2, opts) {
-  if (!isFunction3(fn2)) {
-    throw new AwilixTypeError("asFunction", "fn", "function", fn2);
+function asFunction(fn, opts) {
+  if (!isFunction3(fn)) {
+    throw new AwilixTypeError("asFunction", "fn", "function", fn);
   }
   const defaults2 = {
     lifetime: Lifetime.TRANSIENT
   };
-  opts = makeOptions(defaults2, opts, fn2[RESOLVER]);
-  const resolve = generateResolve(fn2);
+  opts = makeOptions(defaults2, opts, fn[RESOLVER]);
+  const resolve = generateResolve(fn);
   const result = __spreadValues({
     resolve
   }, opts);
@@ -79846,9 +78797,9 @@ function createDisposableResolver(obj) {
     disposer
   });
 }
-function partial(fn2, arg1) {
+function partial(fn, arg1) {
   return function partiallyApplied() {
-    return fn2.call(this, arg1);
+    return fn.call(this, arg1);
   };
 }
 function makeOptions(defaults2, ...rest) {
@@ -79913,29 +78864,29 @@ function createInjectorProxy(container2, injector) {
   });
   return proxy;
 }
-function generateResolve(fn2, dependencyParseTarget) {
+function generateResolve(fn, dependencyParseTarget) {
   if (!dependencyParseTarget) {
-    dependencyParseTarget = fn2;
+    dependencyParseTarget = fn;
   }
   const dependencies = parseDependencies(dependencyParseTarget);
   return function resolve(container2) {
     const injectionMode = this.injectionMode || container2.options.injectionMode || InjectionMode.PROXY;
     if (injectionMode !== InjectionMode.CLASSIC) {
       const cradle = this.injector ? createInjectorProxy(container2, this.injector) : container2.cradle;
-      return fn2(cradle);
+      return fn(cradle);
     }
     if (dependencies.length > 0) {
       const resolve2 = this.injector ? wrapWithLocals(container2, this.injector(container2)) : container2.resolve;
       const children2 = dependencies.map((p) => resolve2(p.name, { allowUnregistered: p.optional }));
-      return fn2(...children2);
+      return fn(...children2);
     }
-    return fn2();
+    return fn();
   };
 }
-function parseDependencies(fn2) {
-  const result = parseParameterList(fn2.toString());
+function parseDependencies(fn) {
+  const result = parseParameterList(fn.toString());
   if (!result) {
-    const parent = Object.getPrototypeOf(fn2);
+    const parent = Object.getPrototypeOf(fn);
     if (typeof parent === "function" && parent !== Function.prototype) {
       return parseDependencies(parent);
     }
@@ -80174,41 +79125,6 @@ function createContainerInternal(options, parentContainer, parentResolutionStack
   }
 }
 
-// src/Domain/Entities/OnionConfig.ts
-var OnionConfig = class _OnionConfig {
-  folderPath;
-  entities;
-  domainServices;
-  applicationServices;
-  domainServiceConnections;
-  applicationServiceDependencies;
-  uiFramework;
-  diFramework;
-  constructor(data = {}) {
-    this.folderPath = data.folderPath ?? "";
-    this.entities = data.entities ?? [];
-    this.domainServices = data.domainServices ?? [];
-    this.applicationServices = data.applicationServices ?? [];
-    this.domainServiceConnections = data.domainServiceConnections ?? {};
-    this.applicationServiceDependencies = data.applicationServiceDependencies ?? {};
-    this.uiFramework = data.uiFramework;
-    this.diFramework = data.diFramework ?? "awilix";
-  }
-  static empty() {
-    return new _OnionConfig();
-  }
-};
-
-// src/Domain/Entities/AwilixConfig.ts
-var AwilixConfig = class {
-  constructor(folderPath, entities, domainServices, applicationServices) {
-    this.folderPath = folderPath;
-    this.entities = entities;
-    this.domainServices = domainServices;
-    this.applicationServices = applicationServices;
-  }
-};
-
 // src/Infrastructure/onionData.json
 var onionData_default = {
   folderPath: "/Users/B286/Desktop/generatedOnions/lit",
@@ -80267,7 +79183,7 @@ var OnionConfigRepository = class {
   }
 };
 
-// src/Domain/Services/OnionConfigService.ts
+// ../lib/Domain/Services/OnionConfigService.ts
 var OnionConfigService = class {
   constructor(stateService, nodeService, connectionValidator, repositoryService) {
     this.stateService = stateService;
@@ -80346,7 +79262,7 @@ var OnionConfigService = class {
   }
 };
 
-// src/Domain/Services/OnionConfigStateService.ts
+// ../lib/Domain/Services/OnionConfigStateService.ts
 var OnionConfigStateService = class {
   constructor(onionConfigRepository) {
     this.onionConfigRepository = onionConfigRepository;
@@ -80400,7 +79316,7 @@ var OnionConfigStateService = class {
   }
 };
 
-// src/Domain/Services/OnionConfigNodeService.ts
+// ../lib/Domain/Services/OnionConfigNodeService.ts
 var OnionConfigNodeService = class {
   constructor(stateService) {
     this.stateService = stateService;
@@ -80434,7 +79350,9 @@ var OnionConfigNodeService = class {
       const newData = __spreadValues({}, current);
       newData.entities = (newData.entities || []).filter((e) => e !== name);
       if (newData.domainServices) {
-        newData.domainServices = newData.domainServices.filter((d) => d !== name);
+        newData.domainServices = newData.domainServices.filter(
+          (d) => d !== name
+        );
         if (newData.domainServiceConnections) {
           delete newData.domainServiceConnections[name];
           for (const key of Object.keys(newData.domainServiceConnections)) {
@@ -80461,13 +79379,13 @@ var OnionConfigNodeService = class {
   }
 };
 
-// src/Domain/Entities/DiFramework.ts
+// ../lib/Domain/Entities/DiFramework.ts
 var VALID_DI_FRAMEWORKS = ["awilix", "angular"];
 function isValidDiFramework(value) {
   return VALID_DI_FRAMEWORKS.includes(value);
 }
 
-// src/Domain/Entities/UiFramework.ts
+// ../lib/Domain/Entities/UiFramework.ts
 var VALID_UI_FRAMEWORKS = [
   "react",
   "angular",
@@ -80479,7 +79397,7 @@ function isValidUiFramework(value) {
   return VALID_UI_FRAMEWORKS.includes(value);
 }
 
-// src/Domain/Services/OnionConfigValidationService.ts
+// ../lib/Domain/Services/OnionConfigValidationService.ts
 var OnionConfigValidationService = class {
   constructor(onionConfigService) {
     this.onionConfigService = onionConfigService;
@@ -80654,35 +79572,7 @@ var OnionConfigValidationService = class {
   }
 };
 
-// src/Domain/Entities/OnionRing.ts
-var OnionRing = class _OnionRing {
-  constructor(_value) {
-    this._value = _value;
-  }
-  static ENTITIES = new _OnionRing("Entities");
-  static DOMAIN_SERVICES = new _OnionRing("Domain Services");
-  static APPLICATION_SERVICES = new _OnionRing("Application Services");
-  static REPOSITORIES = new _OnionRing("Repositories");
-  get value() {
-    return this._value;
-  }
-  toString() {
-    return this._value;
-  }
-  equals(other) {
-    return this._value === other._value;
-  }
-  static getAllRings() {
-    return [
-      _OnionRing.ENTITIES,
-      _OnionRing.DOMAIN_SERVICES,
-      _OnionRing.APPLICATION_SERVICES,
-      _OnionRing.REPOSITORIES
-    ];
-  }
-};
-
-// src/Domain/Services/OnionConfigRepositoryService.ts
+// ../lib/Domain/Services/OnionConfigRepositoryService.ts
 var OnionConfigRepositoryService = class {
   isRepositoryName(name) {
     const repoPattern = /^I([A-Z][a-zA-Z0-9]*)Repository$/;
@@ -80720,18 +79610,1319 @@ var OnionConfigRepositoryService = class {
   }
 };
 
-// ../node_modules/d3-dispatch/src/dispatch.js
+// ../lib/Domain/Services/TemplateService.ts
+var import_handlebars = __toESM(require_handlebars());
+var TemplateService = class _TemplateService {
+  template;
+  static helpersRegistered = false;
+  constructor(templateSource) {
+    if (!_TemplateService.helpersRegistered) {
+      this.registerHandlebarsHelpers();
+      _TemplateService.helpersRegistered = true;
+    }
+    this.template = import_handlebars.default.compile(templateSource);
+  }
+  render(data) {
+    return this.template(data);
+  }
+  registerHandlebarsHelpers() {
+    this.registerStringHelpers();
+    this.registerArrayHelpers();
+    this.registerUtilityHelpers();
+  }
+  registerStringHelpers() {
+    import_handlebars.default.registerHelper("lowerFirst", (str) => {
+      if (typeof str !== "string" || !str.length) return "";
+      return str.charAt(0).toLowerCase() + str.slice(1);
+    });
+    import_handlebars.default.registerHelper("removeFirst", (str) => {
+      if (typeof str !== "string" || str.length < 2) return "";
+      return str.slice(1);
+    });
+    import_handlebars.default.registerHelper("camel", (str) => {
+      if (typeof str !== "string" || !str.length) return "";
+      return str.charAt(0).toLowerCase() + str.slice(1);
+    });
+  }
+  registerArrayHelpers() {
+    import_handlebars.default.registerHelper("index", (arr, idx) => arr[idx]);
+  }
+  registerUtilityHelpers() {
+    import_handlebars.default.registerHelper("firstRepoVarName", (repos) => {
+      if (!Array.isArray(repos) || typeof repos[0] !== "string") return "";
+      const raw = repos[0];
+      if (raw.length < 2) return raw.toLowerCase();
+      return raw.charAt(1).toLowerCase() + raw.slice(2);
+    });
+    import_handlebars.default.registerHelper("firstServiceVarName", (services) => {
+      if (!Array.isArray(services) || typeof services[0] !== "string")
+        return "";
+      const raw = services[0];
+      return raw.charAt(0).toLowerCase() + raw.slice(1);
+    });
+  }
+};
+
+// ../lib/Application/Services/AngularConfigAppService.ts
+var AngularConfigAppService = class {
+  constructor(fileService, pathService) {
+    this.fileService = fileService;
+    this.pathService = pathService;
+  }
+  generateAngularProvidersFiles(folderPath, entityNames, domainServiceNames, applicationServiceNames, applicationServiceDependencies) {
+    return __async(this, null, function* () {
+      const providers = this.buildProviderConfig(
+        entityNames,
+        domainServiceNames,
+        applicationServiceNames,
+        applicationServiceDependencies
+      );
+      const fileEntities = [];
+      const providersFile = yield this.generateProvidersFile(
+        folderPath,
+        providers
+      );
+      fileEntities.push(providersFile);
+      const appConfigFile = yield this.generateAppConfigFile(folderPath);
+      fileEntities.push(appConfigFile);
+      return fileEntities;
+    });
+  }
+  buildProviderConfig(entityNames, domainServiceNames, applicationServiceNames, applicationServiceDependencies) {
+    const providers = [];
+    entityNames.forEach((entityName) => {
+      const repoName = `${entityName}Repository`;
+      const interfaceName = `I${entityName}Repository`;
+      providers.push({
+        provide: interfaceName,
+        useClass: repoName
+      });
+    });
+    domainServiceNames.forEach((serviceName) => {
+      providers.push({
+        provide: serviceName,
+        useClass: serviceName
+      });
+    });
+    applicationServiceNames.forEach((appServiceName) => {
+      const deps = applicationServiceDependencies[appServiceName];
+      if (deps) {
+        const dependencies = [
+          ...deps.domainServices || [],
+          ...deps.repositories || []
+        ];
+        providers.push({
+          provide: appServiceName,
+          useClass: appServiceName,
+          deps: dependencies.length > 0 ? dependencies : void 0
+        });
+      } else {
+        providers.push({
+          provide: appServiceName,
+          useClass: appServiceName
+        });
+      }
+    });
+    return providers;
+  }
+  generateProvidersFile(folderPath, providers) {
+    return __async(this, null, function* () {
+      const imports = this.generateImports(providers);
+      const templatePath = this.pathService.join(
+        "Infrastructure",
+        "frameworks",
+        "templates",
+        "angular",
+        "di-providers.ts.hbs"
+      );
+      const template = yield this.fileService.readTemplate(templatePath);
+      const generator = new TemplateService(template.content);
+      const content = generator.render({
+        imports,
+        providers
+      });
+      const appDir = this.pathService.join(folderPath, "src", "app");
+      if (!(yield this.fileService.dirExists(appDir))) {
+        yield this.fileService.createDirectory(appDir);
+      }
+      const filePath = this.pathService.join(
+        folderPath,
+        "src",
+        "Infrastructure",
+        "Presentation",
+        "di-providers.ts"
+      );
+      const file = new FileEntity(filePath, content);
+      return file;
+    });
+  }
+  generateAppConfigFile(folderPath) {
+    return __async(this, null, function* () {
+      const templatePath = this.pathService.join(
+        "Infrastructure",
+        "frameworks",
+        "templates",
+        "angular",
+        "app.config.ts.hbs"
+      );
+      const template = yield this.fileService.readTemplate(templatePath);
+      const generator = new TemplateService(template.content);
+      const content = generator.render({});
+      const appDir = this.pathService.join(folderPath);
+      if (!(yield this.fileService.dirExists(appDir))) {
+        yield this.fileService.createDirectory(appDir);
+      }
+      const filePath = this.pathService.join(
+        folderPath,
+        "src",
+        "Infrastructure",
+        "Presentation",
+        "app.config.ts"
+      );
+      const file = new FileEntity(filePath, content);
+      return file;
+    });
+  }
+  generateImports(providers) {
+    const imports = /* @__PURE__ */ new Set();
+    providers.forEach((provider) => {
+      const importStatements = this.createImportStatements(provider.useClass);
+      importStatements.forEach((statement) => imports.add(statement));
+    });
+    return Array.from(imports);
+  }
+  createImportStatements(className) {
+    if (this.isRepository(className)) {
+      return this.createRepositoryImports(className);
+    }
+    if (this.isDomainService(className)) {
+      return this.createDomainServiceImports(className);
+    }
+    if (this.isAppService(className)) {
+      return this.createAppServiceImports(className);
+    }
+    return [];
+  }
+  isRepository(className) {
+    return className.endsWith("Repository");
+  }
+  isDomainService(className) {
+    return className.endsWith("Service") && !className.endsWith("AppService");
+  }
+  isAppService(className) {
+    return className.endsWith("AppService");
+  }
+  createRepositoryImports(className) {
+    const entityName = className.replace("Repository", "");
+    return [
+      `import { ${className} } from '../../Infrastructure/Repositories/${className}';`,
+      `import { I${entityName}Repository } from '../../Domain/Interfaces/I${entityName}Repository';`
+    ];
+  }
+  createDomainServiceImports(className) {
+    return [
+      `import { ${className} } from '../../Domain/Services/${className}';`
+    ];
+  }
+  createAppServiceImports(className) {
+    return [
+      `import { ${className} } from '../../Application/Services/${className}';`
+    ];
+  }
+};
+
+// ../lib/Application/Services/BrowserCheckAppService.ts
+var BrowserCheckAppService = class {
+  isNode() {
+    return typeof process !== "undefined" && typeof process.versions?.node !== "undefined";
+  }
+  isBrowser() {
+    return typeof window !== "undefined" && typeof window.document !== "undefined";
+  }
+};
+
+// ../lib/Application/Services/ConfigurationAppService.ts
+var ConfigurationAppService = class {
+  constructor(fileService, pathService) {
+    this.fileService = fileService;
+    this.pathService = pathService;
+  }
+  updateVerbatimModuleSyntax(folderPath, value) {
+    return __async(this, null, function* () {
+      const configPath = this.pathService.join(folderPath, "tsconfig.app.json");
+      if (!(yield this.fileService.fileExists(configPath))) {
+        return null;
+      }
+      const configFile = yield this.fileService.readFile(configPath);
+      const cleanContent = this.removeJsonComments(configFile.content);
+      try {
+        const configContent = JSON.parse(cleanContent);
+        configContent.compilerOptions = __spreadProps(__spreadValues({}, configContent.compilerOptions), {
+          verbatimModuleSyntax: value
+        });
+        return {
+          filePath: configPath,
+          content: JSON.stringify(configContent, null, 2)
+        };
+      } catch (error) {
+        console.error(`Failed to parse JSON config at ${configPath}:`, error);
+        return null;
+      }
+    });
+  }
+  removeJsonComments(content) {
+    return content.split("\n").filter((line) => {
+      const trimmed = line.trim();
+      return !trimmed.startsWith("/*") && !trimmed.startsWith("//") && !trimmed.startsWith("*/");
+    }).join("\n");
+  }
+};
+
+// ../lib/Application/Services/FolderGenAppService.ts
+var FolderStructureService = class {
+  constructor(fileService, pathService) {
+    this.fileService = fileService;
+    this.pathService = pathService;
+  }
+  createFolderStructure(folderPath) {
+    return __async(this, null, function* () {
+      const structure = [
+        "src",
+        "src/Domain",
+        "src/Domain/Entities",
+        "src/Domain/Interfaces",
+        "src/Domain/Services",
+        "src/Application",
+        "src/Application/Services",
+        "src/Infrastructure",
+        "src/Infrastructure/Configuration",
+        "src/Infrastructure/Repositories",
+        "src/Infrastructure/Presentation",
+        "src/Tests"
+      ];
+      yield this.fileService.createDirectory(folderPath);
+      structure.forEach((dir) => __async(this, null, function* () {
+        const dirPath = this.pathService.join(folderPath, dir);
+        if (yield this.fileService.fileExists(dirPath)) {
+          return;
+        }
+        console.log(`Creating directory: ${dirPath}`);
+        yield this.fileService.createDirectory(dirPath);
+      }));
+    });
+  }
+};
+
+// ../lib/Domain/Entities/ShowcaseAppGeneration.ts
+var ShowcaseAppGeneration = class {
+  constructor(basePath, framework, useAngularDI, firstAppService) {
+    this.basePath = basePath;
+    this.framework = framework;
+    this.useAngularDI = useAngularDI;
+    this.firstAppService = firstAppService;
+  }
+};
+
+// ../lib/Domain/Entities/AwilixConfig.ts
+var AwilixConfig = class {
+  constructor(folderPath, entities, domainServices, applicationServices) {
+    this.folderPath = folderPath;
+    this.entities = entities;
+    this.domainServices = domainServices;
+    this.applicationServices = applicationServices;
+  }
+};
+
+// ../lib/Application/Services/OnionAppService.ts
+var OnionAppService = class {
+  constructor(awilixCfgService, angularConfigAppService, projectService, showcaseService, entityService, repoService, iRepoService, domainServiceService, applicationServiceService, folderStructureService, fileService, pathService, configurationAppService) {
+    this.awilixCfgService = awilixCfgService;
+    this.angularConfigAppService = angularConfigAppService;
+    this.projectService = projectService;
+    this.showcaseService = showcaseService;
+    this.entityService = entityService;
+    this.repoService = repoService;
+    this.iRepoService = iRepoService;
+    this.domainServiceService = domainServiceService;
+    this.applicationServiceService = applicationServiceService;
+    this.folderStructureService = folderStructureService;
+    this.fileService = fileService;
+    this.pathService = pathService;
+    this.configurationAppService = configurationAppService;
+  }
+  generate(params) {
+    return __async(this, null, function* () {
+      console.log("\u{1F9C5} Starting Onion Architecture generation...");
+      const {
+        folderPath,
+        entityNames,
+        domainServiceNames,
+        applicationServiceNames,
+        uiFramework,
+        diFramework: passedDiFramework,
+        domainServiceConnections,
+        applicationServiceDependencies,
+        skipProjectInit = true
+      } = params;
+      yield this.folderStructureService.createFolderStructure(folderPath);
+      const diFramework = yield this.initializeProject(
+        folderPath,
+        uiFramework,
+        passedDiFramework,
+        skipProjectInit
+      );
+      const allFileEntities = [];
+      const tsConfigFile = yield this.configurationAppService.updateVerbatimModuleSyntax(
+        folderPath,
+        false
+      );
+      if (tsConfigFile) {
+        allFileEntities.push(tsConfigFile);
+      }
+      const entityFiles = yield this.generateEntities(folderPath, entityNames);
+      allFileEntities.push(...entityFiles);
+      const repositoryFiles = yield this.generateRepositories(
+        folderPath,
+        entityNames,
+        diFramework
+      );
+      allFileEntities.push(...repositoryFiles);
+      const domainServiceFiles = yield this.generateDomainServices(
+        folderPath,
+        domainServiceNames,
+        entityNames,
+        domainServiceConnections,
+        diFramework
+      );
+      allFileEntities.push(...domainServiceFiles);
+      const { appServiceDeps, appServiceFiles } = yield this.generateApplicationServices(
+        folderPath,
+        applicationServiceNames,
+        domainServiceNames,
+        entityNames,
+        applicationServiceDependencies,
+        diFramework
+      );
+      allFileEntities.push(...appServiceFiles);
+      const diConfigFiles = yield this.generateDIConfiguration(
+        folderPath,
+        entityNames,
+        domainServiceNames,
+        applicationServiceNames,
+        appServiceDeps,
+        diFramework
+      );
+      allFileEntities.push(...diConfigFiles);
+      const showcaseFiles = yield this.generateShowcaseApplication(
+        folderPath,
+        uiFramework,
+        diFramework,
+        applicationServiceNames
+      );
+      allFileEntities.push(...showcaseFiles);
+      yield this.createDirectoriesForFiles(allFileEntities);
+      yield this.writeAllFiles(allFileEntities);
+      return allFileEntities;
+    });
+  }
+  initializeProject(folderPath, framework, passedDiFramework, skipProjectInit = true) {
+    return __async(this, null, function* () {
+      let diFramework = passedDiFramework || "awilix";
+      if (!skipProjectInit) {
+        const stepStart = Date.now();
+        const result = yield this.projectService.initialize(
+          folderPath,
+          framework,
+          diFramework
+        );
+        diFramework = result.diFramework;
+        console.log(`\u2705 Project initialized (${Date.now() - stepStart}ms)`);
+      }
+      return diFramework;
+    });
+  }
+  generateEntities(folderPath, entityNames) {
+    return __async(this, null, function* () {
+      const stepStart = Date.now();
+      const template = yield this.fileService.readTemplate("entity.hbs");
+      const entitiesDir = this.pathService.join(
+        folderPath,
+        "src",
+        "Domain",
+        "Entities"
+      );
+      const fileEntities = this.entityService.generateEntitiesFiles(
+        entitiesDir,
+        entityNames,
+        template.content
+      );
+      console.log(`\u2705 Entities generated (${Date.now() - stepStart}ms)`);
+      return fileEntities;
+    });
+  }
+  generateRepositories(folderPath, entityNames, diFramework) {
+    return __async(this, null, function* () {
+      const stepStart = Date.now();
+      const repoTemplate = yield this.fileService.readTemplate(
+        "infrastructureRepository.hbs"
+      );
+      const interfaceTemplate = yield this.fileService.readTemplate(
+        "repositoryInterface.hbs"
+      );
+      const infraRepoDir = this.pathService.join(
+        folderPath,
+        "src",
+        "Infrastructure",
+        "Repositories"
+      );
+      const repoFiles = this.repoService.generateRepositoriesFiles(
+        entityNames,
+        diFramework,
+        repoTemplate.content,
+        infraRepoDir
+      );
+      const entityFilePaths = entityNames.map((entityName) => ({
+        entityName,
+        filePath: this.pathService.join(
+          folderPath,
+          "src",
+          "Domain",
+          "Interfaces",
+          `I${entityName}Repository.ts`
+        )
+      }));
+      const interfaceFiles = this.iRepoService.generateRepositoryInterfacesFiles(
+        entityFilePaths,
+        interfaceTemplate.content
+      );
+      console.log(`\u2705 Repositories generated (${Date.now() - stepStart}ms)`);
+      return [...repoFiles, ...interfaceFiles];
+    });
+  }
+  generateDomainServices(folderPath, domainServiceNames, entityNames, domainServiceConnections, diFramework) {
+    return __async(this, null, function* () {
+      const stepStart = Date.now();
+      const template = yield this.fileService.readTemplate("domainService.hbs");
+      const servicesDir = this.pathService.join(
+        folderPath,
+        "src",
+        "Domain",
+        "Services"
+      );
+      const domainServiceParams = {
+        servicesDir,
+        domainServiceNames,
+        entityNames,
+        userConfig: { domainServiceConnections },
+        diFramework,
+        templateContent: template.content
+      };
+      const fileEntities = this.domainServiceService.connectAndGenerateFiles(domainServiceParams);
+      console.log(`\u2705 Domain services generated (${Date.now() - stepStart}ms)`);
+      return fileEntities;
+    });
+  }
+  generateApplicationServices(folderPath, applicationServiceNames, domainServiceNames, entityNames, applicationServiceDependencies, diFramework) {
+    return __async(this, null, function* () {
+      const stepStart = Date.now();
+      let appServiceDeps = applicationServiceDependencies;
+      if (!appServiceDeps || Object.keys(appServiceDeps).length === 0) {
+        appServiceDeps = yield this.createDefaultApplicationServiceDependencies(
+          applicationServiceNames,
+          domainServiceNames,
+          entityNames
+        );
+      }
+      const template = yield this.fileService.readTemplate("appService.hbs");
+      const appDir = this.pathService.join(
+        folderPath,
+        "src",
+        "Application",
+        "Services"
+      );
+      const appServiceFiles = this.applicationServiceService.generateApplicationServicesFiles(
+        appServiceDeps,
+        diFramework,
+        template.content,
+        appDir
+      );
+      console.log(
+        `\u2705 Application services generated (${Date.now() - stepStart}ms)`
+      );
+      return {
+        appServiceDeps,
+        appServiceFiles
+      };
+    });
+  }
+  createDefaultApplicationServiceDependencies(applicationServiceNames, domainServiceNames, entityNames) {
+    return __async(this, null, function* () {
+      const iRepoList = entityNames.map((name) => `I${name}Repository`);
+      const dependencies = {};
+      for (const appServiceName of applicationServiceNames) {
+        dependencies[appServiceName] = {
+          domainServices: [...domainServiceNames],
+          // All domain services
+          repositories: [...iRepoList]
+          // All repositories
+        };
+      }
+      return dependencies;
+    });
+  }
+  generateDIConfiguration(folderPath, entityNames, domainServiceNames, applicationServiceNames, appServiceDeps, diFramework) {
+    return __async(this, null, function* () {
+      const stepStart = Date.now();
+      let fileEntities = [];
+      if (diFramework === "awilix") {
+        const awilixConfigParams = new AwilixConfig(
+          folderPath,
+          entityNames,
+          domainServiceNames,
+          applicationServiceNames
+        );
+        const awilixConfigPath = this.pathService.join(
+          folderPath,
+          "src",
+          "Infrastructure",
+          "Configuration",
+          "awilix.config.ts"
+        );
+        const awilixFile = this.awilixCfgService.generateAwilixConfigFile(
+          awilixConfigParams,
+          awilixConfigPath
+        );
+        fileEntities.push(awilixFile);
+      } else if (diFramework === "angular") {
+        const angularFiles = yield this.angularConfigAppService.generateAngularProvidersFiles(
+          folderPath,
+          entityNames,
+          domainServiceNames,
+          applicationServiceNames,
+          appServiceDeps
+        );
+        fileEntities.push(...angularFiles);
+      }
+      console.log(`\u2705 DI configuration generated (${Date.now() - stepStart}ms)`);
+      return fileEntities;
+    });
+  }
+  generateShowcaseApplication(folderPath, framework, diFramework, applicationServiceNames) {
+    return __async(this, null, function* () {
+      if (!framework) return [];
+      const stepStart = Date.now();
+      const showcaseAppGeneration = new ShowcaseAppGeneration(
+        folderPath,
+        framework,
+        diFramework === "angular",
+        applicationServiceNames[0]
+      );
+      const presentationDir = this.pathService.join(
+        folderPath,
+        "src",
+        "Infrastructure",
+        "Presentation"
+      );
+      const buildPaths = (template, output) => {
+        const shouldPlaceInRoot = framework === "lit" && output === "index.html";
+        const outputPath = shouldPlaceInRoot ? this.pathService.join(folderPath, output) : this.pathService.join(presentationDir, output);
+        return {
+          templatePath: this.pathService.join(
+            "Infrastructure",
+            "frameworks",
+            "templates",
+            template
+          ),
+          outputPath
+        };
+      };
+      const fileEntities = yield this.showcaseService.generateShowcaseFiles(
+        showcaseAppGeneration,
+        buildPaths
+      );
+      console.log(
+        `\u2705 Showcase application generated (${Date.now() - stepStart}ms)`
+      );
+      return fileEntities;
+    });
+  }
+  createDirectoriesForFiles(fileEntities) {
+    return __async(this, null, function* () {
+      const directories = /* @__PURE__ */ new Set();
+      for (const file of fileEntities) {
+        const dir = file.filePath.substring(0, file.filePath.lastIndexOf("\\"));
+        if (dir) {
+          directories.add(dir);
+        }
+      }
+      for (const dir of directories) {
+        yield this.fileService.createDirectory(dir);
+      }
+    });
+  }
+  writeAllFiles(fileEntities) {
+    return __async(this, null, function* () {
+      for (const file of fileEntities) {
+        yield this.fileService.createFile(file);
+      }
+    });
+  }
+};
+
+// ../lib/Application/Services/PathAppService.ts
+var PathAppService = class {
+  constructor(pathRepository) {
+    this.pathRepository = pathRepository;
+  }
+  dirname(filePath) {
+    return this.pathRepository.dirname(filePath);
+  }
+  resolve(...paths) {
+    return this.pathRepository.resolve(...paths);
+  }
+  isAbsolute(rawFolderPath) {
+    return this.pathRepository.isAbsolute(rawFolderPath);
+  }
+  join(...paths) {
+    return this.pathRepository.join(...paths);
+  }
+  basename(dirPath, suffix) {
+    return this.pathRepository.basename(dirPath, suffix);
+  }
+};
+
+// ../lib/Application/Services/ProjectDownloadAppService.ts
+var ProjectDownloadAppService = class {
+  constructor(fileRepository, zipService) {
+    this.fileRepository = fileRepository;
+    this.zipService = zipService;
+  }
+  downloadProject() {
+    return __async(this, null, function* () {
+      try {
+        console.log("Preparing project download...");
+        const projectFiles = yield this.getProjectFiles();
+        if (projectFiles.length === 0) {
+          return {
+            success: false,
+            message: "No project files found to download"
+          };
+        }
+        const zipFileName = this.generateZipFileName();
+        yield this.createAndDownloadZip(projectFiles, zipFileName);
+        console.log(`Downloaded project with ${projectFiles.length} files`);
+        return {
+          success: true,
+          message: `Project downloaded successfully (${projectFiles.length} files)`
+        };
+      } catch (error) {
+        console.error("Failed to download project:", error);
+        return {
+          success: false,
+          message: `Failed to prepare download: ${error}`
+        };
+      }
+    });
+  }
+  getProjectFiles() {
+    return __async(this, null, function* () {
+      return yield this.fileRepository.getAllProjectFiles("/onion-project");
+    });
+  }
+  generateZipFileName() {
+    const timestamp = (/* @__PURE__ */ new Date()).toISOString().replace(/[:.]/g, "-").slice(0, 19);
+    return `onion-architecture-project-${timestamp}.zip`;
+  }
+  createAndDownloadZip(projectFiles, zipFileName) {
+    return __async(this, null, function* () {
+      const fileEntities = projectFiles.map(
+        (file) => new FileEntity(file.path, file.content)
+      );
+      yield this.zipService.createAndDownloadZip(fileEntities, zipFileName);
+    });
+  }
+};
+
+// ../lib/Application/Services/ProjectGenerationOrchestratorAppService.ts
+var ProjectGenerationOrchestratorAppService = class {
+  constructor(webContainerManager, fileRepository, projectService, onionAppService) {
+    this.webContainerManager = webContainerManager;
+    this.fileRepository = fileRepository;
+    this.projectService = projectService;
+    this.onionAppService = onionAppService;
+  }
+  generateProject(config2, progressCallback) {
+    return __async(this, null, function* () {
+      const startTime = Date.now();
+      console.log("\u{1F680} Starting WebContainer Onion Architecture generation...");
+      try {
+        console.log("diFramework selected:", config2.diFramework);
+        yield this.initializeEnvironment(progressCallback);
+        yield this.setupFramework(config2, progressCallback);
+        yield this.generateArchitecture(config2, progressCallback);
+        const result = yield this.finalizeProject(progressCallback);
+        const totalTime = Date.now() - startTime;
+        console.log(
+          `\u{1F389} WebContainer generation completed in ${totalTime}ms (${(totalTime / 1e3).toFixed(2)}s)`
+        );
+        return __spreadValues({
+          success: true,
+          message: `Onion Architecture generated successfully in WebContainer! (${(totalTime / 1e3).toFixed(2)}s)`
+        }, result);
+      } catch (error) {
+        const totalTime = Date.now() - startTime;
+        console.error(
+          `\u274C Failed to generate Onion Architecture after ${totalTime}ms:`,
+          error
+        );
+        return {
+          success: false,
+          message: `Failed to generate: ${error}`
+        };
+      }
+    });
+  }
+  initializeEnvironment(progressCallback) {
+    return __async(this, null, function* () {
+      progressCallback?.("init-webcontainer");
+      const webcontainer = yield this.webContainerManager.initialize();
+      this.fileRepository.setWebContainer(webcontainer);
+      yield this.fileRepository.initializeWebContainer(webcontainer);
+      const projectFolder = "/onion-project";
+      yield this.cleanupExistingProject(projectFolder);
+      yield this.fileRepository.createDirectory(projectFolder);
+      progressCallback?.("init-webcontainer", 100);
+    });
+  }
+  setupFramework(config2, progressCallback) {
+    return __async(this, null, function* () {
+      const frameworkStart = Date.now();
+      console.log("\u{1F3D7}\uFE0F Setting up UI framework (this may take 20-30 seconds)...");
+      const initResult = yield this.projectService.initialize(
+        "/onion-project",
+        config2.uiFramework,
+        config2.diFramework,
+        this.createFrameworkProgressHandler(progressCallback)
+      );
+      if (!initResult) {
+        throw new Error("Failed to initialize framework");
+      }
+      console.log(
+        `\u2705 Framework setup completed (${Date.now() - frameworkStart}ms)`
+      );
+    });
+  }
+  generateArchitecture(config2, progressCallback) {
+    return __async(this, null, function* () {
+      progressCallback?.("generate-architecture");
+      const onionGenStart = Date.now();
+      console.log("\u{1F9C5} Generating onion architecture files...");
+      yield this.onionAppService.generate({
+        folderPath: "/onion-project",
+        entityNames: config2.entities || [],
+        domainServiceNames: config2.domainServices || [],
+        applicationServiceNames: config2.applicationServices || [],
+        uiFramework: config2.uiFramework || "react",
+        diFramework: config2.diFramework || "awilix",
+        domainServiceConnections: config2.domainServiceConnections || {},
+        applicationServiceDependencies: config2.applicationServiceDependencies || {},
+        skipProjectInit: false
+      });
+      console.log(
+        `\u2705 Architecture generation completed (${Date.now() - onionGenStart}ms)`
+      );
+      progressCallback?.("generate-architecture", 100);
+    });
+  }
+  finalizeProject(progressCallback) {
+    return __async(this, null, function* () {
+      progressCallback?.("create-download");
+      const filesCreated = this.fileRepository.getBrowserFiles();
+      return filesCreated;
+    });
+  }
+  cleanupExistingProject(projectFolder) {
+    return __async(this, null, function* () {
+      try {
+        yield this.fileRepository.rmSync(projectFolder);
+      } catch {
+      }
+    });
+  }
+  createFrameworkProgressHandler(progressCallback) {
+    return (phase, progress) => {
+      const phaseMap = {
+        "npm-init": "npm-init",
+        "install-dev-deps": "install-dev-deps",
+        "create-framework": "create-framework",
+        "move-files": "move-files",
+        "install-awilix": "install-awilix"
+      };
+      const stepId = phaseMap[phase];
+      if (stepId) {
+        progressCallback?.(stepId, progress);
+      }
+    };
+  }
+};
+
+// ../lib/Domain/Services/ApplicationServiceService.ts
+var ApplicationServiceService = class {
+  /**
+   * Generate application service files from a mapping using provided template content.
+   * @param appServiceMappings The mapping of service names to dependencies.
+   * @param diFramework The dependency injection framework to use.
+   * @param templateContent The Handlebars template content for application service generation.
+   * @param appDir The application services directory path (computed by caller).
+   * @returns Array of FileEntity objects to be created by the application layer
+   */
+  generateApplicationServicesFiles(appServiceMappings, diFramework, templateContent, appDir) {
+    const fileEntities = [];
+    for (const [appServiceName, deps] of Object.entries(appServiceMappings)) {
+      const filePath = `${appDir}/${appServiceName}.ts`;
+      const code = this.generateApplicationServiceCodeFromTemplate(
+        templateContent,
+        appServiceName,
+        diFramework,
+        deps
+      );
+      const file = new FileEntity(filePath, code);
+      fileEntities.push(file);
+    }
+    return fileEntities;
+  }
+  /**
+   * Generate code for a single application service (no file creation).
+   * Uses provided template content instead of loading from file.
+   * @param templateContent The Handlebars template content.
+   * @param name The application service name.
+   * @param deps The dependencies (domainServices, repositories).
+   */
+  generateApplicationServiceCodeFromTemplate(templateContent, name, diFramework, deps = {}) {
+    const generator = new TemplateService(templateContent);
+    const useAngularDI = diFramework === "angular";
+    return generator.render(__spreadProps(__spreadValues({ name }, deps), { useAngularDI }));
+  }
+};
+
+// ../lib/Domain/Services/AwilixConfigService.ts
+var AwilixConfigService = class {
+  generateAwilixConfigFile(params, awilixConfigPath) {
+    const repoRegistrations = params.entities.map((entity) => {
+      const className = `${entity}Repository`;
+      return {
+        className,
+        varName: this.lowerFirst(className),
+        importPath: `../../Infrastructure/Repositories/${className}`
+      };
+    });
+    const entityRegistrations = params.entities.map((entity) => {
+      return {
+        className: entity,
+        varName: this.lowerFirst(entity),
+        importPath: `../../Domain/Entities/${entity}`
+      };
+    });
+    const domainServiceRegistrations = params.domainServices.map((service) => ({
+      className: service,
+      varName: this.lowerFirst(service),
+      importPath: `../../Domain/Services/${service}`
+    }));
+    const appServiceRegistrations = params.applicationServices.map(
+      (service) => ({
+        className: service,
+        varName: this.lowerFirst(service),
+        importPath: `../../Application/Services/${service}`
+      })
+    );
+    const allRegistrations = [
+      ...entityRegistrations,
+      ...repoRegistrations,
+      ...domainServiceRegistrations,
+      ...appServiceRegistrations
+    ];
+    const imports = allRegistrations.map(
+      ({ className, importPath }) => `import { ${className} } from "${importPath}";`
+    ).join("\n");
+    const registrations = allRegistrations.map(
+      ({ varName, className }) => `  ${varName}: asClass(${className}).singleton(),`
+    ).join("\n");
+    const fileContent = `
+import { createContainer, asClass, InjectionMode } from "awilix";
+
+${imports}
+
+const container = createContainer({ injectionMode: InjectionMode.CLASSIC });
+
+container.register({
+${registrations}
+});
+
+export default container;
+`;
+    const file = new FileEntity(awilixConfigPath, fileContent);
+    return file;
+  }
+  lowerFirst(str) {
+    return str.charAt(0).toLowerCase() + str.slice(1);
+  }
+};
+
+// ../lib/Domain/Entities/Entity.ts
+var Entity = class {
+  constructor(name) {
+    this.name = name;
+  }
+};
+
+// ../lib/Domain/Services/DomainServiceService.ts
+var DomainServiceService = class {
+  /**
+   * Generate domain service files from connections using provided template content.
+   * @param servicesDir The directory path where domain service files should be created.
+   * @param connections The connections between domain services and entities.
+   * @param diFramework The dependency injection framework to use.
+   * @param templateContent The Handlebars template content for domain service generation.
+   * @returns Array of FileEntity objects to be created by the application layer
+   */
+  generateDomainServicesFiles(servicesDir, connections, diFramework, templateContent) {
+    const fileEntities = [];
+    for (const [serviceName, entities] of Object.entries(connections)) {
+      const filePath = `${servicesDir}/${serviceName}.ts`;
+      const entityObjects = entities.map((name) => new Entity(name));
+      const code = this.generateDomainServiceCodeFromTemplate(
+        templateContent,
+        serviceName,
+        diFramework,
+        entityObjects
+      );
+      const file = new FileEntity(filePath, code);
+      fileEntities.push(file);
+    }
+    return fileEntities;
+  }
+  /**
+   * Generate code for a single domain service (no file creation, for preview etc.)
+   * Uses provided template content instead of loading from file.
+   * @param templateContent The Handlebars template content
+   * @param serviceName The domain service name
+   */
+  generateDomainServiceCodeFromTemplate(templateContent, serviceName, diFramework, entities = []) {
+    const generator = new TemplateService(templateContent);
+    const useAngularDI = diFramework === "angular";
+    return generator.render({ serviceName, entities, useAngularDI });
+  }
+  connectAndGenerateFiles(params) {
+    const {
+      servicesDir,
+      domainServiceNames,
+      entityNames,
+      diFramework,
+      userConfig = {},
+      templateContent
+    } = params;
+    const connections = userConfig.domainServiceConnections && Object.keys(userConfig.domainServiceConnections).length > 0 ? userConfig.domainServiceConnections : this.createDefaultConnections(domainServiceNames, entityNames);
+    return this.generateDomainServicesFiles(
+      servicesDir,
+      connections,
+      diFramework,
+      templateContent
+    );
+  }
+  createDefaultConnections(domainServiceNames, entityNames) {
+    const connections = {};
+    domainServiceNames.forEach((serviceName) => {
+      connections[serviceName] = entityNames;
+    });
+    return connections;
+  }
+};
+
+// ../lib/Domain/Services/EntitityService.ts
+var EntityService = class {
+  /**
+   * Generate entity files using provided template content.
+   * @param entitiesDir The directory path where entity files should be created.
+   * @param entityNames The list of entity names to generate.
+   * @param templateContent The Handlebars template content for entity generation.
+   * @returns Array of FileEntity objects to be created by the application layer
+   */
+  generateEntitiesFiles(entitiesDir, entityNames, templateContent) {
+    const fileEntities = [];
+    for (const name of entityNames) {
+      const filePath = `${entitiesDir}\\${name}.ts`;
+      const code = this.generateEntityCodeFromTemplate(templateContent, name);
+      const file = new FileEntity(filePath, code);
+      fileEntities.push(file);
+    }
+    return fileEntities;
+  }
+  /**
+   * Generate code for a single entity (no file creation, for preview etc.)
+   * Uses provided template content instead of loading from file.
+   * @param templateContent The Handlebars template content
+   * @param name The entity name
+   */
+  generateEntityCodeFromTemplate(templateContent, name) {
+    const generator = new TemplateService(templateContent);
+    return generator.render({ name });
+  }
+};
+
+// ../lib/Domain/Services/FileService.ts
+var FileService = class {
+  constructor(fileRepository) {
+    this.fileRepository = fileRepository;
+  }
+  readTemplate(templatePath) {
+    return this.fileRepository.readTemplate(templatePath);
+  }
+  readdir(dir) {
+    return this.fileRepository.readdir(dir);
+  }
+  rmSync(appDir) {
+    return __async(this, null, function* () {
+      this.fileRepository.rmSync(appDir);
+    });
+  }
+  getNamesFromDir(dir) {
+    return __async(this, null, function* () {
+      return this.fileRepository.getNamesFromDir(dir);
+    });
+  }
+  rename(from2, to) {
+    this.fileRepository.rename(from2, to);
+  }
+  readFile(path) {
+    return __async(this, null, function* () {
+      return this.fileRepository.read(path);
+    });
+  }
+  fileExists(filePath) {
+    return __async(this, null, function* () {
+      return this.fileRepository.fileExists(filePath);
+    });
+  }
+  createDirectory(dirPath) {
+    return __async(this, null, function* () {
+      return this.fileRepository.createDirectory(dirPath);
+    });
+  }
+  dirExists(dirPath) {
+    return __async(this, null, function* () {
+      return this.fileRepository.dirExists(dirPath);
+    });
+  }
+  createFile(file) {
+    return __async(this, null, function* () {
+      return this.fileRepository.createFile(file);
+    });
+  }
+  // Batch operations for multiple files
+  createMultipleFiles(files) {
+    return __async(this, null, function* () {
+      for (const file of files) {
+        yield this.createFile(file);
+      }
+    });
+  }
+  // Get list of files in browser storage
+  getBrowserFiles() {
+    return this.fileRepository.getBrowserFiles();
+  }
+  // Utility method to clear browser storage
+  clearBrowserFiles() {
+    this.fileRepository.clearBrowserFiles();
+  }
+  copyFile(source, destination) {
+    return __async(this, null, function* () {
+      return this.fileRepository.copyFile(source, destination);
+    });
+  }
+  getFileStats(filePath) {
+    return __async(this, null, function* () {
+      return this.fileRepository.getFileStats(filePath);
+    });
+  }
+};
+
+// ../lib/Domain/Services/IRepoService.ts
+var import_handlebars2 = __toESM(require_handlebars());
+var IRepoService = class {
+  /**
+   * Generate repository interface files for a list of entity names using provided template content.
+   * @param entityFilePaths Array of objects containing entity name and target file path
+   * @param templateContent The Handlebars template content for repository interface generation
+   * @returns Array of FileEntity objects to be created by the application layer
+   */
+  generateRepositoryInterfacesFiles(entityFilePaths, templateContent) {
+    const fileEntities = [];
+    for (const { entityName, filePath } of entityFilePaths) {
+      const code = this.generateRepositoryInterfaceCode(
+        templateContent,
+        entityName
+      );
+      const file = new FileEntity(filePath, code);
+      fileEntities.push(file);
+    }
+    return fileEntities;
+  }
+  /**
+   * Generate code for a single repository interface (no file creation, for preview etc.)
+   * Uses provided template content instead of loading from file.
+   * @param templateContent The Handlebars template content
+   * @param entityName The entity name for which to generate repository interface
+   * @returns The generated repository interface code
+   */
+  generateRepositoryInterfaceCode(templateContent, entityName) {
+    const template = import_handlebars2.default.compile(templateContent);
+    return template({ entityName });
+  }
+};
+
+// ../lib/Domain/Services/RepoService.ts
+var import_handlebars3 = __toESM(require_handlebars());
+var RepoService = class {
+  generateRepositoriesFiles(entitiesRepository, diFramework, templateContent, infraRepoDir) {
+    const template = import_handlebars3.default.compile(templateContent);
+    const fileEntities = [];
+    const useAngularDI = diFramework === "angular";
+    entitiesRepository.forEach((entityRepository) => {
+      const filePath = `${infraRepoDir}/${entityRepository}Repository.ts`;
+      const code = template({ entityName: entityRepository, useAngularDI });
+      const file = new FileEntity(filePath, code);
+      fileEntities.push(file);
+    });
+    return fileEntities;
+  }
+};
+
+// ../lib/Domain/Services/ShowcaseService.ts
+var import_handlebars4 = __toESM(require_handlebars());
+
+// ../lib/Domain/Entities/ShowcaseTemplateFile.ts
+var ShowcaseTemplateFile = class {
+  constructor(template, output, useAngularDI = false) {
+    this.template = template;
+    this.output = output;
+    this.useAngularDI = useAngularDI;
+  }
+};
+
+// ../lib/Domain/Services/ShowcaseService.ts
+var ShowcaseService = class {
+  constructor(fileService) {
+    this.fileService = fileService;
+  }
+  generateShowcaseFiles(request, buildPaths) {
+    return __async(this, null, function* () {
+      if (request.framework === "vanilla") {
+        console.log("Vanilla framework selected, skipping generation.");
+        return [];
+      }
+      const templateFiles = this.getTemplateFilesForFramework(request.framework);
+      if (templateFiles.main.length === 0) {
+        return [];
+      }
+      const context2 = {
+        firstAppService: request.firstAppService,
+        useAngularDI: request.useAngularDI
+      };
+      const mainFiles = this.buildFileDefinitions(templateFiles.main, buildPaths);
+      const fileEntities = yield this.generateFromTemplates(mainFiles, context2);
+      if (templateFiles.extra && templateFiles.extra.length > 0) {
+        const extraFiles = this.buildFileDefinitions(
+          templateFiles.extra,
+          buildPaths
+        );
+        const extraFileEntities = yield this.generateFromTemplates(
+          extraFiles,
+          {}
+        );
+        fileEntities.push(...extraFileEntities);
+      }
+      return fileEntities;
+    });
+  }
+  /**
+   * Get template files configuration for a specific framework
+   */
+  getTemplateFilesForFramework(framework) {
+    const frameworkConfigs = {
+      react: {
+        main: [
+          new ShowcaseTemplateFile("react/App.tsx.hbs", "App.tsx"),
+          new ShowcaseTemplateFile("shared/App.css.hbs", "App.css")
+        ]
+      },
+      angular: {
+        main: [
+          new ShowcaseTemplateFile(
+            "angular/app.component.ts.hbs",
+            "app.component.ts"
+          ),
+          new ShowcaseTemplateFile(
+            "angular/app.component.html.hbs",
+            "app.component.html"
+          ),
+          new ShowcaseTemplateFile("shared/App.css.hbs", "app.component.scss")
+        ]
+      },
+      vue: {
+        main: [
+          new ShowcaseTemplateFile("vue/App.vue.hbs", "App.vue"),
+          new ShowcaseTemplateFile("shared/App.css.hbs", "App.css")
+        ]
+      },
+      lit: {
+        main: [
+          new ShowcaseTemplateFile("lit/App.ts.hbs", "App.ts"),
+          new ShowcaseTemplateFile("shared/App.css.hbs", "App.css")
+        ],
+        extra: [new ShowcaseTemplateFile("lit/index.html.hbs", "index.html")]
+      }
+    };
+    return frameworkConfigs[framework] || { main: [] };
+  }
+  /**
+   * Build file definitions with computed paths
+   */
+  buildFileDefinitions(files, buildPaths) {
+    return files.map((file) => {
+      const paths = buildPaths(file.template, file.output);
+      return {
+        templatePath: paths.templatePath,
+        outputPath: paths.outputPath
+      };
+    });
+  }
+  generateFromTemplates(files, context2) {
+    return __async(this, null, function* () {
+      const fileEntities = [];
+      for (const { templatePath, outputPath } of files) {
+        const templateFileEntity = yield this.fileService.readTemplate(templatePath);
+        const compiled = import_handlebars4.default.compile(templateFileEntity.content);
+        const rendered = compiled(context2);
+        const file = new FileEntity(outputPath, rendered.trim());
+        fileEntities.push(file);
+      }
+      return fileEntities;
+    });
+  }
+};
+
+// node_modules/d3-dispatch/src/dispatch.js
 var noop4 = { value: () => {
 } };
 function dispatch() {
-  for (var i = 0, n = arguments.length, _2 = {}, t; i < n; ++i) {
-    if (!(t = arguments[i] + "") || t in _2 || /[\s.]/.test(t)) throw new Error("illegal type: " + t);
-    _2[t] = [];
+  for (var i = 0, n = arguments.length, _ = {}, t; i < n; ++i) {
+    if (!(t = arguments[i] + "") || t in _ || /[\s.]/.test(t)) throw new Error("illegal type: " + t);
+    _[t] = [];
   }
-  return new Dispatch(_2);
+  return new Dispatch(_);
 }
-function Dispatch(_2) {
-  this._ = _2;
+function Dispatch(_) {
+  this._ = _;
 }
 function parseTypenames(typenames, types) {
   return typenames.trim().split(/^|\s+/).map(function(t) {
@@ -80744,21 +80935,21 @@ function parseTypenames(typenames, types) {
 Dispatch.prototype = dispatch.prototype = {
   constructor: Dispatch,
   on: function(typename, callback) {
-    var _2 = this._, T3 = parseTypenames(typename + "", _2), t, i = -1, n = T3.length;
+    var _ = this._, T2 = parseTypenames(typename + "", _), t, i = -1, n = T2.length;
     if (arguments.length < 2) {
-      while (++i < n) if ((t = (typename = T3[i]).type) && (t = get(_2[t], typename.name))) return t;
+      while (++i < n) if ((t = (typename = T2[i]).type) && (t = get(_[t], typename.name))) return t;
       return;
     }
     if (callback != null && typeof callback !== "function") throw new Error("invalid callback: " + callback);
     while (++i < n) {
-      if (t = (typename = T3[i]).type) _2[t] = set(_2[t], typename.name, callback);
-      else if (callback == null) for (t in _2) _2[t] = set(_2[t], typename.name, null);
+      if (t = (typename = T2[i]).type) _[t] = set(_[t], typename.name, callback);
+      else if (callback == null) for (t in _) _[t] = set(_[t], typename.name, null);
     }
     return this;
   },
   copy: function() {
-    var copy = {}, _2 = this._;
-    for (var t in _2) copy[t] = _2[t].slice();
+    var copy = {}, _ = this._;
+    for (var t in _) copy[t] = _[t].slice();
     return new Dispatch(copy);
   },
   call: function(type2, that) {
@@ -80790,7 +80981,7 @@ function set(type2, name, callback) {
 }
 var dispatch_default = dispatch;
 
-// ../node_modules/d3-selection/src/namespaces.js
+// node_modules/d3-selection/src/namespaces.js
 var xhtml = "http://www.w3.org/1999/xhtml";
 var namespaces_default = {
   svg: "http://www.w3.org/2000/svg",
@@ -80800,14 +80991,14 @@ var namespaces_default = {
   xmlns: "http://www.w3.org/2000/xmlns/"
 };
 
-// ../node_modules/d3-selection/src/namespace.js
+// node_modules/d3-selection/src/namespace.js
 function namespace_default(name) {
   var prefix = name += "", i = prefix.indexOf(":");
   if (i >= 0 && (prefix = name.slice(0, i)) !== "xmlns") name = name.slice(i + 1);
   return namespaces_default.hasOwnProperty(prefix) ? { space: namespaces_default[prefix], local: name } : name;
 }
 
-// ../node_modules/d3-selection/src/creator.js
+// node_modules/d3-selection/src/creator.js
 function creatorInherit(name) {
   return function() {
     var document2 = this.ownerDocument, uri = this.namespaceURI;
@@ -80824,7 +81015,7 @@ function creator_default(name) {
   return (fullname.local ? creatorFixed : creatorInherit)(fullname);
 }
 
-// ../node_modules/d3-selection/src/selector.js
+// node_modules/d3-selection/src/selector.js
 function none() {
 }
 function selector_default(selector) {
@@ -80833,11 +81024,11 @@ function selector_default(selector) {
   };
 }
 
-// ../node_modules/d3-selection/src/selection/select.js
+// node_modules/d3-selection/src/selection/select.js
 function select_default(select) {
   if (typeof select !== "function") select = selector_default(select);
-  for (var groups = this._groups, m = groups.length, subgroups = new Array(m), j2 = 0; j2 < m; ++j2) {
-    for (var group = groups[j2], n = group.length, subgroup = subgroups[j2] = new Array(n), node, subnode, i = 0; i < n; ++i) {
+  for (var groups = this._groups, m = groups.length, subgroups = new Array(m), j = 0; j < m; ++j) {
+    for (var group = groups[j], n = group.length, subgroup = subgroups[j] = new Array(n), node, subnode, i = 0; i < n; ++i) {
       if ((node = group[i]) && (subnode = select.call(node, node.__data__, i, group))) {
         if ("__data__" in node) subnode.__data__ = node.__data__;
         subgroup[i] = subnode;
@@ -80847,12 +81038,12 @@ function select_default(select) {
   return new Selection(subgroups, this._parents);
 }
 
-// ../node_modules/d3-selection/src/array.js
+// node_modules/d3-selection/src/array.js
 function array(x) {
   return x == null ? [] : Array.isArray(x) ? x : Array.from(x);
 }
 
-// ../node_modules/d3-selection/src/selectorAll.js
+// node_modules/d3-selection/src/selectorAll.js
 function empty() {
   return [];
 }
@@ -80862,7 +81053,7 @@ function selectorAll_default(selector) {
   };
 }
 
-// ../node_modules/d3-selection/src/selection/selectAll.js
+// node_modules/d3-selection/src/selection/selectAll.js
 function arrayAll(select) {
   return function() {
     return array(select.apply(this, arguments));
@@ -80871,8 +81062,8 @@ function arrayAll(select) {
 function selectAll_default(select) {
   if (typeof select === "function") select = arrayAll(select);
   else select = selectorAll_default(select);
-  for (var groups = this._groups, m = groups.length, subgroups = [], parents = [], j2 = 0; j2 < m; ++j2) {
-    for (var group = groups[j2], n = group.length, node, i = 0; i < n; ++i) {
+  for (var groups = this._groups, m = groups.length, subgroups = [], parents = [], j = 0; j < m; ++j) {
+    for (var group = groups[j], n = group.length, node, i = 0; i < n; ++i) {
       if (node = group[i]) {
         subgroups.push(select.call(node, node.__data__, i, group));
         parents.push(node);
@@ -80882,7 +81073,7 @@ function selectAll_default(select) {
   return new Selection(subgroups, parents);
 }
 
-// ../node_modules/d3-selection/src/matcher.js
+// node_modules/d3-selection/src/matcher.js
 function matcher_default(selector) {
   return function() {
     return this.matches(selector);
@@ -80894,7 +81085,7 @@ function childMatcher(selector) {
   };
 }
 
-// ../node_modules/d3-selection/src/selection/selectChild.js
+// node_modules/d3-selection/src/selection/selectChild.js
 var find = Array.prototype.find;
 function childFind(match2) {
   return function() {
@@ -80908,7 +81099,7 @@ function selectChild_default(match2) {
   return this.select(match2 == null ? childFirst : childFind(typeof match2 === "function" ? match2 : childMatcher(match2)));
 }
 
-// ../node_modules/d3-selection/src/selection/selectChildren.js
+// node_modules/d3-selection/src/selection/selectChildren.js
 var filter2 = Array.prototype.filter;
 function children() {
   return Array.from(this.children);
@@ -80922,11 +81113,11 @@ function selectChildren_default(match2) {
   return this.selectAll(match2 == null ? children : childrenFilter(typeof match2 === "function" ? match2 : childMatcher(match2)));
 }
 
-// ../node_modules/d3-selection/src/selection/filter.js
+// node_modules/d3-selection/src/selection/filter.js
 function filter_default(match2) {
   if (typeof match2 !== "function") match2 = matcher_default(match2);
-  for (var groups = this._groups, m = groups.length, subgroups = new Array(m), j2 = 0; j2 < m; ++j2) {
-    for (var group = groups[j2], n = group.length, subgroup = subgroups[j2] = [], node, i = 0; i < n; ++i) {
+  for (var groups = this._groups, m = groups.length, subgroups = new Array(m), j = 0; j < m; ++j) {
+    for (var group = groups[j], n = group.length, subgroup = subgroups[j] = [], node, i = 0; i < n; ++i) {
       if ((node = group[i]) && match2.call(node, node.__data__, i, group)) {
         subgroup.push(node);
       }
@@ -80935,12 +81126,12 @@ function filter_default(match2) {
   return new Selection(subgroups, this._parents);
 }
 
-// ../node_modules/d3-selection/src/selection/sparse.js
+// node_modules/d3-selection/src/selection/sparse.js
 function sparse_default(update) {
   return new Array(update.length);
 }
 
-// ../node_modules/d3-selection/src/selection/enter.js
+// node_modules/d3-selection/src/selection/enter.js
 function enter_default() {
   return new Selection(this._enter || this._groups.map(sparse_default), this._parents);
 }
@@ -80967,14 +81158,14 @@ EnterNode.prototype = {
   }
 };
 
-// ../node_modules/d3-selection/src/constant.js
+// node_modules/d3-selection/src/constant.js
 function constant_default(x) {
   return function() {
     return x;
   };
 }
 
-// ../node_modules/d3-selection/src/selection/data.js
+// node_modules/d3-selection/src/selection/data.js
 function bindIndex(parent, group, enter, update, exit, data) {
   var i = 0, node, groupLength = group.length, dataLength = data.length;
   for (; i < dataLength; ++i) {
@@ -81026,8 +81217,8 @@ function data_default(value, key) {
   if (!arguments.length) return Array.from(this, datum);
   var bind2 = key ? bindKey : bindIndex, parents = this._parents, groups = this._groups;
   if (typeof value !== "function") value = constant_default(value);
-  for (var m = groups.length, update = new Array(m), enter = new Array(m), exit = new Array(m), j2 = 0; j2 < m; ++j2) {
-    var parent = parents[j2], group = groups[j2], groupLength = group.length, data = arraylike(value.call(parent, parent && parent.__data__, j2, parents)), dataLength = data.length, enterGroup = enter[j2] = new Array(dataLength), updateGroup = update[j2] = new Array(dataLength), exitGroup = exit[j2] = new Array(groupLength);
+  for (var m = groups.length, update = new Array(m), enter = new Array(m), exit = new Array(m), j = 0; j < m; ++j) {
+    var parent = parents[j], group = groups[j], groupLength = group.length, data = arraylike(value.call(parent, parent && parent.__data__, j, parents)), dataLength = data.length, enterGroup = enter[j] = new Array(dataLength), updateGroup = update[j] = new Array(dataLength), exitGroup = exit[j] = new Array(groupLength);
     bind2(parent, group, enterGroup, updateGroup, exitGroup, data, key);
     for (var i0 = 0, i1 = 0, previous, next; i0 < dataLength; ++i0) {
       if (previous = enterGroup[i0]) {
@@ -81046,12 +81237,12 @@ function arraylike(data) {
   return typeof data === "object" && "length" in data ? data : Array.from(data);
 }
 
-// ../node_modules/d3-selection/src/selection/exit.js
+// node_modules/d3-selection/src/selection/exit.js
 function exit_default() {
   return new Selection(this._exit || this._groups.map(sparse_default), this._parents);
 }
 
-// ../node_modules/d3-selection/src/selection/join.js
+// node_modules/d3-selection/src/selection/join.js
 function join_default(onenter, onupdate, onexit) {
   var enter = this.enter(), update = this, exit = this.exit();
   if (typeof onenter === "function") {
@@ -81069,26 +81260,26 @@ function join_default(onenter, onupdate, onexit) {
   return enter && update ? enter.merge(update).order() : update;
 }
 
-// ../node_modules/d3-selection/src/selection/merge.js
+// node_modules/d3-selection/src/selection/merge.js
 function merge_default(context2) {
   var selection2 = context2.selection ? context2.selection() : context2;
-  for (var groups0 = this._groups, groups1 = selection2._groups, m0 = groups0.length, m1 = groups1.length, m = Math.min(m0, m1), merges = new Array(m0), j2 = 0; j2 < m; ++j2) {
-    for (var group0 = groups0[j2], group1 = groups1[j2], n = group0.length, merge3 = merges[j2] = new Array(n), node, i = 0; i < n; ++i) {
+  for (var groups0 = this._groups, groups1 = selection2._groups, m0 = groups0.length, m1 = groups1.length, m = Math.min(m0, m1), merges = new Array(m0), j = 0; j < m; ++j) {
+    for (var group0 = groups0[j], group1 = groups1[j], n = group0.length, merge3 = merges[j] = new Array(n), node, i = 0; i < n; ++i) {
       if (node = group0[i] || group1[i]) {
         merge3[i] = node;
       }
     }
   }
-  for (; j2 < m0; ++j2) {
-    merges[j2] = groups0[j2];
+  for (; j < m0; ++j) {
+    merges[j] = groups0[j];
   }
   return new Selection(merges, this._parents);
 }
 
-// ../node_modules/d3-selection/src/selection/order.js
+// node_modules/d3-selection/src/selection/order.js
 function order_default() {
-  for (var groups = this._groups, j2 = -1, m = groups.length; ++j2 < m; ) {
-    for (var group = groups[j2], i = group.length - 1, next = group[i], node; --i >= 0; ) {
+  for (var groups = this._groups, j = -1, m = groups.length; ++j < m; ) {
+    for (var group = groups[j], i = group.length - 1, next = group[i], node; --i >= 0; ) {
       if (node = group[i]) {
         if (next && node.compareDocumentPosition(next) ^ 4) next.parentNode.insertBefore(node, next);
         next = node;
@@ -81098,14 +81289,14 @@ function order_default() {
   return this;
 }
 
-// ../node_modules/d3-selection/src/selection/sort.js
+// node_modules/d3-selection/src/selection/sort.js
 function sort_default(compare2) {
   if (!compare2) compare2 = ascending;
-  function compareNode(a, b2) {
-    return a && b2 ? compare2(a.__data__, b2.__data__) : !a - !b2;
+  function compareNode(a, b) {
+    return a && b ? compare2(a.__data__, b.__data__) : !a - !b;
   }
-  for (var groups = this._groups, m = groups.length, sortgroups = new Array(m), j2 = 0; j2 < m; ++j2) {
-    for (var group = groups[j2], n = group.length, sortgroup = sortgroups[j2] = new Array(n), node, i = 0; i < n; ++i) {
+  for (var groups = this._groups, m = groups.length, sortgroups = new Array(m), j = 0; j < m; ++j) {
+    for (var group = groups[j], n = group.length, sortgroup = sortgroups[j] = new Array(n), node, i = 0; i < n; ++i) {
       if (node = group[i]) {
         sortgroup[i] = node;
       }
@@ -81114,11 +81305,11 @@ function sort_default(compare2) {
   }
   return new Selection(sortgroups, this._parents).order();
 }
-function ascending(a, b2) {
-  return a < b2 ? -1 : a > b2 ? 1 : a >= b2 ? 0 : NaN;
+function ascending(a, b) {
+  return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
 }
 
-// ../node_modules/d3-selection/src/selection/call.js
+// node_modules/d3-selection/src/selection/call.js
 function call_default() {
   var callback = arguments[0];
   arguments[0] = this;
@@ -81126,15 +81317,15 @@ function call_default() {
   return this;
 }
 
-// ../node_modules/d3-selection/src/selection/nodes.js
+// node_modules/d3-selection/src/selection/nodes.js
 function nodes_default() {
   return Array.from(this);
 }
 
-// ../node_modules/d3-selection/src/selection/node.js
+// node_modules/d3-selection/src/selection/node.js
 function node_default() {
-  for (var groups = this._groups, j2 = 0, m = groups.length; j2 < m; ++j2) {
-    for (var group = groups[j2], i = 0, n = group.length; i < n; ++i) {
+  for (var groups = this._groups, j = 0, m = groups.length; j < m; ++j) {
+    for (var group = groups[j], i = 0, n = group.length; i < n; ++i) {
       var node = group[i];
       if (node) return node;
     }
@@ -81142,29 +81333,29 @@ function node_default() {
   return null;
 }
 
-// ../node_modules/d3-selection/src/selection/size.js
+// node_modules/d3-selection/src/selection/size.js
 function size_default() {
   let size = 0;
   for (const node of this) ++size;
   return size;
 }
 
-// ../node_modules/d3-selection/src/selection/empty.js
+// node_modules/d3-selection/src/selection/empty.js
 function empty_default() {
   return !this.node();
 }
 
-// ../node_modules/d3-selection/src/selection/each.js
+// node_modules/d3-selection/src/selection/each.js
 function each_default(callback) {
-  for (var groups = this._groups, j2 = 0, m = groups.length; j2 < m; ++j2) {
-    for (var group = groups[j2], i = 0, n = group.length, node; i < n; ++i) {
+  for (var groups = this._groups, j = 0, m = groups.length; j < m; ++j) {
+    for (var group = groups[j], i = 0, n = group.length, node; i < n; ++i) {
       if (node = group[i]) callback.call(node, node.__data__, i, group);
     }
   }
   return this;
 }
 
-// ../node_modules/d3-selection/src/selection/attr.js
+// node_modules/d3-selection/src/selection/attr.js
 function attrRemove(name) {
   return function() {
     this.removeAttribute(name);
@@ -81187,16 +81378,16 @@ function attrConstantNS(fullname, value) {
 }
 function attrFunction(name, value) {
   return function() {
-    var v2 = value.apply(this, arguments);
-    if (v2 == null) this.removeAttribute(name);
-    else this.setAttribute(name, v2);
+    var v = value.apply(this, arguments);
+    if (v == null) this.removeAttribute(name);
+    else this.setAttribute(name, v);
   };
 }
 function attrFunctionNS(fullname, value) {
   return function() {
-    var v2 = value.apply(this, arguments);
-    if (v2 == null) this.removeAttributeNS(fullname.space, fullname.local);
-    else this.setAttributeNS(fullname.space, fullname.local, v2);
+    var v = value.apply(this, arguments);
+    if (v == null) this.removeAttributeNS(fullname.space, fullname.local);
+    else this.setAttributeNS(fullname.space, fullname.local, v);
   };
 }
 function attr_default(name, value) {
@@ -81208,12 +81399,12 @@ function attr_default(name, value) {
   return this.each((value == null ? fullname.local ? attrRemoveNS : attrRemove : typeof value === "function" ? fullname.local ? attrFunctionNS : attrFunction : fullname.local ? attrConstantNS : attrConstant)(fullname, value));
 }
 
-// ../node_modules/d3-selection/src/window.js
+// node_modules/d3-selection/src/window.js
 function window_default(node) {
   return node.ownerDocument && node.ownerDocument.defaultView || node.document && node || node.defaultView;
 }
 
-// ../node_modules/d3-selection/src/selection/style.js
+// node_modules/d3-selection/src/selection/style.js
 function styleRemove(name) {
   return function() {
     this.style.removeProperty(name);
@@ -81226,9 +81417,9 @@ function styleConstant(name, value, priority) {
 }
 function styleFunction(name, value, priority) {
   return function() {
-    var v2 = value.apply(this, arguments);
-    if (v2 == null) this.style.removeProperty(name);
-    else this.style.setProperty(name, v2, priority);
+    var v = value.apply(this, arguments);
+    if (v == null) this.style.removeProperty(name);
+    else this.style.setProperty(name, v, priority);
   };
 }
 function style_default(name, value, priority) {
@@ -81238,7 +81429,7 @@ function styleValue(node, name) {
   return node.style.getPropertyValue(name) || window_default(node).getComputedStyle(node, null).getPropertyValue(name);
 }
 
-// ../node_modules/d3-selection/src/selection/property.js
+// node_modules/d3-selection/src/selection/property.js
 function propertyRemove(name) {
   return function() {
     delete this[name];
@@ -81251,16 +81442,16 @@ function propertyConstant(name, value) {
 }
 function propertyFunction(name, value) {
   return function() {
-    var v2 = value.apply(this, arguments);
-    if (v2 == null) delete this[name];
-    else this[name] = v2;
+    var v = value.apply(this, arguments);
+    if (v == null) delete this[name];
+    else this[name] = v;
   };
 }
 function property_default(name, value) {
   return arguments.length > 1 ? this.each((value == null ? propertyRemove : typeof value === "function" ? propertyFunction : propertyConstant)(name, value)) : this.node()[name];
 }
 
-// ../node_modules/d3-selection/src/selection/classed.js
+// node_modules/d3-selection/src/selection/classed.js
 function classArray(string) {
   return string.trim().split(/^|\s+/);
 }
@@ -81323,7 +81514,7 @@ function classed_default(name, value) {
   return this.each((typeof value === "function" ? classedFunction : value ? classedTrue : classedFalse)(names, value));
 }
 
-// ../node_modules/d3-selection/src/selection/text.js
+// node_modules/d3-selection/src/selection/text.js
 function textRemove() {
   this.textContent = "";
 }
@@ -81334,15 +81525,15 @@ function textConstant(value) {
 }
 function textFunction(value) {
   return function() {
-    var v2 = value.apply(this, arguments);
-    this.textContent = v2 == null ? "" : v2;
+    var v = value.apply(this, arguments);
+    this.textContent = v == null ? "" : v;
   };
 }
 function text_default(value) {
   return arguments.length ? this.each(value == null ? textRemove : (typeof value === "function" ? textFunction : textConstant)(value)) : this.node().textContent;
 }
 
-// ../node_modules/d3-selection/src/selection/html.js
+// node_modules/d3-selection/src/selection/html.js
 function htmlRemove() {
   this.innerHTML = "";
 }
@@ -81353,15 +81544,15 @@ function htmlConstant(value) {
 }
 function htmlFunction(value) {
   return function() {
-    var v2 = value.apply(this, arguments);
-    this.innerHTML = v2 == null ? "" : v2;
+    var v = value.apply(this, arguments);
+    this.innerHTML = v == null ? "" : v;
   };
 }
 function html_default(value) {
   return arguments.length ? this.each(value == null ? htmlRemove : (typeof value === "function" ? htmlFunction : htmlConstant)(value)) : this.node().innerHTML;
 }
 
-// ../node_modules/d3-selection/src/selection/raise.js
+// node_modules/d3-selection/src/selection/raise.js
 function raise() {
   if (this.nextSibling) this.parentNode.appendChild(this);
 }
@@ -81369,7 +81560,7 @@ function raise_default() {
   return this.each(raise);
 }
 
-// ../node_modules/d3-selection/src/selection/lower.js
+// node_modules/d3-selection/src/selection/lower.js
 function lower() {
   if (this.previousSibling) this.parentNode.insertBefore(this, this.parentNode.firstChild);
 }
@@ -81377,7 +81568,7 @@ function lower_default() {
   return this.each(lower);
 }
 
-// ../node_modules/d3-selection/src/selection/append.js
+// node_modules/d3-selection/src/selection/append.js
 function append_default(name) {
   var create2 = typeof name === "function" ? name : creator_default(name);
   return this.select(function() {
@@ -81385,7 +81576,7 @@ function append_default(name) {
   });
 }
 
-// ../node_modules/d3-selection/src/selection/insert.js
+// node_modules/d3-selection/src/selection/insert.js
 function constantNull() {
   return null;
 }
@@ -81396,7 +81587,7 @@ function insert_default(name, before) {
   });
 }
 
-// ../node_modules/d3-selection/src/selection/remove.js
+// node_modules/d3-selection/src/selection/remove.js
 function remove2() {
   var parent = this.parentNode;
   if (parent) parent.removeChild(this);
@@ -81405,7 +81596,7 @@ function remove_default() {
   return this.each(remove2);
 }
 
-// ../node_modules/d3-selection/src/selection/clone.js
+// node_modules/d3-selection/src/selection/clone.js
 function selection_cloneShallow() {
   var clone = this.cloneNode(false), parent = this.parentNode;
   return parent ? parent.insertBefore(clone, this.nextSibling) : clone;
@@ -81418,12 +81609,12 @@ function clone_default(deep) {
   return this.select(deep ? selection_cloneDeep : selection_cloneShallow);
 }
 
-// ../node_modules/d3-selection/src/selection/datum.js
+// node_modules/d3-selection/src/selection/datum.js
 function datum_default(value) {
   return arguments.length ? this.property("__data__", value) : this.node().__data__;
 }
 
-// ../node_modules/d3-selection/src/selection/on.js
+// node_modules/d3-selection/src/selection/on.js
 function contextListener(listener) {
   return function(event) {
     listener.call(this, event, this.__data__);
@@ -81438,24 +81629,24 @@ function parseTypenames2(typenames) {
 }
 function onRemove(typename) {
   return function() {
-    var on2 = this.__on;
-    if (!on2) return;
-    for (var j2 = 0, i = -1, m = on2.length, o; j2 < m; ++j2) {
-      if (o = on2[j2], (!typename.type || o.type === typename.type) && o.name === typename.name) {
+    var on = this.__on;
+    if (!on) return;
+    for (var j = 0, i = -1, m = on.length, o; j < m; ++j) {
+      if (o = on[j], (!typename.type || o.type === typename.type) && o.name === typename.name) {
         this.removeEventListener(o.type, o.listener, o.options);
       } else {
-        on2[++i] = o;
+        on[++i] = o;
       }
     }
-    if (++i) on2.length = i;
+    if (++i) on.length = i;
     else delete this.__on;
   };
 }
 function onAdd(typename, value, options) {
   return function() {
-    var on2 = this.__on, o, listener = contextListener(value);
-    if (on2) for (var j2 = 0, m = on2.length; j2 < m; ++j2) {
-      if ((o = on2[j2]).type === typename.type && o.name === typename.name) {
+    var on = this.__on, o, listener = contextListener(value);
+    if (on) for (var j = 0, m = on.length; j < m; ++j) {
+      if ((o = on[j]).type === typename.type && o.name === typename.name) {
         this.removeEventListener(o.type, o.listener, o.options);
         this.addEventListener(o.type, o.listener = listener, o.options = options);
         o.value = value;
@@ -81464,16 +81655,16 @@ function onAdd(typename, value, options) {
     }
     this.addEventListener(typename.type, listener, options);
     o = { type: typename.type, name: typename.name, value, listener, options };
-    if (!on2) this.__on = [o];
-    else on2.push(o);
+    if (!on) this.__on = [o];
+    else on.push(o);
   };
 }
 function on_default(typename, value, options) {
   var typenames = parseTypenames2(typename + ""), i, n = typenames.length, t;
   if (arguments.length < 2) {
-    var on2 = this.node().__on;
-    if (on2) for (var j2 = 0, m = on2.length, o; j2 < m; ++j2) {
-      for (i = 0, o = on2[j2]; i < n; ++i) {
+    var on = this.node().__on;
+    if (on) for (var j = 0, m = on.length, o; j < m; ++j) {
+      for (i = 0, o = on[j]; i < n; ++i) {
         if ((t = typenames[i]).type === o.type && t.name === o.name) {
           return o.value;
         }
@@ -81481,12 +81672,12 @@ function on_default(typename, value, options) {
     }
     return;
   }
-  on2 = value ? onAdd : onRemove;
-  for (i = 0; i < n; ++i) this.each(on2(typenames[i], value, options));
+  on = value ? onAdd : onRemove;
+  for (i = 0; i < n; ++i) this.each(on(typenames[i], value, options));
   return this;
 }
 
-// ../node_modules/d3-selection/src/selection/dispatch.js
+// node_modules/d3-selection/src/selection/dispatch.js
 function dispatchEvent(node, type2, params) {
   var window2 = window_default(node), event = window2.CustomEvent;
   if (typeof event === "function") {
@@ -81512,16 +81703,16 @@ function dispatch_default2(type2, params) {
   return this.each((typeof params === "function" ? dispatchFunction : dispatchConstant)(type2, params));
 }
 
-// ../node_modules/d3-selection/src/selection/iterator.js
+// node_modules/d3-selection/src/selection/iterator.js
 function* iterator_default() {
-  for (var groups = this._groups, j2 = 0, m = groups.length; j2 < m; ++j2) {
-    for (var group = groups[j2], i = 0, n = group.length, node; i < n; ++i) {
+  for (var groups = this._groups, j = 0, m = groups.length; j < m; ++j) {
+    for (var group = groups[j], i = 0, n = group.length, node; i < n; ++i) {
       if (node = group[i]) yield node;
     }
   }
 }
 
-// ../node_modules/d3-selection/src/selection/index.js
+// node_modules/d3-selection/src/selection/index.js
 var root = [null];
 function Selection(groups, parents) {
   this._groups = groups;
@@ -81573,12 +81764,12 @@ Selection.prototype = selection.prototype = {
 };
 var selection_default = selection;
 
-// ../node_modules/d3-selection/src/select.js
+// node_modules/d3-selection/src/select.js
 function select_default2(selector) {
   return typeof selector === "string" ? new Selection([[document.querySelector(selector)]], [document.documentElement]) : new Selection([[selector]], root);
 }
 
-// ../node_modules/d3-color/src/define.js
+// node_modules/d3-color/src/define.js
 function define_default(constructor, factory, prototype) {
   constructor.prototype = factory.prototype = prototype;
   prototype.constructor = constructor;
@@ -81589,7 +81780,7 @@ function extend(parent, definition) {
   return prototype;
 }
 
-// ../node_modules/d3-color/src/color.js
+// node_modules/d3-color/src/color.js
 function Color() {
 }
 var darker = 0.7;
@@ -81789,9 +81980,9 @@ function color(format) {
 function rgbn(n) {
   return new Rgb(n >> 16 & 255, n >> 8 & 255, n & 255, 1);
 }
-function rgba(r, g2, b2, a) {
-  if (a <= 0) r = g2 = b2 = NaN;
-  return new Rgb(r, g2, b2, a);
+function rgba(r, g, b, a) {
+  if (a <= 0) r = g = b = NaN;
+  return new Rgb(r, g, b, a);
 }
 function rgbConvert(o) {
   if (!(o instanceof Color)) o = color(o);
@@ -81799,23 +81990,23 @@ function rgbConvert(o) {
   o = o.rgb();
   return new Rgb(o.r, o.g, o.b, o.opacity);
 }
-function rgb(r, g2, b2, opacity) {
-  return arguments.length === 1 ? rgbConvert(r) : new Rgb(r, g2, b2, opacity == null ? 1 : opacity);
+function rgb(r, g, b, opacity) {
+  return arguments.length === 1 ? rgbConvert(r) : new Rgb(r, g, b, opacity == null ? 1 : opacity);
 }
-function Rgb(r, g2, b2, opacity) {
+function Rgb(r, g, b, opacity) {
   this.r = +r;
-  this.g = +g2;
-  this.b = +b2;
+  this.g = +g;
+  this.b = +b;
   this.opacity = +opacity;
 }
 define_default(Rgb, rgb, extend(Color, {
-  brighter(k2) {
-    k2 = k2 == null ? brighter : Math.pow(brighter, k2);
-    return new Rgb(this.r * k2, this.g * k2, this.b * k2, this.opacity);
+  brighter(k) {
+    k = k == null ? brighter : Math.pow(brighter, k);
+    return new Rgb(this.r * k, this.g * k, this.b * k, this.opacity);
   },
-  darker(k2) {
-    k2 = k2 == null ? darker : Math.pow(darker, k2);
-    return new Rgb(this.r * k2, this.g * k2, this.b * k2, this.opacity);
+  darker(k) {
+    k = k == null ? darker : Math.pow(darker, k);
+    return new Rgb(this.r * k, this.g * k, this.b * k, this.opacity);
   },
   rgb() {
     return this;
@@ -81865,11 +82056,11 @@ function hslConvert(o) {
   if (!o) return new Hsl();
   if (o instanceof Hsl) return o;
   o = o.rgb();
-  var r = o.r / 255, g2 = o.g / 255, b2 = o.b / 255, min2 = Math.min(r, g2, b2), max2 = Math.max(r, g2, b2), h = NaN, s = max2 - min2, l = (max2 + min2) / 2;
+  var r = o.r / 255, g = o.g / 255, b = o.b / 255, min2 = Math.min(r, g, b), max2 = Math.max(r, g, b), h = NaN, s = max2 - min2, l = (max2 + min2) / 2;
   if (s) {
-    if (r === max2) h = (g2 - b2) / s + (g2 < b2) * 6;
-    else if (g2 === max2) h = (b2 - r) / s + 2;
-    else h = (r - g2) / s + 4;
+    if (r === max2) h = (g - b) / s + (g < b) * 6;
+    else if (g === max2) h = (b - r) / s + 2;
+    else h = (r - g) / s + 4;
     s /= l < 0.5 ? max2 + min2 : 2 - max2 - min2;
     h *= 60;
   } else {
@@ -81887,13 +82078,13 @@ function Hsl(h, s, l, opacity) {
   this.opacity = +opacity;
 }
 define_default(Hsl, hsl, extend(Color, {
-  brighter(k2) {
-    k2 = k2 == null ? brighter : Math.pow(brighter, k2);
-    return new Hsl(this.h, this.s, this.l * k2, this.opacity);
+  brighter(k) {
+    k = k == null ? brighter : Math.pow(brighter, k);
+    return new Hsl(this.h, this.s, this.l * k, this.opacity);
   },
-  darker(k2) {
-    k2 = k2 == null ? darker : Math.pow(darker, k2);
-    return new Hsl(this.h, this.s, this.l * k2, this.opacity);
+  darker(k) {
+    k = k == null ? darker : Math.pow(darker, k);
+    return new Hsl(this.h, this.s, this.l * k, this.opacity);
   },
   rgb() {
     var h = this.h % 360 + (this.h < 0) * 360, s = isNaN(h) || isNaN(this.s) ? 0 : this.s, l = this.l, m2 = l + (l < 0.5 ? l : 1 - l) * s, m1 = 2 * l - m2;
@@ -81926,7 +82117,7 @@ function hsl2rgb(h, m1, m2) {
   return (h < 60 ? m1 + (m2 - m1) * h / 60 : h < 180 ? m2 : h < 240 ? m1 + (m2 - m1) * (240 - h) / 60 : m1) * 255;
 }
 
-// ../node_modules/d3-interpolate/src/basis.js
+// node_modules/d3-interpolate/src/basis.js
 function basis(t1, v0, v1, v2, v3) {
   var t2 = t1 * t1, t3 = t2 * t1;
   return ((1 - 3 * t1 + 3 * t2 - t3) * v0 + (4 - 6 * t2 + 3 * t3) * v1 + (1 + 3 * t1 + 3 * t2 - 3 * t3) * v2 + t3 * v3) / 6;
@@ -81939,7 +82130,7 @@ function basis_default(values) {
   };
 }
 
-// ../node_modules/d3-interpolate/src/basisClosed.js
+// node_modules/d3-interpolate/src/basisClosed.js
 function basisClosed_default(values) {
   var n = values.length;
   return function(t) {
@@ -81948,39 +82139,39 @@ function basisClosed_default(values) {
   };
 }
 
-// ../node_modules/d3-interpolate/src/constant.js
+// node_modules/d3-interpolate/src/constant.js
 var constant_default2 = (x) => () => x;
 
-// ../node_modules/d3-interpolate/src/color.js
+// node_modules/d3-interpolate/src/color.js
 function linear(a, d) {
   return function(t) {
     return a + t * d;
   };
 }
-function exponential(a, b2, y2) {
-  return a = Math.pow(a, y2), b2 = Math.pow(b2, y2) - a, y2 = 1 / y2, function(t) {
-    return Math.pow(a + t * b2, y2);
+function exponential(a, b, y) {
+  return a = Math.pow(a, y), b = Math.pow(b, y) - a, y = 1 / y, function(t) {
+    return Math.pow(a + t * b, y);
   };
 }
-function gamma(y2) {
-  return (y2 = +y2) === 1 ? nogamma : function(a, b2) {
-    return b2 - a ? exponential(a, b2, y2) : constant_default2(isNaN(a) ? b2 : a);
+function gamma(y) {
+  return (y = +y) === 1 ? nogamma : function(a, b) {
+    return b - a ? exponential(a, b, y) : constant_default2(isNaN(a) ? b : a);
   };
 }
-function nogamma(a, b2) {
-  var d = b2 - a;
-  return d ? linear(a, d) : constant_default2(isNaN(a) ? b2 : a);
+function nogamma(a, b) {
+  var d = b - a;
+  return d ? linear(a, d) : constant_default2(isNaN(a) ? b : a);
 }
 
-// ../node_modules/d3-interpolate/src/rgb.js
-var rgb_default = (function rgbGamma(y2) {
-  var color2 = gamma(y2);
+// node_modules/d3-interpolate/src/rgb.js
+var rgb_default = (function rgbGamma(y) {
+  var color2 = gamma(y);
   function rgb2(start2, end) {
-    var r = color2((start2 = rgb(start2)).r, (end = rgb(end)).r), g2 = color2(start2.g, end.g), b2 = color2(start2.b, end.b), opacity = nogamma(start2.opacity, end.opacity);
+    var r = color2((start2 = rgb(start2)).r, (end = rgb(end)).r), g = color2(start2.g, end.g), b = color2(start2.b, end.b), opacity = nogamma(start2.opacity, end.opacity);
     return function(t) {
       start2.r = r(t);
-      start2.g = g2(t);
-      start2.b = b2(t);
+      start2.g = g(t);
+      start2.b = b(t);
       start2.opacity = opacity(t);
       return start2 + "";
     };
@@ -81990,21 +82181,21 @@ var rgb_default = (function rgbGamma(y2) {
 })(1);
 function rgbSpline(spline) {
   return function(colors) {
-    var n = colors.length, r = new Array(n), g2 = new Array(n), b2 = new Array(n), i, color2;
+    var n = colors.length, r = new Array(n), g = new Array(n), b = new Array(n), i, color2;
     for (i = 0; i < n; ++i) {
       color2 = rgb(colors[i]);
       r[i] = color2.r || 0;
-      g2[i] = color2.g || 0;
-      b2[i] = color2.b || 0;
+      g[i] = color2.g || 0;
+      b[i] = color2.b || 0;
     }
     r = spline(r);
-    g2 = spline(g2);
-    b2 = spline(b2);
+    g = spline(g);
+    b = spline(b);
     color2.opacity = 1;
     return function(t) {
       color2.r = r(t);
-      color2.g = g2(t);
-      color2.b = b2(t);
+      color2.g = g(t);
+      color2.b = b(t);
       return color2 + "";
     };
   };
@@ -82012,32 +82203,32 @@ function rgbSpline(spline) {
 var rgbBasis = rgbSpline(basis_default);
 var rgbBasisClosed = rgbSpline(basisClosed_default);
 
-// ../node_modules/d3-interpolate/src/number.js
-function number_default(a, b2) {
-  return a = +a, b2 = +b2, function(t) {
-    return a * (1 - t) + b2 * t;
+// node_modules/d3-interpolate/src/number.js
+function number_default(a, b) {
+  return a = +a, b = +b, function(t) {
+    return a * (1 - t) + b * t;
   };
 }
 
-// ../node_modules/d3-interpolate/src/string.js
+// node_modules/d3-interpolate/src/string.js
 var reA = /[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g;
 var reB = new RegExp(reA.source, "g");
-function zero(b2) {
+function zero(b) {
   return function() {
-    return b2;
+    return b;
   };
 }
-function one(b2) {
+function one(b) {
   return function(t) {
-    return b2(t) + "";
+    return b(t) + "";
   };
 }
-function string_default(a, b2) {
-  var bi = reA.lastIndex = reB.lastIndex = 0, am, bm, bs, i = -1, s = [], q2 = [];
-  a = a + "", b2 = b2 + "";
-  while ((am = reA.exec(a)) && (bm = reB.exec(b2))) {
+function string_default(a, b) {
+  var bi = reA.lastIndex = reB.lastIndex = 0, am, bm, bs, i = -1, s = [], q = [];
+  a = a + "", b = b + "";
+  while ((am = reA.exec(a)) && (bm = reB.exec(b))) {
     if ((bs = bm.index) > bi) {
-      bs = b2.slice(bi, bs);
+      bs = b.slice(bi, bs);
       if (s[i]) s[i] += bs;
       else s[++i] = bs;
     }
@@ -82046,22 +82237,22 @@ function string_default(a, b2) {
       else s[++i] = bm;
     } else {
       s[++i] = null;
-      q2.push({ i, x: number_default(am, bm) });
+      q.push({ i, x: number_default(am, bm) });
     }
     bi = reB.lastIndex;
   }
-  if (bi < b2.length) {
-    bs = b2.slice(bi);
+  if (bi < b.length) {
+    bs = b.slice(bi);
     if (s[i]) s[i] += bs;
     else s[++i] = bs;
   }
-  return s.length < 2 ? q2[0] ? one(q2[0].x) : zero(b2) : (b2 = q2.length, function(t) {
-    for (var i2 = 0, o; i2 < b2; ++i2) s[(o = q2[i2]).i] = o.x(t);
+  return s.length < 2 ? q[0] ? one(q[0].x) : zero(b) : (b = q.length, function(t) {
+    for (var i2 = 0, o; i2 < b; ++i2) s[(o = q[i2]).i] = o.x(t);
     return s.join("");
   });
 }
 
-// ../node_modules/d3-interpolate/src/transform/decompose.js
+// node_modules/d3-interpolate/src/transform/decompose.js
 var degrees = 180 / Math.PI;
 var identity2 = {
   translateX: 0,
@@ -82071,23 +82262,23 @@ var identity2 = {
   scaleX: 1,
   scaleY: 1
 };
-function decompose_default(a, b2, c, d, e, f) {
+function decompose_default(a, b, c, d, e, f) {
   var scaleX, scaleY, skewX;
-  if (scaleX = Math.sqrt(a * a + b2 * b2)) a /= scaleX, b2 /= scaleX;
-  if (skewX = a * c + b2 * d) c -= a * skewX, d -= b2 * skewX;
+  if (scaleX = Math.sqrt(a * a + b * b)) a /= scaleX, b /= scaleX;
+  if (skewX = a * c + b * d) c -= a * skewX, d -= b * skewX;
   if (scaleY = Math.sqrt(c * c + d * d)) c /= scaleY, d /= scaleY, skewX /= scaleY;
-  if (a * d < b2 * c) a = -a, b2 = -b2, skewX = -skewX, scaleX = -scaleX;
+  if (a * d < b * c) a = -a, b = -b, skewX = -skewX, scaleX = -scaleX;
   return {
     translateX: e,
     translateY: f,
-    rotate: Math.atan2(b2, a) * degrees,
+    rotate: Math.atan2(b, a) * degrees,
     skewX: Math.atan(skewX) * degrees,
     scaleX,
     scaleY
   };
 }
 
-// ../node_modules/d3-interpolate/src/transform/parse.js
+// node_modules/d3-interpolate/src/transform/parse.js
 var svgNode;
 function parseCss(value) {
   const m = new (typeof DOMMatrix === "function" ? DOMMatrix : WebKitCSSMatrix)(value + "");
@@ -82102,54 +82293,54 @@ function parseSvg(value) {
   return decompose_default(value.a, value.b, value.c, value.d, value.e, value.f);
 }
 
-// ../node_modules/d3-interpolate/src/transform/index.js
+// node_modules/d3-interpolate/src/transform/index.js
 function interpolateTransform(parse, pxComma, pxParen, degParen) {
   function pop(s) {
     return s.length ? s.pop() + " " : "";
   }
-  function translate(xa, ya, xb, yb, s, q2) {
+  function translate(xa, ya, xb, yb, s, q) {
     if (xa !== xb || ya !== yb) {
       var i = s.push("translate(", null, pxComma, null, pxParen);
-      q2.push({ i: i - 4, x: number_default(xa, xb) }, { i: i - 2, x: number_default(ya, yb) });
+      q.push({ i: i - 4, x: number_default(xa, xb) }, { i: i - 2, x: number_default(ya, yb) });
     } else if (xb || yb) {
       s.push("translate(" + xb + pxComma + yb + pxParen);
     }
   }
-  function rotate(a, b2, s, q2) {
-    if (a !== b2) {
-      if (a - b2 > 180) b2 += 360;
-      else if (b2 - a > 180) a += 360;
-      q2.push({ i: s.push(pop(s) + "rotate(", null, degParen) - 2, x: number_default(a, b2) });
-    } else if (b2) {
-      s.push(pop(s) + "rotate(" + b2 + degParen);
+  function rotate(a, b, s, q) {
+    if (a !== b) {
+      if (a - b > 180) b += 360;
+      else if (b - a > 180) a += 360;
+      q.push({ i: s.push(pop(s) + "rotate(", null, degParen) - 2, x: number_default(a, b) });
+    } else if (b) {
+      s.push(pop(s) + "rotate(" + b + degParen);
     }
   }
-  function skewX(a, b2, s, q2) {
-    if (a !== b2) {
-      q2.push({ i: s.push(pop(s) + "skewX(", null, degParen) - 2, x: number_default(a, b2) });
-    } else if (b2) {
-      s.push(pop(s) + "skewX(" + b2 + degParen);
+  function skewX(a, b, s, q) {
+    if (a !== b) {
+      q.push({ i: s.push(pop(s) + "skewX(", null, degParen) - 2, x: number_default(a, b) });
+    } else if (b) {
+      s.push(pop(s) + "skewX(" + b + degParen);
     }
   }
-  function scale(xa, ya, xb, yb, s, q2) {
+  function scale(xa, ya, xb, yb, s, q) {
     if (xa !== xb || ya !== yb) {
       var i = s.push(pop(s) + "scale(", null, ",", null, ")");
-      q2.push({ i: i - 4, x: number_default(xa, xb) }, { i: i - 2, x: number_default(ya, yb) });
+      q.push({ i: i - 4, x: number_default(xa, xb) }, { i: i - 2, x: number_default(ya, yb) });
     } else if (xb !== 1 || yb !== 1) {
       s.push(pop(s) + "scale(" + xb + "," + yb + ")");
     }
   }
-  return function(a, b2) {
-    var s = [], q2 = [];
-    a = parse(a), b2 = parse(b2);
-    translate(a.translateX, a.translateY, b2.translateX, b2.translateY, s, q2);
-    rotate(a.rotate, b2.rotate, s, q2);
-    skewX(a.skewX, b2.skewX, s, q2);
-    scale(a.scaleX, a.scaleY, b2.scaleX, b2.scaleY, s, q2);
-    a = b2 = null;
+  return function(a, b) {
+    var s = [], q = [];
+    a = parse(a), b = parse(b);
+    translate(a.translateX, a.translateY, b.translateX, b.translateY, s, q);
+    rotate(a.rotate, b.rotate, s, q);
+    skewX(a.skewX, b.skewX, s, q);
+    scale(a.scaleX, a.scaleY, b.scaleX, b.scaleY, s, q);
+    a = b = null;
     return function(t) {
-      var i = -1, n = q2.length, o;
-      while (++i < n) s[(o = q2[i]).i] = o.x(t);
+      var i = -1, n = q.length, o;
+      while (++i < n) s[(o = q[i]).i] = o.x(t);
       return s.join("");
     };
   };
@@ -82157,7 +82348,7 @@ function interpolateTransform(parse, pxComma, pxParen, degParen) {
 var interpolateTransformCss = interpolateTransform(parseCss, "px, ", "px)", "deg)");
 var interpolateTransformSvg = interpolateTransform(parseSvg, ", ", ")", ")");
 
-// ../node_modules/d3-timer/src/timer.js
+// node_modules/d3-timer/src/timer.js
 var frame = 0;
 var timeout = 0;
 var interval = 0;
@@ -82259,7 +82450,7 @@ function sleep(time) {
   }
 }
 
-// ../node_modules/d3-timer/src/timeout.js
+// node_modules/d3-timer/src/timeout.js
 function timeout_default(callback, delay, time) {
   var t = new Timer();
   delay = delay == null ? 0 : +delay;
@@ -82270,7 +82461,7 @@ function timeout_default(callback, delay, time) {
   return t;
 }
 
-// ../node_modules/d3-transition/src/transition/schedule.js
+// node_modules/d3-transition/src/transition/schedule.js
 var emptyOn = dispatch_default("start", "end", "cancel", "interrupt");
 var emptyTween = [];
 var CREATED = 0;
@@ -82325,7 +82516,7 @@ function create(node, id2, self2) {
     if (self2.delay <= elapsed) start2(elapsed - self2.delay);
   }
   function start2(elapsed) {
-    var i, j2, n, o;
+    var i, j, n, o;
     if (self2.state !== SCHEDULED) return stop();
     for (i in schedules) {
       o = schedules[i];
@@ -82355,12 +82546,12 @@ function create(node, id2, self2) {
     if (self2.state !== STARTING) return;
     self2.state = STARTED;
     tween = new Array(n = self2.tween.length);
-    for (i = 0, j2 = -1; i < n; ++i) {
+    for (i = 0, j = -1; i < n; ++i) {
       if (o = self2.tween[i].value.call(node, node.__data__, self2.index, self2.group)) {
-        tween[++j2] = o;
+        tween[++j] = o;
       }
     }
-    tween.length = j2 + 1;
+    tween.length = j + 1;
   }
   function tick(elapsed) {
     var t = elapsed < self2.duration ? self2.ease.call(null, elapsed / self2.duration) : (self2.timer.restart(stop), self2.state = ENDING, 1), i = -1, n = tween.length;
@@ -82381,7 +82572,7 @@ function create(node, id2, self2) {
   }
 }
 
-// ../node_modules/d3-transition/src/interrupt.js
+// node_modules/d3-transition/src/interrupt.js
 function interrupt_default(node, name) {
   var schedules = node.__transition, schedule, active, empty2 = true, i;
   if (!schedules) return;
@@ -82400,14 +82591,14 @@ function interrupt_default(node, name) {
   if (empty2) delete node.__transition;
 }
 
-// ../node_modules/d3-transition/src/selection/interrupt.js
+// node_modules/d3-transition/src/selection/interrupt.js
 function interrupt_default2(name) {
   return this.each(function() {
     interrupt_default(this, name);
   });
 }
 
-// ../node_modules/d3-transition/src/transition/tween.js
+// node_modules/d3-transition/src/transition/tween.js
 function tweenRemove(id2, name) {
   var tween0, tween1;
   return function() {
@@ -82468,13 +82659,13 @@ function tweenValue(transition2, name, value) {
   };
 }
 
-// ../node_modules/d3-transition/src/transition/interpolate.js
-function interpolate_default(a, b2) {
+// node_modules/d3-transition/src/transition/interpolate.js
+function interpolate_default(a, b) {
   var c;
-  return (typeof b2 === "number" ? number_default : b2 instanceof color ? rgb_default : (c = color(b2)) ? (b2 = c, rgb_default) : string_default)(a, b2);
+  return (typeof b === "number" ? number_default : b instanceof color ? rgb_default : (c = color(b)) ? (b = c, rgb_default) : string_default)(a, b);
 }
 
-// ../node_modules/d3-transition/src/transition/attr.js
+// node_modules/d3-transition/src/transition/attr.js
 function attrRemove2(name) {
   return function() {
     this.removeAttribute(name);
@@ -82524,7 +82715,7 @@ function attr_default2(name, value) {
   return this.attrTween(name, typeof value === "function" ? (fullname.local ? attrFunctionNS2 : attrFunction2)(fullname, i, tweenValue(this, "attr." + name, value)) : value == null ? (fullname.local ? attrRemoveNS2 : attrRemove2)(fullname) : (fullname.local ? attrConstantNS2 : attrConstant2)(fullname, i, value));
 }
 
-// ../node_modules/d3-transition/src/transition/attrTween.js
+// node_modules/d3-transition/src/transition/attrTween.js
 function attrInterpolate(name, i) {
   return function(t) {
     this.setAttribute(name, i.call(this, t));
@@ -82564,7 +82755,7 @@ function attrTween_default(name, value) {
   return this.tween(key, (fullname.local ? attrTweenNS : attrTween)(fullname, value));
 }
 
-// ../node_modules/d3-transition/src/transition/delay.js
+// node_modules/d3-transition/src/transition/delay.js
 function delayFunction(id2, value) {
   return function() {
     init(this, id2).delay = +value.apply(this, arguments);
@@ -82580,7 +82771,7 @@ function delay_default(value) {
   return arguments.length ? this.each((typeof value === "function" ? delayFunction : delayConstant)(id2, value)) : get2(this.node(), id2).delay;
 }
 
-// ../node_modules/d3-transition/src/transition/duration.js
+// node_modules/d3-transition/src/transition/duration.js
 function durationFunction(id2, value) {
   return function() {
     set2(this, id2).duration = +value.apply(this, arguments);
@@ -82596,7 +82787,7 @@ function duration_default(value) {
   return arguments.length ? this.each((typeof value === "function" ? durationFunction : durationConstant)(id2, value)) : get2(this.node(), id2).duration;
 }
 
-// ../node_modules/d3-transition/src/transition/ease.js
+// node_modules/d3-transition/src/transition/ease.js
 function easeConstant(id2, value) {
   if (typeof value !== "function") throw new Error();
   return function() {
@@ -82608,12 +82799,12 @@ function ease_default(value) {
   return arguments.length ? this.each(easeConstant(id2, value)) : get2(this.node(), id2).ease;
 }
 
-// ../node_modules/d3-transition/src/transition/easeVarying.js
+// node_modules/d3-transition/src/transition/easeVarying.js
 function easeVarying(id2, value) {
   return function() {
-    var v2 = value.apply(this, arguments);
-    if (typeof v2 !== "function") throw new Error();
-    set2(this, id2).ease = v2;
+    var v = value.apply(this, arguments);
+    if (typeof v !== "function") throw new Error();
+    set2(this, id2).ease = v;
   };
 }
 function easeVarying_default(value) {
@@ -82621,11 +82812,11 @@ function easeVarying_default(value) {
   return this.each(easeVarying(this._id, value));
 }
 
-// ../node_modules/d3-transition/src/transition/filter.js
+// node_modules/d3-transition/src/transition/filter.js
 function filter_default2(match2) {
   if (typeof match2 !== "function") match2 = matcher_default(match2);
-  for (var groups = this._groups, m = groups.length, subgroups = new Array(m), j2 = 0; j2 < m; ++j2) {
-    for (var group = groups[j2], n = group.length, subgroup = subgroups[j2] = [], node, i = 0; i < n; ++i) {
+  for (var groups = this._groups, m = groups.length, subgroups = new Array(m), j = 0; j < m; ++j) {
+    for (var group = groups[j], n = group.length, subgroup = subgroups[j] = [], node, i = 0; i < n; ++i) {
       if ((node = group[i]) && match2.call(node, node.__data__, i, group)) {
         subgroup.push(node);
       }
@@ -82634,23 +82825,23 @@ function filter_default2(match2) {
   return new Transition(subgroups, this._parents, this._name, this._id);
 }
 
-// ../node_modules/d3-transition/src/transition/merge.js
+// node_modules/d3-transition/src/transition/merge.js
 function merge_default2(transition2) {
   if (transition2._id !== this._id) throw new Error();
-  for (var groups0 = this._groups, groups1 = transition2._groups, m0 = groups0.length, m1 = groups1.length, m = Math.min(m0, m1), merges = new Array(m0), j2 = 0; j2 < m; ++j2) {
-    for (var group0 = groups0[j2], group1 = groups1[j2], n = group0.length, merge3 = merges[j2] = new Array(n), node, i = 0; i < n; ++i) {
+  for (var groups0 = this._groups, groups1 = transition2._groups, m0 = groups0.length, m1 = groups1.length, m = Math.min(m0, m1), merges = new Array(m0), j = 0; j < m; ++j) {
+    for (var group0 = groups0[j], group1 = groups1[j], n = group0.length, merge3 = merges[j] = new Array(n), node, i = 0; i < n; ++i) {
       if (node = group0[i] || group1[i]) {
         merge3[i] = node;
       }
     }
   }
-  for (; j2 < m0; ++j2) {
-    merges[j2] = groups0[j2];
+  for (; j < m0; ++j) {
+    merges[j] = groups0[j];
   }
   return new Transition(merges, this._parents, this._name, this._id);
 }
 
-// ../node_modules/d3-transition/src/transition/on.js
+// node_modules/d3-transition/src/transition/on.js
 function start(name) {
   return (name + "").trim().split(/^|\s+/).every(function(t) {
     var i = t.indexOf(".");
@@ -82661,8 +82852,8 @@ function start(name) {
 function onFunction(id2, name, listener) {
   var on0, on1, sit = start(name) ? init : set2;
   return function() {
-    var schedule = sit(this, id2), on2 = schedule.on;
-    if (on2 !== on0) (on1 = (on0 = on2).copy()).on(name, listener);
+    var schedule = sit(this, id2), on = schedule.on;
+    if (on !== on0) (on1 = (on0 = on).copy()).on(name, listener);
     schedule.on = on1;
   };
 }
@@ -82671,7 +82862,7 @@ function on_default2(name, listener) {
   return arguments.length < 2 ? get2(this.node(), id2).on.on(name) : this.each(onFunction(id2, name, listener));
 }
 
-// ../node_modules/d3-transition/src/transition/remove.js
+// node_modules/d3-transition/src/transition/remove.js
 function removeFunction(id2) {
   return function() {
     var parent = this.parentNode;
@@ -82683,12 +82874,12 @@ function remove_default2() {
   return this.on("end.remove", removeFunction(this._id));
 }
 
-// ../node_modules/d3-transition/src/transition/select.js
+// node_modules/d3-transition/src/transition/select.js
 function select_default3(select) {
   var name = this._name, id2 = this._id;
   if (typeof select !== "function") select = selector_default(select);
-  for (var groups = this._groups, m = groups.length, subgroups = new Array(m), j2 = 0; j2 < m; ++j2) {
-    for (var group = groups[j2], n = group.length, subgroup = subgroups[j2] = new Array(n), node, subnode, i = 0; i < n; ++i) {
+  for (var groups = this._groups, m = groups.length, subgroups = new Array(m), j = 0; j < m; ++j) {
+    for (var group = groups[j], n = group.length, subgroup = subgroups[j] = new Array(n), node, subnode, i = 0; i < n; ++i) {
       if ((node = group[i]) && (subnode = select.call(node, node.__data__, i, group))) {
         if ("__data__" in node) subnode.__data__ = node.__data__;
         subgroup[i] = subnode;
@@ -82699,16 +82890,16 @@ function select_default3(select) {
   return new Transition(subgroups, this._parents, name, id2);
 }
 
-// ../node_modules/d3-transition/src/transition/selectAll.js
+// node_modules/d3-transition/src/transition/selectAll.js
 function selectAll_default2(select) {
   var name = this._name, id2 = this._id;
   if (typeof select !== "function") select = selectorAll_default(select);
-  for (var groups = this._groups, m = groups.length, subgroups = [], parents = [], j2 = 0; j2 < m; ++j2) {
-    for (var group = groups[j2], n = group.length, node, i = 0; i < n; ++i) {
+  for (var groups = this._groups, m = groups.length, subgroups = [], parents = [], j = 0; j < m; ++j) {
+    for (var group = groups[j], n = group.length, node, i = 0; i < n; ++i) {
       if (node = group[i]) {
-        for (var children2 = select.call(node, node.__data__, i, group), child, inherit2 = get2(node, id2), k2 = 0, l = children2.length; k2 < l; ++k2) {
-          if (child = children2[k2]) {
-            schedule_default(child, name, id2, k2, children2, inherit2);
+        for (var children2 = select.call(node, node.__data__, i, group), child, inherit2 = get2(node, id2), k = 0, l = children2.length; k < l; ++k) {
+          if (child = children2[k]) {
+            schedule_default(child, name, id2, k, children2, inherit2);
           }
         }
         subgroups.push(children2);
@@ -82719,13 +82910,13 @@ function selectAll_default2(select) {
   return new Transition(subgroups, parents, name, id2);
 }
 
-// ../node_modules/d3-transition/src/transition/selection.js
+// node_modules/d3-transition/src/transition/selection.js
 var Selection2 = selection_default.prototype.constructor;
 function selection_default2() {
   return new Selection2(this._groups, this._parents);
 }
 
-// ../node_modules/d3-transition/src/transition/style.js
+// node_modules/d3-transition/src/transition/style.js
 function styleNull(name, interpolate) {
   var string00, string10, interpolate0;
   return function() {
@@ -82756,8 +82947,8 @@ function styleFunction2(name, interpolate, value) {
 function styleMaybeRemove(id2, name) {
   var on0, on1, listener0, key = "style." + name, event = "end." + key, remove3;
   return function() {
-    var schedule = set2(this, id2), on2 = schedule.on, listener = schedule.value[key] == null ? remove3 || (remove3 = styleRemove2(name)) : void 0;
-    if (on2 !== on0 || listener0 !== listener) (on1 = (on0 = on2).copy()).on(event, listener0 = listener);
+    var schedule = set2(this, id2), on = schedule.on, listener = schedule.value[key] == null ? remove3 || (remove3 = styleRemove2(name)) : void 0;
+    if (on !== on0 || listener0 !== listener) (on1 = (on0 = on).copy()).on(event, listener0 = listener);
     schedule.on = on1;
   };
 }
@@ -82766,7 +82957,7 @@ function style_default2(name, value, priority) {
   return value == null ? this.styleTween(name, styleNull(name, i)).on("end.style." + name, styleRemove2(name)) : typeof value === "function" ? this.styleTween(name, styleFunction2(name, i, tweenValue(this, "style." + name, value))).each(styleMaybeRemove(this._id, name)) : this.styleTween(name, styleConstant2(name, i, value), priority).on("end.style." + name, null);
 }
 
-// ../node_modules/d3-transition/src/transition/styleTween.js
+// node_modules/d3-transition/src/transition/styleTween.js
 function styleInterpolate(name, i, priority) {
   return function(t) {
     this.style.setProperty(name, i.call(this, t), priority);
@@ -82790,7 +82981,7 @@ function styleTween_default(name, value, priority) {
   return this.tween(key, styleTween(name, value, priority == null ? "" : priority));
 }
 
-// ../node_modules/d3-transition/src/transition/text.js
+// node_modules/d3-transition/src/transition/text.js
 function textConstant2(value) {
   return function() {
     this.textContent = value;
@@ -82806,7 +82997,7 @@ function text_default2(value) {
   return this.tween("text", typeof value === "function" ? textFunction2(tweenValue(this, "text", value)) : textConstant2(value == null ? "" : value + ""));
 }
 
-// ../node_modules/d3-transition/src/transition/textTween.js
+// node_modules/d3-transition/src/transition/textTween.js
 function textInterpolate(i) {
   return function(t) {
     this.textContent = i.call(this, t);
@@ -82830,11 +83021,11 @@ function textTween_default(value) {
   return this.tween(key, textTween(value));
 }
 
-// ../node_modules/d3-transition/src/transition/transition.js
+// node_modules/d3-transition/src/transition/transition.js
 function transition_default() {
   var name = this._name, id0 = this._id, id1 = newId();
-  for (var groups = this._groups, m = groups.length, j2 = 0; j2 < m; ++j2) {
-    for (var group = groups[j2], n = group.length, node, i = 0; i < n; ++i) {
+  for (var groups = this._groups, m = groups.length, j = 0; j < m; ++j) {
+    for (var group = groups[j], n = group.length, node, i = 0; i < n; ++i) {
       if (node = group[i]) {
         var inherit2 = get2(node, id0);
         schedule_default(node, name, id1, i, group, {
@@ -82849,7 +83040,7 @@ function transition_default() {
   return new Transition(groups, this._parents, name, id1);
 }
 
-// ../node_modules/d3-transition/src/transition/end.js
+// node_modules/d3-transition/src/transition/end.js
 function end_default() {
   var on0, on1, that = this, id2 = that._id, size = that.size();
   return new Promise(function(resolve, reject) {
@@ -82857,9 +83048,9 @@ function end_default() {
       if (--size === 0) resolve();
     } };
     that.each(function() {
-      var schedule = set2(this, id2), on2 = schedule.on;
-      if (on2 !== on0) {
-        on1 = (on0 = on2).copy();
+      var schedule = set2(this, id2), on = schedule.on;
+      if (on !== on0) {
+        on1 = (on0 = on).copy();
         on1._.cancel.push(cancel);
         on1._.interrupt.push(cancel);
         on1._.end.push(end);
@@ -82870,7 +83061,7 @@ function end_default() {
   });
 }
 
-// ../node_modules/d3-transition/src/transition/index.js
+// node_modules/d3-transition/src/transition/index.js
 var id = 0;
 function Transition(groups, parents, name, id2) {
   this._groups = groups;
@@ -82918,12 +83109,12 @@ Transition.prototype = transition.prototype = {
   [Symbol.iterator]: selection_prototype[Symbol.iterator]
 };
 
-// ../node_modules/d3-ease/src/cubic.js
+// node_modules/d3-ease/src/cubic.js
 function cubicInOut(t) {
   return ((t *= 2) <= 1 ? t * t * t : (t -= 2) * t * t + 2) / 2;
 }
 
-// ../node_modules/d3-transition/src/selection/transition.js
+// node_modules/d3-transition/src/selection/transition.js
 var defaultTiming = {
   time: null,
   // Set on use.
@@ -82947,8 +83138,8 @@ function transition_default2(name) {
   } else {
     id2 = newId(), (timing = defaultTiming).time = now(), name = name == null ? null : name + "";
   }
-  for (var groups = this._groups, m = groups.length, j2 = 0; j2 < m; ++j2) {
-    for (var group = groups[j2], n = group.length, node, i = 0; i < n; ++i) {
+  for (var groups = this._groups, m = groups.length, j = 0; j < m; ++j) {
+    for (var group = groups[j], n = group.length, node, i = 0; i < n; ++i) {
       if (node = group[i]) {
         schedule_default(node, name, id2, i, group, timing || inherit(node, id2));
       }
@@ -82957,11 +83148,11 @@ function transition_default2(name) {
   return new Transition(groups, this._parents, name, id2);
 }
 
-// ../node_modules/d3-transition/src/selection/index.js
+// node_modules/d3-transition/src/selection/index.js
 selection_default.prototype.interrupt = interrupt_default2;
 selection_default.prototype.transition = transition_default2;
 
-// ../node_modules/d3-brush/src/brush.js
+// node_modules/d3-brush/src/brush.js
 var { abs, max, min } = Math;
 function number1(e) {
   return [+e[0], +e[1]];
@@ -82982,8 +83173,8 @@ var X2 = {
 var Y2 = {
   name: "y",
   handles: ["n", "s"].map(type),
-  input: function(y2, e) {
-    return y2 == null ? null : [[e[0][0], +y2[0]], [e[1][0], +y2[1]]];
+  input: function(y, e) {
+    return y == null ? null : [[e[0][0], +y[0]], [e[1][0], +y[1]]];
   },
   output: function(xy) {
     return xy && [xy[0][1], xy[1][1]];
@@ -83003,19 +83194,19 @@ function type(t) {
   return { type: t };
 }
 
-// ../node_modules/d3-zoom/src/transform.js
-function Transform(k2, x, y2) {
-  this.k = k2;
+// node_modules/d3-zoom/src/transform.js
+function Transform(k, x, y) {
+  this.k = k;
   this.x = x;
-  this.y = y2;
+  this.y = y;
 }
 Transform.prototype = {
   constructor: Transform,
-  scale: function(k2) {
-    return k2 === 1 ? this : new Transform(this.k * k2, this.x, this.y);
+  scale: function(k) {
+    return k === 1 ? this : new Transform(this.k * k, this.x, this.y);
   },
-  translate: function(x, y2) {
-    return x === 0 & y2 === 0 ? this : new Transform(this.k, this.x + this.k * x, this.y + this.k * y2);
+  translate: function(x, y) {
+    return x === 0 & y === 0 ? this : new Transform(this.k, this.x + this.k * x, this.y + this.k * y);
   },
   apply: function(point) {
     return [point[0] * this.k + this.x, point[1] * this.k + this.y];
@@ -83023,8 +83214,8 @@ Transform.prototype = {
   applyX: function(x) {
     return x * this.k + this.x;
   },
-  applyY: function(y2) {
-    return y2 * this.k + this.y;
+  applyY: function(y) {
+    return y * this.k + this.y;
   },
   invert: function(location2) {
     return [(location2[0] - this.x) / this.k, (location2[1] - this.y) / this.k];
@@ -83032,14 +83223,14 @@ Transform.prototype = {
   invertX: function(x) {
     return (x - this.x) / this.k;
   },
-  invertY: function(y2) {
-    return (y2 - this.y) / this.k;
+  invertY: function(y) {
+    return (y - this.y) / this.k;
   },
   rescaleX: function(x) {
     return x.copy().domain(x.range().map(this.invertX, this).map(x.invert, x));
   },
-  rescaleY: function(y2) {
-    return y2.copy().domain(y2.range().map(this.invertY, this).map(y2.invert, y2));
+  rescaleY: function(y) {
+    return y.copy().domain(y.range().map(this.invertY, this).map(y.invert, y));
   },
   toString: function() {
     return "translate(" + this.x + "," + this.y + ") scale(" + this.k + ")";
@@ -83191,7 +83382,7 @@ var DiagramAppService = class {
       );
     });
   }
-  drawSingleNode(svg, item, x, y2, groupColor, isSelected, onNodeClick) {
+  drawSingleNode(svg, item, x, y, groupColor, isSelected, onNodeClick) {
     const nodeGroup = this.diagramSVGRendererAppService.createNodeGroup(
       svg,
       item,
@@ -83201,13 +83392,13 @@ var DiagramAppService = class {
     const colors = this.diagramConfigurationAppService.diagramColors;
     this.diagramSVGRendererAppService.drawNodeCircle(nodeGroup, {
       x,
-      y: y2,
+      y,
       groupColor,
       isSelected,
       nodeRadius: config2.nodeRadius,
       selectionColor: colors.selection
     });
-    this.diagramSVGRendererAppService.drawNodeText(nodeGroup, x, y2, item);
+    this.diagramSVGRendererAppService.drawNodeText(nodeGroup, x, y, item);
   }
   drawConnections(svg, data) {
     const markerId = this.createArrowMarker(svg);
@@ -83293,7 +83484,156 @@ var DiagramAppService = class {
   }
 };
 
-// src/Domain/Entities/Node.ts
+// src/Application/Services/DiagramConfigurationAppService.ts
+var DiagramConfigurationAppService = class {
+  config = {
+    width: 950,
+    height: 950,
+    animationDuration: 500,
+    nodeRadius: {
+      normal: 15,
+      selected: 20,
+      hoverNormal: 18,
+      hoverSelected: 22
+    },
+    rings: {
+      entities: 120,
+      domainServices: 220,
+      applicationServices: 320,
+      repositories: 420
+    }
+  };
+  colors = {
+    entities: "#81d34b",
+    domainServices: "#b071d9",
+    applicationServices: "#61c6d6",
+    repositories: "#ff6b6b",
+    selection: "#FFA500",
+    ringStroke: "#999",
+    connectionStroke: "rgba(68, 68, 68, 0.6)"
+  };
+  get diagramConfig() {
+    return this.config;
+  }
+  get diagramColors() {
+    return this.colors;
+  }
+  get center() {
+    return {
+      x: this.config.width / 2,
+      y: this.config.height / 2
+    };
+  }
+  getRingConfigurations() {
+    return [
+      {
+        name: "Entities",
+        radius: this.config.rings.entities,
+        color: this.colors.entities
+      },
+      {
+        name: "Domain Services",
+        radius: this.config.rings.domainServices,
+        color: this.colors.domainServices
+      },
+      {
+        name: "Application Services",
+        radius: this.config.rings.applicationServices,
+        color: this.colors.applicationServices
+      },
+      {
+        name: "Repositories",
+        radius: this.config.rings.repositories,
+        color: this.colors.repositories
+      }
+    ];
+  }
+};
+
+// src/Application/Services/DiagramConnectionAppService.ts
+var DiagramConnectionAppService = class {
+  constructor(onionConfigService) {
+    this.onionConfigService = onionConfigService;
+  }
+  connectionMode = {
+    active: true,
+    sourceNode: null
+  };
+  availableTargets = [];
+  getConnectionMode() {
+    return __spreadValues({}, this.connectionMode);
+  }
+  getAvailableTargets() {
+    return [...this.availableTargets];
+  }
+  handleConnectionModeClick(clickedNode) {
+    if (!this.connectionMode.sourceNode) {
+      this.connectionMode.sourceNode = clickedNode;
+      this.availableTargets = this.onionConfigService.getPossibleTargets(clickedNode);
+      if (this.availableTargets.length === 0) {
+        this.connectionMode.sourceNode = null;
+        this.availableTargets = [];
+        return {
+          success: false,
+          message: "This node cannot initiate connections",
+          shouldClearConnection: true
+        };
+      }
+      return {
+        success: true,
+        message: `Selected ${clickedNode} as source. Click target node to connect.`
+      };
+    }
+    const result = this.onionConfigService.addConnection(
+      this.connectionMode.sourceNode,
+      clickedNode
+    );
+    this.connectionMode.sourceNode = null;
+    this.availableTargets = [];
+    return {
+      success: result.success,
+      message: result.message,
+      data: result.data || void 0,
+      shouldClearConnection: true
+    };
+  }
+  removeConnection(sourceNode, targetNode) {
+    const result = this.onionConfigService.removeConnection(
+      sourceNode,
+      targetNode
+    );
+    return {
+      success: result.success,
+      message: result.message,
+      data: result.data
+    };
+  }
+  getCurrentConnections(selectedNode) {
+    if (!selectedNode) return [];
+    return this.onionConfigService.getCurrentTargets(selectedNode);
+  }
+  canInitiateConnections(selectedNode) {
+    if (!selectedNode) return false;
+    return this.onionConfigService.getPossibleTargets(selectedNode).length > 0;
+  }
+  resetConnectionMode() {
+    this.connectionMode.sourceNode = null;
+    this.availableTargets = [];
+  }
+};
+
+// ../lib/Domain/Entities/NodeType.ts
+var NodeTypeDisplayNames = {
+  ["entity" /* ENTITY */]: "Entity",
+  ["domain" /* DOMAIN_SERVICE */]: "Domain Service",
+  ["application" /* APPLICATION_SERVICE */]: "Application Service",
+  ["repository" /* REPOSITORY */]: "Repository"
+};
+function getNodeTypeDisplayName(nodeType) {
+  return NodeTypeDisplayNames[nodeType];
+}
+
+// ../lib/Domain/Entities/Node.ts
 var Node2 = class {
   constructor(name, type2, entities = [], domainServices = [], repositories = []) {
     this.name = name;
@@ -83337,14 +83677,7 @@ var Node2 = class {
   }
 };
 
-// src/Domain/Entities/Entity.ts
-var Entity = class {
-  constructor(name) {
-    this.name = name;
-  }
-};
-
-// src/Domain/Entities/DomainService.ts
+// ../lib/Domain/Entities/DomainService.ts
 var DomainService = class {
   constructor(serviceName, entities, useAngularDI = false) {
     this.serviceName = serviceName;
@@ -83353,7 +83686,7 @@ var DomainService = class {
   }
 };
 
-// src/Domain/Services/NodeFactory.ts
+// ../lib/Domain/Services/NodeFactory.ts
 var NodeFactory = class {
   static createNode(nodeName, data) {
     const nodeType = this.determineNodeType(nodeName, data);
@@ -83511,75 +83844,35 @@ var DiagramNodeManagementService = class {
   }
 };
 
-// src/Application/Services/DiagramConnectionAppService.ts
-var DiagramConnectionAppService = class {
-  constructor(onionConfigService) {
-    this.onionConfigService = onionConfigService;
+// src/Application/Services/DiagramPositionCalculatorAppService.ts
+var DiagramPositionCalculatorAppService = class {
+  constructor(diagramConfigurationAppService) {
+    this.diagramConfigurationAppService = diagramConfigurationAppService;
   }
-  connectionMode = {
-    active: true,
-    sourceNode: null
-  };
-  availableTargets = [];
-  getConnectionMode() {
-    return __spreadValues({}, this.connectionMode);
-  }
-  getAvailableTargets() {
-    return [...this.availableTargets];
-  }
-  handleConnectionModeClick(clickedNode) {
-    if (!this.connectionMode.sourceNode) {
-      this.connectionMode.sourceNode = clickedNode;
-      this.availableTargets = this.onionConfigService.getPossibleTargets(clickedNode);
-      if (this.availableTargets.length === 0) {
-        this.connectionMode.sourceNode = null;
-        this.availableTargets = [];
-        return {
-          success: false,
-          message: "This node cannot initiate connections",
-          shouldClearConnection: true
+  calculateItemPositions(groups) {
+    const positions = {};
+    const center = this.diagramConfigurationAppService.center;
+    groups.forEach((group) => {
+      const step = 2 * Math.PI / group.items.length || 1;
+      group.items.forEach((name, idx) => {
+        const angle = idx * step - Math.PI / 2;
+        positions[name] = {
+          x: center.x + group.radius * Math.cos(angle),
+          y: center.y + group.radius * Math.sin(angle),
+          ring: group.name
         };
-      }
-      return {
-        success: true,
-        message: `Selected ${clickedNode} as source. Click target node to connect.`
-      };
-    }
-    const result = this.onionConfigService.addConnection(
-      this.connectionMode.sourceNode,
-      clickedNode
-    );
-    this.connectionMode.sourceNode = null;
-    this.availableTargets = [];
+      });
+    });
+    return positions;
+  }
+  calculateNodePosition(radius, index, total) {
+    const angleStep = 2 * Math.PI / total;
+    const angle = index * angleStep - Math.PI / 2;
+    const center = this.diagramConfigurationAppService.center;
     return {
-      success: result.success,
-      message: result.message,
-      data: result.data || void 0,
-      shouldClearConnection: true
+      x: center.x + radius * Math.cos(angle),
+      y: center.y + radius * Math.sin(angle)
     };
-  }
-  removeConnection(sourceNode, targetNode) {
-    const result = this.onionConfigService.removeConnection(
-      sourceNode,
-      targetNode
-    );
-    return {
-      success: result.success,
-      message: result.message,
-      data: result.data
-    };
-  }
-  getCurrentConnections(selectedNode) {
-    if (!selectedNode) return [];
-    return this.onionConfigService.getCurrentTargets(selectedNode);
-  }
-  canInitiateConnections(selectedNode) {
-    if (!selectedNode) return false;
-    return this.onionConfigService.getPossibleTargets(selectedNode).length > 0;
-  }
-  resetConnectionMode() {
-    this.connectionMode.sourceNode = null;
-    this.availableTargets = [];
   }
 };
 
@@ -83754,3792 +84047,301 @@ var DiagramProjectGenerationService = class {
   }
 };
 
-// src/Application/Services/ScanControllerAppService.ts
-var import_chalk = __toESM(require_source());
-
-// ../node_modules/prettier/standalone.mjs
-var Fu = Object.create;
-var pt = Object.defineProperty;
-var pu = Object.getOwnPropertyDescriptor;
-var du = Object.getOwnPropertyNames;
-var mu = Object.getPrototypeOf;
-var Eu = Object.prototype.hasOwnProperty;
-var er = (e) => {
-  throw TypeError(e);
-};
-var Cu = (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports);
-var dt = (e, t) => {
-  for (var r in t) pt(e, r, { get: t[r], enumerable: true });
-};
-var hu = (e, t, r, n) => {
-  if (t && typeof t == "object" || typeof t == "function") for (let u2 of du(t)) !Eu.call(e, u2) && u2 !== r && pt(e, u2, { get: () => t[u2], enumerable: !(n = pu(t, u2)) || n.enumerable });
-  return e;
-};
-var gu = (e, t, r) => (r = e != null ? Fu(mu(e)) : {}, hu(t || !e || !e.__esModule ? pt(r, "default", { value: e, enumerable: true }) : r, e));
-var yu = (e, t, r) => t.has(e) || er("Cannot " + r);
-var tr = (e, t, r) => t.has(e) ? er("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, r);
-var fe = (e, t, r) => (yu(e, t, "access private method"), r);
-var Pn = Cu((Mt) => {
-  "use strict";
-  Object.defineProperty(Mt, "__esModule", { value: true });
-  function Co() {
-    return new Proxy({}, { get: () => (e) => e });
-  }
-  var On = /\r\n|[\n\r\u2028\u2029]/;
-  function ho(e, t, r) {
-    let n = Object.assign({ column: 0, line: -1 }, e.start), u2 = Object.assign({}, n, e.end), { linesAbove: o = 2, linesBelow: i = 3 } = r || {}, s = n.line, a = n.column, c = u2.line, D2 = u2.column, p = Math.max(s - (o + 1), 0), l = Math.min(t.length, c + i);
-    s === -1 && (p = 0), c === -1 && (l = t.length);
-    let F13 = c - s, f = {};
-    if (F13) for (let d = 0; d <= F13; d++) {
-      let m = d + s;
-      if (!a) f[m] = true;
-      else if (d === 0) {
-        let C2 = t[m - 1].length;
-        f[m] = [a, C2 - a + 1];
-      } else if (d === F13) f[m] = [0, D2];
-      else {
-        let C2 = t[m - d].length;
-        f[m] = [0, C2];
-      }
-    }
-    else a === D2 ? a ? f[s] = [a, 0] : f[s] = true : f[s] = [a, D2 - a];
-    return { start: p, end: l, markerLines: f };
-  }
-  function go(e, t, r = {}) {
-    let u2 = Co(false), o = e.split(On), { start: i, end: s, markerLines: a } = ho(t, o, r), c = t.start && typeof t.start.column == "number", D2 = String(s).length, l = e.split(On, s).slice(i, s).map((F13, f) => {
-      let d = i + 1 + f, C2 = ` ${` ${d}`.slice(-D2)} |`, E2 = a[d], h = !a[d + 1];
-      if (E2) {
-        let x = "";
-        if (Array.isArray(E2)) {
-          let A2 = F13.slice(0, Math.max(E2[0] - 1, 0)).replace(/[^\t]/g, " "), $ = E2[1] || 1;
-          x = [`
- `, u2.gutter(C2.replace(/\d/g, " ")), " ", A2, u2.marker("^").repeat($)].join(""), h && r.message && (x += " " + u2.message(r.message));
-        }
-        return [u2.marker(">"), u2.gutter(C2), F13.length > 0 ? ` ${F13}` : "", x].join("");
-      } else return ` ${u2.gutter(C2)}${F13.length > 0 ? ` ${F13}` : ""}`;
-    }).join(`
-`);
-    return r.message && !c && (l = `${" ".repeat(D2 + 1)}${r.message}
-${l}`), l;
-  }
-  Mt.codeFrameColumns = go;
-});
-var Zt = {};
-dt(Zt, { __debug: () => ui, check: () => ri, doc: () => qt, format: () => fu, formatWithCursor: () => cu, getSupportInfo: () => ni, util: () => Qt, version: () => tu });
-var Au = (e, t, r, n) => {
-  if (!(e && t == null)) return t.replaceAll ? t.replaceAll(r, n) : r.global ? t.replace(r, n) : t.split(r).join(n);
-};
-var te = Au;
-var _e = class {
-  diff(t, r, n = {}) {
-    let u2;
-    typeof n == "function" ? (u2 = n, n = {}) : "callback" in n && (u2 = n.callback);
-    let o = this.castInput(t, n), i = this.castInput(r, n), s = this.removeEmpty(this.tokenize(o, n)), a = this.removeEmpty(this.tokenize(i, n));
-    return this.diffWithOptionsObj(s, a, n, u2);
-  }
-  diffWithOptionsObj(t, r, n, u2) {
-    var o;
-    let i = (E2) => {
-      if (E2 = this.postProcess(E2, n), u2) {
-        setTimeout(function() {
-          u2(E2);
-        }, 0);
-        return;
-      } else return E2;
-    }, s = r.length, a = t.length, c = 1, D2 = s + a;
-    n.maxEditLength != null && (D2 = Math.min(D2, n.maxEditLength));
-    let p = (o = n.timeout) !== null && o !== void 0 ? o : 1 / 0, l = Date.now() + p, F13 = [{ oldPos: -1, lastComponent: void 0 }], f = this.extractCommon(F13[0], r, t, 0, n);
-    if (F13[0].oldPos + 1 >= a && f + 1 >= s) return i(this.buildValues(F13[0].lastComponent, r, t));
-    let d = -1 / 0, m = 1 / 0, C2 = () => {
-      for (let E2 = Math.max(d, -c); E2 <= Math.min(m, c); E2 += 2) {
-        let h, x = F13[E2 - 1], A2 = F13[E2 + 1];
-        x && (F13[E2 - 1] = void 0);
-        let $ = false;
-        if (A2) {
-          let Be = A2.oldPos - E2;
-          $ = A2 && 0 <= Be && Be < s;
-        }
-        let ue = x && x.oldPos + 1 < a;
-        if (!$ && !ue) {
-          F13[E2] = void 0;
-          continue;
-        }
-        if (!ue || $ && x.oldPos < A2.oldPos ? h = this.addToPath(A2, true, false, 0, n) : h = this.addToPath(x, false, true, 1, n), f = this.extractCommon(h, r, t, E2, n), h.oldPos + 1 >= a && f + 1 >= s) return i(this.buildValues(h.lastComponent, r, t)) || true;
-        F13[E2] = h, h.oldPos + 1 >= a && (m = Math.min(m, E2 - 1)), f + 1 >= s && (d = Math.max(d, E2 + 1));
-      }
-      c++;
-    };
-    if (u2) (function E2() {
-      setTimeout(function() {
-        if (c > D2 || Date.now() > l) return u2(void 0);
-        C2() || E2();
-      }, 0);
-    })();
-    else for (; c <= D2 && Date.now() <= l; ) {
-      let E2 = C2();
-      if (E2) return E2;
-    }
-  }
-  addToPath(t, r, n, u2, o) {
-    let i = t.lastComponent;
-    return i && !o.oneChangePerToken && i.added === r && i.removed === n ? { oldPos: t.oldPos + u2, lastComponent: { count: i.count + 1, added: r, removed: n, previousComponent: i.previousComponent } } : { oldPos: t.oldPos + u2, lastComponent: { count: 1, added: r, removed: n, previousComponent: i } };
-  }
-  extractCommon(t, r, n, u2, o) {
-    let i = r.length, s = n.length, a = t.oldPos, c = a - u2, D2 = 0;
-    for (; c + 1 < i && a + 1 < s && this.equals(n[a + 1], r[c + 1], o); ) c++, a++, D2++, o.oneChangePerToken && (t.lastComponent = { count: 1, previousComponent: t.lastComponent, added: false, removed: false });
-    return D2 && !o.oneChangePerToken && (t.lastComponent = { count: D2, previousComponent: t.lastComponent, added: false, removed: false }), t.oldPos = a, c;
-  }
-  equals(t, r, n) {
-    return n.comparator ? n.comparator(t, r) : t === r || !!n.ignoreCase && t.toLowerCase() === r.toLowerCase();
-  }
-  removeEmpty(t) {
-    let r = [];
-    for (let n = 0; n < t.length; n++) t[n] && r.push(t[n]);
-    return r;
-  }
-  castInput(t, r) {
-    return t;
-  }
-  tokenize(t, r) {
-    return Array.from(t);
-  }
-  join(t) {
-    return t.join("");
-  }
-  postProcess(t, r) {
-    return t;
-  }
-  get useLongestToken() {
-    return false;
-  }
-  buildValues(t, r, n) {
-    let u2 = [], o;
-    for (; t; ) u2.push(t), o = t.previousComponent, delete t.previousComponent, t = o;
-    u2.reverse();
-    let i = u2.length, s = 0, a = 0, c = 0;
-    for (; s < i; s++) {
-      let D2 = u2[s];
-      if (D2.removed) D2.value = this.join(n.slice(c, c + D2.count)), c += D2.count;
-      else {
-        if (!D2.added && this.useLongestToken) {
-          let p = r.slice(a, a + D2.count);
-          p = p.map(function(l, F13) {
-            let f = n[c + F13];
-            return f.length > l.length ? f : l;
-          }), D2.value = this.join(p);
-        } else D2.value = this.join(r.slice(a, a + D2.count));
-        a += D2.count, D2.added || (c += D2.count);
-      }
-    }
-    return u2;
-  }
-};
-var mt = class extends _e {
-  tokenize(t) {
-    return t.slice();
-  }
-  join(t) {
-    return t;
-  }
-  removeEmpty(t) {
-    return t;
-  }
-};
-var rr = new mt();
-function Et(e, t, r) {
-  return rr.diff(e, t, r);
-}
-function nr(e) {
-  let t = e.indexOf("\r");
-  return t !== -1 ? e.charAt(t + 1) === `
-` ? "crlf" : "cr" : "lf";
-}
-function xe(e) {
-  switch (e) {
-    case "cr":
-      return "\r";
-    case "crlf":
-      return `\r
-`;
-    default:
-      return `
-`;
-  }
-}
-function Ct(e, t) {
-  let r;
-  switch (t) {
-    case `
-`:
-      r = /\n/gu;
-      break;
-    case "\r":
-      r = /\r/gu;
-      break;
-    case `\r
-`:
-      r = /\r\n/gu;
-      break;
-    default:
-      throw new Error(`Unexpected "eol" ${JSON.stringify(t)}.`);
-  }
-  let n = e.match(r);
-  return n ? n.length : 0;
-}
-function ur(e) {
-  return te(false, e, /\r\n?/gu, `
-`);
-}
-var W2 = "string";
-var Y3 = "array";
-var j = "cursor";
-var N2 = "indent";
-var O2 = "align";
-var P2 = "trim";
-var B2 = "group";
-var k = "fill";
-var _ = "if-break";
-var v = "indent-if-break";
-var L2 = "line-suffix";
-var I2 = "line-suffix-boundary";
-var g = "line";
-var S2 = "label";
-var w = "break-parent";
-var Ue = /* @__PURE__ */ new Set([j, N2, O2, P2, B2, k, _, v, L2, I2, g, S2, w]);
-var Bu = (e, t, r) => {
-  if (!(e && t == null)) return Array.isArray(t) || typeof t == "string" ? t[r < 0 ? t.length + r : r] : t.at(r);
-};
-var y = Bu;
-function or(e) {
-  let t = e.length;
-  for (; t > 0 && (e[t - 1] === "\r" || e[t - 1] === `
-`); ) t--;
-  return t < e.length ? e.slice(0, t) : e;
-}
-function _u(e) {
-  if (typeof e == "string") return W2;
-  if (Array.isArray(e)) return Y3;
-  if (!e) return;
-  let { type: t } = e;
-  if (Ue.has(t)) return t;
-}
-var M2 = _u;
-var xu = (e) => new Intl.ListFormat("en-US", { type: "disjunction" }).format(e);
-function wu(e) {
-  let t = e === null ? "null" : typeof e;
-  if (t !== "string" && t !== "object") return `Unexpected doc '${t}', 
-Expected it to be 'string' or 'object'.`;
-  if (M2(e)) throw new Error("doc is valid.");
-  let r = Object.prototype.toString.call(e);
-  if (r !== "[object Object]") return `Unexpected doc '${r}'.`;
-  let n = xu([...Ue].map((u2) => `'${u2}'`));
-  return `Unexpected doc.type '${e.type}'.
-Expected it to be ${n}.`;
-}
-var ht = class extends Error {
-  name = "InvalidDocError";
-  constructor(t) {
-    super(wu(t)), this.doc = t;
-  }
-};
-var q = ht;
-var ir = {};
-function bu(e, t, r, n) {
-  let u2 = [e];
-  for (; u2.length > 0; ) {
-    let o = u2.pop();
-    if (o === ir) {
-      r(u2.pop());
-      continue;
-    }
-    r && u2.push(o, ir);
-    let i = M2(o);
-    if (!i) throw new q(o);
-    if ((t == null ? void 0 : t(o)) !== false) switch (i) {
-      case Y3:
-      case k: {
-        let s = i === Y3 ? o : o.parts;
-        for (let a = s.length, c = a - 1; c >= 0; --c) u2.push(s[c]);
-        break;
-      }
-      case _:
-        u2.push(o.flatContents, o.breakContents);
-        break;
-      case B2:
-        if (n && o.expandedStates) for (let s = o.expandedStates.length, a = s - 1; a >= 0; --a) u2.push(o.expandedStates[a]);
-        else u2.push(o.contents);
-        break;
-      case O2:
-      case N2:
-      case v:
-      case S2:
-      case L2:
-        u2.push(o.contents);
-        break;
-      case W2:
-      case j:
-      case P2:
-      case I2:
-      case g:
-      case w:
-        break;
-      default:
-        throw new q(o);
-    }
-  }
-}
-var le = bu;
-function be(e, t) {
-  if (typeof e == "string") return t(e);
-  let r = /* @__PURE__ */ new Map();
-  return n(e);
-  function n(o) {
-    if (r.has(o)) return r.get(o);
-    let i = u2(o);
-    return r.set(o, i), i;
-  }
-  function u2(o) {
-    switch (M2(o)) {
-      case Y3:
-        return t(o.map(n));
-      case k:
-        return t(__spreadProps(__spreadValues({}, o), { parts: o.parts.map(n) }));
-      case _:
-        return t(__spreadProps(__spreadValues({}, o), { breakContents: n(o.breakContents), flatContents: n(o.flatContents) }));
-      case B2: {
-        let { expandedStates: i, contents: s } = o;
-        return i ? (i = i.map(n), s = i[0]) : s = n(s), t(__spreadProps(__spreadValues({}, o), { contents: s, expandedStates: i }));
-      }
-      case O2:
-      case N2:
-      case v:
-      case S2:
-      case L2:
-        return t(__spreadProps(__spreadValues({}, o), { contents: n(o.contents) }));
-      case W2:
-      case j:
-      case P2:
-      case I2:
-      case g:
-      case w:
-        return t(o);
-      default:
-        throw new q(o);
-    }
-  }
-}
-function Ve(e, t, r) {
-  let n = r, u2 = false;
-  function o(i) {
-    if (u2) return false;
-    let s = t(i);
-    s !== void 0 && (u2 = true, n = s);
-  }
-  return le(e, o), n;
-}
-function ku(e) {
-  if (e.type === B2 && e.break || e.type === g && e.hard || e.type === w) return true;
-}
-function Dr(e) {
-  return Ve(e, ku, false);
-}
-function sr(e) {
-  if (e.length > 0) {
-    let t = y(false, e, -1);
-    !t.expandedStates && !t.break && (t.break = "propagated");
-  }
-  return null;
-}
-function cr(e) {
-  let t = /* @__PURE__ */ new Set(), r = [];
-  function n(o) {
-    if (o.type === w && sr(r), o.type === B2) {
-      if (r.push(o), t.has(o)) return false;
-      t.add(o);
-    }
-  }
-  function u2(o) {
-    o.type === B2 && r.pop().break && sr(r);
-  }
-  le(e, n, u2, true);
-}
-function Su(e) {
-  return e.type === g && !e.hard ? e.soft ? "" : " " : e.type === _ ? e.flatContents : e;
-}
-function fr(e) {
-  return be(e, Su);
-}
-function ar(e) {
-  for (e = [...e]; e.length >= 2 && y(false, e, -2).type === g && y(false, e, -1).type === w; ) e.length -= 2;
-  if (e.length > 0) {
-    let t = we(y(false, e, -1));
-    e[e.length - 1] = t;
-  }
-  return e;
-}
-function we(e) {
-  switch (M2(e)) {
-    case N2:
-    case v:
-    case B2:
-    case L2:
-    case S2: {
-      let t = we(e.contents);
-      return __spreadProps(__spreadValues({}, e), { contents: t });
-    }
-    case _:
-      return __spreadProps(__spreadValues({}, e), { breakContents: we(e.breakContents), flatContents: we(e.flatContents) });
-    case k:
-      return __spreadProps(__spreadValues({}, e), { parts: ar(e.parts) });
-    case Y3:
-      return ar(e);
-    case W2:
-      return or(e);
-    case O2:
-    case j:
-    case P2:
-    case I2:
-    case g:
-    case w:
-      break;
-    default:
-      throw new q(e);
-  }
-  return e;
-}
-function $e(e) {
-  return we(Nu(e));
-}
-function Tu(e) {
-  switch (M2(e)) {
-    case k:
-      if (e.parts.every((t) => t === "")) return "";
-      break;
-    case B2:
-      if (!e.contents && !e.id && !e.break && !e.expandedStates) return "";
-      if (e.contents.type === B2 && e.contents.id === e.id && e.contents.break === e.break && e.contents.expandedStates === e.expandedStates) return e.contents;
-      break;
-    case O2:
-    case N2:
-    case v:
-    case L2:
-      if (!e.contents) return "";
-      break;
-    case _:
-      if (!e.flatContents && !e.breakContents) return "";
-      break;
-    case Y3: {
-      let t = [];
-      for (let r of e) {
-        if (!r) continue;
-        let [n, ...u2] = Array.isArray(r) ? r : [r];
-        typeof n == "string" && typeof y(false, t, -1) == "string" ? t[t.length - 1] += n : t.push(n), t.push(...u2);
-      }
-      return t.length === 0 ? "" : t.length === 1 ? t[0] : t;
-    }
-    case W2:
-    case j:
-    case P2:
-    case I2:
-    case g:
-    case S2:
-    case w:
-      break;
-    default:
-      throw new q(e);
-  }
-  return e;
-}
-function Nu(e) {
-  return be(e, (t) => Tu(t));
-}
-function lr(e, t = We) {
-  return be(e, (r) => typeof r == "string" ? ke(t, r.split(`
-`)) : r);
-}
-function Ou(e) {
-  if (e.type === g) return true;
-}
-function Fr(e) {
-  return Ve(e, Ou, false);
-}
-function Fe(e, t) {
-  return e.type === S2 ? __spreadProps(__spreadValues({}, e), { contents: t(e.contents) }) : t(e);
-}
-var gt = () => {
-};
-var K2 = gt;
-var yt = gt;
-var pr = gt;
-function ie(e) {
-  return K2(e), { type: N2, contents: e };
-}
-function oe(e, t) {
-  return K2(t), { type: O2, contents: t, n: e };
-}
-function At(e, t = {}) {
-  return K2(e), yt(t.expandedStates, true), { type: B2, id: t.id, contents: e, break: !!t.shouldBreak, expandedStates: t.expandedStates };
-}
-function dr(e) {
-  return oe(Number.NEGATIVE_INFINITY, e);
-}
-function mr(e) {
-  return oe({ type: "root" }, e);
-}
-function Er(e) {
-  return oe(-1, e);
-}
-function Cr(e, t) {
-  return At(e[0], __spreadProps(__spreadValues({}, t), { expandedStates: e }));
-}
-function hr(e) {
-  return pr(e), { type: k, parts: e };
-}
-function gr(e, t = "", r = {}) {
-  return K2(e), t !== "" && K2(t), { type: _, breakContents: e, flatContents: t, groupId: r.groupId };
-}
-function yr(e, t) {
-  return K2(e), { type: v, contents: e, groupId: t.groupId, negate: t.negate };
-}
-function Se(e) {
-  return K2(e), { type: L2, contents: e };
-}
-var Ar = { type: I2 };
-var pe = { type: w };
-var Br = { type: P2 };
-var Te = { type: g, hard: true };
-var Bt = { type: g, hard: true, literal: true };
-var Me = { type: g };
-var _r = { type: g, soft: true };
-var z = [Te, pe];
-var We = [Bt, pe];
-var X3 = { type: j };
-function ke(e, t) {
-  K2(e), yt(t);
-  let r = [];
-  for (let n = 0; n < t.length; n++) n !== 0 && r.push(e), r.push(t[n]);
-  return r;
-}
-function Ge(e, t, r) {
-  K2(e);
-  let n = e;
-  if (t > 0) {
-    for (let u2 = 0; u2 < Math.floor(t / r); ++u2) n = ie(n);
-    n = oe(t % r, n), n = oe(Number.NEGATIVE_INFINITY, n);
-  }
-  return n;
-}
-function xr(e, t) {
-  return K2(t), e ? { type: S2, label: e, contents: t } : t;
-}
-function Q2(e) {
-  var t;
-  if (!e) return "";
-  if (Array.isArray(e)) {
-    let r = [];
-    for (let n of e) if (Array.isArray(n)) r.push(...Q2(n));
-    else {
-      let u2 = Q2(n);
-      u2 !== "" && r.push(u2);
-    }
-    return r;
-  }
-  return e.type === _ ? __spreadProps(__spreadValues({}, e), { breakContents: Q2(e.breakContents), flatContents: Q2(e.flatContents) }) : e.type === B2 ? __spreadProps(__spreadValues({}, e), { contents: Q2(e.contents), expandedStates: (t = e.expandedStates) == null ? void 0 : t.map(Q2) }) : e.type === k ? { type: "fill", parts: e.parts.map(Q2) } : e.contents ? __spreadProps(__spreadValues({}, e), { contents: Q2(e.contents) }) : e;
-}
-function wr(e) {
-  let t = /* @__PURE__ */ Object.create(null), r = /* @__PURE__ */ new Set();
-  return n(Q2(e));
-  function n(o, i, s) {
-    var a, c;
-    if (typeof o == "string") return JSON.stringify(o);
-    if (Array.isArray(o)) {
-      let D2 = o.map(n).filter(Boolean);
-      return D2.length === 1 ? D2[0] : `[${D2.join(", ")}]`;
-    }
-    if (o.type === g) {
-      let D2 = ((a = s == null ? void 0 : s[i + 1]) == null ? void 0 : a.type) === w;
-      return o.literal ? D2 ? "literalline" : "literallineWithoutBreakParent" : o.hard ? D2 ? "hardline" : "hardlineWithoutBreakParent" : o.soft ? "softline" : "line";
-    }
-    if (o.type === w) return ((c = s == null ? void 0 : s[i - 1]) == null ? void 0 : c.type) === g && s[i - 1].hard ? void 0 : "breakParent";
-    if (o.type === P2) return "trim";
-    if (o.type === N2) return "indent(" + n(o.contents) + ")";
-    if (o.type === O2) return o.n === Number.NEGATIVE_INFINITY ? "dedentToRoot(" + n(o.contents) + ")" : o.n < 0 ? "dedent(" + n(o.contents) + ")" : o.n.type === "root" ? "markAsRoot(" + n(o.contents) + ")" : "align(" + JSON.stringify(o.n) + ", " + n(o.contents) + ")";
-    if (o.type === _) return "ifBreak(" + n(o.breakContents) + (o.flatContents ? ", " + n(o.flatContents) : "") + (o.groupId ? (o.flatContents ? "" : ', ""') + `, { groupId: ${u2(o.groupId)} }` : "") + ")";
-    if (o.type === v) {
-      let D2 = [];
-      o.negate && D2.push("negate: true"), o.groupId && D2.push(`groupId: ${u2(o.groupId)}`);
-      let p = D2.length > 0 ? `, { ${D2.join(", ")} }` : "";
-      return `indentIfBreak(${n(o.contents)}${p})`;
-    }
-    if (o.type === B2) {
-      let D2 = [];
-      o.break && o.break !== "propagated" && D2.push("shouldBreak: true"), o.id && D2.push(`id: ${u2(o.id)}`);
-      let p = D2.length > 0 ? `, { ${D2.join(", ")} }` : "";
-      return o.expandedStates ? `conditionalGroup([${o.expandedStates.map((l) => n(l)).join(",")}]${p})` : `group(${n(o.contents)}${p})`;
-    }
-    if (o.type === k) return `fill([${o.parts.map((D2) => n(D2)).join(", ")}])`;
-    if (o.type === L2) return "lineSuffix(" + n(o.contents) + ")";
-    if (o.type === I2) return "lineSuffixBoundary";
-    if (o.type === S2) return `label(${JSON.stringify(o.label)}, ${n(o.contents)})`;
-    if (o.type === j) return "cursor";
-    throw new Error("Unknown doc type " + o.type);
-  }
-  function u2(o) {
-    if (typeof o != "symbol") return JSON.stringify(String(o));
-    if (o in t) return t[o];
-    let i = o.description || "symbol";
-    for (let s = 0; ; s++) {
-      let a = i + (s > 0 ? ` #${s}` : "");
-      if (!r.has(a)) return r.add(a), t[o] = `Symbol.for(${JSON.stringify(a)})`;
-    }
-  }
-}
-var br = () => /[#*0-9]\uFE0F?\u20E3|[\xA9\xAE\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9\u21AA\u231A\u231B\u2328\u23CF\u23ED-\u23EF\u23F1\u23F2\u23F8-\u23FA\u24C2\u25AA\u25AB\u25B6\u25C0\u25FB\u25FC\u25FE\u2600-\u2604\u260E\u2611\u2614\u2615\u2618\u2620\u2622\u2623\u2626\u262A\u262E\u262F\u2638-\u263A\u2640\u2642\u2648-\u2653\u265F\u2660\u2663\u2665\u2666\u2668\u267B\u267E\u267F\u2692\u2694-\u2697\u2699\u269B\u269C\u26A0\u26A7\u26AA\u26B0\u26B1\u26BD\u26BE\u26C4\u26C8\u26CF\u26D1\u26E9\u26F0-\u26F5\u26F7\u26F8\u26FA\u2702\u2708\u2709\u270F\u2712\u2714\u2716\u271D\u2721\u2733\u2734\u2744\u2747\u2757\u2763\u27A1\u2934\u2935\u2B05-\u2B07\u2B1B\u2B1C\u2B55\u3030\u303D\u3297\u3299]\uFE0F?|[\u261D\u270C\u270D](?:\uD83C[\uDFFB-\uDFFF]|\uFE0F)?|[\u270A\u270B](?:\uD83C[\uDFFB-\uDFFF])?|[\u23E9-\u23EC\u23F0\u23F3\u25FD\u2693\u26A1\u26AB\u26C5\u26CE\u26D4\u26EA\u26FD\u2705\u2728\u274C\u274E\u2753-\u2755\u2795-\u2797\u27B0\u27BF\u2B50]|\u26D3\uFE0F?(?:\u200D\uD83D\uDCA5)?|\u26F9(?:\uD83C[\uDFFB-\uDFFF]|\uFE0F)?(?:\u200D[\u2640\u2642]\uFE0F?)?|\u2764\uFE0F?(?:\u200D(?:\uD83D\uDD25|\uD83E\uDE79))?|\uD83C(?:[\uDC04\uDD70\uDD71\uDD7E\uDD7F\uDE02\uDE37\uDF21\uDF24-\uDF2C\uDF36\uDF7D\uDF96\uDF97\uDF99-\uDF9B\uDF9E\uDF9F\uDFCD\uDFCE\uDFD4-\uDFDF\uDFF5\uDFF7]\uFE0F?|[\uDF85\uDFC2\uDFC7](?:\uD83C[\uDFFB-\uDFFF])?|[\uDFC4\uDFCA](?:\uD83C[\uDFFB-\uDFFF])?(?:\u200D[\u2640\u2642]\uFE0F?)?|[\uDFCB\uDFCC](?:\uD83C[\uDFFB-\uDFFF]|\uFE0F)?(?:\u200D[\u2640\u2642]\uFE0F?)?|[\uDCCF\uDD8E\uDD91-\uDD9A\uDE01\uDE1A\uDE2F\uDE32-\uDE36\uDE38-\uDE3A\uDE50\uDE51\uDF00-\uDF20\uDF2D-\uDF35\uDF37-\uDF43\uDF45-\uDF4A\uDF4C-\uDF7C\uDF7E-\uDF84\uDF86-\uDF93\uDFA0-\uDFC1\uDFC5\uDFC6\uDFC8\uDFC9\uDFCF-\uDFD3\uDFE0-\uDFF0\uDFF8-\uDFFF]|\uDDE6\uD83C[\uDDE8-\uDDEC\uDDEE\uDDF1\uDDF2\uDDF4\uDDF6-\uDDFA\uDDFC\uDDFD\uDDFF]|\uDDE7\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEF\uDDF1-\uDDF4\uDDF6-\uDDF9\uDDFB\uDDFC\uDDFE\uDDFF]|\uDDE8\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDEE\uDDF0-\uDDF7\uDDFA-\uDDFF]|\uDDE9\uD83C[\uDDEA\uDDEC\uDDEF\uDDF0\uDDF2\uDDF4\uDDFF]|\uDDEA\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDED\uDDF7-\uDDFA]|\uDDEB\uD83C[\uDDEE-\uDDF0\uDDF2\uDDF4\uDDF7]|\uDDEC\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEE\uDDF1-\uDDF3\uDDF5-\uDDFA\uDDFC\uDDFE]|\uDDED\uD83C[\uDDF0\uDDF2\uDDF3\uDDF7\uDDF9\uDDFA]|\uDDEE\uD83C[\uDDE8-\uDDEA\uDDF1-\uDDF4\uDDF6-\uDDF9]|\uDDEF\uD83C[\uDDEA\uDDF2\uDDF4\uDDF5]|\uDDF0\uD83C[\uDDEA\uDDEC-\uDDEE\uDDF2\uDDF3\uDDF5\uDDF7\uDDFC\uDDFE\uDDFF]|\uDDF1\uD83C[\uDDE6-\uDDE8\uDDEE\uDDF0\uDDF7-\uDDFB\uDDFE]|\uDDF2\uD83C[\uDDE6\uDDE8-\uDDED\uDDF0-\uDDFF]|\uDDF3\uD83C[\uDDE6\uDDE8\uDDEA-\uDDEC\uDDEE\uDDF1\uDDF4\uDDF5\uDDF7\uDDFA\uDDFF]|\uDDF4\uD83C\uDDF2|\uDDF5\uD83C[\uDDE6\uDDEA-\uDDED\uDDF0-\uDDF3\uDDF7-\uDDF9\uDDFC\uDDFE]|\uDDF6\uD83C\uDDE6|\uDDF7\uD83C[\uDDEA\uDDF4\uDDF8\uDDFA\uDDFC]|\uDDF8\uD83C[\uDDE6-\uDDEA\uDDEC-\uDDF4\uDDF7-\uDDF9\uDDFB\uDDFD-\uDDFF]|\uDDF9\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDED\uDDEF-\uDDF4\uDDF7\uDDF9\uDDFB\uDDFC\uDDFF]|\uDDFA\uD83C[\uDDE6\uDDEC\uDDF2\uDDF3\uDDF8\uDDFE\uDDFF]|\uDDFB\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDEE\uDDF3\uDDFA]|\uDDFC\uD83C[\uDDEB\uDDF8]|\uDDFD\uD83C\uDDF0|\uDDFE\uD83C[\uDDEA\uDDF9]|\uDDFF\uD83C[\uDDE6\uDDF2\uDDFC]|\uDF44(?:\u200D\uD83D\uDFEB)?|\uDF4B(?:\u200D\uD83D\uDFE9)?|\uDFC3(?:\uD83C[\uDFFB-\uDFFF])?(?:\u200D(?:[\u2640\u2642]\uFE0F?(?:\u200D\u27A1\uFE0F?)?|\u27A1\uFE0F?))?|\uDFF3\uFE0F?(?:\u200D(?:\u26A7\uFE0F?|\uD83C\uDF08))?|\uDFF4(?:\u200D\u2620\uFE0F?|\uDB40\uDC67\uDB40\uDC62\uDB40(?:\uDC65\uDB40\uDC6E\uDB40\uDC67|\uDC73\uDB40\uDC63\uDB40\uDC74|\uDC77\uDB40\uDC6C\uDB40\uDC73)\uDB40\uDC7F)?)|\uD83D(?:[\uDC3F\uDCFD\uDD49\uDD4A\uDD6F\uDD70\uDD73\uDD76-\uDD79\uDD87\uDD8A-\uDD8D\uDDA5\uDDA8\uDDB1\uDDB2\uDDBC\uDDC2-\uDDC4\uDDD1-\uDDD3\uDDDC-\uDDDE\uDDE1\uDDE3\uDDE8\uDDEF\uDDF3\uDDFA\uDECB\uDECD-\uDECF\uDEE0-\uDEE5\uDEE9\uDEF0\uDEF3]\uFE0F?|[\uDC42\uDC43\uDC46-\uDC50\uDC66\uDC67\uDC6B-\uDC6D\uDC72\uDC74-\uDC76\uDC78\uDC7C\uDC83\uDC85\uDC8F\uDC91\uDCAA\uDD7A\uDD95\uDD96\uDE4C\uDE4F\uDEC0\uDECC](?:\uD83C[\uDFFB-\uDFFF])?|[\uDC6E\uDC70\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4\uDEB5](?:\uD83C[\uDFFB-\uDFFF])?(?:\u200D[\u2640\u2642]\uFE0F?)?|[\uDD74\uDD90](?:\uD83C[\uDFFB-\uDFFF]|\uFE0F)?|[\uDC00-\uDC07\uDC09-\uDC14\uDC16-\uDC25\uDC27-\uDC3A\uDC3C-\uDC3E\uDC40\uDC44\uDC45\uDC51-\uDC65\uDC6A\uDC79-\uDC7B\uDC7D-\uDC80\uDC84\uDC88-\uDC8E\uDC90\uDC92-\uDCA9\uDCAB-\uDCFC\uDCFF-\uDD3D\uDD4B-\uDD4E\uDD50-\uDD67\uDDA4\uDDFB-\uDE2D\uDE2F-\uDE34\uDE37-\uDE41\uDE43\uDE44\uDE48-\uDE4A\uDE80-\uDEA2\uDEA4-\uDEB3\uDEB7-\uDEBF\uDEC1-\uDEC5\uDED0-\uDED2\uDED5-\uDED7\uDEDC-\uDEDF\uDEEB\uDEEC\uDEF4-\uDEFC\uDFE0-\uDFEB\uDFF0]|\uDC08(?:\u200D\u2B1B)?|\uDC15(?:\u200D\uD83E\uDDBA)?|\uDC26(?:\u200D(?:\u2B1B|\uD83D\uDD25))?|\uDC3B(?:\u200D\u2744\uFE0F?)?|\uDC41\uFE0F?(?:\u200D\uD83D\uDDE8\uFE0F?)?|\uDC68(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D(?:[\uDC68\uDC69]\u200D\uD83D(?:\uDC66(?:\u200D\uD83D\uDC66)?|\uDC67(?:\u200D\uD83D[\uDC66\uDC67])?)|[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uDC66(?:\u200D\uD83D\uDC66)?|\uDC67(?:\u200D\uD83D[\uDC66\uDC67])?)|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]))|\uD83C(?:\uDFFB(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D\uDC68\uD83C[\uDFFC-\uDFFF])))?|\uDFFC(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D\uDC68\uD83C[\uDFFB\uDFFD-\uDFFF])))?|\uDFFD(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D\uDC68\uD83C[\uDFFB\uDFFC\uDFFE\uDFFF])))?|\uDFFE(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D\uDC68\uD83C[\uDFFB-\uDFFD\uDFFF])))?|\uDFFF(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D\uDC68\uD83C[\uDFFB-\uDFFE])))?))?|\uDC69(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?[\uDC68\uDC69]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D(?:[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uDC66(?:\u200D\uD83D\uDC66)?|\uDC67(?:\u200D\uD83D[\uDC66\uDC67])?|\uDC69\u200D\uD83D(?:\uDC66(?:\u200D\uD83D\uDC66)?|\uDC67(?:\u200D\uD83D[\uDC66\uDC67])?))|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]))|\uD83C(?:\uDFFB(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:[\uDC68\uDC69]|\uDC8B\u200D\uD83D[\uDC68\uDC69])\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D[\uDC68\uDC69]\uD83C[\uDFFC-\uDFFF])))?|\uDFFC(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:[\uDC68\uDC69]|\uDC8B\u200D\uD83D[\uDC68\uDC69])\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D[\uDC68\uDC69]\uD83C[\uDFFB\uDFFD-\uDFFF])))?|\uDFFD(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:[\uDC68\uDC69]|\uDC8B\u200D\uD83D[\uDC68\uDC69])\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D[\uDC68\uDC69]\uD83C[\uDFFB\uDFFC\uDFFE\uDFFF])))?|\uDFFE(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:[\uDC68\uDC69]|\uDC8B\u200D\uD83D[\uDC68\uDC69])\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D[\uDC68\uDC69]\uD83C[\uDFFB-\uDFFD\uDFFF])))?|\uDFFF(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:[\uDC68\uDC69]|\uDC8B\u200D\uD83D[\uDC68\uDC69])\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D[\uDC68\uDC69]\uD83C[\uDFFB-\uDFFE])))?))?|\uDC6F(?:\u200D[\u2640\u2642]\uFE0F?)?|\uDD75(?:\uD83C[\uDFFB-\uDFFF]|\uFE0F)?(?:\u200D[\u2640\u2642]\uFE0F?)?|\uDE2E(?:\u200D\uD83D\uDCA8)?|\uDE35(?:\u200D\uD83D\uDCAB)?|\uDE36(?:\u200D\uD83C\uDF2B\uFE0F?)?|\uDE42(?:\u200D[\u2194\u2195]\uFE0F?)?|\uDEB6(?:\uD83C[\uDFFB-\uDFFF])?(?:\u200D(?:[\u2640\u2642]\uFE0F?(?:\u200D\u27A1\uFE0F?)?|\u27A1\uFE0F?))?)|\uD83E(?:[\uDD0C\uDD0F\uDD18-\uDD1F\uDD30-\uDD34\uDD36\uDD77\uDDB5\uDDB6\uDDBB\uDDD2\uDDD3\uDDD5\uDEC3-\uDEC5\uDEF0\uDEF2-\uDEF8](?:\uD83C[\uDFFB-\uDFFF])?|[\uDD26\uDD35\uDD37-\uDD39\uDD3D\uDD3E\uDDB8\uDDB9\uDDCD\uDDCF\uDDD4\uDDD6-\uDDDD](?:\uD83C[\uDFFB-\uDFFF])?(?:\u200D[\u2640\u2642]\uFE0F?)?|[\uDDDE\uDDDF](?:\u200D[\u2640\u2642]\uFE0F?)?|[\uDD0D\uDD0E\uDD10-\uDD17\uDD20-\uDD25\uDD27-\uDD2F\uDD3A\uDD3F-\uDD45\uDD47-\uDD76\uDD78-\uDDB4\uDDB7\uDDBA\uDDBC-\uDDCC\uDDD0\uDDE0-\uDDFF\uDE70-\uDE7C\uDE80-\uDE89\uDE8F-\uDEC2\uDEC6\uDECE-\uDEDC\uDEDF-\uDEE9]|\uDD3C(?:\u200D[\u2640\u2642]\uFE0F?|\uD83C[\uDFFB-\uDFFF])?|\uDDCE(?:\uD83C[\uDFFB-\uDFFF])?(?:\u200D(?:[\u2640\u2642]\uFE0F?(?:\u200D\u27A1\uFE0F?)?|\u27A1\uFE0F?))?|\uDDD1(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83E\uDDD1|\uDDD1\u200D\uD83E\uDDD2(?:\u200D\uD83E\uDDD2)?|\uDDD2(?:\u200D\uD83E\uDDD2)?))|\uD83C(?:\uDFFB(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D(?:\uD83D\uDC8B\u200D)?\uD83E\uDDD1\uD83C[\uDFFC-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83E\uDDD1\uD83C[\uDFFB-\uDFFF])))?|\uDFFC(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D(?:\uD83D\uDC8B\u200D)?\uD83E\uDDD1\uD83C[\uDFFB\uDFFD-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83E\uDDD1\uD83C[\uDFFB-\uDFFF])))?|\uDFFD(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D(?:\uD83D\uDC8B\u200D)?\uD83E\uDDD1\uD83C[\uDFFB\uDFFC\uDFFE\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83E\uDDD1\uD83C[\uDFFB-\uDFFF])))?|\uDFFE(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D(?:\uD83D\uDC8B\u200D)?\uD83E\uDDD1\uD83C[\uDFFB-\uDFFD\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83E\uDDD1\uD83C[\uDFFB-\uDFFF])))?|\uDFFF(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D(?:\uD83D\uDC8B\u200D)?\uD83E\uDDD1\uD83C[\uDFFB-\uDFFE]|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83E\uDDD1\uD83C[\uDFFB-\uDFFF])))?))?|\uDEF1(?:\uD83C(?:\uDFFB(?:\u200D\uD83E\uDEF2\uD83C[\uDFFC-\uDFFF])?|\uDFFC(?:\u200D\uD83E\uDEF2\uD83C[\uDFFB\uDFFD-\uDFFF])?|\uDFFD(?:\u200D\uD83E\uDEF2\uD83C[\uDFFB\uDFFC\uDFFE\uDFFF])?|\uDFFE(?:\u200D\uD83E\uDEF2\uD83C[\uDFFB-\uDFFD\uDFFF])?|\uDFFF(?:\u200D\uD83E\uDEF2\uD83C[\uDFFB-\uDFFE])?))?)/g;
-function kr(e) {
-  return e === 12288 || e >= 65281 && e <= 65376 || e >= 65504 && e <= 65510;
-}
-function Sr(e) {
-  return e >= 4352 && e <= 4447 || e === 8986 || e === 8987 || e === 9001 || e === 9002 || e >= 9193 && e <= 9196 || e === 9200 || e === 9203 || e === 9725 || e === 9726 || e === 9748 || e === 9749 || e >= 9776 && e <= 9783 || e >= 9800 && e <= 9811 || e === 9855 || e >= 9866 && e <= 9871 || e === 9875 || e === 9889 || e === 9898 || e === 9899 || e === 9917 || e === 9918 || e === 9924 || e === 9925 || e === 9934 || e === 9940 || e === 9962 || e === 9970 || e === 9971 || e === 9973 || e === 9978 || e === 9981 || e === 9989 || e === 9994 || e === 9995 || e === 10024 || e === 10060 || e === 10062 || e >= 10067 && e <= 10069 || e === 10071 || e >= 10133 && e <= 10135 || e === 10160 || e === 10175 || e === 11035 || e === 11036 || e === 11088 || e === 11093 || e >= 11904 && e <= 11929 || e >= 11931 && e <= 12019 || e >= 12032 && e <= 12245 || e >= 12272 && e <= 12287 || e >= 12289 && e <= 12350 || e >= 12353 && e <= 12438 || e >= 12441 && e <= 12543 || e >= 12549 && e <= 12591 || e >= 12593 && e <= 12686 || e >= 12688 && e <= 12773 || e >= 12783 && e <= 12830 || e >= 12832 && e <= 12871 || e >= 12880 && e <= 42124 || e >= 42128 && e <= 42182 || e >= 43360 && e <= 43388 || e >= 44032 && e <= 55203 || e >= 63744 && e <= 64255 || e >= 65040 && e <= 65049 || e >= 65072 && e <= 65106 || e >= 65108 && e <= 65126 || e >= 65128 && e <= 65131 || e >= 94176 && e <= 94180 || e === 94192 || e === 94193 || e >= 94208 && e <= 100343 || e >= 100352 && e <= 101589 || e >= 101631 && e <= 101640 || e >= 110576 && e <= 110579 || e >= 110581 && e <= 110587 || e === 110589 || e === 110590 || e >= 110592 && e <= 110882 || e === 110898 || e >= 110928 && e <= 110930 || e === 110933 || e >= 110948 && e <= 110951 || e >= 110960 && e <= 111355 || e >= 119552 && e <= 119638 || e >= 119648 && e <= 119670 || e === 126980 || e === 127183 || e === 127374 || e >= 127377 && e <= 127386 || e >= 127488 && e <= 127490 || e >= 127504 && e <= 127547 || e >= 127552 && e <= 127560 || e === 127568 || e === 127569 || e >= 127584 && e <= 127589 || e >= 127744 && e <= 127776 || e >= 127789 && e <= 127797 || e >= 127799 && e <= 127868 || e >= 127870 && e <= 127891 || e >= 127904 && e <= 127946 || e >= 127951 && e <= 127955 || e >= 127968 && e <= 127984 || e === 127988 || e >= 127992 && e <= 128062 || e === 128064 || e >= 128066 && e <= 128252 || e >= 128255 && e <= 128317 || e >= 128331 && e <= 128334 || e >= 128336 && e <= 128359 || e === 128378 || e === 128405 || e === 128406 || e === 128420 || e >= 128507 && e <= 128591 || e >= 128640 && e <= 128709 || e === 128716 || e >= 128720 && e <= 128722 || e >= 128725 && e <= 128727 || e >= 128732 && e <= 128735 || e === 128747 || e === 128748 || e >= 128756 && e <= 128764 || e >= 128992 && e <= 129003 || e === 129008 || e >= 129292 && e <= 129338 || e >= 129340 && e <= 129349 || e >= 129351 && e <= 129535 || e >= 129648 && e <= 129660 || e >= 129664 && e <= 129673 || e >= 129679 && e <= 129734 || e >= 129742 && e <= 129756 || e >= 129759 && e <= 129769 || e >= 129776 && e <= 129784 || e >= 131072 && e <= 196605 || e >= 196608 && e <= 262141;
-}
-var Tr = (e) => !(kr(e) || Sr(e));
-var Pu = /[^\x20-\x7F]/u;
-function vu(e) {
-  if (!e) return 0;
-  if (!Pu.test(e)) return e.length;
-  e = e.replace(br(), "  ");
-  let t = 0;
-  for (let r of e) {
-    let n = r.codePointAt(0);
-    n <= 31 || n >= 127 && n <= 159 || n >= 768 && n <= 879 || (t += Tr(n) ? 1 : 2);
-  }
-  return t;
-}
-var Ne = vu;
-var R2 = Symbol("MODE_BREAK");
-var H2 = Symbol("MODE_FLAT");
-var de = Symbol("cursor");
-var _t = Symbol("DOC_FILL_PRINTED_LENGTH");
-function Nr() {
-  return { value: "", length: 0, queue: [] };
-}
-function Lu(e, t) {
-  return xt(e, { type: "indent" }, t);
-}
-function Iu(e, t, r) {
-  return t === Number.NEGATIVE_INFINITY ? e.root || Nr() : t < 0 ? xt(e, { type: "dedent" }, r) : t ? t.type === "root" ? __spreadProps(__spreadValues({}, e), { root: e }) : xt(e, { type: typeof t == "string" ? "stringAlign" : "numberAlign", n: t }, r) : e;
-}
-function xt(e, t, r) {
-  let n = t.type === "dedent" ? e.queue.slice(0, -1) : [...e.queue, t], u2 = "", o = 0, i = 0, s = 0;
-  for (let f of n) switch (f.type) {
-    case "indent":
-      D2(), r.useTabs ? a(1) : c(r.tabWidth);
-      break;
-    case "stringAlign":
-      D2(), u2 += f.n, o += f.n.length;
-      break;
-    case "numberAlign":
-      i += 1, s += f.n;
-      break;
-    default:
-      throw new Error(`Unexpected type '${f.type}'`);
-  }
-  return l(), __spreadProps(__spreadValues({}, e), { value: u2, length: o, queue: n });
-  function a(f) {
-    u2 += "	".repeat(f), o += r.tabWidth * f;
-  }
-  function c(f) {
-    u2 += " ".repeat(f), o += f;
-  }
-  function D2() {
-    r.useTabs ? p() : l();
-  }
-  function p() {
-    i > 0 && a(i), F13();
-  }
-  function l() {
-    s > 0 && c(s), F13();
-  }
-  function F13() {
-    i = 0, s = 0;
-  }
-}
-function wt(e) {
-  let t = 0, r = 0, n = e.length;
-  e: for (; n--; ) {
-    let u2 = e[n];
-    if (u2 === de) {
-      r++;
-      continue;
-    }
-    for (let o = u2.length - 1; o >= 0; o--) {
-      let i = u2[o];
-      if (i === " " || i === "	") t++;
-      else {
-        e[n] = u2.slice(0, o + 1);
-        break e;
-      }
-    }
-  }
-  if (t > 0 || r > 0) for (e.length = n + 1; r-- > 0; ) e.push(de);
-  return t;
-}
-function Ke(e, t, r, n, u2, o) {
-  if (r === Number.POSITIVE_INFINITY) return true;
-  let i = t.length, s = [e], a = [];
-  for (; r >= 0; ) {
-    if (s.length === 0) {
-      if (i === 0) return true;
-      s.push(t[--i]);
-      continue;
-    }
-    let { mode: c, doc: D2 } = s.pop(), p = M2(D2);
-    switch (p) {
-      case W2:
-        a.push(D2), r -= Ne(D2);
-        break;
-      case Y3:
-      case k: {
-        let l = p === Y3 ? D2 : D2.parts, F13 = D2[_t] ?? 0;
-        for (let f = l.length - 1; f >= F13; f--) s.push({ mode: c, doc: l[f] });
-        break;
-      }
-      case N2:
-      case O2:
-      case v:
-      case S2:
-        s.push({ mode: c, doc: D2.contents });
-        break;
-      case P2:
-        r += wt(a);
-        break;
-      case B2: {
-        if (o && D2.break) return false;
-        let l = D2.break ? R2 : c, F13 = D2.expandedStates && l === R2 ? y(false, D2.expandedStates, -1) : D2.contents;
-        s.push({ mode: l, doc: F13 });
-        break;
-      }
-      case _: {
-        let F13 = (D2.groupId ? u2[D2.groupId] || H2 : c) === R2 ? D2.breakContents : D2.flatContents;
-        F13 && s.push({ mode: c, doc: F13 });
-        break;
-      }
-      case g:
-        if (c === R2 || D2.hard) return true;
-        D2.soft || (a.push(" "), r--);
-        break;
-      case L2:
-        n = true;
-        break;
-      case I2:
-        if (n) return false;
-        break;
-    }
-  }
-  return false;
-}
-function me(e, t) {
-  let r = {}, n = t.printWidth, u2 = xe(t.endOfLine), o = 0, i = [{ ind: Nr(), mode: R2, doc: e }], s = [], a = false, c = [], D2 = 0;
-  for (cr(e); i.length > 0; ) {
-    let { ind: l, mode: F13, doc: f } = i.pop();
-    switch (M2(f)) {
-      case W2: {
-        let d = u2 !== `
-` ? te(false, f, `
-`, u2) : f;
-        s.push(d), i.length > 0 && (o += Ne(d));
-        break;
-      }
-      case Y3:
-        for (let d = f.length - 1; d >= 0; d--) i.push({ ind: l, mode: F13, doc: f[d] });
-        break;
-      case j:
-        if (D2 >= 2) throw new Error("There are too many 'cursor' in doc.");
-        s.push(de), D2++;
-        break;
-      case N2:
-        i.push({ ind: Lu(l, t), mode: F13, doc: f.contents });
-        break;
-      case O2:
-        i.push({ ind: Iu(l, f.n, t), mode: F13, doc: f.contents });
-        break;
-      case P2:
-        o -= wt(s);
-        break;
-      case B2:
-        switch (F13) {
-          case H2:
-            if (!a) {
-              i.push({ ind: l, mode: f.break ? R2 : H2, doc: f.contents });
-              break;
-            }
-          case R2: {
-            a = false;
-            let d = { ind: l, mode: H2, doc: f.contents }, m = n - o, C2 = c.length > 0;
-            if (!f.break && Ke(d, i, m, C2, r)) i.push(d);
-            else if (f.expandedStates) {
-              let E2 = y(false, f.expandedStates, -1);
-              if (f.break) {
-                i.push({ ind: l, mode: R2, doc: E2 });
-                break;
-              } else for (let h = 1; h < f.expandedStates.length + 1; h++) if (h >= f.expandedStates.length) {
-                i.push({ ind: l, mode: R2, doc: E2 });
-                break;
-              } else {
-                let x = f.expandedStates[h], A2 = { ind: l, mode: H2, doc: x };
-                if (Ke(A2, i, m, C2, r)) {
-                  i.push(A2);
-                  break;
-                }
-              }
-            } else i.push({ ind: l, mode: R2, doc: f.contents });
-            break;
-          }
-        }
-        f.id && (r[f.id] = y(false, i, -1).mode);
-        break;
-      case k: {
-        let d = n - o, m = f[_t] ?? 0, { parts: C2 } = f, E2 = C2.length - m;
-        if (E2 === 0) break;
-        let h = C2[m + 0], x = C2[m + 1], A2 = { ind: l, mode: H2, doc: h }, $ = { ind: l, mode: R2, doc: h }, ue = Ke(A2, [], d, c.length > 0, r, true);
-        if (E2 === 1) {
-          ue ? i.push(A2) : i.push($);
-          break;
-        }
-        let Be = { ind: l, mode: H2, doc: x }, lt = { ind: l, mode: R2, doc: x };
-        if (E2 === 2) {
-          ue ? i.push(Be, A2) : i.push(lt, $);
-          break;
-        }
-        let lu = C2[m + 2], Ft = { ind: l, mode: F13, doc: __spreadProps(__spreadValues({}, f), { [_t]: m + 2 }) };
-        Ke({ ind: l, mode: H2, doc: [h, x, lu] }, [], d, c.length > 0, r, true) ? i.push(Ft, Be, A2) : ue ? i.push(Ft, lt, A2) : i.push(Ft, lt, $);
-        break;
-      }
-      case _:
-      case v: {
-        let d = f.groupId ? r[f.groupId] : F13;
-        if (d === R2) {
-          let m = f.type === _ ? f.breakContents : f.negate ? f.contents : ie(f.contents);
-          m && i.push({ ind: l, mode: F13, doc: m });
-        }
-        if (d === H2) {
-          let m = f.type === _ ? f.flatContents : f.negate ? ie(f.contents) : f.contents;
-          m && i.push({ ind: l, mode: F13, doc: m });
-        }
-        break;
-      }
-      case L2:
-        c.push({ ind: l, mode: F13, doc: f.contents });
-        break;
-      case I2:
-        c.length > 0 && i.push({ ind: l, mode: F13, doc: Te });
-        break;
-      case g:
-        switch (F13) {
-          case H2:
-            if (f.hard) a = true;
-            else {
-              f.soft || (s.push(" "), o += 1);
-              break;
-            }
-          case R2:
-            if (c.length > 0) {
-              i.push({ ind: l, mode: F13, doc: f }, ...c.reverse()), c.length = 0;
-              break;
-            }
-            f.literal ? l.root ? (s.push(u2, l.root.value), o = l.root.length) : (s.push(u2), o = 0) : (o -= wt(s), s.push(u2 + l.value), o = l.length);
-            break;
-        }
-        break;
-      case S2:
-        i.push({ ind: l, mode: F13, doc: f.contents });
-        break;
-      case w:
-        break;
-      default:
-        throw new q(f);
-    }
-    i.length === 0 && c.length > 0 && (i.push(...c.reverse()), c.length = 0);
-  }
-  let p = s.indexOf(de);
-  if (p !== -1) {
-    let l = s.indexOf(de, p + 1);
-    if (l === -1) return { formatted: s.filter((m) => m !== de).join("") };
-    let F13 = s.slice(0, p).join(""), f = s.slice(p + 1, l).join(""), d = s.slice(l + 1).join("");
-    return { formatted: F13 + f + d, cursorNodeStart: F13.length, cursorNodeText: f };
-  }
-  return { formatted: s.join("") };
-}
-function Ru(e, t, r = 0) {
-  let n = 0;
-  for (let u2 = r; u2 < e.length; ++u2) e[u2] === "	" ? n = n + t - n % t : n++;
-  return n;
-}
-var Ee = Ru;
-var Z2;
-var kt;
-var ze;
-var bt = class {
-  constructor(t) {
-    tr(this, Z2);
-    this.stack = [t];
-  }
-  get key() {
-    let { stack: t, siblings: r } = this;
-    return y(false, t, r === null ? -2 : -4) ?? null;
-  }
-  get index() {
-    return this.siblings === null ? null : y(false, this.stack, -2);
-  }
-  get node() {
-    return y(false, this.stack, -1);
-  }
-  get parent() {
-    return this.getNode(1);
-  }
-  get grandparent() {
-    return this.getNode(2);
-  }
-  get isInArray() {
-    return this.siblings !== null;
-  }
-  get siblings() {
-    let { stack: t } = this, r = y(false, t, -3);
-    return Array.isArray(r) ? r : null;
-  }
-  get next() {
-    let { siblings: t } = this;
-    return t === null ? null : t[this.index + 1];
-  }
-  get previous() {
-    let { siblings: t } = this;
-    return t === null ? null : t[this.index - 1];
-  }
-  get isFirst() {
-    return this.index === 0;
-  }
-  get isLast() {
-    let { siblings: t, index: r } = this;
-    return t !== null && r === t.length - 1;
-  }
-  get isRoot() {
-    return this.stack.length === 1;
-  }
-  get root() {
-    return this.stack[0];
-  }
-  get ancestors() {
-    return [...fe(this, Z2, ze).call(this)];
-  }
-  getName() {
-    let { stack: t } = this, { length: r } = t;
-    return r > 1 ? y(false, t, -2) : null;
-  }
-  getValue() {
-    return y(false, this.stack, -1);
-  }
-  getNode(t = 0) {
-    let r = fe(this, Z2, kt).call(this, t);
-    return r === -1 ? null : this.stack[r];
-  }
-  getParentNode(t = 0) {
-    return this.getNode(t + 1);
-  }
-  call(t, ...r) {
-    let { stack: n } = this, { length: u2 } = n, o = y(false, n, -1);
-    for (let i of r) o = o[i], n.push(i, o);
-    try {
-      return t(this);
-    } finally {
-      n.length = u2;
-    }
-  }
-  callParent(t, r = 0) {
-    let n = fe(this, Z2, kt).call(this, r + 1), u2 = this.stack.splice(n + 1);
-    try {
-      return t(this);
-    } finally {
-      this.stack.push(...u2);
-    }
-  }
-  each(t, ...r) {
-    let { stack: n } = this, { length: u2 } = n, o = y(false, n, -1);
-    for (let i of r) o = o[i], n.push(i, o);
-    try {
-      for (let i = 0; i < o.length; ++i) n.push(i, o[i]), t(this, i, o), n.length -= 2;
-    } finally {
-      n.length = u2;
-    }
-  }
-  map(t, ...r) {
-    let n = [];
-    return this.each((u2, o, i) => {
-      n[o] = t(u2, o, i);
-    }, ...r), n;
-  }
-  match(...t) {
-    let r = this.stack.length - 1, n = null, u2 = this.stack[r--];
-    for (let o of t) {
-      if (u2 === void 0) return false;
-      let i = null;
-      if (typeof n == "number" && (i = n, n = this.stack[r--], u2 = this.stack[r--]), o && !o(u2, n, i)) return false;
-      n = this.stack[r--], u2 = this.stack[r--];
-    }
-    return true;
-  }
-  findAncestor(t) {
-    for (let r of fe(this, Z2, ze).call(this)) if (t(r)) return r;
-  }
-  hasAncestor(t) {
-    for (let r of fe(this, Z2, ze).call(this)) if (t(r)) return true;
-    return false;
-  }
-};
-Z2 = /* @__PURE__ */ new WeakSet(), kt = function(t) {
-  let { stack: r } = this;
-  for (let n = r.length - 1; n >= 0; n -= 2) if (!Array.isArray(r[n]) && --t < 0) return n;
-  return -1;
-}, ze = function* () {
-  let { stack: t } = this;
-  for (let r = t.length - 3; r >= 0; r -= 2) {
-    let n = t[r];
-    Array.isArray(n) || (yield n);
-  }
-};
-var Or = bt;
-var Pr = new Proxy(() => {
-}, { get: () => Pr });
-var Oe = Pr;
-function Yu(e) {
-  return e !== null && typeof e == "object";
-}
-var vr = Yu;
-function* Ce(e, t) {
-  let { getVisitorKeys: r, filter: n = () => true } = t, u2 = (o) => vr(o) && n(o);
-  for (let o of r(e)) {
-    let i = e[o];
-    if (Array.isArray(i)) for (let s of i) u2(s) && (yield s);
-    else u2(i) && (yield i);
-  }
-}
-function* Lr(e, t) {
-  let r = [e];
-  for (let n = 0; n < r.length; n++) {
-    let u2 = r[n];
-    for (let o of Ce(u2, t)) yield o, r.push(o);
-  }
-}
-function Ir(e, t) {
-  return Ce(e, t).next().done;
-}
-function he(e) {
-  return (t, r, n) => {
-    let u2 = !!(n != null && n.backwards);
-    if (r === false) return false;
-    let { length: o } = t, i = r;
-    for (; i >= 0 && i < o; ) {
-      let s = t.charAt(i);
-      if (e instanceof RegExp) {
-        if (!e.test(s)) return i;
-      } else if (!e.includes(s)) return i;
-      u2 ? i-- : i++;
-    }
-    return i === -1 || i === o ? i : false;
-  };
-}
-var Rr = he(/\s/u);
-var T2 = he(" 	");
-var He = he(",; 	");
-var Je = he(/[^\n\r]/u);
-function ju(e, t, r) {
-  let n = !!(r != null && r.backwards);
-  if (t === false) return false;
-  let u2 = e.charAt(t);
-  if (n) {
-    if (e.charAt(t - 1) === "\r" && u2 === `
-`) return t - 2;
-    if (u2 === `
-` || u2 === "\r" || u2 === "\u2028" || u2 === "\u2029") return t - 1;
-  } else {
-    if (u2 === "\r" && e.charAt(t + 1) === `
-`) return t + 2;
-    if (u2 === `
-` || u2 === "\r" || u2 === "\u2028" || u2 === "\u2029") return t + 1;
-  }
-  return t;
-}
-var U2 = ju;
-function Uu(e, t, r = {}) {
-  let n = T2(e, r.backwards ? t - 1 : t, r), u2 = U2(e, n, r);
-  return n !== u2;
-}
-var G2 = Uu;
-function Vu(e) {
-  return Array.isArray(e) && e.length > 0;
-}
-var qe = Vu;
-var Yr = /* @__PURE__ */ new Set(["tokens", "comments", "parent", "enclosingNode", "precedingNode", "followingNode"]);
-var $u = (e) => Object.keys(e).filter((t) => !Yr.has(t));
-function Wu(e) {
-  return e ? (t) => e(t, Yr) : $u;
-}
-var J2 = Wu;
-function Mu(e) {
-  let t = e.type || e.kind || "(unknown type)", r = String(e.name || e.id && (typeof e.id == "object" ? e.id.name : e.id) || e.key && (typeof e.key == "object" ? e.key.name : e.key) || e.value && (typeof e.value == "object" ? "" : String(e.value)) || e.operator || "");
-  return r.length > 20 && (r = r.slice(0, 19) + "\u2026"), t + (r ? " " + r : "");
-}
-function St(e, t) {
-  (e.comments ?? (e.comments = [])).push(t), t.printed = false, t.nodeDescription = Mu(e);
-}
-function se(e, t) {
-  t.leading = true, t.trailing = false, St(e, t);
-}
-function ee(e, t, r) {
-  t.leading = false, t.trailing = false, r && (t.marker = r), St(e, t);
-}
-function ae(e, t) {
-  t.leading = false, t.trailing = true, St(e, t);
-}
-var Tt = /* @__PURE__ */ new WeakMap();
-function Xe(e, t) {
-  if (Tt.has(e)) return Tt.get(e);
-  let { printer: { getCommentChildNodes: r, canAttachComment: n, getVisitorKeys: u2 }, locStart: o, locEnd: i } = t;
-  if (!n) return [];
-  let s = ((r == null ? void 0 : r(e, t)) ?? [...Ce(e, { getVisitorKeys: J2(u2) })]).flatMap((a) => n(a) ? [a] : Xe(a, t));
-  return s.sort((a, c) => o(a) - o(c) || i(a) - i(c)), Tt.set(e, s), s;
-}
-function Ur(e, t, r, n) {
-  let { locStart: u2, locEnd: o } = r, i = u2(t), s = o(t), a = Xe(e, r), c, D2, p = 0, l = a.length;
-  for (; p < l; ) {
-    let F13 = p + l >> 1, f = a[F13], d = u2(f), m = o(f);
-    if (d <= i && s <= m) return Ur(f, t, r, f);
-    if (m <= i) {
-      c = f, p = F13 + 1;
-      continue;
-    }
-    if (s <= d) {
-      D2 = f, l = F13;
-      continue;
-    }
-    throw new Error("Comment location overlaps with node location");
-  }
-  if ((n == null ? void 0 : n.type) === "TemplateLiteral") {
-    let { quasis: F13 } = n, f = Ot(F13, t, r);
-    c && Ot(F13, c, r) !== f && (c = null), D2 && Ot(F13, D2, r) !== f && (D2 = null);
-  }
-  return { enclosingNode: n, precedingNode: c, followingNode: D2 };
-}
-var Nt = () => false;
-function Vr(e, t) {
-  let { comments: r } = e;
-  if (delete e.comments, !qe(r) || !t.printer.canAttachComment) return;
-  let n = [], { printer: { experimentalFeatures: { avoidAstMutation: u2 = false } = {}, handleComments: o = {} }, originalText: i } = t, { ownLine: s = Nt, endOfLine: a = Nt, remaining: c = Nt } = o, D2 = r.map((p, l) => __spreadProps(__spreadValues({}, Ur(e, p, t)), { comment: p, text: i, options: t, ast: e, isLastComment: r.length - 1 === l }));
-  for (let [p, l] of D2.entries()) {
-    let { comment: F13, precedingNode: f, enclosingNode: d, followingNode: m, text: C2, options: E2, ast: h, isLastComment: x } = l, A2;
-    if (u2 ? A2 = [l] : (F13.enclosingNode = d, F13.precedingNode = f, F13.followingNode = m, A2 = [F13, C2, E2, h, x]), Gu(C2, E2, D2, p)) F13.placement = "ownLine", s(...A2) || (m ? se(m, F13) : f ? ae(f, F13) : d ? ee(d, F13) : ee(h, F13));
-    else if (Ku(C2, E2, D2, p)) F13.placement = "endOfLine", a(...A2) || (f ? ae(f, F13) : m ? se(m, F13) : d ? ee(d, F13) : ee(h, F13));
-    else if (F13.placement = "remaining", !c(...A2)) if (f && m) {
-      let $ = n.length;
-      $ > 0 && n[$ - 1].followingNode !== m && jr(n, E2), n.push(l);
-    } else f ? ae(f, F13) : m ? se(m, F13) : d ? ee(d, F13) : ee(h, F13);
-  }
-  if (jr(n, t), !u2) for (let p of r) delete p.precedingNode, delete p.enclosingNode, delete p.followingNode;
-}
-var $r = (e) => !/[\S\n\u2028\u2029]/u.test(e);
-function Gu(e, t, r, n) {
-  let { comment: u2, precedingNode: o } = r[n], { locStart: i, locEnd: s } = t, a = i(u2);
-  if (o) for (let c = n - 1; c >= 0; c--) {
-    let { comment: D2, precedingNode: p } = r[c];
-    if (p !== o || !$r(e.slice(s(D2), a))) break;
-    a = i(D2);
-  }
-  return G2(e, a, { backwards: true });
-}
-function Ku(e, t, r, n) {
-  let { comment: u2, followingNode: o } = r[n], { locStart: i, locEnd: s } = t, a = s(u2);
-  if (o) for (let c = n + 1; c < r.length; c++) {
-    let { comment: D2, followingNode: p } = r[c];
-    if (p !== o || !$r(e.slice(a, i(D2)))) break;
-    a = s(D2);
-  }
-  return G2(e, a);
-}
-function jr(e, t) {
-  var s, a;
-  let r = e.length;
-  if (r === 0) return;
-  let { precedingNode: n, followingNode: u2 } = e[0], o = t.locStart(u2), i;
-  for (i = r; i > 0; --i) {
-    let { comment: c, precedingNode: D2, followingNode: p } = e[i - 1];
-    Oe.strictEqual(D2, n), Oe.strictEqual(p, u2);
-    let l = t.originalText.slice(t.locEnd(c), o);
-    if (((a = (s = t.printer).isGap) == null ? void 0 : a.call(s, l, t)) ?? /^[\s(]*$/u.test(l)) o = t.locStart(c);
-    else break;
-  }
-  for (let [c, { comment: D2 }] of e.entries()) c < i ? ae(n, D2) : se(u2, D2);
-  for (let c of [n, u2]) c.comments && c.comments.length > 1 && c.comments.sort((D2, p) => t.locStart(D2) - t.locStart(p));
-  e.length = 0;
-}
-function Ot(e, t, r) {
-  let n = r.locStart(t) - 1;
-  for (let u2 = 1; u2 < e.length; ++u2) if (n < r.locStart(e[u2])) return u2 - 1;
-  return 0;
-}
-function zu(e, t) {
-  let r = t - 1;
-  r = T2(e, r, { backwards: true }), r = U2(e, r, { backwards: true }), r = T2(e, r, { backwards: true });
-  let n = U2(e, r, { backwards: true });
-  return r !== n;
-}
-var Pe = zu;
-function Wr(e, t) {
-  let r = e.node;
-  return r.printed = true, t.printer.printComment(e, t);
-}
-function Hu(e, t) {
-  var D2;
-  let r = e.node, n = [Wr(e, t)], { printer: u2, originalText: o, locStart: i, locEnd: s } = t;
-  if ((D2 = u2.isBlockComment) == null ? void 0 : D2.call(u2, r)) {
-    let p = G2(o, s(r)) ? G2(o, i(r), { backwards: true }) ? z : Me : " ";
-    n.push(p);
-  } else n.push(z);
-  let c = U2(o, T2(o, s(r)));
-  return c !== false && G2(o, c) && n.push(z), n;
-}
-function Ju(e, t, r) {
-  var c;
-  let n = e.node, u2 = Wr(e, t), { printer: o, originalText: i, locStart: s } = t, a = (c = o.isBlockComment) == null ? void 0 : c.call(o, n);
-  if (r != null && r.hasLineSuffix && !(r != null && r.isBlock) || G2(i, s(n), { backwards: true })) {
-    let D2 = Pe(i, s(n));
-    return { doc: Se([z, D2 ? z : "", u2]), isBlock: a, hasLineSuffix: true };
-  }
-  return !a || r != null && r.hasLineSuffix ? { doc: [Se([" ", u2]), pe], isBlock: a, hasLineSuffix: true } : { doc: [" ", u2], isBlock: a, hasLineSuffix: false };
-}
-function qu(e, t) {
-  let r = e.node;
-  if (!r) return {};
-  let n = t[Symbol.for("printedComments")];
-  if ((r.comments || []).filter((a) => !n.has(a)).length === 0) return { leading: "", trailing: "" };
-  let o = [], i = [], s;
-  return e.each(() => {
-    let a = e.node;
-    if (n != null && n.has(a)) return;
-    let { leading: c, trailing: D2 } = a;
-    c ? o.push(Hu(e, t)) : D2 && (s = Ju(e, t, s), i.push(s.doc));
-  }, "comments"), { leading: o, trailing: i };
-}
-function Mr(e, t, r) {
-  let { leading: n, trailing: u2 } = qu(e, r);
-  return !n && !u2 ? t : Fe(t, (o) => [n, o, u2]);
-}
-function Gr(e) {
-  let { [Symbol.for("comments")]: t, [Symbol.for("printedComments")]: r } = e;
-  for (let n of t) {
-    if (!n.printed && !r.has(n)) throw new Error('Comment "' + n.value.trim() + '" was not printed. Please report this error!');
-    delete n.printed;
-  }
-}
-function Xu(e) {
-  return () => {
-  };
-}
-var Kr = Xu;
-var ve = class extends Error {
-  name = "ConfigError";
-};
-var Le = class extends Error {
-  name = "UndefinedParserError";
-};
-var zr = { checkIgnorePragma: { category: "Special", type: "boolean", default: false, description: "Check whether the file's first docblock comment contains '@noprettier' or '@noformat' to determine if it should be formatted.", cliCategory: "Other" }, cursorOffset: { category: "Special", type: "int", default: -1, range: { start: -1, end: 1 / 0, step: 1 }, description: "Print (to stderr) where a cursor at the given position would move to after formatting.", cliCategory: "Editor" }, endOfLine: { category: "Global", type: "choice", default: "lf", description: "Which end of line characters to apply.", choices: [{ value: "lf", description: "Line Feed only (\\n), common on Linux and macOS as well as inside git repos" }, { value: "crlf", description: "Carriage Return + Line Feed characters (\\r\\n), common on Windows" }, { value: "cr", description: "Carriage Return character only (\\r), used very rarely" }, { value: "auto", description: `Maintain existing
-(mixed values within one file are normalised by looking at what's used after the first line)` }] }, filepath: { category: "Special", type: "path", description: "Specify the input filepath. This will be used to do parser inference.", cliName: "stdin-filepath", cliCategory: "Other", cliDescription: "Path to the file to pretend that stdin comes from." }, insertPragma: { category: "Special", type: "boolean", default: false, description: "Insert @format pragma into file's first docblock comment.", cliCategory: "Other" }, parser: { category: "Global", type: "choice", default: void 0, description: "Which parser to use.", exception: (e) => typeof e == "string" || typeof e == "function", choices: [{ value: "flow", description: "Flow" }, { value: "babel", description: "JavaScript" }, { value: "babel-flow", description: "Flow" }, { value: "babel-ts", description: "TypeScript" }, { value: "typescript", description: "TypeScript" }, { value: "acorn", description: "JavaScript" }, { value: "espree", description: "JavaScript" }, { value: "meriyah", description: "JavaScript" }, { value: "css", description: "CSS" }, { value: "less", description: "Less" }, { value: "scss", description: "SCSS" }, { value: "json", description: "JSON" }, { value: "json5", description: "JSON5" }, { value: "jsonc", description: "JSON with Comments" }, { value: "json-stringify", description: "JSON.stringify" }, { value: "graphql", description: "GraphQL" }, { value: "markdown", description: "Markdown" }, { value: "mdx", description: "MDX" }, { value: "vue", description: "Vue" }, { value: "yaml", description: "YAML" }, { value: "glimmer", description: "Ember / Handlebars" }, { value: "html", description: "HTML" }, { value: "angular", description: "Angular" }, { value: "lwc", description: "Lightning Web Components" }, { value: "mjml", description: "MJML" }] }, plugins: { type: "path", array: true, default: [{ value: [] }], category: "Global", description: "Add a plugin. Multiple plugins can be passed as separate `--plugin`s.", exception: (e) => typeof e == "string" || typeof e == "object", cliName: "plugin", cliCategory: "Config" }, printWidth: { category: "Global", type: "int", default: 80, description: "The line length where Prettier will try wrap.", range: { start: 0, end: 1 / 0, step: 1 } }, rangeEnd: { category: "Special", type: "int", default: 1 / 0, range: { start: 0, end: 1 / 0, step: 1 }, description: `Format code ending at a given character offset (exclusive).
-The range will extend forwards to the end of the selected statement.`, cliCategory: "Editor" }, rangeStart: { category: "Special", type: "int", default: 0, range: { start: 0, end: 1 / 0, step: 1 }, description: `Format code starting at a given character offset.
-The range will extend backwards to the start of the first line containing the selected statement.`, cliCategory: "Editor" }, requirePragma: { category: "Special", type: "boolean", default: false, description: "Require either '@prettier' or '@format' to be present in the file's first docblock comment in order for it to be formatted.", cliCategory: "Other" }, tabWidth: { type: "int", category: "Global", default: 2, description: "Number of spaces per indentation level.", range: { start: 0, end: 1 / 0, step: 1 } }, useTabs: { category: "Global", type: "boolean", default: false, description: "Indent with tabs instead of spaces." }, embeddedLanguageFormatting: { category: "Global", type: "choice", default: "auto", description: "Control how Prettier formats quoted code embedded in the file.", choices: [{ value: "auto", description: "Format embedded code if Prettier can automatically identify it." }, { value: "off", description: "Never automatically format embedded code." }] } };
-function Qe({ plugins: e = [], showDeprecated: t = false } = {}) {
-  let r = e.flatMap((u2) => u2.languages ?? []), n = [];
-  for (let u2 of Zu(Object.assign({}, ...e.map(({ options: o }) => o), zr))) !t && u2.deprecated || (Array.isArray(u2.choices) && (t || (u2.choices = u2.choices.filter((o) => !o.deprecated)), u2.name === "parser" && (u2.choices = [...u2.choices, ...Qu(u2.choices, r, e)])), u2.pluginDefaults = Object.fromEntries(e.filter((o) => {
-    var i;
-    return ((i = o.defaultOptions) == null ? void 0 : i[u2.name]) !== void 0;
-  }).map((o) => [o.name, o.defaultOptions[u2.name]])), n.push(u2));
-  return { languages: r, options: n };
-}
-function* Qu(e, t, r) {
-  let n = new Set(e.map((u2) => u2.value));
-  for (let u2 of t) if (u2.parsers) {
-    for (let o of u2.parsers) if (!n.has(o)) {
-      n.add(o);
-      let i = r.find((a) => a.parsers && Object.prototype.hasOwnProperty.call(a.parsers, o)), s = u2.name;
-      i != null && i.name && (s += ` (plugin: ${i.name})`), yield { value: o, description: s };
-    }
-  }
-}
-function Zu(e) {
-  let t = [];
-  for (let [r, n] of Object.entries(e)) {
-    let u2 = __spreadValues({ name: r }, n);
-    Array.isArray(u2.default) && (u2.default = y(false, u2.default, -1).value), t.push(u2);
-  }
-  return t;
-}
-var eo = (e, t) => {
-  if (!(e && t == null)) return t.toReversed || !Array.isArray(t) ? t.toReversed() : [...t].reverse();
-};
-var Hr = eo;
-var Jr;
-var qr;
-var Xr;
-var Qr;
-var Zr;
-var to = ((Jr = globalThis.Deno) == null ? void 0 : Jr.build.os) === "windows" || ((Xr = (qr = globalThis.navigator) == null ? void 0 : qr.platform) == null ? void 0 : Xr.startsWith("Win")) || ((Zr = (Qr = globalThis.process) == null ? void 0 : Qr.platform) == null ? void 0 : Zr.startsWith("win")) || false;
-function en(e) {
-  if (e = e instanceof URL ? e : new URL(e), e.protocol !== "file:") throw new TypeError(`URL must be a file URL: received "${e.protocol}"`);
-  return e;
-}
-function ro(e) {
-  return e = en(e), decodeURIComponent(e.pathname.replace(/%(?![0-9A-Fa-f]{2})/g, "%25"));
-}
-function no(e) {
-  e = en(e);
-  let t = decodeURIComponent(e.pathname.replace(/\//g, "\\").replace(/%(?![0-9A-Fa-f]{2})/g, "%25")).replace(/^\\*([A-Za-z]:)(\\|$)/, "$1\\");
-  return e.hostname !== "" && (t = `\\\\${e.hostname}${t}`), t;
-}
-function tn(e) {
-  return to ? no(e) : ro(e);
-}
-var rn = tn;
-var uo = (e) => String(e).split(/[/\\]/u).pop();
-function nn(e, t) {
-  if (!t) return;
-  let r = uo(t).toLowerCase();
-  return e.find(({ filenames: n }) => n == null ? void 0 : n.some((u2) => u2.toLowerCase() === r)) ?? e.find(({ extensions: n }) => n == null ? void 0 : n.some((u2) => r.endsWith(u2)));
-}
-function oo(e, t) {
-  if (t) return e.find(({ name: r }) => r.toLowerCase() === t) ?? e.find(({ aliases: r }) => r == null ? void 0 : r.includes(t)) ?? e.find(({ extensions: r }) => r == null ? void 0 : r.includes(`.${t}`));
-}
-function un(e, t) {
-  if (t) {
-    if (String(t).startsWith("file:")) try {
-      t = rn(t);
-    } catch {
-      return;
-    }
-    if (typeof t == "string") return e.find(({ isSupported: r }) => r == null ? void 0 : r({ filepath: t }));
-  }
-}
-function io(e, t) {
-  let r = Hr(false, e.plugins).flatMap((u2) => u2.languages ?? []), n = oo(r, t.language) ?? nn(r, t.physicalFile) ?? nn(r, t.file) ?? un(r, t.physicalFile) ?? un(r, t.file) ?? (t.physicalFile, void 0);
-  return n == null ? void 0 : n.parsers[0];
-}
-var on = io;
-var re = { key: (e) => /^[$_a-zA-Z][$_a-zA-Z0-9]*$/.test(e) ? e : JSON.stringify(e), value(e) {
-  if (e === null || typeof e != "object") return JSON.stringify(e);
-  if (Array.isArray(e)) return `[${e.map((r) => re.value(r)).join(", ")}]`;
-  let t = Object.keys(e);
-  return t.length === 0 ? "{}" : `{ ${t.map((r) => `${re.key(r)}: ${re.value(e[r])}`).join(", ")} }`;
-}, pair: ({ key: e, value: t }) => re.value({ [e]: t }) };
-var sn = new Proxy(String, { get: () => sn });
-var V2 = sn;
-var an = (e, t, { descriptor: r }) => {
-  let n = [`${V2.yellow(typeof e == "string" ? r.key(e) : r.pair(e))} is deprecated`];
-  return t && n.push(`we now treat it as ${V2.blue(typeof t == "string" ? r.key(t) : r.pair(t))}`), n.join("; ") + ".";
-};
-var Ze = Symbol.for("vnopts.VALUE_NOT_EXIST");
-var ge = Symbol.for("vnopts.VALUE_UNCHANGED");
-var Dn = " ".repeat(2);
-var fn = (e, t, r) => {
-  let { text: n, list: u2 } = r.normalizeExpectedResult(r.schemas[e].expected(r)), o = [];
-  return n && o.push(cn(e, t, n, r.descriptor)), u2 && o.push([cn(e, t, u2.title, r.descriptor)].concat(u2.values.map((i) => ln(i, r.loggerPrintWidth))).join(`
-`)), Fn(o, r.loggerPrintWidth);
-};
-function cn(e, t, r, n) {
-  return [`Invalid ${V2.red(n.key(e))} value.`, `Expected ${V2.blue(r)},`, `but received ${t === Ze ? V2.gray("nothing") : V2.red(n.value(t))}.`].join(" ");
-}
-function ln({ text: e, list: t }, r) {
-  let n = [];
-  return e && n.push(`- ${V2.blue(e)}`), t && n.push([`- ${V2.blue(t.title)}:`].concat(t.values.map((u2) => ln(u2, r - Dn.length).replace(/^|\n/g, `$&${Dn}`))).join(`
-`)), Fn(n, r);
-}
-function Fn(e, t) {
-  if (e.length === 1) return e[0];
-  let [r, n] = e, [u2, o] = e.map((i) => i.split(`
-`, 1)[0].length);
-  return u2 > t && u2 > o ? n : r;
-}
-var Pt = [];
-var pn = [];
-function vt(e, t) {
-  if (e === t) return 0;
-  let r = e;
-  e.length > t.length && (e = t, t = r);
-  let n = e.length, u2 = t.length;
-  for (; n > 0 && e.charCodeAt(~-n) === t.charCodeAt(~-u2); ) n--, u2--;
-  let o = 0;
-  for (; o < n && e.charCodeAt(o) === t.charCodeAt(o); ) o++;
-  if (n -= o, u2 -= o, n === 0) return u2;
-  let i, s, a, c, D2 = 0, p = 0;
-  for (; D2 < n; ) pn[D2] = e.charCodeAt(o + D2), Pt[D2] = ++D2;
-  for (; p < u2; ) for (i = t.charCodeAt(o + p), a = p++, s = p, D2 = 0; D2 < n; D2++) c = i === pn[D2] ? a : a + 1, a = Pt[D2], s = Pt[D2] = a > s ? c > s ? s + 1 : c : c > a ? a + 1 : c;
-  return s;
-}
-var et = (e, t, { descriptor: r, logger: n, schemas: u2 }) => {
-  let o = [`Ignored unknown option ${V2.yellow(r.pair({ key: e, value: t }))}.`], i = Object.keys(u2).sort().find((s) => vt(e, s) < 3);
-  i && o.push(`Did you mean ${V2.blue(r.key(i))}?`), n.warn(o.join(" "));
-};
-var so = ["default", "expected", "validate", "deprecated", "forward", "redirect", "overlap", "preprocess", "postprocess"];
-function ao(e, t) {
-  let r = new e(t), n = Object.create(r);
-  for (let u2 of so) u2 in t && (n[u2] = Do(t[u2], r, b.prototype[u2].length));
-  return n;
-}
-var b = class {
-  static create(t) {
-    return ao(this, t);
-  }
-  constructor(t) {
-    this.name = t.name;
-  }
-  default(t) {
-  }
-  expected(t) {
-    return "nothing";
-  }
-  validate(t, r) {
-    return false;
-  }
-  deprecated(t, r) {
-    return false;
-  }
-  forward(t, r) {
-  }
-  redirect(t, r) {
-  }
-  overlap(t, r, n) {
-    return t;
-  }
-  preprocess(t, r) {
-    return t;
-  }
-  postprocess(t, r) {
-    return ge;
-  }
-};
-function Do(e, t, r) {
-  return typeof e == "function" ? (...n) => e(...n.slice(0, r - 1), t, ...n.slice(r - 1)) : () => e;
-}
-var tt = class extends b {
-  constructor(t) {
-    super(t), this._sourceName = t.sourceName;
-  }
-  expected(t) {
-    return t.schemas[this._sourceName].expected(t);
-  }
-  validate(t, r) {
-    return r.schemas[this._sourceName].validate(t, r);
-  }
-  redirect(t, r) {
-    return this._sourceName;
-  }
-};
-var rt = class extends b {
-  expected() {
-    return "anything";
-  }
-  validate() {
-    return true;
-  }
-};
-var nt = class extends b {
-  constructor(_a) {
-    var _b = _a, { valueSchema: t, name: r = t.name } = _b, n = __objRest(_b, ["valueSchema", "name"]);
-    super(__spreadProps(__spreadValues({}, n), { name: r })), this._valueSchema = t;
-  }
-  expected(t) {
-    let { text: r, list: n } = t.normalizeExpectedResult(this._valueSchema.expected(t));
-    return { text: r && `an array of ${r}`, list: n && { title: "an array of the following values", values: [{ list: n }] } };
-  }
-  validate(t, r) {
-    if (!Array.isArray(t)) return false;
-    let n = [];
-    for (let u2 of t) {
-      let o = r.normalizeValidateResult(this._valueSchema.validate(u2, r), u2);
-      o !== true && n.push(o.value);
-    }
-    return n.length === 0 ? true : { value: n };
-  }
-  deprecated(t, r) {
-    let n = [];
-    for (let u2 of t) {
-      let o = r.normalizeDeprecatedResult(this._valueSchema.deprecated(u2, r), u2);
-      o !== false && n.push(...o.map(({ value: i }) => ({ value: [i] })));
-    }
-    return n;
-  }
-  forward(t, r) {
-    let n = [];
-    for (let u2 of t) {
-      let o = r.normalizeForwardResult(this._valueSchema.forward(u2, r), u2);
-      n.push(...o.map(dn));
-    }
-    return n;
-  }
-  redirect(t, r) {
-    let n = [], u2 = [];
-    for (let o of t) {
-      let i = r.normalizeRedirectResult(this._valueSchema.redirect(o, r), o);
-      "remain" in i && n.push(i.remain), u2.push(...i.redirect.map(dn));
-    }
-    return n.length === 0 ? { redirect: u2 } : { redirect: u2, remain: n };
-  }
-  overlap(t, r) {
-    return t.concat(r);
-  }
-};
-function dn({ from: e, to: t }) {
-  return { from: [e], to: t };
-}
-var ut = class extends b {
-  expected() {
-    return "true or false";
-  }
-  validate(t) {
-    return typeof t == "boolean";
-  }
-};
-function En(e, t) {
-  let r = /* @__PURE__ */ Object.create(null);
-  for (let n of e) {
-    let u2 = n[t];
-    if (r[u2]) throw new Error(`Duplicate ${t} ${JSON.stringify(u2)}`);
-    r[u2] = n;
-  }
-  return r;
-}
-function Cn(e, t) {
-  let r = /* @__PURE__ */ new Map();
-  for (let n of e) {
-    let u2 = n[t];
-    if (r.has(u2)) throw new Error(`Duplicate ${t} ${JSON.stringify(u2)}`);
-    r.set(u2, n);
-  }
-  return r;
-}
-function hn() {
-  let e = /* @__PURE__ */ Object.create(null);
-  return (t) => {
-    let r = JSON.stringify(t);
-    return e[r] ? true : (e[r] = true, false);
-  };
-}
-function gn(e, t) {
-  let r = [], n = [];
-  for (let u2 of e) t(u2) ? r.push(u2) : n.push(u2);
-  return [r, n];
-}
-function yn(e) {
-  return e === Math.floor(e);
-}
-function An(e, t) {
-  if (e === t) return 0;
-  let r = typeof e, n = typeof t, u2 = ["undefined", "object", "boolean", "number", "string"];
-  return r !== n ? u2.indexOf(r) - u2.indexOf(n) : r !== "string" ? Number(e) - Number(t) : e.localeCompare(t);
-}
-function Bn(e) {
-  return (...t) => {
-    let r = e(...t);
-    return typeof r == "string" ? new Error(r) : r;
-  };
-}
-function Lt(e) {
-  return e === void 0 ? {} : e;
-}
-function It(e) {
-  if (typeof e == "string") return { text: e };
-  let { text: t, list: r } = e;
-  return co((t || r) !== void 0, "Unexpected `expected` result, there should be at least one field."), r ? { text: t, list: { title: r.title, values: r.values.map(It) } } : { text: t };
-}
-function Rt(e, t) {
-  return e === true ? true : e === false ? { value: t } : e;
-}
-function Yt(e, t, r = false) {
-  return e === false ? false : e === true ? r ? true : [{ value: t }] : "value" in e ? [e] : e.length === 0 ? false : e;
-}
-function mn(e, t) {
-  return typeof e == "string" || "key" in e ? { from: t, to: e } : "from" in e ? { from: e.from, to: e.to } : { from: t, to: e.to };
-}
-function ot(e, t) {
-  return e === void 0 ? [] : Array.isArray(e) ? e.map((r) => mn(r, t)) : [mn(e, t)];
-}
-function jt(e, t) {
-  let r = ot(typeof e == "object" && "redirect" in e ? e.redirect : e, t);
-  return r.length === 0 ? { remain: t, redirect: r } : typeof e == "object" && "remain" in e ? { remain: e.remain, redirect: r } : { redirect: r };
-}
-function co(e, t) {
-  if (!e) throw new Error(t);
-}
-var it = class extends b {
-  constructor(t) {
-    super(t), this._choices = Cn(t.choices.map((r) => r && typeof r == "object" ? r : { value: r }), "value");
-  }
-  expected({ descriptor: t }) {
-    let r = Array.from(this._choices.keys()).map((i) => this._choices.get(i)).filter(({ hidden: i }) => !i).map((i) => i.value).sort(An).map(t.value), n = r.slice(0, -2), u2 = r.slice(-2);
-    return { text: n.concat(u2.join(" or ")).join(", "), list: { title: "one of the following values", values: r } };
-  }
-  validate(t) {
-    return this._choices.has(t);
-  }
-  deprecated(t) {
-    let r = this._choices.get(t);
-    return r && r.deprecated ? { value: t } : false;
-  }
-  forward(t) {
-    let r = this._choices.get(t);
-    return r ? r.forward : void 0;
-  }
-  redirect(t) {
-    let r = this._choices.get(t);
-    return r ? r.redirect : void 0;
-  }
-};
-var st = class extends b {
-  expected() {
-    return "a number";
-  }
-  validate(t, r) {
-    return typeof t == "number";
-  }
-};
-var at = class extends st {
-  expected() {
-    return "an integer";
-  }
-  validate(t, r) {
-    return r.normalizeValidateResult(super.validate(t, r), t) === true && yn(t);
-  }
-};
-var Ie = class extends b {
-  expected() {
-    return "a string";
-  }
-  validate(t) {
-    return typeof t == "string";
-  }
-};
-var _n = re;
-var xn = et;
-var wn = fn;
-var bn = an;
-var Dt = class {
-  constructor(t, r) {
-    let { logger: n = console, loggerPrintWidth: u2 = 80, descriptor: o = _n, unknown: i = xn, invalid: s = wn, deprecated: a = bn, missing: c = () => false, required: D2 = () => false, preprocess: p = (F13) => F13, postprocess: l = () => ge } = r || {};
-    this._utils = { descriptor: o, logger: n || { warn: () => {
-    } }, loggerPrintWidth: u2, schemas: En(t, "name"), normalizeDefaultResult: Lt, normalizeExpectedResult: It, normalizeDeprecatedResult: Yt, normalizeForwardResult: ot, normalizeRedirectResult: jt, normalizeValidateResult: Rt }, this._unknownHandler = i, this._invalidHandler = Bn(s), this._deprecatedHandler = a, this._identifyMissing = (F13, f) => !(F13 in f) || c(F13, f), this._identifyRequired = D2, this._preprocess = p, this._postprocess = l, this.cleanHistory();
-  }
-  cleanHistory() {
-    this._hasDeprecationWarned = hn();
-  }
-  normalize(t) {
-    let r = {}, u2 = [this._preprocess(t, this._utils)], o = () => {
-      for (; u2.length !== 0; ) {
-        let i = u2.shift(), s = this._applyNormalization(i, r);
-        u2.push(...s);
-      }
-    };
-    o();
-    for (let i of Object.keys(this._utils.schemas)) {
-      let s = this._utils.schemas[i];
-      if (!(i in r)) {
-        let a = Lt(s.default(this._utils));
-        "value" in a && u2.push({ [i]: a.value });
-      }
-    }
-    o();
-    for (let i of Object.keys(this._utils.schemas)) {
-      if (!(i in r)) continue;
-      let s = this._utils.schemas[i], a = r[i], c = s.postprocess(a, this._utils);
-      c !== ge && (this._applyValidation(c, i, s), r[i] = c);
-    }
-    return this._applyPostprocess(r), this._applyRequiredCheck(r), r;
-  }
-  _applyNormalization(t, r) {
-    let n = [], { knownKeys: u2, unknownKeys: o } = this._partitionOptionKeys(t);
-    for (let i of u2) {
-      let s = this._utils.schemas[i], a = s.preprocess(t[i], this._utils);
-      this._applyValidation(a, i, s);
-      let c = ({ from: F13, to: f }) => {
-        n.push(typeof f == "string" ? { [f]: F13 } : { [f.key]: f.value });
-      }, D2 = ({ value: F13, redirectTo: f }) => {
-        let d = Yt(s.deprecated(F13, this._utils), a, true);
-        if (d !== false) if (d === true) this._hasDeprecationWarned(i) || this._utils.logger.warn(this._deprecatedHandler(i, f, this._utils));
-        else for (let { value: m } of d) {
-          let C2 = { key: i, value: m };
-          if (!this._hasDeprecationWarned(C2)) {
-            let E2 = typeof f == "string" ? { key: f, value: m } : f;
-            this._utils.logger.warn(this._deprecatedHandler(C2, E2, this._utils));
-          }
-        }
-      };
-      ot(s.forward(a, this._utils), a).forEach(c);
-      let l = jt(s.redirect(a, this._utils), a);
-      if (l.redirect.forEach(c), "remain" in l) {
-        let F13 = l.remain;
-        r[i] = i in r ? s.overlap(r[i], F13, this._utils) : F13, D2({ value: F13 });
-      }
-      for (let { from: F13, to: f } of l.redirect) D2({ value: F13, redirectTo: f });
-    }
-    for (let i of o) {
-      let s = t[i];
-      this._applyUnknownHandler(i, s, r, (a, c) => {
-        n.push({ [a]: c });
-      });
-    }
-    return n;
-  }
-  _applyRequiredCheck(t) {
-    for (let r of Object.keys(this._utils.schemas)) if (this._identifyMissing(r, t) && this._identifyRequired(r)) throw this._invalidHandler(r, Ze, this._utils);
-  }
-  _partitionOptionKeys(t) {
-    let [r, n] = gn(Object.keys(t).filter((u2) => !this._identifyMissing(u2, t)), (u2) => u2 in this._utils.schemas);
-    return { knownKeys: r, unknownKeys: n };
-  }
-  _applyValidation(t, r, n) {
-    let u2 = Rt(n.validate(t, this._utils), t);
-    if (u2 !== true) throw this._invalidHandler(r, u2.value, this._utils);
-  }
-  _applyUnknownHandler(t, r, n, u2) {
-    let o = this._unknownHandler(t, r, this._utils);
-    if (o) for (let i of Object.keys(o)) {
-      if (this._identifyMissing(i, o)) continue;
-      let s = o[i];
-      i in this._utils.schemas ? u2(i, s) : n[i] = s;
-    }
-  }
-  _applyPostprocess(t) {
-    let r = this._postprocess(t, this._utils);
-    if (r !== ge) {
-      if (r.delete) for (let n of r.delete) delete t[n];
-      if (r.override) {
-        let { knownKeys: n, unknownKeys: u2 } = this._partitionOptionKeys(r.override);
-        for (let o of n) {
-          let i = r.override[o];
-          this._applyValidation(i, o, this._utils.schemas[o]), t[o] = i;
-        }
-        for (let o of u2) {
-          let i = r.override[o];
-          this._applyUnknownHandler(o, i, t, (s, a) => {
-            let c = this._utils.schemas[s];
-            this._applyValidation(a, s, c), t[s] = a;
-          });
-        }
-      }
-    }
-  }
-};
-var Ut;
-function lo(e, t, { logger: r = false, isCLI: n = false, passThrough: u2 = false, FlagSchema: o, descriptor: i } = {}) {
-  if (n) {
-    if (!o) throw new Error("'FlagSchema' option is required.");
-    if (!i) throw new Error("'descriptor' option is required.");
-  } else i = re;
-  let s = u2 ? Array.isArray(u2) ? (l, F13) => u2.includes(l) ? { [l]: F13 } : void 0 : (l, F13) => ({ [l]: F13 }) : (l, F13, f) => {
-    let _a = f.schemas, { _: d } = _a, m = __objRest(_a, ["_"]);
-    return et(l, F13, __spreadProps(__spreadValues({}, f), { schemas: m }));
-  }, a = Fo(t, { isCLI: n, FlagSchema: o }), c = new Dt(a, { logger: r, unknown: s, descriptor: i }), D2 = r !== false;
-  D2 && Ut && (c._hasDeprecationWarned = Ut);
-  let p = c.normalize(e);
-  return D2 && (Ut = c._hasDeprecationWarned), p;
-}
-function Fo(e, { isCLI: t, FlagSchema: r }) {
-  let n = [];
-  t && n.push(rt.create({ name: "_" }));
-  for (let u2 of e) n.push(po(u2, { isCLI: t, optionInfos: e, FlagSchema: r })), u2.alias && t && n.push(tt.create({ name: u2.alias, sourceName: u2.name }));
-  return n;
-}
-function po(e, { isCLI: t, optionInfos: r, FlagSchema: n }) {
-  let { name: u2 } = e, o = { name: u2 }, i, s = {};
-  switch (e.type) {
-    case "int":
-      i = at, t && (o.preprocess = Number);
-      break;
-    case "string":
-      i = Ie;
-      break;
-    case "choice":
-      i = it, o.choices = e.choices.map((a) => a != null && a.redirect ? __spreadProps(__spreadValues({}, a), { redirect: { to: { key: e.name, value: a.redirect } } }) : a);
-      break;
-    case "boolean":
-      i = ut;
-      break;
-    case "flag":
-      i = n, o.flags = r.flatMap((a) => [a.alias, a.description && a.name, a.oppositeDescription && `no-${a.name}`].filter(Boolean));
-      break;
-    case "path":
-      i = Ie;
-      break;
-    default:
-      throw new Error(`Unexpected type ${e.type}`);
-  }
-  if (e.exception ? o.validate = (a, c, D2) => e.exception(a) || c.validate(a, D2) : o.validate = (a, c, D2) => a === void 0 || c.validate(a, D2), e.redirect && (s.redirect = (a) => a ? { to: typeof e.redirect == "string" ? e.redirect : { key: e.redirect.option, value: e.redirect.value } } : void 0), e.deprecated && (s.deprecated = true), t && !e.array) {
-    let a = o.preprocess || ((c) => c);
-    o.preprocess = (c, D2, p) => D2.preprocess(a(Array.isArray(c) ? y(false, c, -1) : c), p);
-  }
-  return e.array ? nt.create(__spreadProps(__spreadValues(__spreadValues({}, t ? { preprocess: (a) => Array.isArray(a) ? a : [a] } : {}), s), { valueSchema: i.create(o) })) : i.create(__spreadValues(__spreadValues({}, o), s));
-}
-var kn = lo;
-var mo = (e, t, r) => {
-  if (!(e && t == null)) {
-    if (t.findLast) return t.findLast(r);
-    for (let n = t.length - 1; n >= 0; n--) {
-      let u2 = t[n];
-      if (r(u2, n, t)) return u2;
-    }
-  }
-};
-var Vt = mo;
-function $t(e, t) {
-  if (!t) throw new Error("parserName is required.");
-  let r = Vt(false, e, (u2) => u2.parsers && Object.prototype.hasOwnProperty.call(u2.parsers, t));
-  if (r) return r;
-  let n = `Couldn't resolve parser "${t}".`;
-  throw n += " Plugins must be explicitly added to the standalone bundle.", new ve(n);
-}
-function Sn(e, t) {
-  if (!t) throw new Error("astFormat is required.");
-  let r = Vt(false, e, (u2) => u2.printers && Object.prototype.hasOwnProperty.call(u2.printers, t));
-  if (r) return r;
-  let n = `Couldn't find plugin for AST format "${t}".`;
-  throw n += " Plugins must be explicitly added to the standalone bundle.", new ve(n);
-}
-function Re({ plugins: e, parser: t }) {
-  let r = $t(e, t);
-  return Wt(r, t);
-}
-function Wt(e, t) {
-  let r = e.parsers[t];
-  return typeof r == "function" ? r() : r;
-}
-function Tn(e, t) {
-  let r = e.printers[t];
-  return typeof r == "function" ? r() : r;
-}
-var Nn = { astFormat: "estree", printer: {}, originalText: void 0, locStart: null, locEnd: null };
-function Eo(_0) {
-  return __async(this, arguments, function* (e, t = {}) {
-    var p;
-    let r = __spreadValues({}, e);
-    if (!r.parser) if (r.filepath) {
-      if (r.parser = on(r, { physicalFile: r.filepath }), !r.parser) throw new Le(`No parser could be inferred for file "${r.filepath}".`);
-    } else throw new Le("No parser and no file path given, couldn't infer a parser.");
-    let n = Qe({ plugins: e.plugins, showDeprecated: true }).options, u2 = __spreadValues(__spreadValues({}, Nn), Object.fromEntries(n.filter((l) => l.default !== void 0).map((l) => [l.name, l.default]))), o = $t(r.plugins, r.parser), i = yield Wt(o, r.parser);
-    r.astFormat = i.astFormat, r.locEnd = i.locEnd, r.locStart = i.locStart;
-    let s = (p = o.printers) != null && p[i.astFormat] ? o : Sn(r.plugins, i.astFormat), a = yield Tn(s, i.astFormat);
-    r.printer = a;
-    let c = s.defaultOptions ? Object.fromEntries(Object.entries(s.defaultOptions).filter(([, l]) => l !== void 0)) : {}, D2 = __spreadValues(__spreadValues({}, u2), c);
-    for (let [l, F13] of Object.entries(D2)) (r[l] === null || r[l] === void 0) && (r[l] = F13);
-    return r.parser === "json" && (r.trailingComma = "none"), kn(r, n, __spreadValues({ passThrough: Object.keys(Nn) }, t));
-  });
-}
-var ne = Eo;
-var vn = gu(Pn(), 1);
-function yo(e, t) {
-  return __async(this, null, function* () {
-    let r = yield Re(t), n = r.preprocess ? r.preprocess(e, t) : e;
-    t.originalText = n;
-    let u2;
-    try {
-      u2 = yield r.parse(n, t, t);
-    } catch (o) {
-      Ao(o, e);
-    }
-    return { text: n, ast: u2 };
-  });
-}
-function Ao(e, t) {
-  let { loc: r } = e;
-  if (r) {
-    let n = (0, vn.codeFrameColumns)(t, r, { highlightCode: true });
-    throw e.message += `
-` + n, e.codeFrame = n, e;
-  }
-  throw e;
-}
-var De = yo;
-function Ln(e, t, r, n, u2) {
-  return __async(this, null, function* () {
-    let { embeddedLanguageFormatting: o, printer: { embed: i, hasPrettierIgnore: s = () => false, getVisitorKeys: a } } = r;
-    if (!i || o !== "auto") return;
-    if (i.length > 2) throw new Error("printer.embed has too many parameters. The API changed in Prettier v3. Please update your plugin. See https://prettier.io/docs/plugins#optional-embed");
-    let c = J2(i.getVisitorKeys ?? a), D2 = [];
-    F13();
-    let p = e.stack;
-    for (let { print: f, node: d, pathStack: m } of D2) try {
-      e.stack = m;
-      let C2 = yield f(l, t, e, r);
-      C2 && u2.set(d, C2);
-    } catch (C2) {
-      if (globalThis.PRETTIER_DEBUG) throw C2;
-    }
-    e.stack = p;
-    function l(f, d) {
-      return Bo(f, d, r, n);
-    }
-    function F13() {
-      let { node: f } = e;
-      if (f === null || typeof f != "object" || s(e)) return;
-      for (let m of c(f)) Array.isArray(f[m]) ? e.each(F13, m) : e.call(F13, m);
-      let d = i(e, r);
-      if (d) {
-        if (typeof d == "function") {
-          D2.push({ print: d, node: f, pathStack: [...e.stack] });
-          return;
-        }
-        u2.set(f, d);
-      }
-    }
-  });
-}
-function Bo(e, t, r, n) {
-  return __async(this, null, function* () {
-    let u2 = yield ne(__spreadProps(__spreadValues(__spreadValues({}, r), t), { parentParser: r.parser, originalText: e, cursorOffset: void 0, rangeStart: void 0, rangeEnd: void 0 }), { passThrough: true }), { ast: o } = yield De(e, u2), i = yield n(o, u2);
-    return $e(i);
-  });
-}
-function _o(e, t) {
-  let { originalText: r, [Symbol.for("comments")]: n, locStart: u2, locEnd: o, [Symbol.for("printedComments")]: i } = t, { node: s } = e, a = u2(s), c = o(s);
-  for (let D2 of n) u2(D2) >= a && o(D2) <= c && i.add(D2);
-  return r.slice(a, c);
-}
-var In = _o;
-function Ye(e, t) {
-  return __async(this, null, function* () {
-    ({ ast: e } = yield Gt(e, t));
-    let r = /* @__PURE__ */ new Map(), n = new Or(e), u2 = Kr(t), o = /* @__PURE__ */ new Map();
-    yield Ln(n, s, t, Ye, o);
-    let i = yield Rn(n, t, s, void 0, o);
-    if (Gr(t), t.cursorOffset >= 0) {
-      if (t.nodeAfterCursor && !t.nodeBeforeCursor) return [X3, i];
-      if (t.nodeBeforeCursor && !t.nodeAfterCursor) return [i, X3];
-    }
-    return i;
-    function s(c, D2) {
-      return c === void 0 || c === n ? a(D2) : Array.isArray(c) ? n.call(() => a(D2), ...c) : n.call(() => a(D2), c);
-    }
-    function a(c) {
-      u2(n);
-      let D2 = n.node;
-      if (D2 == null) return "";
-      let p = D2 && typeof D2 == "object" && c === void 0;
-      if (p && r.has(D2)) return r.get(D2);
-      let l = Rn(n, t, s, c, o);
-      return p && r.set(D2, l), l;
-    }
-  });
-}
-function Rn(e, t, r, n, u2) {
-  var a;
-  let { node: o } = e, { printer: i } = t, s;
-  switch ((a = i.hasPrettierIgnore) != null && a.call(i, e) ? s = In(e, t) : u2.has(o) ? s = u2.get(o) : s = i.print(e, t, r, n), o) {
-    case t.cursorNode:
-      s = Fe(s, (c) => [X3, c, X3]);
-      break;
-    case t.nodeBeforeCursor:
-      s = Fe(s, (c) => [c, X3]);
-      break;
-    case t.nodeAfterCursor:
-      s = Fe(s, (c) => [X3, c]);
-      break;
-  }
-  return i.printComment && (!i.willPrintOwnComments || !i.willPrintOwnComments(e, t)) && (s = Mr(e, s, t)), s;
-}
-function Gt(e, t) {
-  return __async(this, null, function* () {
-    let r = e.comments ?? [];
-    t[Symbol.for("comments")] = r, t[Symbol.for("printedComments")] = /* @__PURE__ */ new Set(), Vr(e, t);
-    let { printer: { preprocess: n } } = t;
-    return e = n ? yield n(e, t) : e, { ast: e, comments: r };
-  });
-}
-function xo(e, t) {
-  let { cursorOffset: r, locStart: n, locEnd: u2 } = t, o = J2(t.printer.getVisitorKeys), i = (F13) => n(F13) <= r && u2(F13) >= r, s = e, a = [e];
-  for (let F13 of Lr(e, { getVisitorKeys: o, filter: i })) a.push(F13), s = F13;
-  if (Ir(s, { getVisitorKeys: o })) return { cursorNode: s };
-  let c, D2, p = -1, l = Number.POSITIVE_INFINITY;
-  for (; a.length > 0 && (c === void 0 || D2 === void 0); ) {
-    s = a.pop();
-    let F13 = c !== void 0, f = D2 !== void 0;
-    for (let d of Ce(s, { getVisitorKeys: o })) {
-      if (!F13) {
-        let m = u2(d);
-        m <= r && m > p && (c = d, p = m);
-      }
-      if (!f) {
-        let m = n(d);
-        m >= r && m < l && (D2 = d, l = m);
-      }
-    }
-  }
-  return { nodeBeforeCursor: c, nodeAfterCursor: D2 };
-}
-var Kt = xo;
-function wo(e, t) {
-  let { printer: { massageAstNode: r, getVisitorKeys: n } } = t;
-  if (!r) return e;
-  let u2 = J2(n), o = r.ignoredProperties ?? /* @__PURE__ */ new Set();
-  return i(e);
-  function i(s, a) {
-    if (!(s !== null && typeof s == "object")) return s;
-    if (Array.isArray(s)) return s.map((l) => i(l, a)).filter(Boolean);
-    let c = {}, D2 = new Set(u2(s));
-    for (let l in s) !Object.prototype.hasOwnProperty.call(s, l) || o.has(l) || (D2.has(l) ? c[l] = i(s[l], s) : c[l] = s[l]);
-    let p = r(s, c, a);
-    if (p !== null) return p ?? c;
-  }
-}
-var Yn = wo;
-var bo = (e, t, r) => {
-  if (!(e && t == null)) {
-    if (t.findLastIndex) return t.findLastIndex(r);
-    for (let n = t.length - 1; n >= 0; n--) {
-      let u2 = t[n];
-      if (r(u2, n, t)) return n;
-    }
-    return -1;
-  }
-};
-var jn = bo;
-var ko = ({ parser: e }) => e === "json" || e === "json5" || e === "jsonc" || e === "json-stringify";
-function So(e, t) {
-  let r = [e.node, ...e.parentNodes], n = /* @__PURE__ */ new Set([t.node, ...t.parentNodes]);
-  return r.find((u2) => $n.has(u2.type) && n.has(u2));
-}
-function Un(e) {
-  let t = jn(false, e, (r) => r.type !== "Program" && r.type !== "File");
-  return t === -1 ? e : e.slice(0, t + 1);
-}
-function To(e, t, { locStart: r, locEnd: n }) {
-  let u2 = e.node, o = t.node;
-  if (u2 === o) return { startNode: u2, endNode: o };
-  let i = r(e.node);
-  for (let a of Un(t.parentNodes)) if (r(a) >= i) o = a;
-  else break;
-  let s = n(t.node);
-  for (let a of Un(e.parentNodes)) {
-    if (n(a) <= s) u2 = a;
-    else break;
-    if (u2 === o) break;
-  }
-  return { startNode: u2, endNode: o };
-}
-function zt(e, t, r, n, u2 = [], o) {
-  let { locStart: i, locEnd: s } = r, a = i(e), c = s(e);
-  if (!(t > c || t < a || o === "rangeEnd" && t === a || o === "rangeStart" && t === c)) {
-    for (let D2 of Xe(e, r)) {
-      let p = zt(D2, t, r, n, [e, ...u2], o);
-      if (p) return p;
-    }
-    if (!n || n(e, u2[0])) return { node: e, parentNodes: u2 };
-  }
-}
-function No(e, t) {
-  return t !== "DeclareExportDeclaration" && e !== "TypeParameterDeclaration" && (e === "Directive" || e === "TypeAlias" || e === "TSExportAssignment" || e.startsWith("Declare") || e.startsWith("TSDeclare") || e.endsWith("Statement") || e.endsWith("Declaration"));
-}
-var $n = /* @__PURE__ */ new Set(["JsonRoot", "ObjectExpression", "ArrayExpression", "StringLiteral", "NumericLiteral", "BooleanLiteral", "NullLiteral", "UnaryExpression", "TemplateLiteral"]);
-var Oo = /* @__PURE__ */ new Set(["OperationDefinition", "FragmentDefinition", "VariableDefinition", "TypeExtensionDefinition", "ObjectTypeDefinition", "FieldDefinition", "DirectiveDefinition", "EnumTypeDefinition", "EnumValueDefinition", "InputValueDefinition", "InputObjectTypeDefinition", "SchemaDefinition", "OperationTypeDefinition", "InterfaceTypeDefinition", "UnionTypeDefinition", "ScalarTypeDefinition"]);
-function Vn(e, t, r) {
-  if (!t) return false;
-  switch (e.parser) {
-    case "flow":
-    case "hermes":
-    case "babel":
-    case "babel-flow":
-    case "babel-ts":
-    case "typescript":
-    case "acorn":
-    case "espree":
-    case "meriyah":
-    case "oxc":
-    case "oxc-ts":
-    case "__babel_estree":
-      return No(t.type, r == null ? void 0 : r.type);
-    case "json":
-    case "json5":
-    case "jsonc":
-    case "json-stringify":
-      return $n.has(t.type);
-    case "graphql":
-      return Oo.has(t.kind);
-    case "vue":
-      return t.tag !== "root";
-  }
-  return false;
-}
-function Wn(e, t, r) {
-  let { rangeStart: n, rangeEnd: u2, locStart: o, locEnd: i } = t;
-  Oe.ok(u2 > n);
-  let s = e.slice(n, u2).search(/\S/u), a = s === -1;
-  if (!a) for (n += s; u2 > n && !/\S/u.test(e[u2 - 1]); --u2) ;
-  let c = zt(r, n, t, (F13, f) => Vn(t, F13, f), [], "rangeStart"), D2 = a ? c : zt(r, u2, t, (F13) => Vn(t, F13), [], "rangeEnd");
-  if (!c || !D2) return { rangeStart: 0, rangeEnd: 0 };
-  let p, l;
-  if (ko(t)) {
-    let F13 = So(c, D2);
-    p = F13, l = F13;
-  } else ({ startNode: p, endNode: l } = To(c, D2, t));
-  return { rangeStart: Math.min(o(p), o(l)), rangeEnd: Math.max(i(p), i(l)) };
-}
-var zn = "\uFEFF";
-var Mn = Symbol("cursor");
-function Hn(e, t, r = 0) {
-  return __async(this, null, function* () {
-    if (!e || e.trim().length === 0) return { formatted: "", cursorOffset: -1, comments: [] };
-    let { ast: n, text: u2 } = yield De(e, t);
-    t.cursorOffset >= 0 && (t = __spreadValues(__spreadValues({}, t), Kt(n, t)));
-    let o = yield Ye(n, t, r);
-    r > 0 && (o = Ge([z, o], r, t.tabWidth));
-    let i = me(o, t);
-    if (r > 0) {
-      let a = i.formatted.trim();
-      i.cursorNodeStart !== void 0 && (i.cursorNodeStart -= i.formatted.indexOf(a), i.cursorNodeStart < 0 && (i.cursorNodeStart = 0, i.cursorNodeText = i.cursorNodeText.trimStart()), i.cursorNodeStart + i.cursorNodeText.length > a.length && (i.cursorNodeText = i.cursorNodeText.trimEnd())), i.formatted = a + xe(t.endOfLine);
-    }
-    let s = t[Symbol.for("comments")];
-    if (t.cursorOffset >= 0) {
-      let a, c, D2, p;
-      if ((t.cursorNode || t.nodeBeforeCursor || t.nodeAfterCursor) && i.cursorNodeText) if (D2 = i.cursorNodeStart, p = i.cursorNodeText, t.cursorNode) a = t.locStart(t.cursorNode), c = u2.slice(a, t.locEnd(t.cursorNode));
-      else {
-        if (!t.nodeBeforeCursor && !t.nodeAfterCursor) throw new Error("Cursor location must contain at least one of cursorNode, nodeBeforeCursor, nodeAfterCursor");
-        a = t.nodeBeforeCursor ? t.locEnd(t.nodeBeforeCursor) : 0;
-        let C2 = t.nodeAfterCursor ? t.locStart(t.nodeAfterCursor) : u2.length;
-        c = u2.slice(a, C2);
-      }
-      else a = 0, c = u2, D2 = 0, p = i.formatted;
-      let l = t.cursorOffset - a;
-      if (c === p) return { formatted: i.formatted, cursorOffset: D2 + l, comments: s };
-      let F13 = c.split("");
-      F13.splice(l, 0, Mn);
-      let f = p.split(""), d = Et(F13, f), m = D2;
-      for (let C2 of d) if (C2.removed) {
-        if (C2.value.includes(Mn)) break;
-      } else m += C2.count;
-      return { formatted: i.formatted, cursorOffset: m, comments: s };
-    }
-    return { formatted: i.formatted, cursorOffset: -1, comments: s };
-  });
-}
-function Po(e, t) {
-  return __async(this, null, function* () {
-    let { ast: r, text: n } = yield De(e, t), { rangeStart: u2, rangeEnd: o } = Wn(n, t, r), i = n.slice(u2, o), s = Math.min(u2, n.lastIndexOf(`
-`, u2) + 1), a = n.slice(s, u2).match(/^\s*/u)[0], c = Ee(a, t.tabWidth), D2 = yield Hn(i, __spreadProps(__spreadValues({}, t), { rangeStart: 0, rangeEnd: Number.POSITIVE_INFINITY, cursorOffset: t.cursorOffset > u2 && t.cursorOffset <= o ? t.cursorOffset - u2 : -1, endOfLine: "lf" }), c), p = D2.formatted.trimEnd(), { cursorOffset: l } = t;
-    l > o ? l += p.length - i.length : D2.cursorOffset >= 0 && (l = D2.cursorOffset + u2);
-    let F13 = n.slice(0, u2) + p + n.slice(o);
-    if (t.endOfLine !== "lf") {
-      let f = xe(t.endOfLine);
-      l >= 0 && f === `\r
-` && (l += Ct(F13.slice(0, l), `
-`)), F13 = te(false, F13, `
-`, f);
-    }
-    return { formatted: F13, cursorOffset: l, comments: D2.comments };
-  });
-}
-function Ht(e, t, r) {
-  return typeof t != "number" || Number.isNaN(t) || t < 0 || t > e.length ? r : t;
-}
-function Gn(e, t) {
-  let { cursorOffset: r, rangeStart: n, rangeEnd: u2 } = t;
-  return r = Ht(e, r, -1), n = Ht(e, n, 0), u2 = Ht(e, u2, e.length), __spreadProps(__spreadValues({}, t), { cursorOffset: r, rangeStart: n, rangeEnd: u2 });
-}
-function Jn(e, t) {
-  let { cursorOffset: r, rangeStart: n, rangeEnd: u2, endOfLine: o } = Gn(e, t), i = e.charAt(0) === zn;
-  if (i && (e = e.slice(1), r--, n--, u2--), o === "auto" && (o = nr(e)), e.includes("\r")) {
-    let s = (a) => Ct(e.slice(0, Math.max(a, 0)), `\r
-`);
-    r -= s(r), n -= s(n), u2 -= s(u2), e = ur(e);
-  }
-  return { hasBOM: i, text: e, options: Gn(e, __spreadProps(__spreadValues({}, t), { cursorOffset: r, rangeStart: n, rangeEnd: u2, endOfLine: o })) };
-}
-function Kn(e, t) {
-  return __async(this, null, function* () {
-    let r = yield Re(t);
-    return !r.hasPragma || r.hasPragma(e);
-  });
-}
-function vo(e, t) {
-  return __async(this, null, function* () {
-    var n;
-    let r = yield Re(t);
-    return (n = r.hasIgnorePragma) == null ? void 0 : n.call(r, e);
-  });
-}
-function Jt(e, t) {
-  return __async(this, null, function* () {
-    let { hasBOM: r, text: n, options: u2 } = Jn(e, yield ne(t));
-    if (u2.rangeStart >= u2.rangeEnd && n !== "" || u2.requirePragma && !(yield Kn(n, u2)) || u2.checkIgnorePragma && (yield vo(n, u2))) return { formatted: e, cursorOffset: t.cursorOffset, comments: [] };
-    let o;
-    return u2.rangeStart > 0 || u2.rangeEnd < n.length ? o = yield Po(n, u2) : (!u2.requirePragma && u2.insertPragma && u2.printer.insertPragma && !(yield Kn(n, u2)) && (n = u2.printer.insertPragma(n)), o = yield Hn(n, u2)), r && (o.formatted = zn + o.formatted, o.cursorOffset >= 0 && o.cursorOffset++), o;
-  });
-}
-function qn(e, t, r) {
-  return __async(this, null, function* () {
-    let { text: n, options: u2 } = Jn(e, yield ne(t)), o = yield De(n, u2);
-    return r && (r.preprocessForPrint && (o.ast = yield Gt(o.ast, u2)), r.massage && (o.ast = Yn(o.ast, u2))), o;
-  });
-}
-function Xn(e, t) {
-  return __async(this, null, function* () {
-    t = yield ne(t);
-    let r = yield Ye(e, t);
-    return me(r, t);
-  });
-}
-function Qn(e, t) {
-  return __async(this, null, function* () {
-    let r = wr(e), { formatted: n } = yield Jt(r, __spreadProps(__spreadValues({}, t), { parser: "__js_expression" }));
-    return n;
-  });
-}
-function Zn(e, t) {
-  return __async(this, null, function* () {
-    t = yield ne(t);
-    let { ast: r } = yield De(e, t);
-    return t.cursorOffset >= 0 && (t = __spreadValues(__spreadValues({}, t), Kt(r, t))), Ye(r, t);
-  });
-}
-function eu(e, t) {
-  return __async(this, null, function* () {
-    return me(e, yield ne(t));
-  });
-}
-var qt = {};
-dt(qt, { builders: () => Io, printer: () => Ro, utils: () => Yo });
-var Io = { join: ke, line: Me, softline: _r, hardline: z, literalline: We, group: At, conditionalGroup: Cr, fill: hr, lineSuffix: Se, lineSuffixBoundary: Ar, cursor: X3, breakParent: pe, ifBreak: gr, trim: Br, indent: ie, indentIfBreak: yr, align: oe, addAlignmentToDoc: Ge, markAsRoot: mr, dedentToRoot: dr, dedent: Er, hardlineWithoutBreakParent: Te, literallineWithoutBreakParent: Bt, label: xr, concat: (e) => e };
-var Ro = { printDocToString: me };
-var Yo = { willBreak: Dr, traverseDoc: le, findInDoc: Ve, mapDoc: be, removeLines: fr, stripTrailingHardline: $e, replaceEndOfLine: lr, canBreak: Fr };
-var tu = "3.6.2";
-var Qt = {};
-dt(Qt, { addDanglingComment: () => ee, addLeadingComment: () => se, addTrailingComment: () => ae, getAlignmentSize: () => Ee, getIndentSize: () => ru, getMaxContinuousCount: () => nu, getNextNonSpaceNonCommentCharacter: () => uu, getNextNonSpaceNonCommentCharacterIndex: () => Xo, getPreferredQuote: () => iu, getStringWidth: () => Ne, hasNewline: () => G2, hasNewlineInRange: () => su, hasSpaces: () => au, isNextLineEmpty: () => ti, isNextLineEmptyAfterIndex: () => ct, isPreviousLineEmpty: () => Zo, makeString: () => Du, skip: () => he, skipEverythingButNewLine: () => Je, skipInlineComment: () => ye, skipNewline: () => U2, skipSpaces: () => T2, skipToLineEnd: () => He, skipTrailingComment: () => Ae, skipWhitespace: () => Rr });
-function jo(e, t) {
-  if (t === false) return false;
-  if (e.charAt(t) === "/" && e.charAt(t + 1) === "*") {
-    for (let r = t + 2; r < e.length; ++r) if (e.charAt(r) === "*" && e.charAt(r + 1) === "/") return r + 2;
-  }
-  return t;
-}
-var ye = jo;
-function Uo(e, t) {
-  return t === false ? false : e.charAt(t) === "/" && e.charAt(t + 1) === "/" ? Je(e, t) : t;
-}
-var Ae = Uo;
-function Vo(e, t) {
-  let r = null, n = t;
-  for (; n !== r; ) r = n, n = T2(e, n), n = ye(e, n), n = Ae(e, n), n = U2(e, n);
-  return n;
-}
-var je = Vo;
-function $o(e, t) {
-  let r = null, n = t;
-  for (; n !== r; ) r = n, n = He(e, n), n = ye(e, n), n = T2(e, n);
-  return n = Ae(e, n), n = U2(e, n), n !== false && G2(e, n);
-}
-var ct = $o;
-function Wo(e, t) {
-  let r = e.lastIndexOf(`
-`);
-  return r === -1 ? 0 : Ee(e.slice(r + 1).match(/^[\t ]*/u)[0], t);
-}
-var ru = Wo;
-function Xt(e) {
-  if (typeof e != "string") throw new TypeError("Expected a string");
-  return e.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
-}
-function Mo(e, t) {
-  let r = e.match(new RegExp(`(${Xt(t)})+`, "gu"));
-  return r === null ? 0 : r.reduce((n, u2) => Math.max(n, u2.length / t.length), 0);
-}
-var nu = Mo;
-function Go(e, t) {
-  let r = je(e, t);
-  return r === false ? "" : e.charAt(r);
-}
-var uu = Go;
-var ft = "'";
-var ou = '"';
-function Ko(e, t) {
-  let r = t === true || t === ft ? ft : ou, n = r === ft ? ou : ft, u2 = 0, o = 0;
-  for (let i of e) i === r ? u2++ : i === n && o++;
-  return u2 > o ? n : r;
-}
-var iu = Ko;
-function zo(e, t, r) {
-  for (let n = t; n < r; ++n) if (e.charAt(n) === `
-`) return true;
-  return false;
-}
-var su = zo;
-function Ho(e, t, r = {}) {
-  return T2(e, r.backwards ? t - 1 : t, r) !== t;
-}
-var au = Ho;
-function Jo(e, t, r) {
-  let n = t === '"' ? "'" : '"', o = te(false, e, /\\(.)|(["'])/gsu, (i, s, a) => s === n ? s : a === t ? "\\" + a : a || (r && /^[^\n\r"'0-7\\bfnrt-vx\u2028\u2029]$/u.test(s) ? s : "\\" + s));
-  return t + o + t;
-}
-var Du = Jo;
-function qo(e, t, r) {
-  return je(e, r(t));
-}
-function Xo(e, t) {
-  return arguments.length === 2 || typeof t == "number" ? je(e, t) : qo(...arguments);
-}
-function Qo(e, t, r) {
-  return Pe(e, r(t));
-}
-function Zo(e, t) {
-  return arguments.length === 2 || typeof t == "number" ? Pe(e, t) : Qo(...arguments);
-}
-function ei(e, t, r) {
-  return ct(e, r(t));
-}
-function ti(e, t) {
-  return arguments.length === 2 || typeof t == "number" ? ct(e, t) : ei(...arguments);
-}
-function ce(e, t = 1) {
-  return (...r) => __async(null, null, function* () {
-    let n = r[t] ?? {}, u2 = n.plugins ?? [];
-    return r[t] = __spreadProps(__spreadValues({}, n), { plugins: Array.isArray(u2) ? u2 : Object.values(u2) }), e(...r);
-  });
-}
-var cu = ce(Jt);
-function fu(e, t) {
-  return __async(this, null, function* () {
-    let { formatted: r } = yield cu(e, __spreadProps(__spreadValues({}, t), { cursorOffset: -1 }));
-    return r;
-  });
-}
-function ri(e, t) {
-  return __async(this, null, function* () {
-    return (yield fu(e, t)) === e;
-  });
-}
-var ni = ce(Qe, 0);
-var ui = { parse: ce(qn), formatAST: ce(Xn), formatDoc: ce(Qn), printToDoc: ce(Zn), printDocToString: ce(eu) };
-var xf = Zt;
-
-// src/Domain/Entities/FileEntity.ts
-var FileEntity = class {
-  constructor(filePath, content) {
-    this.filePath = filePath;
-    this.content = content;
-  }
-};
-
-// src/Application/Services/ScanControllerAppService.ts
-var ScanControllerAppService = class {
-  constructor(scannerService, fileService, pathService) {
-    this.scannerService = scannerService;
-    this.fileService = fileService;
-    this.pathService = pathService;
-  }
-  handleScan() {
-    return __async(this, null, function* () {
-      const scanIndex = process.argv.indexOf("--scan");
-      if (scanIndex === -1) return;
-      const rawScanTarget = process.argv[scanIndex + 1] || process.cwd();
-      const customFilename = process.argv[scanIndex + 2];
-      const scanTarget = this.pathService.resolve(rawScanTarget);
-      console.log(import_chalk.default.blueBright.bold("\nScan Activated"));
-      console.log(import_chalk.default.gray("\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500"));
-      console.log(
-        import_chalk.default.green(
-          `Looking for Onion Architecture structure at: ${import_chalk.default.white(scanTarget)}
-`
-        )
-      );
-      console.log(
-        import_chalk.default.cyan(
-          "This scan works and produces an accurate config JSON if the following are true:"
-        )
-      );
-      console.log(`     The project was generated by this CLI`);
-      console.log(`     Folder names match: Domain, Application, Infrastructure`);
-      console.log(`     Entities, services, and repositories are not renamed`);
-      console.log(
-        `     AppService constructor uses 'private readonly' injection
-`
-      );
-      console.log(
-        "starting scan for Onion Architecture project at: " + scanTarget
-      );
-      const scanned = yield this.scannerService.scanOnionProject(scanTarget);
-      const outputFile = customFilename?.endsWith(".json") ? customFilename : "reverse.generated.json";
-      const parentDir = this.pathService.dirname(scanTarget);
-      const outputPath = this.pathService.isAbsolute(outputFile) ? outputFile : this.pathService.join(parentDir, outputFile);
-      const formatted = xf.format(JSON.stringify(scanned), {
-        parser: "json"
-      });
-      const file = new FileEntity(outputPath, yield formatted);
-      this.fileService.createFile(file);
-      console.log(
-        import_chalk.default.greenBright(
-          `Successfully wrote config to: ${import_chalk.default.white(outputPath)}`
-        )
-      );
-      console.log(import_chalk.default.gray("\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n"));
-      process.exit(0);
-    });
-  }
-};
-
-// src/Application/Services/HelpAppService.ts
-var HELP_TEXT = `Onion Architecture Generator
-\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
-Erzeugt eine vollst\xE4ndige Onion-Architektur (Domain, Application, Infrastructure)
-inklusive Frontend-Ger\xFCst und best\xFCckter Ordnerstruktur.
-
-USAGE
-  onion                         Interaktive Eingabe aller ben\xF6tigten Werte
-  onion --config <file>         Vollautomatischer Lauf auf Basis einer JSON-Konfiguration
-  onion --scan <src> <json>     Vorhandenes Projekt scannen und JSON-Config erzeugen
-
-FEATURES
-  \u2022 Onion-Ordnerstruktur mit Domain, Application und Infrastructure
-  \u2022 Generatoren f\xFCr Entities, Domain- & Application-Services
-  \u2022 Repository-Interface + Implementierungsskelett
-  \u2022 Dependency-Injection via Awilix
-  \u2022 Vorgefertigte Prettier- & ESLint-Konfiguration
-  \u2022 Frontend-Setup: Lit, React, Angular, Vue oder Vanilla
-  \u2022 Wahlweise interaktive Prompts oder reine JSON-Config
-
-EXAMPLES
-  onion                                   # startet interaktiv
-  onion --config myConfig.json            # nutzt vorhandene Konfig-Datei
-  onion --scan .\\react\\ reactConfig.json  # erstellt Konfig aus bestehendem Projekt
-
-CONFIG NOTES
-  \u2022 Services ohne Abh\xE4ngigkeiten brauchen ein leeres Array, z. B. "UserService": []
-  \u2022 Zul\xE4ssige uiFramework-Werte: react | angular | vue | lit | vanilla
-  \u2022 "folderPath" darf relativ oder absolut sein.
-`;
-var HelpAppService = class {
-  handleHelp() {
-    if (process.argv.includes("--help") || process.argv.includes("-h")) {
-      console.log(HELP_TEXT);
-      process.exit(0);
-    }
-  }
-};
-
-// src/Application/Services/ScannerAppService.ts
-var ScannerAppService = class {
-  constructor(fileService, pathService) {
-    this.fileService = fileService;
-    this.pathService = pathService;
-  }
-  scanOnionProject(folderPath) {
-    return __async(this, null, function* () {
-      const src = this.pathService.join(folderPath, "src");
-      const entitiesDir = this.pathService.join(src, "Domain", "Entities");
-      const servicesDir = this.pathService.join(src, "Domain", "Services");
-      const appServicesDir = this.pathService.join(
-        src,
-        "Application",
-        "Services"
-      );
-      const entities = yield this.fileService.getNamesFromDir(entitiesDir);
-      const domainServices = yield this.fileService.getNamesFromDir(servicesDir);
-      const applicationServices = yield this.fileService.getNamesFromDir(appServicesDir);
-      const domainServiceConnections = yield this.scanServiceDependencies(
-        servicesDir,
-        entities
-      );
-      const applicationServiceDependencies = yield this.scanAppServiceDependencies(appServicesDir);
-      const uiFramework = yield this.detectUIFramework(folderPath);
-      const diFramework = yield this.detectDiFramework(folderPath);
-      return {
-        folderPath,
-        entities,
-        domainServices,
-        applicationServices,
-        domainServiceConnections,
-        applicationServiceDependencies,
-        uiFramework,
-        diFramework
-      };
-    });
-  }
-  scanServiceDependencies(dir, knownEntities) {
-    return __async(this, null, function* () {
-      const result = {};
-      if (!(yield this.fileService.dirExists(dir))) {
-        return result;
-      }
-      const files = yield this.fileService.readdir(dir);
-      for (const fileName of files) {
-        if (!fileName.endsWith(".ts")) {
-          console.log(
-            "\u23ED\uFE0F scanServiceDependencies: Skipping non-TS file/directory:",
-            fileName
-          );
-          continue;
-        }
-        const filePath = this.pathService.join(dir, fileName);
-        const file = yield this.fileService.readFile(filePath);
-        const serviceName = this.pathService.basename(fileName, ".ts");
-        const injected = [];
-        for (const entity of knownEntities) {
-          const regex = new RegExp(
-            `private\\s+readonly\\s+\\w+\\s*:\\s*${entity}(?![\\w])`,
-            "gm"
-          );
-          if (regex.test(file.content)) {
-            injected.push(entity);
-            console.log(`\u{1F517} Found dependency: ${serviceName} -> ${entity}`);
-          }
-        }
-        result[serviceName] = injected;
-      }
-      return result;
-    });
-  }
-  scanAppServiceDependencies(dir) {
-    return __async(this, null, function* () {
-      console.log("\u{1F50D} scanAppServiceDependencies: Checking dir:", dir);
-      const result = {};
-      if (!(yield this.fileService.dirExists(dir))) {
-        console.log(
-          "\u274C scanAppServiceDependencies: Directory does not exist:",
-          dir
-        );
-        return result;
-      }
-      const files = yield this.fileService.readdir(dir);
-      for (const fileName of files) {
-        if (!fileName.endsWith(".ts")) {
-          console.log(
-            "\u23ED\uFE0F scanAppServiceDependencies: Skipping non-TS file/directory:",
-            fileName
-          );
-          continue;
-        }
-        const filePath = this.pathService.join(dir, fileName);
-        const file = yield this.fileService.readFile(filePath);
-        const serviceName = this.pathService.basename(fileName, ".ts");
-        const dependencies = this.extractServiceDependencies(
-          file.content,
-          serviceName
-        );
-        result[serviceName] = dependencies;
-      }
-      return result;
-    });
-  }
-  extractServiceDependencies(fileContent, serviceName) {
-    const domainServices = [];
-    const repositories = [];
-    const constructorRegex = /constructor\s*\([^)]*\)/gs;
-    const constructorMatch = fileContent.match(constructorRegex);
-    if (constructorMatch) {
-      const constructorContent = constructorMatch[0];
-      const paramRegex = /private\s+readonly\s+(\w+)\s*:\s*([A-Za-z_][\w<>[\]]*)/g;
-      let paramMatch;
-      while ((paramMatch = paramRegex.exec(constructorContent)) !== null) {
-        const [, paramName, typeName] = paramMatch;
-        console.log(`\u{1F4CB} Parameter found: ${paramName}: ${typeName}`);
-        if (typeName.endsWith("Service")) {
-          domainServices.push(typeName);
-          console.log(
-            `\u{1F517} Domain service dependency: ${serviceName} -> ${typeName}`
-          );
-        }
-        if (typeName.startsWith("I") && typeName.endsWith("Repository")) {
-          repositories.push(typeName);
-          console.log(
-            `\u{1F5C3}\uFE0F Repository dependency: ${serviceName} -> ${typeName}`
-          );
-        }
-      }
-    } else {
-      console.log(`\u274C No constructor found for ${serviceName}`);
-    }
-    return { domainServices, repositories };
-  }
-  detectUIFramework(dir) {
-    return __async(this, null, function* () {
-      const pkgPath = this.pathService.join(dir, "package.json");
-      if (!(yield this.fileService.fileExists(pkgPath))) {
-        console.log(
-          "\u274C detectUIFramework: package.json does not exist at:",
-          pkgPath
-        );
-        return;
-      }
-      const file = yield this.fileService.readFile(pkgPath);
-      const content = file.content;
-      const pkg = JSON.parse(content);
-      const deps = __spreadValues(__spreadValues({}, pkg.dependencies), pkg.devDependencies);
-      if ("react" in deps || "react-dom" in deps) return "react";
-      if ("vue" in deps) return "vue";
-      if ("@angular/core" in deps) return "angular";
-      if ("lit" in deps || "lit-element" in deps) return "lit";
-      return "vanilla";
-    });
-  }
-  detectDiFramework(folderPath) {
-    return __async(this, null, function* () {
-      const pkgPath = this.pathService.join(folderPath, "package.json");
-      if (!(yield this.fileService.fileExists(pkgPath))) {
-        return void 0;
-      }
-      const file = yield this.fileService.readFile(pkgPath);
-      const pkg = JSON.parse(file.content);
-      const deps = __spreadValues(__spreadValues({}, pkg.dependencies), pkg.devDependencies);
-      if ("awilix" in deps) return "awilix";
-      if ("@angular/core" in deps) return "angular";
-      return void 0;
-    });
-  }
-};
-
-// src/Domain/Services/AwilixConfigService.ts
-var AwilixConfigService = class {
-  generateAwilixConfigFile(params, awilixConfigPath) {
-    const repoRegistrations = params.entities.map((entity) => {
-      const className = `${entity}Repository`;
-      return {
-        className,
-        varName: this.lowerFirst(className),
-        importPath: `../../Infrastructure/Repositories/${className}`
-      };
-    });
-    const entityRegistrations = params.entities.map((entity) => {
-      return {
-        className: entity,
-        varName: this.lowerFirst(entity),
-        importPath: `../../Domain/Entities/${entity}`
-      };
-    });
-    const domainServiceRegistrations = params.domainServices.map((service) => ({
-      className: service,
-      varName: this.lowerFirst(service),
-      importPath: `../../Domain/Services/${service}`
-    }));
-    const appServiceRegistrations = params.applicationServices.map((service) => ({
-      className: service,
-      varName: this.lowerFirst(service),
-      importPath: `../../Application/Services/${service}`
-    }));
-    const allRegistrations = [
-      ...entityRegistrations,
-      ...repoRegistrations,
-      ...domainServiceRegistrations,
-      ...appServiceRegistrations
-    ];
-    const imports = allRegistrations.map(
-      ({ className, importPath }) => `import { ${className} } from "${importPath}";`
-    ).join("\n");
-    const registrations = allRegistrations.map(
-      ({ varName, className }) => `  ${varName}: asClass(${className}).singleton(),`
-    ).join("\n");
-    const fileContent = `
-import { createContainer, asClass, InjectionMode } from "awilix";
-
-${imports}
-
-const container = createContainer({ injectionMode: InjectionMode.CLASSIC });
-
-container.register({
-${registrations}
-});
-
-export default container;
-`;
-    const file = new FileEntity(awilixConfigPath, fileContent);
-    return file;
-  }
-  lowerFirst(str) {
-    return str.charAt(0).toLowerCase() + str.slice(1);
-  }
-};
-
-// src/Domain/Services/ShowcaseService.ts
-var import_handlebars = __toESM(require_handlebars());
-
-// src/Domain/Entities/ShowcaseTemplateFile.ts
-var ShowcaseTemplateFile = class {
-  constructor(template, output, useAngularDI = false) {
-    this.template = template;
-    this.output = output;
-    this.useAngularDI = useAngularDI;
-  }
-};
-
-// src/Domain/Services/ShowcaseService.ts
-var ShowcaseService = class {
-  constructor(fileService) {
-    this.fileService = fileService;
-  }
-  generateShowcaseFiles(request, buildPaths) {
-    return __async(this, null, function* () {
-      if (request.framework === "vanilla") {
-        console.log("Vanilla framework selected, skipping generation.");
-        return [];
-      }
-      const templateFiles = this.getTemplateFilesForFramework(request.framework);
-      if (templateFiles.main.length === 0) {
-        return [];
-      }
-      const context2 = {
-        firstAppService: request.firstAppService,
-        useAngularDI: request.useAngularDI
-      };
-      const mainFiles = this.buildFileDefinitions(templateFiles.main, buildPaths);
-      const fileEntities = yield this.generateFromTemplates(mainFiles, context2);
-      if (templateFiles.extra && templateFiles.extra.length > 0) {
-        const extraFiles = this.buildFileDefinitions(
-          templateFiles.extra,
-          buildPaths
-        );
-        const extraFileEntities = yield this.generateFromTemplates(
-          extraFiles,
-          {}
-        );
-        fileEntities.push(...extraFileEntities);
-      }
-      return fileEntities;
-    });
-  }
-  /**
-   * Get template files configuration for a specific framework
-   */
-  getTemplateFilesForFramework(framework) {
-    const frameworkConfigs = {
-      react: {
-        main: [
-          new ShowcaseTemplateFile("react/App.tsx.hbs", "App.tsx"),
-          new ShowcaseTemplateFile("shared/App.css.hbs", "App.css")
-        ]
-      },
-      angular: {
-        main: [
-          new ShowcaseTemplateFile(
-            "angular/app.component.ts.hbs",
-            "app.component.ts"
-          ),
-          new ShowcaseTemplateFile(
-            "angular/app.component.html.hbs",
-            "app.component.html"
-          ),
-          new ShowcaseTemplateFile("shared/App.css.hbs", "app.component.scss")
-        ]
-      },
-      vue: {
-        main: [
-          new ShowcaseTemplateFile("vue/App.vue.hbs", "App.vue"),
-          new ShowcaseTemplateFile("shared/App.css.hbs", "App.css")
-        ]
-      },
-      lit: {
-        main: [
-          new ShowcaseTemplateFile("lit/App.ts.hbs", "App.ts"),
-          new ShowcaseTemplateFile("shared/App.css.hbs", "App.css")
-        ],
-        extra: [new ShowcaseTemplateFile("lit/index.html.hbs", "index.html")]
-      }
-    };
-    return frameworkConfigs[framework] || { main: [] };
-  }
-  /**
-   * Build file definitions with computed paths
-   */
-  buildFileDefinitions(files, buildPaths) {
-    return files.map((file) => {
-      const paths = buildPaths(file.template, file.output);
-      return {
-        templatePath: paths.templatePath,
-        outputPath: paths.outputPath
-      };
-    });
-  }
-  generateFromTemplates(files, context2) {
-    return __async(this, null, function* () {
-      const fileEntities = [];
-      for (const { templatePath, outputPath } of files) {
-        const templateFileEntity = yield this.fileService.readTemplate(templatePath);
-        const compiled = import_handlebars.default.compile(templateFileEntity.content);
-        const rendered = compiled(context2);
-        const file = new FileEntity(outputPath, rendered.trim());
-        fileEntities.push(file);
-      }
-      return fileEntities;
-    });
-  }
-};
-
-// src/Domain/Services/TemplateService.ts
-var import_handlebars2 = __toESM(require_handlebars());
-var TemplateService = class _TemplateService {
-  template;
-  static helpersRegistered = false;
-  constructor(templateSource) {
-    if (!_TemplateService.helpersRegistered) {
-      this.registerHandlebarsHelpers();
-      _TemplateService.helpersRegistered = true;
-    }
-    this.template = import_handlebars2.default.compile(templateSource);
-  }
-  render(data) {
-    return this.template(data);
-  }
-  registerHandlebarsHelpers() {
-    this.registerStringHelpers();
-    this.registerArrayHelpers();
-    this.registerUtilityHelpers();
-  }
-  registerStringHelpers() {
-    import_handlebars2.default.registerHelper("lowerFirst", (str) => {
-      if (typeof str !== "string" || !str.length) return "";
-      return str.charAt(0).toLowerCase() + str.slice(1);
-    });
-    import_handlebars2.default.registerHelper("removeFirst", (str) => {
-      if (typeof str !== "string" || str.length < 2) return "";
-      return str.slice(1);
-    });
-    import_handlebars2.default.registerHelper("camel", (str) => {
-      if (typeof str !== "string" || !str.length) return "";
-      return str.charAt(0).toLowerCase() + str.slice(1);
-    });
-  }
-  registerArrayHelpers() {
-    import_handlebars2.default.registerHelper("index", (arr, idx) => arr[idx]);
-  }
-  registerUtilityHelpers() {
-    import_handlebars2.default.registerHelper("firstRepoVarName", (repos) => {
-      if (!Array.isArray(repos) || typeof repos[0] !== "string") return "";
-      const raw = repos[0];
-      if (raw.length < 2) return raw.toLowerCase();
-      return raw.charAt(1).toLowerCase() + raw.slice(2);
-    });
-    import_handlebars2.default.registerHelper("firstServiceVarName", (services) => {
-      if (!Array.isArray(services) || typeof services[0] !== "string")
-        return "";
-      const raw = services[0];
-      return raw.charAt(0).toLowerCase() + raw.slice(1);
-    });
-  }
-};
-
-// src/Domain/Services/EntitityService.ts
-var EntityService = class {
-  /**
-   * Generate entity files using provided template content.
-   * @param entitiesDir The directory path where entity files should be created.
-   * @param entityNames The list of entity names to generate.
-   * @param templateContent The Handlebars template content for entity generation.
-   * @returns Array of FileEntity objects to be created by the application layer
-   */
-  generateEntitiesFiles(entitiesDir, entityNames, templateContent) {
-    const fileEntities = [];
-    for (const name of entityNames) {
-      const filePath = `${entitiesDir}\\${name}.ts`;
-      const code = this.generateEntityCodeFromTemplate(templateContent, name);
-      const file = new FileEntity(filePath, code);
-      fileEntities.push(file);
-    }
-    return fileEntities;
-  }
-  /**
-   * Generate code for a single entity (no file creation, for preview etc.)
-   * Uses provided template content instead of loading from file.
-   * @param templateContent The Handlebars template content
-   * @param name The entity name
-   */
-  generateEntityCodeFromTemplate(templateContent, name) {
-    const generator = new TemplateService(templateContent);
-    return generator.render({ name });
-  }
-};
-
-// src/Domain/Services/DomainServiceService.ts
-var DomainServiceService = class {
-  /**
-   * Generate domain service files from connections using provided template content.
-   * @param servicesDir The directory path where domain service files should be created.
-   * @param connections The connections between domain services and entities.
-   * @param diFramework The dependency injection framework to use.
-   * @param templateContent The Handlebars template content for domain service generation.
-   * @returns Array of FileEntity objects to be created by the application layer
-   */
-  generateDomainServicesFiles(servicesDir, connections, diFramework, templateContent) {
-    const fileEntities = [];
-    for (const [serviceName, entities] of Object.entries(connections)) {
-      const filePath = `${servicesDir}/${serviceName}.ts`;
-      const entityObjects = entities.map((name) => new Entity(name));
-      const code = this.generateDomainServiceCodeFromTemplate(
-        templateContent,
-        serviceName,
-        diFramework,
-        entityObjects
-      );
-      const file = new FileEntity(filePath, code);
-      fileEntities.push(file);
-    }
-    return fileEntities;
-  }
-  /**
-   * Generate code for a single domain service (no file creation, for preview etc.)
-   * Uses provided template content instead of loading from file.
-   * @param templateContent The Handlebars template content
-   * @param serviceName The domain service name
-   */
-  generateDomainServiceCodeFromTemplate(templateContent, serviceName, diFramework, entities = []) {
-    const generator = new TemplateService(templateContent);
-    const useAngularDI = diFramework === "angular";
-    return generator.render({ serviceName, entities, useAngularDI });
-  }
-  connectAndGenerateFiles(params) {
-    const {
-      servicesDir,
-      domainServiceNames,
-      entityNames,
-      diFramework,
-      userConfig = {},
-      templateContent
-    } = params;
-    const connections = userConfig.domainServiceConnections && Object.keys(userConfig.domainServiceConnections).length > 0 ? userConfig.domainServiceConnections : this.createDefaultConnections(domainServiceNames, entityNames);
-    return this.generateDomainServicesFiles(
-      servicesDir,
-      connections,
-      diFramework,
-      templateContent
+// src/Application/Services/DiagramSVGRendererAppService.ts
+var DiagramSVGRendererAppService = class {
+  drawNodeText(nodeGroup, x, y, text) {
+    nodeGroup.append("text").attr("x", x).attr("y", y + 30).attr("text-anchor", "middle").attr("font-size", "12px").attr("font-weight", "500").attr("fill", "#333").text(text);
+  }
+  drawNodeCircle(nodeGroup, options) {
+    nodeGroup.append("circle").attr("cx", options.x).attr("cy", options.y).attr(
+      "r",
+      options.isSelected ? options.nodeRadius.selected : options.nodeRadius.normal
+    ).attr("fill", options.isSelected ? options.selectionColor : "#ffffff").attr("stroke", options.groupColor).attr("stroke-width", options.isSelected ? 3 : 2).style(
+      "filter",
+      options.isSelected ? "drop-shadow(0 0 8px rgba(255, 221, 87, 0.8))" : "none"
     );
   }
-  createDefaultConnections(domainServiceNames, entityNames) {
-    const connections = {};
-    domainServiceNames.forEach((serviceName) => {
-      connections[serviceName] = entityNames;
+  createNodeGroup(svg, item, onNodeClick) {
+    return svg.append("g").attr("class", "node").style("cursor", "pointer").on("click", (event) => {
+      event.stopPropagation();
+      onNodeClick(item);
     });
-    return connections;
+  }
+  drawRingCircle(svg, centerX, centerY, radius, color2, strokeColor) {
+    svg.append("circle").attr("cx", centerX).attr("cy", centerY).attr("r", radius).attr("fill", color2).attr("fill-opacity", 0.1).attr("stroke", strokeColor).attr("stroke-width", 2).attr("stroke-dasharray", "5,5");
+  }
+  drawRingLabel(svg, centerX, centerY, radius, text) {
+    svg.append("text").attr("x", centerX).attr("y", centerY - radius + 60).attr("text-anchor", "middle").attr("font-size", "16px").attr("font-weight", "bold").attr("fill", "#333").text(text);
   }
 };
 
-// src/Domain/Services/RepoService.ts
-var import_handlebars3 = __toESM(require_handlebars());
-var RepoService = class {
-  generateRepositoriesFiles(entitiesRepository, diFramework, templateContent, infraRepoDir) {
-    const template = import_handlebars3.default.compile(templateContent);
-    const fileEntities = [];
-    const useAngularDI = diFramework === "angular";
-    entitiesRepository.forEach((entityRepository) => {
-      const filePath = `${infraRepoDir}/${entityRepository}Repository.ts`;
-      const code = template({ entityName: entityRepository, useAngularDI });
-      const file = new FileEntity(filePath, code);
-      fileEntities.push(file);
+// src/Application/Services/ProgressTrackingAppService.ts
+var ProgressTrackingAppService = class {
+  progressSubject = new BehaviorSubject({
+    steps: [],
+    currentStepIndex: 0,
+    overallProgress: 0,
+    isRunning: false
+  });
+  progress$ = this.progressSubject.asObservable();
+  animationFrameId = null;
+  targetProgress = 0;
+  currentAnimatedProgress = 0;
+  initializeProgress(steps) {
+    this.progressSubject.next({
+      steps: steps.map((step) => __spreadProps(__spreadValues({}, step), { completed: false })),
+      currentStepIndex: 0,
+      overallProgress: 0,
+      isRunning: true,
+      currentStep: steps[0]
     });
-    return fileEntities;
+    this.currentAnimatedProgress = 0;
+    this.targetProgress = 0;
   }
-};
-
-// src/Domain/Services/ApplicationServiceService.ts
-var ApplicationServiceService = class {
-  /**
-   * Generate application service files from a mapping using provided template content.
-   * @param appServiceMappings The mapping of service names to dependencies.
-   * @param diFramework The dependency injection framework to use.
-   * @param templateContent The Handlebars template content for application service generation.
-   * @param appDir The application services directory path (computed by caller).
-   * @returns Array of FileEntity objects to be created by the application layer
-   */
-  generateApplicationServicesFiles(appServiceMappings, diFramework, templateContent, appDir) {
-    const fileEntities = [];
-    for (const [appServiceName, deps] of Object.entries(appServiceMappings)) {
-      const filePath = `${appDir}/${appServiceName}.ts`;
-      const code = this.generateApplicationServiceCodeFromTemplate(
-        templateContent,
-        appServiceName,
-        diFramework,
-        deps
-      );
-      const file = new FileEntity(filePath, code);
-      fileEntities.push(file);
+  startStep(stepId) {
+    const currentState = this.progressSubject.value;
+    const stepIndex = currentState.steps.findIndex((step) => step.id === stepId);
+    if (stepIndex === -1) return;
+    const updatedSteps = [...currentState.steps];
+    updatedSteps[stepIndex] = __spreadProps(__spreadValues({}, updatedSteps[stepIndex]), {
+      startTime: Date.now()
+    });
+    this.progressSubject.next(__spreadProps(__spreadValues({}, currentState), {
+      steps: updatedSteps,
+      currentStepIndex: stepIndex,
+      currentStep: updatedSteps[stepIndex],
+      estimatedTimeRemaining: this.calculateEstimatedTime(
+        updatedSteps,
+        stepIndex
+      )
+    }));
+  }
+  completeStep(stepId, nextStepProgress) {
+    const currentState = this.progressSubject.value;
+    const stepIndex = currentState.steps.findIndex((step) => step.id === stepId);
+    if (stepIndex === -1) return;
+    const updatedSteps = [...currentState.steps];
+    updatedSteps[stepIndex] = __spreadProps(__spreadValues({}, updatedSteps[stepIndex]), {
+      completed: true,
+      endTime: Date.now()
+    });
+    const totalWeight = updatedSteps.reduce(
+      (sum, step) => sum + step.weight,
+      0
+    );
+    const completedWeight = updatedSteps.filter((step) => step.completed).reduce((sum, step) => sum + step.weight, 0);
+    let currentStepProgress = 0;
+    if (nextStepProgress && stepIndex + 1 < updatedSteps.length) {
+      const nextStep = updatedSteps[stepIndex + 1];
+      currentStepProgress = nextStepProgress / 100 * nextStep.weight;
     }
-    return fileEntities;
+    this.targetProgress = Math.min(
+      100,
+      (completedWeight + currentStepProgress) / totalWeight * 100
+    );
+    this.animateToTarget();
+    const nextStepIndex = stepIndex + 1;
+    this.progressSubject.next(__spreadProps(__spreadValues({}, currentState), {
+      steps: updatedSteps,
+      currentStepIndex: nextStepIndex,
+      currentStep: nextStepIndex < updatedSteps.length ? updatedSteps[nextStepIndex] : void 0,
+      estimatedTimeRemaining: this.calculateEstimatedTime(
+        updatedSteps,
+        nextStepIndex
+      )
+    }));
   }
-  /**
-   * Generate code for a single application service (no file creation).
-   * Uses provided template content instead of loading from file.
-   * @param templateContent The Handlebars template content.
-   * @param name The application service name.
-   * @param deps The dependencies (domainServices, repositories).
-   */
-  generateApplicationServiceCodeFromTemplate(templateContent, name, diFramework, deps = {}) {
-    const generator = new TemplateService(templateContent);
-    const useAngularDI = diFramework === "angular";
-    return generator.render(__spreadProps(__spreadValues({ name }, deps), { useAngularDI }));
+  updateStepProgress(stepId, progressPercentage) {
+    const currentState = this.progressSubject.value;
+    const stepIndex = currentState.steps.findIndex((step2) => step2.id === stepId);
+    if (stepIndex === -1) return;
+    const step = currentState.steps[stepIndex];
+    if (!step.startTime) {
+      this.startStep(stepId);
+      const updatedState = this.progressSubject.value;
+      this.updateStepProgressInternal(
+        updatedState,
+        stepIndex,
+        progressPercentage
+      );
+      return;
+    }
+    this.updateStepProgressInternal(
+      currentState,
+      stepIndex,
+      progressPercentage
+    );
   }
-};
-
-// src/Application/Services/BrowserCheckAppService.ts
-var BrowserCheckAppService = class {
-  isNode() {
-    return typeof process !== "undefined" && typeof process.versions?.node !== "undefined";
+  updateStepProgressInternal(currentState, stepIndex, progressPercentage) {
+    const completedSteps = currentState.steps.slice(0, stepIndex);
+    const totalWeight = currentState.steps.reduce(
+      (sum, step) => sum + step.weight,
+      0
+    );
+    const completedWeight = completedSteps.reduce(
+      (sum, step) => sum + step.weight,
+      0
+    );
+    const currentStepWeight = currentState.steps[stepIndex].weight;
+    const currentStepProgress = progressPercentage / 100 * currentStepWeight;
+    this.targetProgress = Math.min(
+      100,
+      (completedWeight + currentStepProgress) / totalWeight * 100
+    );
+    this.animateToTarget();
+    this.progressSubject.next(__spreadProps(__spreadValues({}, currentState), {
+      estimatedTimeRemaining: this.calculateEstimatedTime(
+        currentState.steps,
+        stepIndex
+      )
+    }));
   }
-  isBrowser() {
-    return typeof window !== "undefined" && typeof window.document !== "undefined";
-  }
-};
-
-// src/Domain/Services/FileService.ts
-var FileService = class {
-  constructor(fileRepository) {
-    this.fileRepository = fileRepository;
-  }
-  readTemplate(templatePath) {
-    return this.fileRepository.readTemplate(templatePath);
-  }
-  readdir(dir) {
-    return this.fileRepository.readdir(dir);
-  }
-  rmSync(appDir) {
-    return __async(this, null, function* () {
-      this.fileRepository.rmSync(appDir);
-    });
-  }
-  getNamesFromDir(dir) {
-    return __async(this, null, function* () {
-      return this.fileRepository.getNamesFromDir(dir);
-    });
-  }
-  rename(from2, to2) {
-    this.fileRepository.rename(from2, to2);
-  }
-  readFile(path) {
-    return __async(this, null, function* () {
-      return this.fileRepository.read(path);
-    });
-  }
-  fileExists(filePath) {
-    return __async(this, null, function* () {
-      return this.fileRepository.fileExists(filePath);
-    });
-  }
-  createDirectory(dirPath) {
-    return __async(this, null, function* () {
-      return this.fileRepository.createDirectory(dirPath);
-    });
-  }
-  dirExists(dirPath) {
-    return __async(this, null, function* () {
-      return this.fileRepository.dirExists(dirPath);
-    });
-  }
-  createFile(file) {
-    return __async(this, null, function* () {
-      return this.fileRepository.createFile(file);
-    });
-  }
-  // Batch operations for multiple files
-  createMultipleFiles(files) {
-    return __async(this, null, function* () {
-      for (const file of files) {
-        yield this.createFile(file);
-      }
-    });
-  }
-  // Get list of files in browser storage
-  getBrowserFiles() {
-    return this.fileRepository.getBrowserFiles();
-  }
-  // Utility method to clear browser storage
-  clearBrowserFiles() {
-    this.fileRepository.clearBrowserFiles();
-  }
-  copyFile(source, destination) {
-    return __async(this, null, function* () {
-      return this.fileRepository.copyFile(source, destination);
-    });
-  }
-  getFileStats(filePath) {
-    return __async(this, null, function* () {
-      return this.fileRepository.getFileStats(filePath);
-    });
-  }
-};
-
-// src/Application/Services/FolderGenAppService.ts
-var FolderStructureService = class {
-  constructor(fileService, pathService) {
-    this.fileService = fileService;
-    this.pathService = pathService;
-  }
-  createFolderStructure(folderPath) {
-    return __async(this, null, function* () {
-      const structure = [
-        "src",
-        "src/Domain",
-        "src/Domain/Entities",
-        "src/Domain/Interfaces",
-        "src/Domain/Services",
-        "src/Application",
-        "src/Application/Services",
-        "src/Infrastructure",
-        "src/Infrastructure/Configuration",
-        "src/Infrastructure/Repositories",
-        "src/Infrastructure/Presentation",
-        "src/Tests"
-      ];
-      yield this.fileService.createDirectory(folderPath);
-      structure.forEach((dir) => __async(this, null, function* () {
-        const dirPath = this.pathService.join(folderPath, dir);
-        if (yield this.fileService.fileExists(dirPath)) {
-          return;
-        }
-        console.log(`Creating directory: ${dirPath}`);
-        yield this.fileService.createDirectory(dirPath);
+  setError(stepId, error) {
+    const currentState = this.progressSubject.value;
+    const stepIndex = currentState.steps.findIndex((step) => step.id === stepId);
+    if (stepIndex !== -1) {
+      const updatedSteps = [...currentState.steps];
+      updatedSteps[stepIndex] = __spreadProps(__spreadValues({}, updatedSteps[stepIndex]), {
+        error,
+        endTime: Date.now()
+      });
+      this.progressSubject.next(__spreadProps(__spreadValues({}, currentState), {
+        steps: updatedSteps,
+        isRunning: false,
+        error
       }));
+    }
+  }
+  complete() {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+    this.targetProgress = 100;
+    this.currentAnimatedProgress = 100;
+    const currentState = this.progressSubject.value;
+    this.progressSubject.next(__spreadProps(__spreadValues({}, currentState), {
+      overallProgress: 100,
+      isRunning: false,
+      currentStep: void 0
+    }));
+  }
+  reset() {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = null;
+    }
+    this.currentAnimatedProgress = 0;
+    this.targetProgress = 0;
+    this.progressSubject.next({
+      steps: [],
+      currentStepIndex: 0,
+      overallProgress: 0,
+      isRunning: false
     });
   }
-};
-
-// src/Application/Services/PathAppService.ts
-var PathAppService = class {
-  constructor(pathRepository) {
-    this.pathRepository = pathRepository;
-  }
-  dirname(filePath) {
-    return this.pathRepository.dirname(filePath);
-  }
-  resolve(...paths) {
-    return this.pathRepository.resolve(...paths);
-  }
-  isAbsolute(rawFolderPath) {
-    return this.pathRepository.isAbsolute(rawFolderPath);
-  }
-  join(...paths) {
-    return this.pathRepository.join(...paths);
-  }
-  basename(dirPath, suffix) {
-    return this.pathRepository.basename(dirPath, suffix);
-  }
-};
-
-// src/Infrastructure/Repositories/WebContainerPathRepository.ts
-var WebContainerPathRepository = class {
-  dirname(filePath) {
-    const normalized = filePath.replace(/\\/g, "/");
-    const lastSlash = normalized.lastIndexOf("/");
-    if (lastSlash === -1) {
-      return ".";
+  animateToTarget() {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
     }
-    if (lastSlash === 0) {
-      return "/";
-    }
-    return normalized.substring(0, lastSlash);
-  }
-  resolve(...paths) {
-    let resolved2 = "";
-    let resolvedAbsolute = false;
-    for (let i = paths.length - 1; i >= 0 && !resolvedAbsolute; i--) {
-      const path = paths[i];
-      if (!path) continue;
-      resolved2 = path + "/" + resolved2;
-      resolvedAbsolute = path.startsWith("/");
-    }
-    resolved2 = this.normalizePath(resolved2 || ".");
-    return resolvedAbsolute ? "/" + resolved2 : resolved2;
-  }
-  isAbsolute(rawFolderPath) {
-    return rawFolderPath.startsWith("/") || /^[A-Za-z]:/.test(rawFolderPath);
-  }
-  join(...paths) {
-    if (paths.length === 0) return ".";
-    let joined = "";
-    for (const path of paths) {
-      if (!path) continue;
-      if (joined) {
-        joined += "/" + path;
-      } else {
-        joined = path;
+    const animate = () => {
+      const difference = this.targetProgress - this.currentAnimatedProgress;
+      if (Math.abs(difference) < 0.1) {
+        this.currentAnimatedProgress = this.targetProgress;
+        this.updateProgress();
+        return;
       }
-    }
-    return this.normalizePath(joined) || ".";
+      this.currentAnimatedProgress += difference * 0.1;
+      this.updateProgress();
+      this.animationFrameId = requestAnimationFrame(animate);
+    };
+    animate();
   }
-  basename(dirPath, suffix = "") {
-    const normalized = dirPath.replace(/\\/g, "/");
-    const lastSlash = normalized.lastIndexOf("/");
-    let base = lastSlash === -1 ? normalized : normalized.substring(lastSlash + 1);
-    if (suffix && base.endsWith(suffix)) {
-      base = base.substring(0, base.length - suffix.length);
-    }
-    return base;
+  updateProgress() {
+    const currentState = this.progressSubject.value;
+    this.progressSubject.next(__spreadProps(__spreadValues({}, currentState), {
+      overallProgress: this.currentAnimatedProgress
+    }));
   }
-  /**
-   * Normalize path by resolving . and .. components
-   */
-  normalizePath(path) {
-    const parts = path.replace(/\\/g, "/").split("/").filter(Boolean);
-    const normalized = [];
-    for (const part of parts) {
-      if (part === ".") {
-        continue;
-      } else if (part === "..") {
-        if (normalized.length > 0 && normalized[normalized.length - 1] !== "..") {
-          normalized.pop();
-        } else {
-          normalized.push("..");
-        }
-      } else {
-        normalized.push(part);
-      }
-    }
-    return normalized.join("/");
-  }
-};
-
-// src/Domain/Services/IRepoService.ts
-var import_handlebars4 = __toESM(require_handlebars());
-var IRepoService = class {
-  /**
-   * Generate repository interface files for a list of entity names using provided template content.
-   * @param entityFilePaths Array of objects containing entity name and target file path
-   * @param templateContent The Handlebars template content for repository interface generation
-   * @returns Array of FileEntity objects to be created by the application layer
-   */
-  generateRepositoryInterfacesFiles(entityFilePaths, templateContent) {
-    const fileEntities = [];
-    for (const { entityName, filePath } of entityFilePaths) {
-      const code = this.generateRepositoryInterfaceCode(
-        templateContent,
-        entityName
+  calculateEstimatedTime(steps, currentIndex) {
+    const completedSteps = steps.filter(
+      (step) => step.completed && step.startTime && step.endTime
+    );
+    if (completedSteps.length === 0) return void 0;
+    const totalCompletedTime = completedSteps.reduce((sum, step) => {
+      return sum + (step.endTime - step.startTime);
+    }, 0);
+    const completedWeight = completedSteps.reduce(
+      (sum, step) => sum + step.weight,
+      0
+    );
+    const averageTimePerWeight = totalCompletedTime / completedWeight;
+    const remainingSteps = steps.slice(currentIndex);
+    const remainingWeight = remainingSteps.filter((step) => !step.completed).reduce((sum, step) => sum + step.weight, 0);
+    let currentStepRemainingTime = 0;
+    const currentStep = steps[currentIndex];
+    if (currentStep?.startTime && !currentStep.completed) {
+      const currentStepElapsedTime = Date.now() - currentStep.startTime;
+      const expectedCurrentStepTime = currentStep.weight * averageTimePerWeight;
+      currentStepRemainingTime = Math.max(
+        0,
+        expectedCurrentStepTime - currentStepElapsedTime
       );
-      const file = new FileEntity(filePath, code);
-      fileEntities.push(file);
+      const adjustedRemainingWeight = remainingWeight - currentStep.weight;
+      return adjustedRemainingWeight * averageTimePerWeight + currentStepRemainingTime;
     }
-    return fileEntities;
-  }
-  /**
-   * Generate code for a single repository interface (no file creation, for preview etc.)
-   * Uses provided template content instead of loading from file.
-   * @param templateContent The Handlebars template content
-   * @param entityName The entity name for which to generate repository interface
-   * @returns The generated repository interface code
-   */
-  generateRepositoryInterfaceCode(templateContent, entityName) {
-    const template = import_handlebars4.default.compile(templateContent);
-    return template({ entityName });
+    return remainingWeight * averageTimePerWeight;
   }
 };
 
-// src/Application/Services/ZipAppService.ts
-var import_jszip = __toESM(require_jszip_min());
-var ZipAppService = class {
-  constructor(browserCheckAppService, fileRepository) {
-    this.browserCheckAppService = browserCheckAppService;
+// src/Application/Services/WebContainerAppService.ts
+var WebContainerAppService = class {
+  constructor(fileRepository, webContainerManager, generationOrchestrator, downloadService) {
     this.fileRepository = fileRepository;
+    this.webContainerManager = webContainerManager;
+    this.generationOrchestrator = generationOrchestrator;
+    this.downloadService = downloadService;
   }
   /**
-   * Create and download a ZIP file from a collection of FileEntity objects
+   * Initialize WebContainer
    */
-  createAndDownloadZip(files, zipFileName = "generated-files.zip") {
+  initializeWebContainer() {
     return __async(this, null, function* () {
-      this.validateBrowserEnvironment();
-      this.validateFiles(files);
-      const zipBlob = yield this.createZipBlob(files);
-      this.triggerDownload(zipBlob, zipFileName);
+      yield this.webContainerManager.initialize();
     });
   }
   /**
-   * Create a ZIP blob from FileEntity objects
+   * Generate Onion Architecture in WebContainer
    */
-  createZipBlob(files) {
+  generateOnionArchitecture(config2, progressCallback) {
     return __async(this, null, function* () {
-      this.validateBrowserEnvironment();
-      this.validateFiles(files);
-      const zip = new import_jszip.default();
-      for (const file of files) {
-        const cleanPath = this.sanitizeFilePath(file.filePath);
-        zip.file(cleanPath, file.content);
-      }
-      return yield zip.generateAsync({ type: "blob" });
-    });
-  }
-  /**
-   * Create and download ZIP from files stored in browser repository
-   */
-  createAndDownloadZipFromRepository(zipFileName = "generated-files.zip") {
-    return __async(this, null, function* () {
-      this.validateBrowserEnvironment();
-      const browserFiles = this.fileRepository.getBrowserFiles();
-      if (browserFiles.length === 0) {
-        throw new Error("No files available in repository to zip");
-      }
-      const zip = new import_jszip.default();
-      for (const filePath of browserFiles) {
-        const file = yield this.fileRepository.read(filePath);
-        const cleanPath = this.sanitizeFilePath(filePath);
-        zip.file(cleanPath, file.content);
-      }
-      const zipBlob = yield zip.generateAsync({ type: "blob" });
-      this.triggerDownload(zipBlob, zipFileName);
-    });
-  }
-  /**
-   * Create ZIP from file paths and their contents
-   */
-  createZipFromPaths(filePaths, zipFileName = "generated-files.zip") {
-    return __async(this, null, function* () {
-      this.validateBrowserEnvironment();
-      if (filePaths.length === 0) {
-        throw new Error("No file paths provided");
-      }
-      const zip = new import_jszip.default();
-      for (const { path, content } of filePaths) {
-        const cleanPath = this.sanitizeFilePath(path);
-        zip.file(cleanPath, content);
-      }
-      const zipBlob = yield zip.generateAsync({ type: "blob" });
-      this.triggerDownload(zipBlob, zipFileName);
-    });
-  }
-  /**
-   * Get ZIP statistics
-   */
-  getZipStats(files) {
-    return __async(this, null, function* () {
-      const totalSize = files.reduce((sum, file) => sum + file.content.length, 0);
-      const sampleZip = new import_jszip.default();
-      const sampleFile = files[0];
-      if (sampleFile) {
-        sampleZip.file("sample.txt", sampleFile.content);
-        const sampleBlob = yield sampleZip.generateAsync({ type: "blob" });
-        const compressionRatio = sampleBlob.size / sampleFile.content.length;
-        return {
-          fileCount: files.length,
-          totalSize,
-          estimatedZipSize: Math.round(totalSize * compressionRatio)
-        };
-      }
-      return {
-        fileCount: files.length,
-        totalSize,
-        estimatedZipSize: totalSize
-      };
-    });
-  }
-  /**
-   * Validate that we're in a browser environment
-   */
-  validateBrowserEnvironment() {
-    if (!this.browserCheckAppService.isBrowser()) {
-      throw new Error(
-        "ZIP operations are only supported in browser environment"
+      return yield this.generationOrchestrator.generateProject(
+        config2,
+        progressCallback
       );
-    }
-  }
-  /**
-   * Validate that files array is not empty
-   */
-  validateFiles(files) {
-    if (files.length === 0) {
-      throw new Error("No files provided for ZIP creation");
-    }
-  }
-  /**
-   * Sanitize file path for ZIP entry
-   */
-  sanitizeFilePath(filePath) {
-    let cleanPath = filePath.startsWith("/") ? filePath.slice(1) : filePath;
-    cleanPath = cleanPath.replace(/\\/g, "/");
-    return cleanPath;
-  }
-  /**
-   * Trigger browser download of a blob
-   */
-  triggerDownload(blob, fileName) {
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    anchor.download = fileName;
-    anchor.style.display = "none";
-    document.body.appendChild(anchor);
-    anchor.click();
-    document.body.removeChild(anchor);
-    URL.revokeObjectURL(url);
-  }
-};
-
-// src/Infrastructure/Repositories/WebContainerFileRepository.ts
-var WebContainerFileRepository = class {
-  webcontainer = null;
-  browserFiles = [];
-  readTemplate(templateName) {
-    return __async(this, null, function* () {
-      let fetchUrl;
-      if (templateName.startsWith("Infrastructure")) {
-        fetchUrl = `/templates/${templateName}`;
-      } else {
-        fetchUrl = `/templates/Domain/Services/templates/${templateName}`;
-      }
-      const normalizedPath = fetchUrl.replace(/\\/g, "/");
-      fetchUrl = normalizedPath;
-      const response = yield fetch(fetchUrl);
-      if (response.ok) {
-        return {
-          filePath: "todo fix",
-          content: yield response.text()
-        };
-      } else {
-        console.warn(
-          `Failed to fetch template ${fetchUrl}: ${response.status} ${response.statusText}`
-        );
-        throw new Error(`Could not read template file ${templateName}`);
-      }
     });
   }
   /**
-   * Set the WebContainer instance (should be called after WebContainer.boot())
+   * Download the generated project as a ZIP file
    */
-  setWebContainer(webcontainer) {
-    this.webcontainer = webcontainer;
-  }
-  /**
-   * Initialize with existing WebContainer instance
-   */
-  initializeWebContainer(webcontainer) {
+  downloadProject() {
     return __async(this, null, function* () {
-      if (webcontainer) {
-        this.webcontainer = webcontainer;
-      }
-      if (!this.webcontainer) {
-        throw new Error(
-          "WebContainer instance must be provided. Use setWebContainer() first."
-        );
-      }
-      return this.webcontainer;
+      return yield this.downloadService.downloadProject();
     });
   }
-  getWebContainer() {
-    return __async(this, null, function* () {
-      if (!this.webcontainer) {
-        throw new Error(
-          "WebContainer not initialized. Call initializeWebContainer() first."
-        );
-      }
-      return this.webcontainer;
-    });
-  }
-  clearBrowserFiles() {
-    this.browserFiles = [];
-  }
   /**
-   * Reset the WebContainer filesystem by removing all files and directories
+   * Reset WebContainer and clear all data
    */
   resetWebContainer() {
     return __async(this, null, function* () {
-      if (!this.webcontainer) {
-        console.warn("WebContainer not initialized, nothing to reset");
-        return;
-      }
-      try {
-        this.clearBrowserFiles();
-        const rootItems = yield this.webcontainer.fs.readdir("/");
-        const systemDirs = ["tmp", "dev", "proc", "sys"];
-        for (const item of rootItems) {
-          if (!systemDirs.includes(item)) {
-            try {
-              yield this.webcontainer.fs.rm(`/${item}`, {
-                recursive: true,
-                force: true
-              });
-              console.log(`Removed: /${item}`);
-            } catch (error) {
-              console.warn(`Could not remove /${item}:`, error);
-            }
-          }
-        }
-        console.log("WebContainer filesystem reset completed");
-      } catch (error) {
-        console.error("Error resetting WebContainer:", error);
-      }
-    });
-  }
-  getBrowserFiles() {
-    return [...this.browserFiles];
-  }
-  rmSync(appDir) {
-    return __async(this, null, function* () {
-      const webcontainer = yield this.getWebContainer();
-      try {
-        yield webcontainer.fs.rm(appDir, { recursive: true, force: true });
-        this.browserFiles = this.browserFiles.filter(
-          (file) => !file.startsWith(appDir)
-        );
-      } catch (error) {
-        console.warn(`Could not remove directory ${appDir}:`, error);
-      }
-    });
-  }
-  read(filePath) {
-    return __async(this, null, function* () {
-      const normalizedPath = filePath.replace(/\\/g, "/");
-      const webcontainer = yield this.getWebContainer();
-      const content = yield webcontainer.fs.readFile(normalizedPath, "utf-8");
-      return { filePath: normalizedPath, content };
-    });
-  }
-  fileExists(filePath) {
-    return __async(this, null, function* () {
-      const webcontainer = yield this.getWebContainer();
-      const normalizedPath = filePath.replace(/\\/g, "/");
-      try {
-        yield webcontainer.fs.readFile(normalizedPath);
-        return true;
-      } catch {
-        try {
-          yield webcontainer.fs.readdir(normalizedPath);
-          return false;
-        } catch {
-          return false;
-        }
-      }
-    });
-  }
-  createDirectory(dirPath) {
-    return __async(this, null, function* () {
-      const webcontainer = yield this.getWebContainer();
-      const normalizedPath = dirPath.replace(/\\/g, "/");
-      try {
-        if (yield this.dirExists(normalizedPath)) {
-          return;
-        }
-        const isFileExisting = yield this.fileExists(normalizedPath);
-        if (isFileExisting) {
-          console.warn(
-            `File exists with same name as directory: ${normalizedPath}, removing file first`
-          );
-          yield webcontainer.fs.rm(normalizedPath, { force: true });
-        }
-        yield webcontainer.fs.mkdir(normalizedPath, { recursive: true });
-      } catch (error) {
-        const errorMessage = error.message;
-        if (errorMessage.includes("EEXIST") || errorMessage.includes("exists")) {
-          return;
-        }
-        if (errorMessage.includes("EISDIR") || errorMessage.includes("is a directory")) {
-          return;
-        }
-        console.warn(`Could not create directory ${normalizedPath}:`, error);
-      }
-    });
-  }
-  createFile(file) {
-    return __async(this, null, function* () {
-      const webcontainer = yield this.getWebContainer();
-      const normalizedPath = file.filePath.replace(/\\/g, "/");
-      const dirPath = normalizedPath.substring(
-        0,
-        normalizedPath.lastIndexOf("/")
-      );
-      if (dirPath) {
-        yield this.createDirectory(dirPath);
-      }
-      try {
-        const isDirExisting = yield this.dirExists(normalizedPath);
-        if (isDirExisting) {
-          console.warn(
-            `Directory exists with same name as file: ${normalizedPath}, removing directory first`
-          );
-          yield webcontainer.fs.rm(normalizedPath, {
-            recursive: true,
-            force: true
-          });
-        }
-        yield webcontainer.fs.writeFile(normalizedPath, file.content, "utf-8");
-        if (!this.browserFiles.includes(normalizedPath)) {
-          this.browserFiles.push(normalizedPath);
-        }
-      } catch (error) {
-        throw new Error(`Could not create file ${file.filePath}: ${error}`);
-      }
-    });
-  }
-  dirExists(dirPath) {
-    return __async(this, null, function* () {
-      const webcontainer = yield this.getWebContainer();
-      const normalizedPath = dirPath.replace(/\\/g, "/");
-      try {
-        yield webcontainer.fs.readdir(normalizedPath);
-        return true;
-      } catch {
-        return false;
-      }
+      yield this.fileRepository.resetWebContainer();
+      yield this.webContainerManager.reset();
     });
   }
   /**
-   * Check if a path exists (file or directory)
+   * Check if WebContainer is initialized and ready
    */
-  pathExists(path) {
-    return __async(this, null, function* () {
-      return (yield this.fileExists(path)) || (yield this.dirExists(path));
-    });
-  }
-  rename(from2, to2) {
-    return __async(this, null, function* () {
-      const webcontainer = yield this.getWebContainer();
-      const normalizedFrom = from2.replace(/\\/g, "/");
-      const normalizedTo = to2.replace(/\\/g, "/");
-      const toDir = normalizedTo.substring(0, normalizedTo.lastIndexOf("/"));
-      if (toDir) {
-        yield this.createDirectory(toDir);
-      }
-      try {
-        yield webcontainer.fs.rename(normalizedFrom, normalizedTo);
-        const fromIndex = this.browserFiles.indexOf(normalizedFrom);
-        if (fromIndex !== -1) {
-          this.browserFiles[fromIndex] = normalizedTo;
-        }
-      } catch (error) {
-        throw new Error(`Could not rename ${from2} to ${to2}: ${error}`);
-      }
-    });
-  }
-  reSync(appDir) {
-    return __async(this, null, function* () {
-      yield this.rmSync(appDir);
-    });
-  }
-  getNamesFromDir(dir) {
-    return __async(this, null, function* () {
-      const webcontainer = yield this.getWebContainer();
-      const normalizedPath = dir.replace(/\\/g, "/");
-      try {
-        const files = yield webcontainer.fs.readdir(normalizedPath);
-        return files.filter((file) => file.endsWith(".ts")).map((file) => file.replace(".ts", ""));
-      } catch (error) {
-        console.warn(`Could not read directory ${dir}:`, error);
-        return [];
-      }
-    });
-  }
-  readdir(dir) {
-    return __async(this, null, function* () {
-      const webcontainer = yield this.getWebContainer();
-      const normalizedPath = dir.replace(/\\/g, "/");
-      try {
-        const files = yield webcontainer.fs.readdir(normalizedPath);
-        return Array.isArray(files) ? files : [];
-      } catch (error) {
-        console.warn(`Could not read directory ${dir}:`, error);
-        return [];
-      }
-    });
-  }
-  copyFile(source, destination) {
-    return __async(this, null, function* () {
-      const webcontainer = yield this.getWebContainer();
-      const normalizedSource = source.replace(/\\/g, "/");
-      const normalizedDestination = destination.replace(/\\/g, "/");
-      try {
-        const content = yield webcontainer.fs.readFile(normalizedSource, "utf-8");
-        yield webcontainer.fs.writeFile(normalizedDestination, content);
-      } catch (error) {
-        console.warn(
-          `Could not copy file from ${source} to ${destination}:`,
-          error
-        );
-        throw error;
-      }
-    });
-  }
-  getFileStats(filePath) {
-    return __async(this, null, function* () {
-      const webcontainer = yield this.getWebContainer();
-      const normalizedPath = filePath.replace(/\\/g, "/");
-      try {
-        yield webcontainer.fs.readdir(normalizedPath);
-        return {
-          isDirectory: () => true,
-          isFile: () => false
-        };
-      } catch {
-        try {
-          yield webcontainer.fs.readFile(normalizedPath);
-          return {
-            isDirectory: () => false,
-            isFile: () => true
-          };
-        } catch {
-          console.warn(`Could not determine file stats for ${filePath}`);
-          return {
-            isDirectory: () => false,
-            isFile: () => false
-          };
-        }
-      }
-    });
-  }
-  /**
-   * Install npm packages in the WebContainer
-   */
-  installPackages(packages, cwd = "/") {
-    return __async(this, null, function* () {
-      const webcontainer = yield this.getWebContainer();
-      const normalizedCwd = cwd.replace(/\\/g, "/");
-      try {
-        const installProcess = yield webcontainer.spawn(
-          "npm",
-          ["install", ...packages],
-          {
-            cwd: normalizedCwd
-          }
-        );
-        const exitCode = yield installProcess.exit;
-        if (exitCode !== 0) {
-          throw new Error(
-            `Package installation failed with exit code ${exitCode}`
-          );
-        }
-      } catch (error) {
-        throw new Error(`Could not install packages: ${error}`);
-      }
-    });
-  }
-  /**
-   * Get all project files with their contents for download
-   */
-  getAllProjectFiles(projectDir) {
-    return __async(this, null, function* () {
-      const webcontainer = yield this.getWebContainer();
-      const normalizedProjectDir = projectDir.replace(/\\/g, "/");
-      const allFiles = [];
-      function readDirectory(dir) {
-        return __async(this, null, function* () {
-          try {
-            const items = yield webcontainer.fs.readdir(dir, {
-              withFileTypes: true
-            });
-            for (const item of items) {
-              const itemPath = `${dir}/${item.name}`;
-              if (item.isDirectory()) {
-                if (item.name !== "node_modules" && item.name !== ".git" && !item.name.startsWith(".")) {
-                  yield readDirectory(itemPath);
-                }
-              } else {
-                try {
-                  const content = yield webcontainer.fs.readFile(itemPath, "utf-8");
-                  const relativePath2 = itemPath.replace(
-                    normalizedProjectDir + "/",
-                    ""
-                  );
-                  allFiles.push({ path: relativePath2, content });
-                } catch (readError) {
-                  console.warn(`Could not read file ${itemPath}:`, readError);
-                }
-              }
-            }
-          } catch (error) {
-            console.warn(`Could not read directory ${dir}:`, error);
-          }
-        });
-      }
-      yield readDirectory(normalizedProjectDir);
-      return allFiles;
-    });
+  isWebContainerReady() {
+    return this.webContainerManager.isReady();
   }
 };
 
@@ -88099,9 +84901,9 @@ var WebContainerOptimizedProjectAppService = class {
         const filesToMove = ["App.tsx", "App.css"];
         for (const file of filesToMove) {
           const from2 = `${srcPath}/${file}`.replace(/\/+/g, "/");
-          const to2 = `${presentationPath}/${file}`.replace(/\/+/g, "/");
+          const to = `${presentationPath}/${file}`.replace(/\/+/g, "/");
           if (yield this.fileService.fileExists(from2)) {
-            this.fileService.rename(from2, to2);
+            this.fileService.rename(from2, to);
           }
         }
         const mainFile = `${srcPath}/main.tsx`.replace(/\/+/g, "/");
@@ -88110,9 +84912,9 @@ var WebContainerOptimizedProjectAppService = class {
         });
       } else if (framework === "vue") {
         const from2 = `${srcPath}/App.vue`.replace(/\/+/g, "/");
-        const to2 = `${presentationPath}/App.vue`.replace(/\/+/g, "/");
+        const to = `${presentationPath}/App.vue`.replace(/\/+/g, "/");
         if (yield this.fileService.fileExists(from2)) {
-          this.fileService.rename(from2, to2);
+          this.fileService.rename(from2, to);
         }
         yield this.helperFunctions.createShimsVueFile(folderPath);
         yield this.helperFunctions.changeToTypeImportSyntax(folderPath);
@@ -88242,55 +85044,141 @@ export default [
   }
 };
 
-// src/Application/Services/WebContainerAppService.ts
-var WebContainerAppService = class {
-  constructor(fileRepository, webContainerManager, generationOrchestrator, downloadService) {
+// src/Application/Services/ZipAppService.ts
+var import_jszip = __toESM(require_jszip_min());
+var ZipAppService = class {
+  constructor(browserCheckAppService, fileRepository) {
+    this.browserCheckAppService = browserCheckAppService;
     this.fileRepository = fileRepository;
-    this.webContainerManager = webContainerManager;
-    this.generationOrchestrator = generationOrchestrator;
-    this.downloadService = downloadService;
   }
   /**
-   * Initialize WebContainer
+   * Create and download a ZIP file from a collection of FileEntity objects
    */
-  initializeWebContainer() {
+  createAndDownloadZip(files, zipFileName = "generated-files.zip") {
     return __async(this, null, function* () {
-      yield this.webContainerManager.initialize();
+      this.validateBrowserEnvironment();
+      this.validateFiles(files);
+      const zipBlob = yield this.createZipBlob(files);
+      this.triggerDownload(zipBlob, zipFileName);
     });
   }
   /**
-   * Generate Onion Architecture in WebContainer
+   * Create a ZIP blob from FileEntity objects
    */
-  generateOnionArchitecture(config2, progressCallback) {
+  createZipBlob(files) {
     return __async(this, null, function* () {
-      return yield this.generationOrchestrator.generateProject(
-        config2,
-        progressCallback
+      this.validateBrowserEnvironment();
+      this.validateFiles(files);
+      const zip = new import_jszip.default();
+      for (const file of files) {
+        const cleanPath = this.sanitizeFilePath(file.filePath);
+        zip.file(cleanPath, file.content);
+      }
+      return yield zip.generateAsync({ type: "blob" });
+    });
+  }
+  /**
+   * Create and download ZIP from files stored in browser repository
+   */
+  createAndDownloadZipFromRepository(zipFileName = "generated-files.zip") {
+    return __async(this, null, function* () {
+      this.validateBrowserEnvironment();
+      const browserFiles = this.fileRepository.getBrowserFiles();
+      if (browserFiles.length === 0) {
+        throw new Error("No files available in repository to zip");
+      }
+      const zip = new import_jszip.default();
+      for (const filePath of browserFiles) {
+        const file = yield this.fileRepository.read(filePath);
+        const cleanPath = this.sanitizeFilePath(filePath);
+        zip.file(cleanPath, file.content);
+      }
+      const zipBlob = yield zip.generateAsync({ type: "blob" });
+      this.triggerDownload(zipBlob, zipFileName);
+    });
+  }
+  /**
+   * Create ZIP from file paths and their contents
+   */
+  createZipFromPaths(filePaths, zipFileName = "generated-files.zip") {
+    return __async(this, null, function* () {
+      this.validateBrowserEnvironment();
+      if (filePaths.length === 0) {
+        throw new Error("No file paths provided");
+      }
+      const zip = new import_jszip.default();
+      for (const { path, content } of filePaths) {
+        const cleanPath = this.sanitizeFilePath(path);
+        zip.file(cleanPath, content);
+      }
+      const zipBlob = yield zip.generateAsync({ type: "blob" });
+      this.triggerDownload(zipBlob, zipFileName);
+    });
+  }
+  /**
+   * Get ZIP statistics
+   */
+  getZipStats(files) {
+    return __async(this, null, function* () {
+      const totalSize = files.reduce((sum, file) => sum + file.content.length, 0);
+      const sampleZip = new import_jszip.default();
+      const sampleFile = files[0];
+      if (sampleFile) {
+        sampleZip.file("sample.txt", sampleFile.content);
+        const sampleBlob = yield sampleZip.generateAsync({ type: "blob" });
+        const compressionRatio = sampleBlob.size / sampleFile.content.length;
+        return {
+          fileCount: files.length,
+          totalSize,
+          estimatedZipSize: Math.round(totalSize * compressionRatio)
+        };
+      }
+      return {
+        fileCount: files.length,
+        totalSize,
+        estimatedZipSize: totalSize
+      };
+    });
+  }
+  /**
+   * Validate that we're in a browser environment
+   */
+  validateBrowserEnvironment() {
+    if (!this.browserCheckAppService.isBrowser()) {
+      throw new Error(
+        "ZIP operations are only supported in browser environment"
       );
-    });
+    }
   }
   /**
-   * Download the generated project as a ZIP file
+   * Validate that files array is not empty
    */
-  downloadProject() {
-    return __async(this, null, function* () {
-      return yield this.downloadService.downloadProject();
-    });
+  validateFiles(files) {
+    if (files.length === 0) {
+      throw new Error("No files provided for ZIP creation");
+    }
   }
   /**
-   * Reset WebContainer and clear all data
+   * Sanitize file path for ZIP entry
    */
-  resetWebContainer() {
-    return __async(this, null, function* () {
-      yield this.fileRepository.resetWebContainer();
-      yield this.webContainerManager.reset();
-    });
+  sanitizeFilePath(filePath) {
+    let cleanPath = filePath.startsWith("/") ? filePath.slice(1) : filePath;
+    cleanPath = cleanPath.replace(/\\/g, "/");
+    return cleanPath;
   }
   /**
-   * Check if WebContainer is initialized and ready
+   * Trigger browser download of a blob
    */
-  isWebContainerReady() {
-    return this.webContainerManager.isReady();
+  triggerDownload(blob, fileName) {
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = fileName;
+    anchor.style.display = "none";
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+    URL.revokeObjectURL(url);
   }
 };
 
@@ -88298,6 +85186,7 @@ var WebContainerAppService = class {
 var NodeCommandRunner = class {
   constructor() {
   }
+  // private readonly commandRunnerService: RunCommandService
   runCommand(command, cwd) {
     return __async(this, null, function* () {
       return "";
@@ -88386,6 +85275,386 @@ var WebContainerCommandRunnerService = class {
     return __async(this, null, function* () {
       const runner = yield this.ensureCommandRunner();
       return runner.createAngularProject(projectName, cwd, options);
+    });
+  }
+};
+
+// src/Infrastructure/Repositories/WebContainerFileRepository.ts
+var WebContainerFileRepository = class {
+  webcontainer = null;
+  browserFiles = [];
+  readTemplate(templateName) {
+    return __async(this, null, function* () {
+      let fetchUrl;
+      if (templateName.startsWith("Infrastructure")) {
+        fetchUrl = `/templates/${templateName}`;
+      } else {
+        fetchUrl = `/templates/Domain/Services/templates/${templateName}`;
+      }
+      const normalizedPath = fetchUrl.replace(/\\/g, "/");
+      fetchUrl = normalizedPath;
+      const response = yield fetch(fetchUrl);
+      if (response.ok) {
+        return {
+          filePath: "todo fix",
+          content: yield response.text()
+        };
+      } else {
+        console.warn(
+          `Failed to fetch template ${fetchUrl}: ${response.status} ${response.statusText}`
+        );
+        throw new Error(`Could not read template file ${templateName}`);
+      }
+    });
+  }
+  /**
+   * Set the WebContainer instance (should be called after WebContainer.boot())
+   */
+  setWebContainer(webcontainer) {
+    this.webcontainer = webcontainer;
+  }
+  /**
+   * Initialize with existing WebContainer instance
+   */
+  initializeWebContainer(webcontainer) {
+    return __async(this, null, function* () {
+      if (webcontainer) {
+        this.webcontainer = webcontainer;
+      }
+      if (!this.webcontainer) {
+        throw new Error(
+          "WebContainer instance must be provided. Use setWebContainer() first."
+        );
+      }
+      return this.webcontainer;
+    });
+  }
+  getWebContainer() {
+    return __async(this, null, function* () {
+      if (!this.webcontainer) {
+        throw new Error(
+          "WebContainer not initialized. Call initializeWebContainer() first."
+        );
+      }
+      return this.webcontainer;
+    });
+  }
+  clearBrowserFiles() {
+    this.browserFiles = [];
+  }
+  /**
+   * Reset the WebContainer filesystem by removing all files and directories
+   */
+  resetWebContainer() {
+    return __async(this, null, function* () {
+      if (!this.webcontainer) {
+        console.warn("WebContainer not initialized, nothing to reset");
+        return;
+      }
+      try {
+        this.clearBrowserFiles();
+        const rootItems = yield this.webcontainer.fs.readdir("/");
+        const systemDirs = ["tmp", "dev", "proc", "sys"];
+        for (const item of rootItems) {
+          if (!systemDirs.includes(item)) {
+            try {
+              yield this.webcontainer.fs.rm(`/${item}`, {
+                recursive: true,
+                force: true
+              });
+              console.log(`Removed: /${item}`);
+            } catch (error) {
+              console.warn(`Could not remove /${item}:`, error);
+            }
+          }
+        }
+        console.log("WebContainer filesystem reset completed");
+      } catch (error) {
+        console.error("Error resetting WebContainer:", error);
+      }
+    });
+  }
+  getBrowserFiles() {
+    return [...this.browserFiles];
+  }
+  rmSync(appDir) {
+    return __async(this, null, function* () {
+      const webcontainer = yield this.getWebContainer();
+      try {
+        yield webcontainer.fs.rm(appDir, { recursive: true, force: true });
+        this.browserFiles = this.browserFiles.filter(
+          (file) => !file.startsWith(appDir)
+        );
+      } catch (error) {
+        console.warn(`Could not remove directory ${appDir}:`, error);
+      }
+    });
+  }
+  read(filePath) {
+    return __async(this, null, function* () {
+      const normalizedPath = filePath.replace(/\\/g, "/");
+      const webcontainer = yield this.getWebContainer();
+      const content = yield webcontainer.fs.readFile(normalizedPath, "utf-8");
+      return { filePath: normalizedPath, content };
+    });
+  }
+  fileExists(filePath) {
+    return __async(this, null, function* () {
+      const webcontainer = yield this.getWebContainer();
+      const normalizedPath = filePath.replace(/\\/g, "/");
+      try {
+        yield webcontainer.fs.readFile(normalizedPath);
+        return true;
+      } catch {
+        try {
+          yield webcontainer.fs.readdir(normalizedPath);
+          return false;
+        } catch {
+          return false;
+        }
+      }
+    });
+  }
+  createDirectory(dirPath) {
+    return __async(this, null, function* () {
+      const webcontainer = yield this.getWebContainer();
+      const normalizedPath = dirPath.replace(/\\/g, "/");
+      try {
+        if (yield this.dirExists(normalizedPath)) {
+          return;
+        }
+        const isFileExisting = yield this.fileExists(normalizedPath);
+        if (isFileExisting) {
+          console.warn(
+            `File exists with same name as directory: ${normalizedPath}, removing file first`
+          );
+          yield webcontainer.fs.rm(normalizedPath, { force: true });
+        }
+        yield webcontainer.fs.mkdir(normalizedPath, { recursive: true });
+      } catch (error) {
+        const errorMessage = error.message;
+        if (errorMessage.includes("EEXIST") || errorMessage.includes("exists")) {
+          return;
+        }
+        if (errorMessage.includes("EISDIR") || errorMessage.includes("is a directory")) {
+          return;
+        }
+        console.warn(`Could not create directory ${normalizedPath}:`, error);
+      }
+    });
+  }
+  createFile(file) {
+    return __async(this, null, function* () {
+      const webcontainer = yield this.getWebContainer();
+      const normalizedPath = file.filePath.replace(/\\/g, "/");
+      const dirPath = normalizedPath.substring(
+        0,
+        normalizedPath.lastIndexOf("/")
+      );
+      if (dirPath) {
+        yield this.createDirectory(dirPath);
+      }
+      try {
+        const isDirExisting = yield this.dirExists(normalizedPath);
+        if (isDirExisting) {
+          console.warn(
+            `Directory exists with same name as file: ${normalizedPath}, removing directory first`
+          );
+          yield webcontainer.fs.rm(normalizedPath, {
+            recursive: true,
+            force: true
+          });
+        }
+        yield webcontainer.fs.writeFile(normalizedPath, file.content, "utf-8");
+        if (!this.browserFiles.includes(normalizedPath)) {
+          this.browserFiles.push(normalizedPath);
+        }
+      } catch (error) {
+        throw new Error(`Could not create file ${file.filePath}: ${error}`);
+      }
+    });
+  }
+  dirExists(dirPath) {
+    return __async(this, null, function* () {
+      const webcontainer = yield this.getWebContainer();
+      const normalizedPath = dirPath.replace(/\\/g, "/");
+      try {
+        yield webcontainer.fs.readdir(normalizedPath);
+        return true;
+      } catch {
+        return false;
+      }
+    });
+  }
+  /**
+   * Check if a path exists (file or directory)
+   */
+  pathExists(path) {
+    return __async(this, null, function* () {
+      return (yield this.fileExists(path)) || (yield this.dirExists(path));
+    });
+  }
+  rename(from2, to) {
+    return __async(this, null, function* () {
+      const webcontainer = yield this.getWebContainer();
+      const normalizedFrom = from2.replace(/\\/g, "/");
+      const normalizedTo = to.replace(/\\/g, "/");
+      const toDir = normalizedTo.substring(0, normalizedTo.lastIndexOf("/"));
+      if (toDir) {
+        yield this.createDirectory(toDir);
+      }
+      try {
+        yield webcontainer.fs.rename(normalizedFrom, normalizedTo);
+        const fromIndex = this.browserFiles.indexOf(normalizedFrom);
+        if (fromIndex !== -1) {
+          this.browserFiles[fromIndex] = normalizedTo;
+        }
+      } catch (error) {
+        throw new Error(`Could not rename ${from2} to ${to}: ${error}`);
+      }
+    });
+  }
+  reSync(appDir) {
+    return __async(this, null, function* () {
+      yield this.rmSync(appDir);
+    });
+  }
+  getNamesFromDir(dir) {
+    return __async(this, null, function* () {
+      const webcontainer = yield this.getWebContainer();
+      const normalizedPath = dir.replace(/\\/g, "/");
+      try {
+        const files = yield webcontainer.fs.readdir(normalizedPath);
+        return files.filter((file) => file.endsWith(".ts")).map((file) => file.replace(".ts", ""));
+      } catch (error) {
+        console.warn(`Could not read directory ${dir}:`, error);
+        return [];
+      }
+    });
+  }
+  readdir(dir) {
+    return __async(this, null, function* () {
+      const webcontainer = yield this.getWebContainer();
+      const normalizedPath = dir.replace(/\\/g, "/");
+      try {
+        const files = yield webcontainer.fs.readdir(normalizedPath);
+        return Array.isArray(files) ? files : [];
+      } catch (error) {
+        console.warn(`Could not read directory ${dir}:`, error);
+        return [];
+      }
+    });
+  }
+  copyFile(source, destination) {
+    return __async(this, null, function* () {
+      const webcontainer = yield this.getWebContainer();
+      const normalizedSource = source.replace(/\\/g, "/");
+      const normalizedDestination = destination.replace(/\\/g, "/");
+      try {
+        const content = yield webcontainer.fs.readFile(normalizedSource, "utf-8");
+        yield webcontainer.fs.writeFile(normalizedDestination, content);
+      } catch (error) {
+        console.warn(
+          `Could not copy file from ${source} to ${destination}:`,
+          error
+        );
+        throw error;
+      }
+    });
+  }
+  getFileStats(filePath) {
+    return __async(this, null, function* () {
+      const webcontainer = yield this.getWebContainer();
+      const normalizedPath = filePath.replace(/\\/g, "/");
+      try {
+        yield webcontainer.fs.readdir(normalizedPath);
+        return {
+          isDirectory: () => true,
+          isFile: () => false
+        };
+      } catch {
+        try {
+          yield webcontainer.fs.readFile(normalizedPath);
+          return {
+            isDirectory: () => false,
+            isFile: () => true
+          };
+        } catch {
+          console.warn(`Could not determine file stats for ${filePath}`);
+          return {
+            isDirectory: () => false,
+            isFile: () => false
+          };
+        }
+      }
+    });
+  }
+  /**
+   * Install npm packages in the WebContainer
+   */
+  installPackages(packages, cwd = "/") {
+    return __async(this, null, function* () {
+      const webcontainer = yield this.getWebContainer();
+      const normalizedCwd = cwd.replace(/\\/g, "/");
+      try {
+        const installProcess = yield webcontainer.spawn(
+          "npm",
+          ["install", ...packages],
+          {
+            cwd: normalizedCwd
+          }
+        );
+        const exitCode = yield installProcess.exit;
+        if (exitCode !== 0) {
+          throw new Error(
+            `Package installation failed with exit code ${exitCode}`
+          );
+        }
+      } catch (error) {
+        throw new Error(`Could not install packages: ${error}`);
+      }
+    });
+  }
+  /**
+   * Get all project files with their contents for download
+   */
+  getAllProjectFiles(projectDir) {
+    return __async(this, null, function* () {
+      const webcontainer = yield this.getWebContainer();
+      const normalizedProjectDir = projectDir.replace(/\\/g, "/");
+      const allFiles = [];
+      function readDirectory(dir) {
+        return __async(this, null, function* () {
+          try {
+            const items = yield webcontainer.fs.readdir(dir, {
+              withFileTypes: true
+            });
+            for (const item of items) {
+              const itemPath = `${dir}/${item.name}`;
+              if (item.isDirectory()) {
+                if (item.name !== "node_modules" && item.name !== ".git" && !item.name.startsWith(".")) {
+                  yield readDirectory(itemPath);
+                }
+              } else {
+                try {
+                  const content = yield webcontainer.fs.readFile(itemPath, "utf-8");
+                  const relativePath2 = itemPath.replace(
+                    normalizedProjectDir + "/",
+                    ""
+                  );
+                  allFiles.push({ path: relativePath2, content });
+                } catch (readError) {
+                  console.warn(`Could not read file ${itemPath}:`, readError);
+                }
+              }
+            }
+          } catch (error) {
+            console.warn(`Could not read directory ${dir}:`, error);
+          }
+        });
+      }
+      yield readDirectory(normalizedProjectDir);
+      return allFiles;
     });
   }
 };
@@ -88529,1402 +85798,101 @@ var WebContainerHelperFunctions = class {
   }
 };
 
-// src/Application/Services/ProjectDownloadAppService.ts
-var ProjectDownloadAppService = class {
-  constructor(fileRepository, zipService) {
-    this.fileRepository = fileRepository;
-    this.zipService = zipService;
-  }
-  downloadProject() {
-    return __async(this, null, function* () {
-      try {
-        console.log("Preparing project download...");
-        const projectFiles = yield this.getProjectFiles();
-        if (projectFiles.length === 0) {
-          return {
-            success: false,
-            message: "No project files found to download"
-          };
-        }
-        const zipFileName = this.generateZipFileName();
-        yield this.createAndDownloadZip(projectFiles, zipFileName);
-        console.log(`Downloaded project with ${projectFiles.length} files`);
-        return {
-          success: true,
-          message: `Project downloaded successfully (${projectFiles.length} files)`
-        };
-      } catch (error) {
-        console.error("Failed to download project:", error);
-        return {
-          success: false,
-          message: `Failed to prepare download: ${error}`
-        };
-      }
-    });
-  }
-  getProjectFiles() {
-    return __async(this, null, function* () {
-      return yield this.fileRepository.getAllProjectFiles("/onion-project");
-    });
-  }
-  generateZipFileName() {
-    const timestamp = (/* @__PURE__ */ new Date()).toISOString().replace(/[:.]/g, "-").slice(0, 19);
-    return `onion-architecture-project-${timestamp}.zip`;
-  }
-  createAndDownloadZip(projectFiles, zipFileName) {
-    return __async(this, null, function* () {
-      const fileEntities = projectFiles.map(
-        (file) => new FileEntity(file.path, file.content)
-      );
-      yield this.zipService.createAndDownloadZip(fileEntities, zipFileName);
-    });
-  }
-};
-
-// src/Application/Services/ProgressTrackingAppService.ts
-var ProgressTrackingAppService = class {
-  progressSubject = new BehaviorSubject({
-    steps: [],
-    currentStepIndex: 0,
-    overallProgress: 0,
-    isRunning: false
-  });
-  progress$ = this.progressSubject.asObservable();
-  animationFrameId = null;
-  targetProgress = 0;
-  currentAnimatedProgress = 0;
-  initializeProgress(steps) {
-    this.progressSubject.next({
-      steps: steps.map((step) => __spreadProps(__spreadValues({}, step), { completed: false })),
-      currentStepIndex: 0,
-      overallProgress: 0,
-      isRunning: true,
-      currentStep: steps[0]
-    });
-    this.currentAnimatedProgress = 0;
-    this.targetProgress = 0;
-  }
-  startStep(stepId) {
-    const currentState = this.progressSubject.value;
-    const stepIndex = currentState.steps.findIndex((step) => step.id === stepId);
-    if (stepIndex === -1) return;
-    const updatedSteps = [...currentState.steps];
-    updatedSteps[stepIndex] = __spreadProps(__spreadValues({}, updatedSteps[stepIndex]), {
-      startTime: Date.now()
-    });
-    this.progressSubject.next(__spreadProps(__spreadValues({}, currentState), {
-      steps: updatedSteps,
-      currentStepIndex: stepIndex,
-      currentStep: updatedSteps[stepIndex],
-      estimatedTimeRemaining: this.calculateEstimatedTime(
-        updatedSteps,
-        stepIndex
-      )
-    }));
-  }
-  completeStep(stepId, nextStepProgress) {
-    const currentState = this.progressSubject.value;
-    const stepIndex = currentState.steps.findIndex((step) => step.id === stepId);
-    if (stepIndex === -1) return;
-    const updatedSteps = [...currentState.steps];
-    updatedSteps[stepIndex] = __spreadProps(__spreadValues({}, updatedSteps[stepIndex]), {
-      completed: true,
-      endTime: Date.now()
-    });
-    const totalWeight = updatedSteps.reduce(
-      (sum, step) => sum + step.weight,
-      0
-    );
-    const completedWeight = updatedSteps.filter((step) => step.completed).reduce((sum, step) => sum + step.weight, 0);
-    let currentStepProgress = 0;
-    if (nextStepProgress && stepIndex + 1 < updatedSteps.length) {
-      const nextStep = updatedSteps[stepIndex + 1];
-      currentStepProgress = nextStepProgress / 100 * nextStep.weight;
+// src/Infrastructure/Repositories/WebContainerPathRepository.ts
+var WebContainerPathRepository = class {
+  dirname(filePath) {
+    const normalized = filePath.replace(/\\/g, "/");
+    const lastSlash = normalized.lastIndexOf("/");
+    if (lastSlash === -1) {
+      return ".";
     }
-    this.targetProgress = Math.min(
-      100,
-      (completedWeight + currentStepProgress) / totalWeight * 100
-    );
-    this.animateToTarget();
-    const nextStepIndex = stepIndex + 1;
-    this.progressSubject.next(__spreadProps(__spreadValues({}, currentState), {
-      steps: updatedSteps,
-      currentStepIndex: nextStepIndex,
-      currentStep: nextStepIndex < updatedSteps.length ? updatedSteps[nextStepIndex] : void 0,
-      estimatedTimeRemaining: this.calculateEstimatedTime(
-        updatedSteps,
-        nextStepIndex
-      )
-    }));
+    if (lastSlash === 0) {
+      return "/";
+    }
+    return normalized.substring(0, lastSlash);
   }
-  updateStepProgress(stepId, progressPercentage) {
-    const currentState = this.progressSubject.value;
-    const stepIndex = currentState.steps.findIndex((step2) => step2.id === stepId);
-    if (stepIndex === -1) return;
-    const step = currentState.steps[stepIndex];
-    if (!step.startTime) {
-      this.startStep(stepId);
-      const updatedState = this.progressSubject.value;
-      this.updateStepProgressInternal(
-        updatedState,
-        stepIndex,
-        progressPercentage
-      );
-      return;
+  resolve(...paths) {
+    let resolved2 = "";
+    let resolvedAbsolute = false;
+    for (let i = paths.length - 1; i >= 0 && !resolvedAbsolute; i--) {
+      const path = paths[i];
+      if (!path) continue;
+      resolved2 = path + "/" + resolved2;
+      resolvedAbsolute = path.startsWith("/");
     }
-    this.updateStepProgressInternal(
-      currentState,
-      stepIndex,
-      progressPercentage
-    );
+    resolved2 = this.normalizePath(resolved2 || ".");
+    return resolvedAbsolute ? "/" + resolved2 : resolved2;
   }
-  updateStepProgressInternal(currentState, stepIndex, progressPercentage) {
-    const completedSteps = currentState.steps.slice(0, stepIndex);
-    const totalWeight = currentState.steps.reduce(
-      (sum, step) => sum + step.weight,
-      0
-    );
-    const completedWeight = completedSteps.reduce(
-      (sum, step) => sum + step.weight,
-      0
-    );
-    const currentStepWeight = currentState.steps[stepIndex].weight;
-    const currentStepProgress = progressPercentage / 100 * currentStepWeight;
-    this.targetProgress = Math.min(
-      100,
-      (completedWeight + currentStepProgress) / totalWeight * 100
-    );
-    this.animateToTarget();
-    this.progressSubject.next(__spreadProps(__spreadValues({}, currentState), {
-      estimatedTimeRemaining: this.calculateEstimatedTime(
-        currentState.steps,
-        stepIndex
-      )
-    }));
+  isAbsolute(rawFolderPath) {
+    return rawFolderPath.startsWith("/") || /^[A-Za-z]:/.test(rawFolderPath);
   }
-  setError(stepId, error) {
-    const currentState = this.progressSubject.value;
-    const stepIndex = currentState.steps.findIndex((step) => step.id === stepId);
-    if (stepIndex !== -1) {
-      const updatedSteps = [...currentState.steps];
-      updatedSteps[stepIndex] = __spreadProps(__spreadValues({}, updatedSteps[stepIndex]), {
-        error,
-        endTime: Date.now()
-      });
-      this.progressSubject.next(__spreadProps(__spreadValues({}, currentState), {
-        steps: updatedSteps,
-        isRunning: false,
-        error
-      }));
-    }
-  }
-  complete() {
-    if (this.animationFrameId) {
-      cancelAnimationFrame(this.animationFrameId);
-    }
-    this.targetProgress = 100;
-    this.currentAnimatedProgress = 100;
-    const currentState = this.progressSubject.value;
-    this.progressSubject.next(__spreadProps(__spreadValues({}, currentState), {
-      overallProgress: 100,
-      isRunning: false,
-      currentStep: void 0
-    }));
-  }
-  reset() {
-    if (this.animationFrameId) {
-      cancelAnimationFrame(this.animationFrameId);
-      this.animationFrameId = null;
-    }
-    this.currentAnimatedProgress = 0;
-    this.targetProgress = 0;
-    this.progressSubject.next({
-      steps: [],
-      currentStepIndex: 0,
-      overallProgress: 0,
-      isRunning: false
-    });
-  }
-  animateToTarget() {
-    if (this.animationFrameId) {
-      cancelAnimationFrame(this.animationFrameId);
-    }
-    const animate = () => {
-      const difference = this.targetProgress - this.currentAnimatedProgress;
-      if (Math.abs(difference) < 0.1) {
-        this.currentAnimatedProgress = this.targetProgress;
-        this.updateProgress();
-        return;
-      }
-      this.currentAnimatedProgress += difference * 0.1;
-      this.updateProgress();
-      this.animationFrameId = requestAnimationFrame(animate);
-    };
-    animate();
-  }
-  updateProgress() {
-    const currentState = this.progressSubject.value;
-    this.progressSubject.next(__spreadProps(__spreadValues({}, currentState), {
-      overallProgress: this.currentAnimatedProgress
-    }));
-  }
-  calculateEstimatedTime(steps, currentIndex) {
-    const completedSteps = steps.filter(
-      (step) => step.completed && step.startTime && step.endTime
-    );
-    if (completedSteps.length === 0) return void 0;
-    const totalCompletedTime = completedSteps.reduce((sum, step) => {
-      return sum + (step.endTime - step.startTime);
-    }, 0);
-    const completedWeight = completedSteps.reduce(
-      (sum, step) => sum + step.weight,
-      0
-    );
-    const averageTimePerWeight = totalCompletedTime / completedWeight;
-    const remainingSteps = steps.slice(currentIndex);
-    const remainingWeight = remainingSteps.filter((step) => !step.completed).reduce((sum, step) => sum + step.weight, 0);
-    let currentStepRemainingTime = 0;
-    const currentStep = steps[currentIndex];
-    if (currentStep?.startTime && !currentStep.completed) {
-      const currentStepElapsedTime = Date.now() - currentStep.startTime;
-      const expectedCurrentStepTime = currentStep.weight * averageTimePerWeight;
-      currentStepRemainingTime = Math.max(
-        0,
-        expectedCurrentStepTime - currentStepElapsedTime
-      );
-      const adjustedRemainingWeight = remainingWeight - currentStep.weight;
-      return adjustedRemainingWeight * averageTimePerWeight + currentStepRemainingTime;
-    }
-    return remainingWeight * averageTimePerWeight;
-  }
-};
-
-// src/Application/Services/OnionConfigConnectionAppService.ts
-var OnionConfigConnectionAppService = class {
-  constructor(stateService, repositoryService) {
-    this.stateService = stateService;
-    this.repositoryService = repositoryService;
-  }
-  addConnection(source, target) {
-    const data = this.stateService.getData();
-    if (!data) {
-      return { success: false, message: "No data loaded", data: null };
-    }
-    const { entities, domainServices, applicationServices } = data;
-    const sourceIsEntity = entities.includes(source);
-    const sourceIsDomain = domainServices.includes(source);
-    const sourceIsApp = applicationServices.includes(source);
-    const sourceIsRepo = this.repositoryService.isRepositoryName(source) && this.repositoryService.isValidRepository(source, entities);
-    const targetIsEntity = entities.includes(target);
-    const targetIsDomain = domainServices.includes(target);
-    const targetIsApp = applicationServices.includes(target);
-    const targetIsRepo = this.repositoryService.isRepositoryName(target) && this.repositoryService.isValidRepository(target, entities);
-    const isValid = sourceIsApp && targetIsDomain || sourceIsApp && targetIsRepo || sourceIsRepo && targetIsApp || sourceIsDomain && targetIsApp || sourceIsDomain && targetIsEntity || sourceIsEntity && targetIsDomain;
-    if (!isValid) {
-      return {
-        success: false,
-        message: `Connections must be of ONE-RING Distance`,
-        data: null
-      };
-    }
-    if (sourceIsEntity && targetIsDomain) {
-      return this.toggleRecordConnection(
-        data.domainServiceConnections,
-        target,
-        source
-      );
-    }
-    if (sourceIsDomain && targetIsEntity) {
-      return this.toggleRecordConnection(
-        data.domainServiceConnections,
-        source,
-        target
-      );
-    }
-    if (sourceIsApp && targetIsDomain) {
-      return this.toggleAppDependency(source, target, "domainServices");
-    }
-    if (sourceIsApp && targetIsRepo) {
-      return this.toggleAppDependency(source, target, "repositories");
-    }
-    if (sourceIsRepo && targetIsApp) {
-      const currentData = this.stateService.getData();
-      if (!currentData.applicationServiceDependencies[target]) {
-        currentData.applicationServiceDependencies[target] = {
-          domainServices: [],
-          repositories: []
-        };
-      }
-      const repos = currentData.applicationServiceDependencies[target].repositories;
-      if (!repos.includes(source)) {
-        repos.push(source);
-        return {
-          success: true,
-          message: `Connection from "${source}" to "${target}" added`,
-          data: currentData
-        };
+  join(...paths) {
+    if (paths.length === 0) return ".";
+    let joined = "";
+    for (const path of paths) {
+      if (!path) continue;
+      if (joined) {
+        joined += "/" + path;
       } else {
-        repos.splice(repos.indexOf(source), 1);
-        return {
-          success: true,
-          message: `Connection from "${source}" to "${target}" removed`,
-          data: currentData
-        };
+        joined = path;
       }
     }
-    if (sourceIsDomain && targetIsApp) {
-      return this.toggleAppDependency(target, source, "domainServices");
-    }
-    return {
-      success: false,
-      message: "Unexpected error handling connection",
-      data: null
-    };
+    return this.normalizePath(joined) || ".";
   }
-  removeConnection(source, target) {
-    const data = this.stateService.getData();
-    const newData = __spreadValues({}, data);
-    const sourceRing = this.repositoryService.getRing(source, data);
-    const sourceIsRepo = this.repositoryService.isRepositoryName(source) && this.repositoryService.isValidRepository(source, data.entities || []);
-    let connectionRemoved = false;
-    if (sourceRing === OnionRing.DOMAIN_SERVICES && newData.domainServiceConnections?.[source]) {
-      const connections = newData.domainServiceConnections[source];
-      const index = connections.indexOf(target);
-      if (index > -1) {
-        connections.splice(index, 1);
-        connectionRemoved = true;
-      }
-    } else if (sourceRing === OnionRing.APPLICATION_SERVICES && newData.applicationServiceDependencies?.[source]) {
-      const domainDeps = newData.applicationServiceDependencies[source].domainServices;
-      const domainIndex = domainDeps.indexOf(target);
-      if (domainIndex > -1) {
-        domainDeps.splice(domainIndex, 1);
-        connectionRemoved = true;
+  basename(dirPath, suffix = "") {
+    const normalized = dirPath.replace(/\\/g, "/");
+    const lastSlash = normalized.lastIndexOf("/");
+    let base = lastSlash === -1 ? normalized : normalized.substring(lastSlash + 1);
+    if (suffix && base.endsWith(suffix)) {
+      base = base.substring(0, base.length - suffix.length);
+    }
+    return base;
+  }
+  /**
+   * Normalize path by resolving . and .. components
+   */
+  normalizePath(path) {
+    const parts = path.replace(/\\/g, "/").split("/").filter(Boolean);
+    const normalized = [];
+    for (const part of parts) {
+      if (part === ".") {
+        continue;
+      } else if (part === "..") {
+        if (normalized.length > 0 && normalized[normalized.length - 1] !== "..") {
+          normalized.pop();
+        } else {
+          normalized.push("..");
+        }
       } else {
-        const repoDeps = newData.applicationServiceDependencies[source].repositories;
-        const repoIndex = repoDeps.indexOf(target);
-        if (repoIndex > -1) {
-          repoDeps.splice(repoIndex, 1);
-          connectionRemoved = true;
-        }
-      }
-    } else if (sourceIsRepo && this.repositoryService.getRing(target, data) === OnionRing.APPLICATION_SERVICES) {
-      const repoDeps = newData.applicationServiceDependencies?.[target]?.repositories;
-      if (repoDeps) {
-        const repoIndex = repoDeps.indexOf(source);
-        if (repoIndex > -1) {
-          repoDeps.splice(repoIndex, 1);
-          connectionRemoved = true;
-        }
+        normalized.push(part);
       }
     }
-    if (!connectionRemoved) {
-      return {
-        success: false,
-        message: "Connection not found"
-      };
-    }
-    this.stateService.setData(newData);
-    return {
-      success: true,
-      message: "Connection removed successfully",
-      data: newData
-    };
-  }
-  hasConnection(source, target) {
-    const data = this.stateService.getData();
-    const sourceRing = this.repositoryService.getRing(source, data);
-    const sourceIsRepo = this.repositoryService.isRepositoryName(source) && this.repositoryService.isValidRepository(source, data.entities || []);
-    if (sourceRing === OnionRing.DOMAIN_SERVICES) {
-      return data.domainServiceConnections?.[source]?.includes(target) || false;
-    } else if (sourceRing === OnionRing.APPLICATION_SERVICES) {
-      const hasDomainConnection = data.applicationServiceDependencies?.[source]?.domainServices?.includes(
-        target
-      ) || false;
-      const hasRepoConnection = data.applicationServiceDependencies?.[source]?.repositories?.includes(
-        target
-      ) || false;
-      return hasDomainConnection || hasRepoConnection;
-    } else if (sourceIsRepo && this.repositoryService.getRing(target, data) === OnionRing.APPLICATION_SERVICES) {
-      const deps = data.applicationServiceDependencies?.[target];
-      return deps?.repositories?.includes(source) || false;
-    }
-    return false;
-  }
-  getPossibleTargets(sourceNode) {
-    const data = this.stateService.getData();
-    if (!data) return [];
-    const { entities, domainServices, applicationServices } = data;
-    const sourceIsRepo = this.repositoryService.isRepositoryName(sourceNode) && this.repositoryService.isValidRepository(sourceNode, entities || []);
-    if (entities?.includes(sourceNode)) {
-      return domainServices ?? [];
-    }
-    if (domainServices?.includes(sourceNode)) {
-      return [...entities ?? [], ...applicationServices ?? []];
-    }
-    if (applicationServices?.includes(sourceNode)) {
-      const repositories = this.repositoryService.getRepositories(
-        entities || []
-      );
-      return [...domainServices ?? [], ...repositories];
-    }
-    if (sourceIsRepo) {
-      return applicationServices ?? [];
-    }
-    return [];
-  }
-  getCurrentTargets(source) {
-    const data = this.stateService.getData();
-    const sourceRing = this.repositoryService.getRing(source, data);
-    const sourceIsRepo = this.repositoryService.isRepositoryName(source) && this.repositoryService.isValidRepository(source, data.entities || []);
-    if (sourceRing === OnionRing.DOMAIN_SERVICES) {
-      return data.domainServiceConnections?.[source] || [];
-    } else if (sourceRing === OnionRing.APPLICATION_SERVICES) {
-      const deps = data.applicationServiceDependencies?.[source];
-      if (!deps) {
-        return [];
-      }
-      return [...deps.domainServices || [], ...deps.repositories || []];
-    } else if (sourceIsRepo) {
-      const appServices = data.applicationServices || [];
-      return appServices.filter((appService) => {
-        const deps = data.applicationServiceDependencies?.[appService];
-        return deps?.repositories?.includes(source) || false;
-      });
-    }
-    return [];
-  }
-  validateConnection(source, target) {
-    const data = this.stateService.getData();
-    const sourceRing = this.repositoryService.getRing(source, data);
-    const targetRing = this.repositoryService.getRing(target, data);
-    const sourceIsRepo = this.repositoryService.isRepositoryName(source) && this.repositoryService.isValidRepository(source, data.entities || []);
-    const targetIsRepo = this.repositoryService.isRepositoryName(target) && this.repositoryService.isValidRepository(target, data.entities || []);
-    if (!sourceRing && !sourceIsRepo) return false;
-    if (!targetRing && !targetIsRepo) return false;
-    if (sourceRing === OnionRing.DOMAIN_SERVICES && targetRing !== OnionRing.ENTITIES)
-      return false;
-    if (sourceRing === OnionRing.APPLICATION_SERVICES && targetRing !== OnionRing.DOMAIN_SERVICES && !targetIsRepo)
-      return false;
-    if (sourceIsRepo && targetRing !== OnionRing.APPLICATION_SERVICES)
-      return false;
-    if (sourceRing === OnionRing.ENTITIES) return false;
-    if (source === target) return false;
-    return true;
-  }
-  toggleAppDependency(appService, dependency, dependencyType = "domainServices") {
-    const data = this.stateService.getData();
-    if (!data.applicationServiceDependencies[appService]) {
-      data.applicationServiceDependencies[appService] = {
-        domainServices: [],
-        repositories: []
-      };
-    }
-    const deps = data.applicationServiceDependencies[appService];
-    const dependencyArray = deps[dependencyType];
-    const index = dependencyArray.indexOf(dependency);
-    if (index > -1) {
-      dependencyArray.splice(index, 1);
-      return {
-        success: true,
-        message: `Connection from "${appService}" to "${dependency}" removed`,
-        data
-      };
-    } else {
-      dependencyArray.push(dependency);
-      return {
-        success: true,
-        message: `Connection from "${appService}" to "${dependency}" added`,
-        data
-      };
-    }
-  }
-  toggleRecordConnection(record, key, value) {
-    if (!record[key]) {
-      record[key] = [];
-    }
-    const index = record[key].indexOf(value);
-    if (index > -1) {
-      record[key].splice(index, 1);
-      return {
-        success: true,
-        message: `Connection from "${key}" to "${value}" removed`,
-        data: this.stateService.getData()
-      };
-    } else {
-      record[key].push(value);
-      return {
-        success: true,
-        message: `Connection from "${key}" to "${value}" added`,
-        data: this.stateService.getData()
-      };
-    }
+    return normalized.join("/");
   }
 };
 
-// src/Application/Services/AngularConfigAppService.ts
-var AngularConfigAppService = class {
-  constructor(fileService, pathService) {
-    this.fileService = fileService;
-    this.pathService = pathService;
+// ../lib/Domain/Entities/OnionConfig.ts
+var OnionConfig = class _OnionConfig {
+  folderPath;
+  entities;
+  domainServices;
+  applicationServices;
+  domainServiceConnections;
+  applicationServiceDependencies;
+  uiFramework;
+  diFramework;
+  constructor(data = {}) {
+    this.folderPath = data.folderPath ?? "";
+    this.entities = data.entities ?? [];
+    this.domainServices = data.domainServices ?? [];
+    this.applicationServices = data.applicationServices ?? [];
+    this.domainServiceConnections = data.domainServiceConnections ?? {};
+    this.applicationServiceDependencies = data.applicationServiceDependencies ?? {};
+    this.uiFramework = data.uiFramework;
+    this.diFramework = data.diFramework ?? "awilix";
   }
-  generateAngularProvidersFiles(folderPath, entityNames, domainServiceNames, applicationServiceNames, applicationServiceDependencies) {
-    return __async(this, null, function* () {
-      const providers = this.buildProviderConfig(
-        entityNames,
-        domainServiceNames,
-        applicationServiceNames,
-        applicationServiceDependencies
-      );
-      const fileEntities = [];
-      const providersFile = yield this.generateProvidersFile(
-        folderPath,
-        providers
-      );
-      fileEntities.push(providersFile);
-      const appConfigFile = yield this.generateAppConfigFile(folderPath);
-      fileEntities.push(appConfigFile);
-      return fileEntities;
-    });
-  }
-  buildProviderConfig(entityNames, domainServiceNames, applicationServiceNames, applicationServiceDependencies) {
-    const providers = [];
-    entityNames.forEach((entityName) => {
-      const repoName = `${entityName}Repository`;
-      const interfaceName = `I${entityName}Repository`;
-      providers.push({
-        provide: interfaceName,
-        useClass: repoName
-      });
-    });
-    domainServiceNames.forEach((serviceName) => {
-      providers.push({
-        provide: serviceName,
-        useClass: serviceName
-      });
-    });
-    applicationServiceNames.forEach((appServiceName) => {
-      const deps = applicationServiceDependencies[appServiceName];
-      if (deps) {
-        const dependencies = [
-          ...deps.domainServices || [],
-          ...deps.repositories || []
-        ];
-        providers.push({
-          provide: appServiceName,
-          useClass: appServiceName,
-          deps: dependencies.length > 0 ? dependencies : void 0
-        });
-      } else {
-        providers.push({
-          provide: appServiceName,
-          useClass: appServiceName
-        });
-      }
-    });
-    return providers;
-  }
-  generateProvidersFile(folderPath, providers) {
-    return __async(this, null, function* () {
-      const imports = this.generateImports(providers);
-      const templatePath = this.pathService.join(
-        "Infrastructure",
-        "frameworks",
-        "templates",
-        "angular",
-        "di-providers.ts.hbs"
-      );
-      const template = yield this.fileService.readTemplate(templatePath);
-      const generator = new TemplateService(template.content);
-      const content = generator.render({
-        imports,
-        providers
-      });
-      const appDir = this.pathService.join(folderPath, "src", "app");
-      if (!(yield this.fileService.dirExists(appDir))) {
-        yield this.fileService.createDirectory(appDir);
-      }
-      const filePath = this.pathService.join(
-        folderPath,
-        "src",
-        "Infrastructure",
-        "Presentation",
-        "di-providers.ts"
-      );
-      const file = new FileEntity(filePath, content);
-      return file;
-    });
-  }
-  generateAppConfigFile(folderPath) {
-    return __async(this, null, function* () {
-      const templatePath = this.pathService.join(
-        "Infrastructure",
-        "frameworks",
-        "templates",
-        "angular",
-        "app.config.ts.hbs"
-      );
-      const template = yield this.fileService.readTemplate(templatePath);
-      const generator = new TemplateService(template.content);
-      const content = generator.render({});
-      const appDir = this.pathService.join(folderPath);
-      if (!(yield this.fileService.dirExists(appDir))) {
-        yield this.fileService.createDirectory(appDir);
-      }
-      const filePath = this.pathService.join(
-        folderPath,
-        "src",
-        "Infrastructure",
-        "Presentation",
-        "app.config.ts"
-      );
-      const file = new FileEntity(filePath, content);
-      return file;
-    });
-  }
-  generateImports(providers) {
-    const imports = /* @__PURE__ */ new Set();
-    providers.forEach((provider) => {
-      const importStatements = this.createImportStatements(provider.useClass);
-      importStatements.forEach((statement) => imports.add(statement));
-    });
-    return Array.from(imports);
-  }
-  createImportStatements(className) {
-    if (this.isRepository(className)) {
-      return this.createRepositoryImports(className);
-    }
-    if (this.isDomainService(className)) {
-      return this.createDomainServiceImports(className);
-    }
-    if (this.isAppService(className)) {
-      return this.createAppServiceImports(className);
-    }
-    return [];
-  }
-  isRepository(className) {
-    return className.endsWith("Repository");
-  }
-  isDomainService(className) {
-    return className.endsWith("Service") && !className.endsWith("AppService");
-  }
-  isAppService(className) {
-    return className.endsWith("AppService");
-  }
-  createRepositoryImports(className) {
-    const entityName = className.replace("Repository", "");
-    return [
-      `import { ${className} } from '../../Infrastructure/Repositories/${className}';`,
-      `import { I${entityName}Repository } from '../../Domain/Interfaces/I${entityName}Repository';`
-    ];
-  }
-  createDomainServiceImports(className) {
-    return [
-      `import { ${className} } from '../../Domain/Services/${className}';`
-    ];
-  }
-  createAppServiceImports(className) {
-    return [
-      `import { ${className} } from '../../Application/Services/${className}';`
-    ];
-  }
-};
-
-// src/Application/Services/ConfigurationAppService.ts
-var ConfigurationAppService = class {
-  constructor(fileService, pathService) {
-    this.fileService = fileService;
-    this.pathService = pathService;
-  }
-  updateVerbatimModuleSyntax(folderPath, value) {
-    return __async(this, null, function* () {
-      const configPath = this.pathService.join(folderPath, "tsconfig.app.json");
-      if (!(yield this.fileService.fileExists(configPath))) {
-        return null;
-      }
-      const configFile = yield this.fileService.readFile(configPath);
-      const cleanContent = this.removeJsonComments(configFile.content);
-      try {
-        const configContent = JSON.parse(cleanContent);
-        configContent.compilerOptions = __spreadProps(__spreadValues({}, configContent.compilerOptions), {
-          verbatimModuleSyntax: value
-        });
-        return {
-          filePath: configPath,
-          content: JSON.stringify(configContent, null, 2)
-        };
-      } catch (error) {
-        console.error(`Failed to parse JSON config at ${configPath}:`, error);
-        return null;
-      }
-    });
-  }
-  removeJsonComments(content) {
-    return content.split("\n").filter((line) => {
-      const trimmed = line.trim();
-      return !trimmed.startsWith("/*") && !trimmed.startsWith("//") && !trimmed.startsWith("*/");
-    }).join("\n");
-  }
-};
-
-// src/Application/Services/LintAppService.ts
-var LintAppService = class {
-  constructor(fileService, pathService) {
-    this.fileService = fileService;
-    this.pathService = pathService;
-  }
-  createFlatEslintConfig(folderPath) {
-    const configContent = `
-import js from '@eslint/js';
-import ts from '@typescript-eslint/eslint-plugin';
-import parser from '@typescript-eslint/parser';
-import prettier from 'eslint-plugin-prettier';
-
-export default [
-  js.configs.recommended,
-  {
-    files: ['**/*.ts'],
-    languageOptions: {
-      parser,
-      parserOptions: {
-        tsconfigRootDir: process.cwd(),
-      },
-      globals: {
-        process: "readonly",
-      },
-    },
-    plugins: {
-      '@typescript-eslint': ts,
-      prettier,
-    },
-    rules: {
-      'prettier/prettier': 'error',
-    },
-  },
-];
-`.trim();
-    const filePath = this.pathService.join(folderPath, "eslint.config.js");
-    this.fileService.createFile(new FileEntity(filePath, configContent));
-  }
-  addLintScripts(folderPath) {
-    return __async(this, null, function* () {
-      const pkgPath = this.pathService.join(folderPath, "package.json");
-      const pkgFile = yield this.fileService.readFile(pkgPath);
-      const pkg = JSON.parse(pkgFile.content);
-      pkg.scripts = __spreadProps(__spreadValues({}, pkg.scripts || {}), {
-        lint: "eslint . --ext .ts",
-        format: "prettier --write ."
-      });
-      yield this.fileService.createFile(
-        new FileEntity(pkgPath, JSON.stringify(pkg, null, 2))
-      );
-    });
-  }
-  addTypeModuleToPackageJson(folderPath) {
-    return __async(this, null, function* () {
-      const pkgPath = this.pathService.join(folderPath, "package.json");
-      const pkgFile = yield this.fileService.readFile(pkgPath);
-      const pkg = JSON.parse(pkgFile.content);
-      pkg.type = "module";
-      yield this.fileService.createFile(
-        new FileEntity(pkgPath, JSON.stringify(pkg, null, 2))
-      );
-    });
-  }
-};
-
-// src/Application/Services/DiagramConfigurationAppService.ts
-var DiagramConfigurationAppService = class {
-  config = {
-    width: 950,
-    height: 950,
-    animationDuration: 500,
-    nodeRadius: {
-      normal: 15,
-      selected: 20,
-      hoverNormal: 18,
-      hoverSelected: 22
-    },
-    rings: {
-      entities: 120,
-      domainServices: 220,
-      applicationServices: 320,
-      repositories: 420
-    }
-  };
-  colors = {
-    entities: "#81d34b",
-    domainServices: "#b071d9",
-    applicationServices: "#61c6d6",
-    repositories: "#ff6b6b",
-    selection: "#FFA500",
-    ringStroke: "#999",
-    connectionStroke: "rgba(68, 68, 68, 0.6)"
-  };
-  get diagramConfig() {
-    return this.config;
-  }
-  get diagramColors() {
-    return this.colors;
-  }
-  get center() {
-    return {
-      x: this.config.width / 2,
-      y: this.config.height / 2
-    };
-  }
-  getRingConfigurations() {
-    return [
-      {
-        name: "Entities",
-        radius: this.config.rings.entities,
-        color: this.colors.entities
-      },
-      {
-        name: "Domain Services",
-        radius: this.config.rings.domainServices,
-        color: this.colors.domainServices
-      },
-      {
-        name: "Application Services",
-        radius: this.config.rings.applicationServices,
-        color: this.colors.applicationServices
-      },
-      {
-        name: "Repositories",
-        radius: this.config.rings.repositories,
-        color: this.colors.repositories
-      }
-    ];
-  }
-};
-
-// src/Application/Services/DiagramPositionCalculatorAppService.ts
-var DiagramPositionCalculatorAppService = class {
-  constructor(diagramConfigurationAppService) {
-    this.diagramConfigurationAppService = diagramConfigurationAppService;
-  }
-  calculateItemPositions(groups) {
-    const positions = {};
-    const center = this.diagramConfigurationAppService.center;
-    groups.forEach((group) => {
-      const step = 2 * Math.PI / group.items.length || 1;
-      group.items.forEach((name, idx) => {
-        const angle = idx * step - Math.PI / 2;
-        positions[name] = {
-          x: center.x + group.radius * Math.cos(angle),
-          y: center.y + group.radius * Math.sin(angle),
-          ring: group.name
-        };
-      });
-    });
-    return positions;
-  }
-  calculateNodePosition(radius, index, total) {
-    const angleStep = 2 * Math.PI / total;
-    const angle = index * angleStep - Math.PI / 2;
-    const center = this.diagramConfigurationAppService.center;
-    return {
-      x: center.x + radius * Math.cos(angle),
-      y: center.y + radius * Math.sin(angle)
-    };
-  }
-};
-
-// src/Application/Services/DiagramSVGRendererAppService.ts
-var DiagramSVGRendererAppService = class {
-  drawNodeText(nodeGroup, x, y2, text) {
-    nodeGroup.append("text").attr("x", x).attr("y", y2 + 30).attr("text-anchor", "middle").attr("font-size", "12px").attr("font-weight", "500").attr("fill", "#333").text(text);
-  }
-  drawNodeCircle(nodeGroup, options) {
-    nodeGroup.append("circle").attr("cx", options.x).attr("cy", options.y).attr(
-      "r",
-      options.isSelected ? options.nodeRadius.selected : options.nodeRadius.normal
-    ).attr("fill", options.isSelected ? options.selectionColor : "#ffffff").attr("stroke", options.groupColor).attr("stroke-width", options.isSelected ? 3 : 2).style(
-      "filter",
-      options.isSelected ? "drop-shadow(0 0 8px rgba(255, 221, 87, 0.8))" : "none"
-    );
-  }
-  createNodeGroup(svg, item, onNodeClick) {
-    return svg.append("g").attr("class", "node").style("cursor", "pointer").on("click", (event) => {
-      event.stopPropagation();
-      onNodeClick(item);
-    });
-  }
-  drawRingCircle(svg, centerX, centerY, radius, color2, strokeColor) {
-    svg.append("circle").attr("cx", centerX).attr("cy", centerY).attr("r", radius).attr("fill", color2).attr("fill-opacity", 0.1).attr("stroke", strokeColor).attr("stroke-width", 2).attr("stroke-dasharray", "5,5");
-  }
-  drawRingLabel(svg, centerX, centerY, radius, text) {
-    svg.append("text").attr("x", centerX).attr("y", centerY - radius + 60).attr("text-anchor", "middle").attr("font-size", "16px").attr("font-weight", "bold").attr("fill", "#333").text(text);
-  }
-};
-
-// src/Application/Services/ProjectGenerationOrchestratorAppService.ts
-var ProjectGenerationOrchestratorAppService = class {
-  constructor(webContainerManager, fileRepository, projectService, onionAppService) {
-    this.webContainerManager = webContainerManager;
-    this.fileRepository = fileRepository;
-    this.projectService = projectService;
-    this.onionAppService = onionAppService;
-  }
-  generateProject(config2, progressCallback) {
-    return __async(this, null, function* () {
-      const startTime = Date.now();
-      console.log("\u{1F680} Starting WebContainer Onion Architecture generation...");
-      try {
-        console.log("diFramework selected:", config2.diFramework);
-        yield this.initializeEnvironment(progressCallback);
-        yield this.setupFramework(config2, progressCallback);
-        yield this.generateArchitecture(config2, progressCallback);
-        const result = yield this.finalizeProject(progressCallback);
-        const totalTime = Date.now() - startTime;
-        console.log(
-          `\u{1F389} WebContainer generation completed in ${totalTime}ms (${(totalTime / 1e3).toFixed(2)}s)`
-        );
-        return __spreadValues({
-          success: true,
-          message: `Onion Architecture generated successfully in WebContainer! (${(totalTime / 1e3).toFixed(2)}s)`
-        }, result);
-      } catch (error) {
-        const totalTime = Date.now() - startTime;
-        console.error(
-          `\u274C Failed to generate Onion Architecture after ${totalTime}ms:`,
-          error
-        );
-        return {
-          success: false,
-          message: `Failed to generate: ${error}`
-        };
-      }
-    });
-  }
-  initializeEnvironment(progressCallback) {
-    return __async(this, null, function* () {
-      progressCallback?.("init-webcontainer");
-      const webcontainer = yield this.webContainerManager.initialize();
-      this.fileRepository.setWebContainer(webcontainer);
-      yield this.fileRepository.initializeWebContainer(webcontainer);
-      const projectFolder = "/onion-project";
-      yield this.cleanupExistingProject(projectFolder);
-      yield this.fileRepository.createDirectory(projectFolder);
-      progressCallback?.("init-webcontainer", 100);
-    });
-  }
-  setupFramework(config2, progressCallback) {
-    return __async(this, null, function* () {
-      const frameworkStart = Date.now();
-      console.log("\u{1F3D7}\uFE0F Setting up UI framework (this may take 20-30 seconds)...");
-      const initResult = yield this.projectService.initialize(
-        "/onion-project",
-        config2.uiFramework,
-        config2.diFramework,
-        this.createFrameworkProgressHandler(progressCallback)
-      );
-      if (!initResult) {
-        throw new Error("Failed to initialize framework");
-      }
-      console.log(
-        `\u2705 Framework setup completed (${Date.now() - frameworkStart}ms)`
-      );
-    });
-  }
-  generateArchitecture(config2, progressCallback) {
-    return __async(this, null, function* () {
-      progressCallback?.("generate-architecture");
-      const onionGenStart = Date.now();
-      console.log("\u{1F9C5} Generating onion architecture files...");
-      yield this.onionAppService.generate({
-        folderPath: "/onion-project",
-        entityNames: config2.entities || [],
-        domainServiceNames: config2.domainServices || [],
-        applicationServiceNames: config2.applicationServices || [],
-        uiFramework: config2.uiFramework || "react",
-        diFramework: config2.diFramework || "awilix",
-        domainServiceConnections: config2.domainServiceConnections || {},
-        applicationServiceDependencies: config2.applicationServiceDependencies || {},
-        skipProjectInit: false
-      });
-      console.log(
-        `\u2705 Architecture generation completed (${Date.now() - onionGenStart}ms)`
-      );
-      progressCallback?.("generate-architecture", 100);
-    });
-  }
-  finalizeProject(progressCallback) {
-    return __async(this, null, function* () {
-      progressCallback?.("create-download");
-      const filesCreated = this.fileRepository.getBrowserFiles();
-      return filesCreated;
-    });
-  }
-  cleanupExistingProject(projectFolder) {
-    return __async(this, null, function* () {
-      try {
-        yield this.fileRepository.rmSync(projectFolder);
-      } catch {
-      }
-    });
-  }
-  createFrameworkProgressHandler(progressCallback) {
-    return (phase, progress) => {
-      const phaseMap = {
-        "npm-init": "npm-init",
-        "install-dev-deps": "install-dev-deps",
-        "create-framework": "create-framework",
-        "move-files": "move-files",
-        "install-awilix": "install-awilix"
-      };
-      const stepId = phaseMap[phase];
-      if (stepId) {
-        progressCallback?.(stepId, progress);
-      }
-    };
-  }
-};
-
-// src/Domain/Entities/ShowcaseAppGeneration.ts
-var ShowcaseAppGeneration = class {
-  constructor(basePath, framework, useAngularDI, firstAppService) {
-    this.basePath = basePath;
-    this.framework = framework;
-    this.useAngularDI = useAngularDI;
-    this.firstAppService = firstAppService;
-  }
-};
-
-// src/Application/Services/OnionAppService.ts
-var OnionAppService = class {
-  constructor(awilixCfgService, angularConfigAppService, projectService, showcaseService, entityService, repoService, iRepoService, domainServiceService, applicationServiceService, folderStructureService, fileService, pathService, configurationAppService) {
-    this.awilixCfgService = awilixCfgService;
-    this.angularConfigAppService = angularConfigAppService;
-    this.projectService = projectService;
-    this.showcaseService = showcaseService;
-    this.entityService = entityService;
-    this.repoService = repoService;
-    this.iRepoService = iRepoService;
-    this.domainServiceService = domainServiceService;
-    this.applicationServiceService = applicationServiceService;
-    this.folderStructureService = folderStructureService;
-    this.fileService = fileService;
-    this.pathService = pathService;
-    this.configurationAppService = configurationAppService;
-  }
-  generate(params) {
-    return __async(this, null, function* () {
-      console.log("\u{1F9C5} Starting Onion Architecture generation...");
-      const {
-        folderPath,
-        entityNames,
-        domainServiceNames,
-        applicationServiceNames,
-        uiFramework,
-        diFramework: passedDiFramework,
-        domainServiceConnections,
-        applicationServiceDependencies,
-        skipProjectInit = true
-      } = params;
-      yield this.folderStructureService.createFolderStructure(folderPath);
-      const diFramework = yield this.initializeProject(
-        folderPath,
-        uiFramework,
-        passedDiFramework,
-        skipProjectInit
-      );
-      const allFileEntities = [];
-      const tsConfigFile = yield this.configurationAppService.updateVerbatimModuleSyntax(
-        folderPath,
-        false
-      );
-      if (tsConfigFile) {
-        allFileEntities.push(tsConfigFile);
-      }
-      const entityFiles = yield this.generateEntities(folderPath, entityNames);
-      allFileEntities.push(...entityFiles);
-      const repositoryFiles = yield this.generateRepositories(
-        folderPath,
-        entityNames,
-        diFramework
-      );
-      allFileEntities.push(...repositoryFiles);
-      const domainServiceFiles = yield this.generateDomainServices(
-        folderPath,
-        domainServiceNames,
-        entityNames,
-        domainServiceConnections,
-        diFramework
-      );
-      allFileEntities.push(...domainServiceFiles);
-      const { appServiceDeps, appServiceFiles } = yield this.generateApplicationServices(
-        folderPath,
-        applicationServiceNames,
-        domainServiceNames,
-        entityNames,
-        applicationServiceDependencies,
-        diFramework
-      );
-      allFileEntities.push(...appServiceFiles);
-      const diConfigFiles = yield this.generateDIConfiguration(
-        folderPath,
-        entityNames,
-        domainServiceNames,
-        applicationServiceNames,
-        appServiceDeps,
-        diFramework
-      );
-      allFileEntities.push(...diConfigFiles);
-      const showcaseFiles = yield this.generateShowcaseApplication(
-        folderPath,
-        uiFramework,
-        diFramework,
-        applicationServiceNames
-      );
-      allFileEntities.push(...showcaseFiles);
-      yield this.createDirectoriesForFiles(allFileEntities);
-      yield this.writeAllFiles(allFileEntities);
-      return allFileEntities;
-    });
-  }
-  initializeProject(folderPath, framework, passedDiFramework, skipProjectInit = true) {
-    return __async(this, null, function* () {
-      let diFramework = passedDiFramework || "awilix";
-      if (!skipProjectInit) {
-        const stepStart = Date.now();
-        const result = yield this.projectService.initialize(
-          folderPath,
-          framework,
-          diFramework
-        );
-        diFramework = result.diFramework;
-        console.log(`\u2705 Project initialized (${Date.now() - stepStart}ms)`);
-      }
-      return diFramework;
-    });
-  }
-  generateEntities(folderPath, entityNames) {
-    return __async(this, null, function* () {
-      const stepStart = Date.now();
-      const template = yield this.fileService.readTemplate("entity.hbs");
-      const entitiesDir = this.pathService.join(
-        folderPath,
-        "src",
-        "Domain",
-        "Entities"
-      );
-      const fileEntities = this.entityService.generateEntitiesFiles(
-        entitiesDir,
-        entityNames,
-        template.content
-      );
-      console.log(`\u2705 Entities generated (${Date.now() - stepStart}ms)`);
-      return fileEntities;
-    });
-  }
-  generateRepositories(folderPath, entityNames, diFramework) {
-    return __async(this, null, function* () {
-      const stepStart = Date.now();
-      const repoTemplate = yield this.fileService.readTemplate(
-        "infrastructureRepository.hbs"
-      );
-      const interfaceTemplate = yield this.fileService.readTemplate(
-        "repositoryInterface.hbs"
-      );
-      const infraRepoDir = this.pathService.join(
-        folderPath,
-        "src",
-        "Infrastructure",
-        "Repositories"
-      );
-      const repoFiles = this.repoService.generateRepositoriesFiles(
-        entityNames,
-        diFramework,
-        repoTemplate.content,
-        infraRepoDir
-      );
-      const entityFilePaths = entityNames.map((entityName) => ({
-        entityName,
-        filePath: this.pathService.join(
-          folderPath,
-          "src",
-          "Domain",
-          "Interfaces",
-          `I${entityName}Repository.ts`
-        )
-      }));
-      const interfaceFiles = this.iRepoService.generateRepositoryInterfacesFiles(
-        entityFilePaths,
-        interfaceTemplate.content
-      );
-      console.log(`\u2705 Repositories generated (${Date.now() - stepStart}ms)`);
-      return [...repoFiles, ...interfaceFiles];
-    });
-  }
-  generateDomainServices(folderPath, domainServiceNames, entityNames, domainServiceConnections, diFramework) {
-    return __async(this, null, function* () {
-      const stepStart = Date.now();
-      const template = yield this.fileService.readTemplate("domainService.hbs");
-      const servicesDir = this.pathService.join(
-        folderPath,
-        "src",
-        "Domain",
-        "Services"
-      );
-      const domainServiceParams = {
-        servicesDir,
-        domainServiceNames,
-        entityNames,
-        userConfig: { domainServiceConnections },
-        diFramework,
-        templateContent: template.content
-      };
-      const fileEntities = this.domainServiceService.connectAndGenerateFiles(domainServiceParams);
-      console.log(`\u2705 Domain services generated (${Date.now() - stepStart}ms)`);
-      return fileEntities;
-    });
-  }
-  generateApplicationServices(folderPath, applicationServiceNames, domainServiceNames, entityNames, applicationServiceDependencies, diFramework) {
-    return __async(this, null, function* () {
-      const stepStart = Date.now();
-      let appServiceDeps = applicationServiceDependencies;
-      if (!appServiceDeps || Object.keys(appServiceDeps).length === 0) {
-        appServiceDeps = yield this.createDefaultApplicationServiceDependencies(
-          applicationServiceNames,
-          domainServiceNames,
-          entityNames
-        );
-      }
-      const template = yield this.fileService.readTemplate("appService.hbs");
-      const appDir = this.pathService.join(
-        folderPath,
-        "src",
-        "Application",
-        "Services"
-      );
-      const appServiceFiles = this.applicationServiceService.generateApplicationServicesFiles(
-        appServiceDeps,
-        diFramework,
-        template.content,
-        appDir
-      );
-      console.log(
-        `\u2705 Application services generated (${Date.now() - stepStart}ms)`
-      );
-      return {
-        appServiceDeps,
-        appServiceFiles
-      };
-    });
-  }
-  createDefaultApplicationServiceDependencies(applicationServiceNames, domainServiceNames, entityNames) {
-    return __async(this, null, function* () {
-      const iRepoList = entityNames.map((name) => `I${name}Repository`);
-      const dependencies = {};
-      for (const appServiceName of applicationServiceNames) {
-        dependencies[appServiceName] = {
-          domainServices: [...domainServiceNames],
-          // All domain services
-          repositories: [...iRepoList]
-          // All repositories
-        };
-      }
-      return dependencies;
-    });
-  }
-  generateDIConfiguration(folderPath, entityNames, domainServiceNames, applicationServiceNames, appServiceDeps, diFramework) {
-    return __async(this, null, function* () {
-      const stepStart = Date.now();
-      let fileEntities = [];
-      if (diFramework === "awilix") {
-        const awilixConfigParams = new AwilixConfig(
-          folderPath,
-          entityNames,
-          domainServiceNames,
-          applicationServiceNames
-        );
-        const awilixConfigPath = this.pathService.join(
-          folderPath,
-          "src",
-          "Infrastructure",
-          "Configuration",
-          "awilix.config.ts"
-        );
-        const awilixFile = this.awilixCfgService.generateAwilixConfigFile(
-          awilixConfigParams,
-          awilixConfigPath
-        );
-        fileEntities.push(awilixFile);
-      } else if (diFramework === "angular") {
-        const angularFiles = yield this.angularConfigAppService.generateAngularProvidersFiles(
-          folderPath,
-          entityNames,
-          domainServiceNames,
-          applicationServiceNames,
-          appServiceDeps
-        );
-        fileEntities.push(...angularFiles);
-      }
-      console.log(`\u2705 DI configuration generated (${Date.now() - stepStart}ms)`);
-      return fileEntities;
-    });
-  }
-  generateShowcaseApplication(folderPath, framework, diFramework, applicationServiceNames) {
-    return __async(this, null, function* () {
-      if (!framework) return [];
-      const stepStart = Date.now();
-      const showcaseAppGeneration = new ShowcaseAppGeneration(
-        folderPath,
-        framework,
-        diFramework === "angular",
-        applicationServiceNames[0]
-      );
-      const presentationDir = this.pathService.join(
-        folderPath,
-        "src",
-        "Infrastructure",
-        "Presentation"
-      );
-      const buildPaths = (template, output) => {
-        const shouldPlaceInRoot = framework === "lit" && output === "index.html";
-        const outputPath = shouldPlaceInRoot ? this.pathService.join(folderPath, output) : this.pathService.join(presentationDir, output);
-        return {
-          templatePath: this.pathService.join(
-            "Infrastructure",
-            "frameworks",
-            "templates",
-            template
-          ),
-          outputPath
-        };
-      };
-      const fileEntities = yield this.showcaseService.generateShowcaseFiles(
-        showcaseAppGeneration,
-        buildPaths
-      );
-      console.log(
-        `\u2705 Showcase application generated (${Date.now() - stepStart}ms)`
-      );
-      return fileEntities;
-    });
-  }
-  createDirectoriesForFiles(fileEntities) {
-    return __async(this, null, function* () {
-      const directories = /* @__PURE__ */ new Set();
-      for (const file of fileEntities) {
-        const dir = file.filePath.substring(0, file.filePath.lastIndexOf("\\"));
-        if (dir) {
-          directories.add(dir);
-        }
-      }
-      for (const dir of directories) {
-        yield this.fileService.createDirectory(dir);
-      }
-    });
-  }
-  writeAllFiles(fileEntities) {
-    return __async(this, null, function* () {
-      for (const file of fileEntities) {
-        yield this.fileService.createFile(file);
-      }
-    });
+  static empty() {
+    return new _OnionConfig();
   }
 };
 
@@ -89940,9 +85908,7 @@ container.register({
   onionAppService: asClass(OnionAppService).singleton(),
   onionConfig: asClass(OnionConfig).singleton(),
   awilixConfig: asClass(AwilixConfig).singleton(),
-  scanControllerService: asClass(ScanControllerAppService).singleton(),
   helpAppService: asClass(HelpAppService).singleton(),
-  scannerService: asClass(ScannerAppService).singleton(),
   entityService: asClass(EntityService).singleton(),
   domainServiceService: asClass(DomainServiceService).singleton(),
   iRepoService: asClass(IRepoService).singleton(),
@@ -90016,7 +85982,7 @@ if (browserService.isNode()) {
       let serviceInstance = null;
       const loadService = () => __async(null, null, function* () {
         if (!serviceInstance) {
-          const { WebContainerManagerAppService } = yield import("./chunk-TXUQDOWO.js");
+          const { WebContainerManagerAppService } = yield import("./chunk-3PDQGZXN.js");
           serviceInstance = new WebContainerManagerAppService();
         }
         return serviceInstance;
@@ -90291,10 +86257,10 @@ var JsonUploadModalComponent = class _JsonUploadModalComponent {
   formatFileSize(bytes) {
     if (bytes === 0)
       return "0 Bytes";
-    const k2 = 1024;
+    const k = 1024;
     const sizes = ["Bytes", "KB", "MB", "GB"];
-    const i = Math.floor(Math.log(bytes) / Math.log(k2));
-    return parseFloat((bytes / Math.pow(k2, i)).toFixed(2)) + " " + sizes[i];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   }
   uploadFile() {
     if (!this.selectedFile)
@@ -91221,8 +87187,8 @@ var Diagram = class _Diagram {
       \u0275\u0275viewQuery(_c014, 7);
     }
     if (rf & 2) {
-      let _t2;
-      \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx.containerRef = _t2.first);
+      let _t;
+      \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.containerRef = _t.first);
     }
   }, inputs: { filename: "filename", generatedCode: "generatedCode", selectedFramework: "selectedFramework", selectedDiFramework: "selectedDiFramework" }, outputs: { nodeSelected: "nodeSelected", projectNameChange: "projectNameChange" }, features: [\u0275\u0275NgOnChangesFeature], decls: 73, vars: 11, consts: [["containerRef", ""], ["codeBlock", ""], ["noConn", ""], [1, "container"], ["class", "status", 3, "ngClass", 4, "ngIf"], [1, "controls"], [1, "control-group"], [1, "form-field", "project-name-field"], ["type", "text", "placeholder", "Enter Project name", 1, "text-input", 3, "ngModelChange", "input", "ngModel"], [1, "form-field"], ["type", "button", 1, "btn", "btn-secondary", "reset", 3, "click"], [1, "generate-node-label"], [1, "select-input", 3, "ngModelChange", "ngModel"], ["value", "entity"], ["value", "domain"], ["value", "application"], ["type", "text", "placeholder", "Enter node name", 1, "text-input", 3, "ngModelChange", "ngModel"], ["type", "submit", "id", "addNodeButton", 1, "btn", "btn-primary", 3, "click", "disabled"], ["class", "btn btn-danger", 3, "click", 4, "ngIf"], [1, "wrapper"], [1, "header"], [1, "instruction-list"], [1, "diagram-wrapper"], [1, "diagram-container"], ["id", "no-show", 1, "instruction-list"], [1, "diagramAndCodeWrapper"], [4, "ngIf", "ngIfElse"], [1, "json-controls"], ["id", "jsonDownload", 1, "btn", "btn-primary", 3, "click"], ["id", "jsonUpload", 1, "btn", "btn-secondary", 3, "click"], [1, "data-summary-toggle", 3, "ngModelChange", "ngModel"], ["class", "selected-panel", 4, "ngIf"], [3, "fileUploaded", "modalClosed", "isOpen"], [1, "status", 3, "ngClass"], [1, "btn", "btn-danger", 3, "click"], [1, "data-summary"], [1, "summary-grid"], [1, "summary-column"], [4, "ngFor", "ngForOf"], [1, "code-display", 3, "filename", "content"], [1, "selected-panel"], [1, "connection-target"], [1, "btn", "btn-remove-connection", 3, "click"]], template: function Diagram_Template(rf, ctx) {
     if (rf & 1) {
@@ -91633,7 +87599,7 @@ var Diagram = class _Diagram {
   }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Diagram, { className: "Diagram", filePath: "src/infrastructure/presentation/components/diagramm/diagram.component.ts", lineNumber: 91 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Diagram, { className: "Diagram", filePath: "src/infrastructure/presentation/components/diagramm/diagram.component.ts", lineNumber: 90 });
 })();
 
 // src/Infrastructure/Presentation/components/scroll-indicator/scroll-indicator.component.ts
@@ -92102,8 +88068,8 @@ var OnionGenComponent = class _OnionGenComponent {
       \u0275\u0275viewQuery(_c015, 5);
     }
     if (rf & 2) {
-      let _t2;
-      \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx.diagramComponent = _t2.first);
+      let _t;
+      \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx.diagramComponent = _t.first);
     }
   }, outputs: { uiFramework: "uiFramework" }, decls: 31, vars: 9, consts: [["diagramRef", ""], [1, "app-header"], [1, "header-content"], [1, "logo"], ["src", "onion_gpt.png", "alt", "Onion Architecture"], [1, "header-actions"], ["title", "Watch tutorial", 1, "btn", "btn-outline", "tutorial-btn", 3, "click"], [1, "btn", "btn-secondary", "back-btn", 3, "click"], [1, "main-content"], [1, "mat-primary"], [3, "formGroup"], [3, "projectNameChange", "nodeSelected", "selectedFramework", "selectedDiFramework", "generatedCode", "filename"], [1, "framework-buttons"], [1, "framework-label"], [1, "button-group"], ["class", "btn framework-btn", "type", "button", 3, "ngClass", "click", 4, "ngFor", "ngForOf"], ["class", "framework-buttons", 4, "ngIf"], ["id", "generate", 1, "btn", "btn-primary", "generate-btn", 3, "click", "disabled"], ["type", "button", 1, "btn", "framework-btn", 3, "click", "ngClass"], [1, "framework-logo", 3, "src", "alt"], [1, "framework-name"]], template: function OnionGenComponent_Template(rf, ctx) {
     if (rf & 1) {

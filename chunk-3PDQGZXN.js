@@ -1,12 +1,12 @@
 import {
   __async,
   __spreadValues
-} from "./chunk-IPOLEHR6.js";
+} from "./chunk-MV3YWL4F.js";
 
-// ../node_modules/@webcontainer/api/dist/internal/constants.js
+// node_modules/@webcontainer/api/dist/internal/constants.js
 var DEFAULT_EDITOR_ORIGIN = "https://stackblitz.com";
 
-// ../node_modules/@webcontainer/api/dist/internal/TypedEventTarget.js
+// node_modules/@webcontainer/api/dist/internal/TypedEventTarget.js
 var TypedEventTarget = class {
   _bus = new EventTarget();
   listen(listener) {
@@ -21,7 +21,7 @@ var TypedEventTarget = class {
   }
 };
 
-// ../node_modules/@webcontainer/api/dist/internal/tokens.js
+// node_modules/@webcontainer/api/dist/internal/tokens.js
 var IGNORED_ERROR = new Error();
 IGNORED_ERROR.stack = "";
 var accessTokenChangedListeners = new TypedEventTarget();
@@ -29,7 +29,7 @@ function addAccessTokenChangedListener(listener) {
   return accessTokenChangedListeners.listen(listener);
 }
 
-// ../node_modules/@webcontainer/api/dist/internal/iframe-url.js
+// node_modules/@webcontainer/api/dist/internal/iframe-url.js
 var params = {};
 var editorOrigin = null;
 var iframeSettings = {
@@ -56,7 +56,7 @@ var iframeSettings = {
   }
 };
 
-// ../node_modules/@webcontainer/api/dist/internal/reset-promise.js
+// node_modules/@webcontainer/api/dist/internal/reset-promise.js
 function resettablePromise() {
   let resolve;
   let promise;
@@ -75,7 +75,7 @@ function resettablePromise() {
   };
 }
 
-// ../node_modules/@webcontainer/api/dist/internal/auth-state.js
+// node_modules/@webcontainer/api/dist/internal/auth-state.js
 var authState = {
   initialized: false,
   bootCalled: false,
@@ -96,7 +96,7 @@ function assertAuthTokens(tokens) {
   }
 }
 
-// ../node_modules/@webcontainer/api/dist/preview-message-types.js
+// node_modules/@webcontainer/api/dist/preview-message-types.js
 var PreviewMessageType;
 (function(PreviewMessageType2) {
   PreviewMessageType2["UncaughtException"] = "PREVIEW_UNCAUGHT_EXCEPTION";
@@ -104,7 +104,7 @@ var PreviewMessageType;
   PreviewMessageType2["ConsoleError"] = "PREVIEW_CONSOLE_ERROR";
 })(PreviewMessageType || (PreviewMessageType = {}));
 
-// ../node_modules/@webcontainer/api/dist/vendor/index.js
+// node_modules/@webcontainer/api/dist/vendor/index.js
 var __defProp = Object.defineProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -388,7 +388,7 @@ function generateUUID() {
   return new Array(4).fill(0).map(() => Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(16)).join("-");
 }
 
-// ../node_modules/@webcontainer/api/dist/utils/is-preview-message.js
+// node_modules/@webcontainer/api/dist/utils/is-preview-message.js
 var PREVIEW_MESSAGE_TYPES = [
   PreviewMessageType.ConsoleError,
   PreviewMessageType.UncaughtException,
@@ -404,7 +404,7 @@ function isPreviewMessage(data) {
   return true;
 }
 
-// ../node_modules/@webcontainer/api/dist/utils/null-prototype.js
+// node_modules/@webcontainer/api/dist/utils/null-prototype.js
 function nullPrototype(source) {
   const prototype = /* @__PURE__ */ Object.create(null);
   if (!source) {
@@ -413,7 +413,7 @@ function nullPrototype(source) {
   return Object.assign(prototype, source);
 }
 
-// ../node_modules/@webcontainer/api/dist/utils/file-system.js
+// node_modules/@webcontainer/api/dist/utils/file-system.js
 var binaryDecoder = new TextDecoder("latin1");
 function toInternalFileSystemTree(tree) {
   const newTree = { d: {} };
@@ -474,7 +474,7 @@ function fromBinaryString(s) {
   return encoded;
 }
 
-// ../node_modules/@webcontainer/api/dist/index.js
+// node_modules/@webcontainer/api/dist/index.js
 var bootPromise = null;
 var cachedServerPromise = null;
 var cachedBootOptions = {};
@@ -991,7 +991,7 @@ var WebContainerManagerAppService = class {
       }
       this.validateEnvironment();
       console.log("Cross-origin isolation enabled, initializing WebContainer...");
-      this.webcontainer = yield WebContainer.boot();
+      this.webcontainer = yield WebContainer.boot({ coep: "credentialless" });
       this.isInitialized = true;
       console.log("WebContainer initialized successfully");
       return this.webcontainer;
