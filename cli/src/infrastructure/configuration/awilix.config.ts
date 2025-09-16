@@ -32,7 +32,7 @@ import { DiagramNodeManagementService } from "../../../../gh-pages/src/Applicati
 import { DiagramPositionCalculatorAppService } from "../../../../gh-pages/src/Application/Services/DiagramPositionCalculatorAppService";
 import { DiagramProjectGenerationService } from "../../../../gh-pages/src/Application/Services/DiagramProjectGenerationAppService";
 import { DiagramSVGRendererAppService } from "../../../../gh-pages/src/Application/Services/DiagramSVGRendererAppService";
-import { HelpAppService } from "../../../../gh-pages/src/Application/Services/HelpAppService";
+import { HelpAppService } from "../../Application/Services/HelpAppService";
 import { ProgressTrackingAppService } from "../../../../gh-pages/src/Application/Services/ProgressTrackingAppService";
 import { AngularConfigAppService } from "../../../../lib/Application/Services/AngularConfigAppService";
 import { BrowserCheckAppService } from "../../../../lib/Application/Services/BrowserCheckAppService";

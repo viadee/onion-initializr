@@ -1,6 +1,5 @@
 import { OnionConfigConnectionAppService } from './../../../../lib/Application/Services/OnionConfigConnectionAppService';
 import { LintAppService } from './../../../../lib/Application/Services/LintAppService';
-import { HelpAppService } from '../../Application/Services/HelpAppService';
 import { createContainer, asClass, asFunction, InjectionMode } from 'awilix';
 import { OnionConfigRepository } from '../../Infrastructure/Repositories/OnionConfigRepository';
 import { OnionConfigService } from '../../../../lib/Domain/Services/OnionConfigService';
@@ -57,7 +56,6 @@ container.register({
   onionAppService: asClass(OnionAppService).singleton(),
   onionConfig: asClass(OnionConfig).singleton(),
   awilixConfig: asClass(AwilixConfig).singleton(),
-  helpAppService: asClass(HelpAppService).singleton(),
   entityService: asClass(EntityService).singleton(),
   domainServiceService: asClass(DomainServiceService).singleton(),
   iRepoService: asClass(IRepoService).singleton(),

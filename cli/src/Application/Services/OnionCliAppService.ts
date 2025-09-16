@@ -11,7 +11,7 @@ import { FileService } from "../../../../lib/Domain/Services/FileService";
 import { FolderStructureService } from "../../../../lib/Application/Services/FolderGenAppService";
 import { PathAppService } from "../../../../lib/Application/Services/PathAppService";
 import { IProjectService } from "../../../../lib/Domain/Interfaces/IProjectService";
-import { HelpAppService } from "../../../../gh-pages/src/Application/Services/HelpAppService";
+import { HelpAppService } from "./HelpAppService";
 import { DiFramework } from "../../../../lib/Domain/Entities/DiFramework";
 import { FileEntity } from "../../../../lib/Domain/Entities/FileEntity";
 import { OnionConfig } from "../../../../lib/Domain/Entities/OnionConfig";
