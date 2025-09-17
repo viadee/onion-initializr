@@ -148,7 +148,19 @@ export class HomepageComponent {
 }`;
 
   scrollToTryOnline(): void {
-    this.router.navigate(['generator']);
+    const currentHost = window.location.hostname;
+    // If already on Firebase or localhost, use router navigation
+    if (
+      currentHost === 'onion-initializr.web.app' ||
+      currentHost === 'localhost'
+    ) {
+      this.router.navigate(['generator']);
+    } else {
+      // If on GitHub Pages or other domains, redirect to Firebase
+      // The WebContainer can not be ran on GitHub Pages as you can
+      // not configure the neccessary http headers
+      window.open('https://onion-initializr.web.app/generator', '_blank');
+    }
   }
 
   navigateToGitHub(): void {
