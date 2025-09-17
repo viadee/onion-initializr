@@ -38,6 +38,11 @@ jobs:
       - name: Build application
         run: cd gh-pages && npm run github-build
 
+      - name: Configure Git
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+
       - name: Deploy to GitHub Pages
         run: cd gh-pages && npm run github-deploy
         env:
