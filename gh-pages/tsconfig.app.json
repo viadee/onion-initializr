@@ -8,7 +8,11 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "handlebars": ["./node_modules/handlebars"]
+    }
   },
   "include": ["src/**/*.ts", "../lib/**/*.ts"],
   "exclude": [
