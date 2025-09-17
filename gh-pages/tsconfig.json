@@ -19,10 +19,6 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": false,
-    "baseUrl": ".",
-    "paths": {
-      "*": ["node_modules/*"]
-    },
     "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
