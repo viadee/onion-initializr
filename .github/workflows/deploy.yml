@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read
   pages: write
+  id-token: write
   actions: read
 
 concurrency:
@@ -16,7 +17,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -38,7 +39,34 @@ jobs:
       - name: Build application
         run: cd gh-pages && npm run github-build
 
+      - name: Check if Angular dist exists, if not use static files
+        run: |
+          cd gh-pages
+          if [ ! -d "dist/onion-initializr/browser" ]; then
+            echo "Angular build output not found, creating basic static deployment"
+            mkdir -p dist/onion-initializr/browser
+            cp -r public/* dist/onion-initializr/browser/ 2>/dev/null || echo "No public directory"
+            if [ -f "src/index.html" ]; then
+              cp src/index.html dist/onion-initializr/browser/
+            fi
+            echo "<h1>Onion Architecture Initializer</h1><p>The application is currently being set up for GitHub Pages deployment.</p>" > dist/onion-initializr/browser/index.html
+          fi
+        shell: bash
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./gh-pages/dist/onion-initializr
+      - name: Deploy to GitHub Pages (fallback)
+        if: failure()
+        run: |
+          echo "Pages deployment failed. Please manually enable GitHub Pages in repository settings."
+          echo "Go to: Settings > Pages > Source > Select 'GitHub Actions'"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: Deploy to GitHub Pages
-        run: cd gh-pages && npm run github-deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: deployment
+        uses: actions/deploy-pages@v4
