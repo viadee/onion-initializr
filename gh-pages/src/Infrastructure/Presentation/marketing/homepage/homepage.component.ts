@@ -159,7 +159,7 @@ export class HomepageComponent {
       // If on GitHub Pages or other domains, redirect to Firebase
       // The WebContainer can not be ran on GitHub Pages as you can
       // not configure the neccessary http headers
-      window.open('https://onion-initializr.web.app/generator', '_blank');
+      window.open('https://onion-initializr.web.app/generator');
     }
   }
 
