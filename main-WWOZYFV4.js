@@ -317,7 +317,7 @@ var require_core = __commonJS({
       }).map((re) => `(${re})`).join(joinWith);
     }
     var MATCH_NOTHING_RE = /\b\B/;
-    var IDENT_RE = "[a-zA-Z]\\w*";
+    var IDENT_RE2 = "[a-zA-Z]\\w*";
     var UNDERSCORE_IDENT_RE = "[a-zA-Z_]\\w*";
     var NUMBER_RE = "\\b\\d+(\\.\\d+)?";
     var C_NUMBER_RE = "(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";
@@ -467,7 +467,7 @@ var require_core = __commonJS({
     };
     var TITLE_MODE = {
       scope: "title",
-      begin: IDENT_RE,
+      begin: IDENT_RE2,
       relevance: 0
     };
     var UNDERSCORE_TITLE_MODE = {
@@ -508,7 +508,7 @@ var require_core = __commonJS({
       C_NUMBER_RE,
       END_SAME_AS_BEGIN,
       HASH_COMMENT_MODE,
-      IDENT_RE,
+      IDENT_RE: IDENT_RE2,
       MATCH_NOTHING_RE,
       METHOD_GUARD,
       NUMBER_MODE,
@@ -908,7 +908,7 @@ var require_core = __commonJS({
     var inherit2 = inherit$1;
     var NO_MATCH = Symbol("nomatch");
     var MAX_KEYWORD_HITS = 7;
-    var HLJS = function(hljs2) {
+    var HLJS = function(hljs) {
       const languages = /* @__PURE__ */ Object.create(null);
       const aliases = /* @__PURE__ */ Object.create(null);
       const plugins = [];
@@ -1413,7 +1413,7 @@ var require_core = __commonJS({
       function registerLanguage(languageName, languageDefinition) {
         let lang = null;
         try {
-          lang = languageDefinition(hljs2);
+          lang = languageDefinition(hljs);
         } catch (error$1) {
           error("Language definition for '{}' could not be registered.".replace("{}", languageName));
           if (!SAFE_MODE) {
@@ -1425,7 +1425,7 @@ var require_core = __commonJS({
         }
         if (!lang.name) lang.name = languageName;
         languages[languageName] = lang;
-        lang.rawDefinition = languageDefinition.bind(null, hljs2);
+        lang.rawDefinition = languageDefinition.bind(null, hljs);
         if (lang.aliases) {
           registerAliases(lang.aliases, { languageName });
         }
@@ -1496,7 +1496,7 @@ var require_core = __commonJS({
         deprecated("10.7.0", "Please use highlightElement now.");
         return highlightElement(el);
       }
-      Object.assign(hljs2, {
+      Object.assign(hljs, {
         highlight: highlight2,
         highlightAuto,
         highlightAll,
@@ -1516,14 +1516,14 @@ var require_core = __commonJS({
         addPlugin,
         removePlugin
       });
-      hljs2.debugMode = function() {
+      hljs.debugMode = function() {
         SAFE_MODE = false;
       };
-      hljs2.safeMode = function() {
+      hljs.safeMode = function() {
         SAFE_MODE = true;
       };
-      hljs2.versionString = version;
-      hljs2.regex = {
+      hljs.versionString = version;
+      hljs.regex = {
         concat: concat2,
         lookahead,
         either,
@@ -1535,834 +1535,14 @@ var require_core = __commonJS({
           deepFreeze(MODES[key]);
         }
       }
-      Object.assign(hljs2, MODES);
-      return hljs2;
+      Object.assign(hljs, MODES);
+      return hljs;
     };
     var highlight = HLJS({});
     highlight.newInstance = () => HLJS({});
     module.exports = highlight;
     highlight.HighlightJS = highlight;
     highlight.default = highlight;
-  }
-});
-
-// node_modules/highlight.js/lib/languages/typescript.js
-var require_typescript = __commonJS({
-  "node_modules/highlight.js/lib/languages/typescript.js"(exports, module) {
-    "use strict";
-    var IDENT_RE = "[A-Za-z$_][0-9A-Za-z$_]*";
-    var KEYWORDS = [
-      "as",
-      // for exports
-      "in",
-      "of",
-      "if",
-      "for",
-      "while",
-      "finally",
-      "var",
-      "new",
-      "function",
-      "do",
-      "return",
-      "void",
-      "else",
-      "break",
-      "catch",
-      "instanceof",
-      "with",
-      "throw",
-      "case",
-      "default",
-      "try",
-      "switch",
-      "continue",
-      "typeof",
-      "delete",
-      "let",
-      "yield",
-      "const",
-      "class",
-      // JS handles these with a special rule
-      // "get",
-      // "set",
-      "debugger",
-      "async",
-      "await",
-      "static",
-      "import",
-      "from",
-      "export",
-      "extends",
-      // It's reached stage 3, which is "recommended for implementation":
-      "using"
-    ];
-    var LITERALS = [
-      "true",
-      "false",
-      "null",
-      "undefined",
-      "NaN",
-      "Infinity"
-    ];
-    var TYPES = [
-      // Fundamental objects
-      "Object",
-      "Function",
-      "Boolean",
-      "Symbol",
-      // numbers and dates
-      "Math",
-      "Date",
-      "Number",
-      "BigInt",
-      // text
-      "String",
-      "RegExp",
-      // Indexed collections
-      "Array",
-      "Float32Array",
-      "Float64Array",
-      "Int8Array",
-      "Uint8Array",
-      "Uint8ClampedArray",
-      "Int16Array",
-      "Int32Array",
-      "Uint16Array",
-      "Uint32Array",
-      "BigInt64Array",
-      "BigUint64Array",
-      // Keyed collections
-      "Set",
-      "Map",
-      "WeakSet",
-      "WeakMap",
-      // Structured data
-      "ArrayBuffer",
-      "SharedArrayBuffer",
-      "Atomics",
-      "DataView",
-      "JSON",
-      // Control abstraction objects
-      "Promise",
-      "Generator",
-      "GeneratorFunction",
-      "AsyncFunction",
-      // Reflection
-      "Reflect",
-      "Proxy",
-      // Internationalization
-      "Intl",
-      // WebAssembly
-      "WebAssembly"
-    ];
-    var ERROR_TYPES = [
-      "Error",
-      "EvalError",
-      "InternalError",
-      "RangeError",
-      "ReferenceError",
-      "SyntaxError",
-      "TypeError",
-      "URIError"
-    ];
-    var BUILT_IN_GLOBALS = [
-      "setInterval",
-      "setTimeout",
-      "clearInterval",
-      "clearTimeout",
-      "require",
-      "exports",
-      "eval",
-      "isFinite",
-      "isNaN",
-      "parseFloat",
-      "parseInt",
-      "decodeURI",
-      "decodeURIComponent",
-      "encodeURI",
-      "encodeURIComponent",
-      "escape",
-      "unescape"
-    ];
-    var BUILT_IN_VARIABLES = [
-      "arguments",
-      "this",
-      "super",
-      "console",
-      "window",
-      "document",
-      "localStorage",
-      "sessionStorage",
-      "module",
-      "global"
-      // Node.js
-    ];
-    var BUILT_INS = [].concat(
-      BUILT_IN_GLOBALS,
-      TYPES,
-      ERROR_TYPES
-    );
-    function javascript(hljs2) {
-      const regex = hljs2.regex;
-      const hasClosingTag = (match2, { after }) => {
-        const tag = "</" + match2[0].slice(1);
-        const pos = match2.input.indexOf(tag, after);
-        return pos !== -1;
-      };
-      const IDENT_RE$1 = IDENT_RE;
-      const FRAGMENT = {
-        begin: "<>",
-        end: "</>"
-      };
-      const XML_SELF_CLOSING = /<[A-Za-z0-9\\._:-]+\s*\/>/;
-      const XML_TAG = {
-        begin: /<[A-Za-z0-9\\._:-]+/,
-        end: /\/[A-Za-z0-9\\._:-]+>|\/>/,
-        /**
-         * @param {RegExpMatchArray} match
-         * @param {CallbackResponse} response
-         */
-        isTrulyOpeningTag: (match2, response) => {
-          const afterMatchIndex = match2[0].length + match2.index;
-          const nextChar = match2.input[afterMatchIndex];
-          if (
-            // HTML should not include another raw `<` inside a tag
-            // nested type?
-            // `<Array<Array<number>>`, etc.
-            nextChar === "<" || // the , gives away that this is not HTML
-            // `<T, A extends keyof T, V>`
-            nextChar === ","
-          ) {
-            response.ignoreMatch();
-            return;
-          }
-          if (nextChar === ">") {
-            if (!hasClosingTag(match2, { after: afterMatchIndex })) {
-              response.ignoreMatch();
-            }
-          }
-          let m;
-          const afterMatch = match2.input.substring(afterMatchIndex);
-          if (m = afterMatch.match(/^\s*=/)) {
-            response.ignoreMatch();
-            return;
-          }
-          if (m = afterMatch.match(/^\s+extends\s+/)) {
-            if (m.index === 0) {
-              response.ignoreMatch();
-              return;
-            }
-          }
-        }
-      };
-      const KEYWORDS$1 = {
-        $pattern: IDENT_RE,
-        keyword: KEYWORDS,
-        literal: LITERALS,
-        built_in: BUILT_INS,
-        "variable.language": BUILT_IN_VARIABLES
-      };
-      const decimalDigits = "[0-9](_?[0-9])*";
-      const frac = `\\.(${decimalDigits})`;
-      const decimalInteger = `0|[1-9](_?[0-9])*|0[0-7]*[89][0-9]*`;
-      const NUMBER = {
-        className: "number",
-        variants: [
-          // DecimalLiteral
-          { begin: `(\\b(${decimalInteger})((${frac})|\\.)?|(${frac}))[eE][+-]?(${decimalDigits})\\b` },
-          { begin: `\\b(${decimalInteger})\\b((${frac})\\b|\\.)?|(${frac})\\b` },
-          // DecimalBigIntegerLiteral
-          { begin: `\\b(0|[1-9](_?[0-9])*)n\\b` },
-          // NonDecimalIntegerLiteral
-          { begin: "\\b0[xX][0-9a-fA-F](_?[0-9a-fA-F])*n?\\b" },
-          { begin: "\\b0[bB][0-1](_?[0-1])*n?\\b" },
-          { begin: "\\b0[oO][0-7](_?[0-7])*n?\\b" },
-          // LegacyOctalIntegerLiteral (does not include underscore separators)
-          // https://tc39.es/ecma262/#sec-additional-syntax-numeric-literals
-          { begin: "\\b0[0-7]+n?\\b" }
-        ],
-        relevance: 0
-      };
-      const SUBST = {
-        className: "subst",
-        begin: "\\$\\{",
-        end: "\\}",
-        keywords: KEYWORDS$1,
-        contains: []
-        // defined later
-      };
-      const HTML_TEMPLATE = {
-        begin: ".?html`",
-        end: "",
-        starts: {
-          end: "`",
-          returnEnd: false,
-          contains: [
-            hljs2.BACKSLASH_ESCAPE,
-            SUBST
-          ],
-          subLanguage: "xml"
-        }
-      };
-      const CSS_TEMPLATE = {
-        begin: ".?css`",
-        end: "",
-        starts: {
-          end: "`",
-          returnEnd: false,
-          contains: [
-            hljs2.BACKSLASH_ESCAPE,
-            SUBST
-          ],
-          subLanguage: "css"
-        }
-      };
-      const GRAPHQL_TEMPLATE = {
-        begin: ".?gql`",
-        end: "",
-        starts: {
-          end: "`",
-          returnEnd: false,
-          contains: [
-            hljs2.BACKSLASH_ESCAPE,
-            SUBST
-          ],
-          subLanguage: "graphql"
-        }
-      };
-      const TEMPLATE_STRING = {
-        className: "string",
-        begin: "`",
-        end: "`",
-        contains: [
-          hljs2.BACKSLASH_ESCAPE,
-          SUBST
-        ]
-      };
-      const JSDOC_COMMENT = hljs2.COMMENT(
-        /\/\*\*(?!\/)/,
-        "\\*/",
-        {
-          relevance: 0,
-          contains: [
-            {
-              begin: "(?=@[A-Za-z]+)",
-              relevance: 0,
-              contains: [
-                {
-                  className: "doctag",
-                  begin: "@[A-Za-z]+"
-                },
-                {
-                  className: "type",
-                  begin: "\\{",
-                  end: "\\}",
-                  excludeEnd: true,
-                  excludeBegin: true,
-                  relevance: 0
-                },
-                {
-                  className: "variable",
-                  begin: IDENT_RE$1 + "(?=\\s*(-)|$)",
-                  endsParent: true,
-                  relevance: 0
-                },
-                // eat spaces (not newlines) so we can find
-                // types or variables
-                {
-                  begin: /(?=[^\n])\s/,
-                  relevance: 0
-                }
-              ]
-            }
-          ]
-        }
-      );
-      const COMMENT = {
-        className: "comment",
-        variants: [
-          JSDOC_COMMENT,
-          hljs2.C_BLOCK_COMMENT_MODE,
-          hljs2.C_LINE_COMMENT_MODE
-        ]
-      };
-      const SUBST_INTERNALS = [
-        hljs2.APOS_STRING_MODE,
-        hljs2.QUOTE_STRING_MODE,
-        HTML_TEMPLATE,
-        CSS_TEMPLATE,
-        GRAPHQL_TEMPLATE,
-        TEMPLATE_STRING,
-        // Skip numbers when they are part of a variable name
-        { match: /\$\d+/ },
-        NUMBER
-        // This is intentional:
-        // See https://github.com/highlightjs/highlight.js/issues/3288
-        // hljs.REGEXP_MODE
-      ];
-      SUBST.contains = SUBST_INTERNALS.concat({
-        // we need to pair up {} inside our subst to prevent
-        // it from ending too early by matching another }
-        begin: /\{/,
-        end: /\}/,
-        keywords: KEYWORDS$1,
-        contains: [
-          "self"
-        ].concat(SUBST_INTERNALS)
-      });
-      const SUBST_AND_COMMENTS = [].concat(COMMENT, SUBST.contains);
-      const PARAMS_CONTAINS = SUBST_AND_COMMENTS.concat([
-        // eat recursive parens in sub expressions
-        {
-          begin: /(\s*)\(/,
-          end: /\)/,
-          keywords: KEYWORDS$1,
-          contains: ["self"].concat(SUBST_AND_COMMENTS)
-        }
-      ]);
-      const PARAMS = {
-        className: "params",
-        // convert this to negative lookbehind in v12
-        begin: /(\s*)\(/,
-        // to match the parms with
-        end: /\)/,
-        excludeBegin: true,
-        excludeEnd: true,
-        keywords: KEYWORDS$1,
-        contains: PARAMS_CONTAINS
-      };
-      const CLASS_OR_EXTENDS = {
-        variants: [
-          // class Car extends vehicle
-          {
-            match: [
-              /class/,
-              /\s+/,
-              IDENT_RE$1,
-              /\s+/,
-              /extends/,
-              /\s+/,
-              regex.concat(IDENT_RE$1, "(", regex.concat(/\./, IDENT_RE$1), ")*")
-            ],
-            scope: {
-              1: "keyword",
-              3: "title.class",
-              5: "keyword",
-              7: "title.class.inherited"
-            }
-          },
-          // class Car
-          {
-            match: [
-              /class/,
-              /\s+/,
-              IDENT_RE$1
-            ],
-            scope: {
-              1: "keyword",
-              3: "title.class"
-            }
-          }
-        ]
-      };
-      const CLASS_REFERENCE = {
-        relevance: 0,
-        match: regex.either(
-          // Hard coded exceptions
-          /\bJSON/,
-          // Float32Array, OutT
-          /\b[A-Z][a-z]+([A-Z][a-z]*|\d)*/,
-          // CSSFactory, CSSFactoryT
-          /\b[A-Z]{2,}([A-Z][a-z]+|\d)+([A-Z][a-z]*)*/,
-          // FPs, FPsT
-          /\b[A-Z]{2,}[a-z]+([A-Z][a-z]+|\d)*([A-Z][a-z]*)*/
-          // P
-          // single letters are not highlighted
-          // BLAH
-          // this will be flagged as a UPPER_CASE_CONSTANT instead
-        ),
-        className: "title.class",
-        keywords: {
-          _: [
-            // se we still get relevance credit for JS library classes
-            ...TYPES,
-            ...ERROR_TYPES
-          ]
-        }
-      };
-      const USE_STRICT = {
-        label: "use_strict",
-        className: "meta",
-        relevance: 10,
-        begin: /^\s*['"]use (strict|asm)['"]/
-      };
-      const FUNCTION_DEFINITION = {
-        variants: [
-          {
-            match: [
-              /function/,
-              /\s+/,
-              IDENT_RE$1,
-              /(?=\s*\()/
-            ]
-          },
-          // anonymous function
-          {
-            match: [
-              /function/,
-              /\s*(?=\()/
-            ]
-          }
-        ],
-        className: {
-          1: "keyword",
-          3: "title.function"
-        },
-        label: "func.def",
-        contains: [PARAMS],
-        illegal: /%/
-      };
-      const UPPER_CASE_CONSTANT = {
-        relevance: 0,
-        match: /\b[A-Z][A-Z_0-9]+\b/,
-        className: "variable.constant"
-      };
-      function noneOf(list) {
-        return regex.concat("(?!", list.join("|"), ")");
-      }
-      const FUNCTION_CALL = {
-        match: regex.concat(
-          /\b/,
-          noneOf([
-            ...BUILT_IN_GLOBALS,
-            "super",
-            "import"
-          ].map((x) => `${x}\\s*\\(`)),
-          IDENT_RE$1,
-          regex.lookahead(/\s*\(/)
-        ),
-        className: "title.function",
-        relevance: 0
-      };
-      const PROPERTY_ACCESS = {
-        begin: regex.concat(/\./, regex.lookahead(
-          regex.concat(IDENT_RE$1, /(?![0-9A-Za-z$_(])/)
-        )),
-        end: IDENT_RE$1,
-        excludeBegin: true,
-        keywords: "prototype",
-        className: "property",
-        relevance: 0
-      };
-      const GETTER_OR_SETTER = {
-        match: [
-          /get|set/,
-          /\s+/,
-          IDENT_RE$1,
-          /(?=\()/
-        ],
-        className: {
-          1: "keyword",
-          3: "title.function"
-        },
-        contains: [
-          {
-            // eat to avoid empty params
-            begin: /\(\)/
-          },
-          PARAMS
-        ]
-      };
-      const FUNC_LEAD_IN_RE = "(\\([^()]*(\\([^()]*(\\([^()]*\\)[^()]*)*\\)[^()]*)*\\)|" + hljs2.UNDERSCORE_IDENT_RE + ")\\s*=>";
-      const FUNCTION_VARIABLE = {
-        match: [
-          /const|var|let/,
-          /\s+/,
-          IDENT_RE$1,
-          /\s*/,
-          /=\s*/,
-          /(async\s*)?/,
-          // async is optional
-          regex.lookahead(FUNC_LEAD_IN_RE)
-        ],
-        keywords: "async",
-        className: {
-          1: "keyword",
-          3: "title.function"
-        },
-        contains: [
-          PARAMS
-        ]
-      };
-      return {
-        name: "JavaScript",
-        aliases: ["js", "jsx", "mjs", "cjs"],
-        keywords: KEYWORDS$1,
-        // this will be extended by TypeScript
-        exports: { PARAMS_CONTAINS, CLASS_REFERENCE },
-        illegal: /#(?![$_A-z])/,
-        contains: [
-          hljs2.SHEBANG({
-            label: "shebang",
-            binary: "node",
-            relevance: 5
-          }),
-          USE_STRICT,
-          hljs2.APOS_STRING_MODE,
-          hljs2.QUOTE_STRING_MODE,
-          HTML_TEMPLATE,
-          CSS_TEMPLATE,
-          GRAPHQL_TEMPLATE,
-          TEMPLATE_STRING,
-          COMMENT,
-          // Skip numbers when they are part of a variable name
-          { match: /\$\d+/ },
-          NUMBER,
-          CLASS_REFERENCE,
-          {
-            scope: "attr",
-            match: IDENT_RE$1 + regex.lookahead(":"),
-            relevance: 0
-          },
-          FUNCTION_VARIABLE,
-          {
-            // "value" container
-            begin: "(" + hljs2.RE_STARTERS_RE + "|\\b(case|return|throw)\\b)\\s*",
-            keywords: "return throw case",
-            relevance: 0,
-            contains: [
-              COMMENT,
-              hljs2.REGEXP_MODE,
-              {
-                className: "function",
-                // we have to count the parens to make sure we actually have the
-                // correct bounding ( ) before the =>.  There could be any number of
-                // sub-expressions inside also surrounded by parens.
-                begin: FUNC_LEAD_IN_RE,
-                returnBegin: true,
-                end: "\\s*=>",
-                contains: [
-                  {
-                    className: "params",
-                    variants: [
-                      {
-                        begin: hljs2.UNDERSCORE_IDENT_RE,
-                        relevance: 0
-                      },
-                      {
-                        className: null,
-                        begin: /\(\s*\)/,
-                        skip: true
-                      },
-                      {
-                        begin: /(\s*)\(/,
-                        end: /\)/,
-                        excludeBegin: true,
-                        excludeEnd: true,
-                        keywords: KEYWORDS$1,
-                        contains: PARAMS_CONTAINS
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                // could be a comma delimited list of params to a function call
-                begin: /,/,
-                relevance: 0
-              },
-              {
-                match: /\s+/,
-                relevance: 0
-              },
-              {
-                // JSX
-                variants: [
-                  { begin: FRAGMENT.begin, end: FRAGMENT.end },
-                  { match: XML_SELF_CLOSING },
-                  {
-                    begin: XML_TAG.begin,
-                    // we carefully check the opening tag to see if it truly
-                    // is a tag and not a false positive
-                    "on:begin": XML_TAG.isTrulyOpeningTag,
-                    end: XML_TAG.end
-                  }
-                ],
-                subLanguage: "xml",
-                contains: [
-                  {
-                    begin: XML_TAG.begin,
-                    end: XML_TAG.end,
-                    skip: true,
-                    contains: ["self"]
-                  }
-                ]
-              }
-            ]
-          },
-          FUNCTION_DEFINITION,
-          {
-            // prevent this from getting swallowed up by function
-            // since they appear "function like"
-            beginKeywords: "while if switch catch for"
-          },
-          {
-            // we have to count the parens to make sure we actually have the correct
-            // bounding ( ).  There could be any number of sub-expressions inside
-            // also surrounded by parens.
-            begin: "\\b(?!function)" + hljs2.UNDERSCORE_IDENT_RE + "\\([^()]*(\\([^()]*(\\([^()]*\\)[^()]*)*\\)[^()]*)*\\)\\s*\\{",
-            // end parens
-            returnBegin: true,
-            label: "func.def",
-            contains: [
-              PARAMS,
-              hljs2.inherit(hljs2.TITLE_MODE, { begin: IDENT_RE$1, className: "title.function" })
-            ]
-          },
-          // catch ... so it won't trigger the property rule below
-          {
-            match: /\.\.\./,
-            relevance: 0
-          },
-          PROPERTY_ACCESS,
-          // hack: prevents detection of keywords in some circumstances
-          // .keyword()
-          // $keyword = x
-          {
-            match: "\\$" + IDENT_RE$1,
-            relevance: 0
-          },
-          {
-            match: [/\bconstructor(?=\s*\()/],
-            className: { 1: "title.function" },
-            contains: [PARAMS]
-          },
-          FUNCTION_CALL,
-          UPPER_CASE_CONSTANT,
-          CLASS_OR_EXTENDS,
-          GETTER_OR_SETTER,
-          {
-            match: /\$[(.]/
-            // relevance booster for a pattern common to JS libs: `$(something)` and `$.something`
-          }
-        ]
-      };
-    }
-    function typescript2(hljs2) {
-      const regex = hljs2.regex;
-      const tsLanguage = javascript(hljs2);
-      const IDENT_RE$1 = IDENT_RE;
-      const TYPES2 = [
-        "any",
-        "void",
-        "number",
-        "boolean",
-        "string",
-        "object",
-        "never",
-        "symbol",
-        "bigint",
-        "unknown"
-      ];
-      const NAMESPACE = {
-        begin: [
-          /namespace/,
-          /\s+/,
-          hljs2.IDENT_RE
-        ],
-        beginScope: {
-          1: "keyword",
-          3: "title.class"
-        }
-      };
-      const INTERFACE = {
-        beginKeywords: "interface",
-        end: /\{/,
-        excludeEnd: true,
-        keywords: {
-          keyword: "interface extends",
-          built_in: TYPES2
-        },
-        contains: [tsLanguage.exports.CLASS_REFERENCE]
-      };
-      const USE_STRICT = {
-        className: "meta",
-        relevance: 10,
-        begin: /^\s*['"]use strict['"]/
-      };
-      const TS_SPECIFIC_KEYWORDS = [
-        "type",
-        // "namespace",
-        "interface",
-        "public",
-        "private",
-        "protected",
-        "implements",
-        "declare",
-        "abstract",
-        "readonly",
-        "enum",
-        "override",
-        "satisfies"
-      ];
-      const KEYWORDS$1 = {
-        $pattern: IDENT_RE,
-        keyword: KEYWORDS.concat(TS_SPECIFIC_KEYWORDS),
-        literal: LITERALS,
-        built_in: BUILT_INS.concat(TYPES2),
-        "variable.language": BUILT_IN_VARIABLES
-      };
-      const DECORATOR = {
-        className: "meta",
-        begin: "@" + IDENT_RE$1
-      };
-      const swapMode = (mode, label, replacement) => {
-        const indx = mode.contains.findIndex((m) => m.label === label);
-        if (indx === -1) {
-          throw new Error("can not find mode to replace");
-        }
-        mode.contains.splice(indx, 1, replacement);
-      };
-      Object.assign(tsLanguage.keywords, KEYWORDS$1);
-      tsLanguage.exports.PARAMS_CONTAINS.push(DECORATOR);
-      const ATTRIBUTE_HIGHLIGHT = tsLanguage.contains.find((c) => c.scope === "attr");
-      const OPTIONAL_KEY_OR_ARGUMENT = Object.assign(
-        {},
-        ATTRIBUTE_HIGHLIGHT,
-        { match: regex.concat(IDENT_RE$1, regex.lookahead(/\s*\?:/)) }
-      );
-      tsLanguage.exports.PARAMS_CONTAINS.push([
-        tsLanguage.exports.CLASS_REFERENCE,
-        // class reference for highlighting the params types
-        ATTRIBUTE_HIGHLIGHT,
-        // highlight the params key
-        OPTIONAL_KEY_OR_ARGUMENT
-        // Added for optional property assignment highlighting
-      ]);
-      tsLanguage.contains = tsLanguage.contains.concat([
-        DECORATOR,
-        NAMESPACE,
-        INTERFACE,
-        OPTIONAL_KEY_OR_ARGUMENT
-        // Added for optional property assignment highlighting
-      ]);
-      swapMode(tsLanguage, "shebang", hljs2.SHEBANG());
-      swapMode(tsLanguage, "use_strict", USE_STRICT);
-      const functionDeclaration = tsLanguage.contains.find((m) => m.label === "func.def");
-      functionDeclaration.relevance = 0;
-      Object.assign(tsLanguage, {
-        name: "TypeScript",
-        aliases: [
-          "ts",
-          "tsx",
-          "mts",
-          "cts"
-        ]
-      });
-      return tsLanguage;
-    }
-    module.exports = typescript2;
   }
 });
 
@@ -54507,9 +53687,825 @@ var MatIconModule = class _MatIconModule {
   }], null, null);
 })();
 
+// node_modules/highlight.js/es/core.js
+var import_core29 = __toESM(require_core(), 1);
+var core_default = import_core29.default;
+
+// node_modules/highlight.js/es/languages/typescript.js
+var IDENT_RE = "[A-Za-z$_][0-9A-Za-z$_]*";
+var KEYWORDS = [
+  "as",
+  // for exports
+  "in",
+  "of",
+  "if",
+  "for",
+  "while",
+  "finally",
+  "var",
+  "new",
+  "function",
+  "do",
+  "return",
+  "void",
+  "else",
+  "break",
+  "catch",
+  "instanceof",
+  "with",
+  "throw",
+  "case",
+  "default",
+  "try",
+  "switch",
+  "continue",
+  "typeof",
+  "delete",
+  "let",
+  "yield",
+  "const",
+  "class",
+  // JS handles these with a special rule
+  // "get",
+  // "set",
+  "debugger",
+  "async",
+  "await",
+  "static",
+  "import",
+  "from",
+  "export",
+  "extends",
+  // It's reached stage 3, which is "recommended for implementation":
+  "using"
+];
+var LITERALS = [
+  "true",
+  "false",
+  "null",
+  "undefined",
+  "NaN",
+  "Infinity"
+];
+var TYPES = [
+  // Fundamental objects
+  "Object",
+  "Function",
+  "Boolean",
+  "Symbol",
+  // numbers and dates
+  "Math",
+  "Date",
+  "Number",
+  "BigInt",
+  // text
+  "String",
+  "RegExp",
+  // Indexed collections
+  "Array",
+  "Float32Array",
+  "Float64Array",
+  "Int8Array",
+  "Uint8Array",
+  "Uint8ClampedArray",
+  "Int16Array",
+  "Int32Array",
+  "Uint16Array",
+  "Uint32Array",
+  "BigInt64Array",
+  "BigUint64Array",
+  // Keyed collections
+  "Set",
+  "Map",
+  "WeakSet",
+  "WeakMap",
+  // Structured data
+  "ArrayBuffer",
+  "SharedArrayBuffer",
+  "Atomics",
+  "DataView",
+  "JSON",
+  // Control abstraction objects
+  "Promise",
+  "Generator",
+  "GeneratorFunction",
+  "AsyncFunction",
+  // Reflection
+  "Reflect",
+  "Proxy",
+  // Internationalization
+  "Intl",
+  // WebAssembly
+  "WebAssembly"
+];
+var ERROR_TYPES = [
+  "Error",
+  "EvalError",
+  "InternalError",
+  "RangeError",
+  "ReferenceError",
+  "SyntaxError",
+  "TypeError",
+  "URIError"
+];
+var BUILT_IN_GLOBALS = [
+  "setInterval",
+  "setTimeout",
+  "clearInterval",
+  "clearTimeout",
+  "require",
+  "exports",
+  "eval",
+  "isFinite",
+  "isNaN",
+  "parseFloat",
+  "parseInt",
+  "decodeURI",
+  "decodeURIComponent",
+  "encodeURI",
+  "encodeURIComponent",
+  "escape",
+  "unescape"
+];
+var BUILT_IN_VARIABLES = [
+  "arguments",
+  "this",
+  "super",
+  "console",
+  "window",
+  "document",
+  "localStorage",
+  "sessionStorage",
+  "module",
+  "global"
+  // Node.js
+];
+var BUILT_INS = [].concat(
+  BUILT_IN_GLOBALS,
+  TYPES,
+  ERROR_TYPES
+);
+function javascript(hljs) {
+  const regex = hljs.regex;
+  const hasClosingTag = (match2, { after }) => {
+    const tag = "</" + match2[0].slice(1);
+    const pos = match2.input.indexOf(tag, after);
+    return pos !== -1;
+  };
+  const IDENT_RE$1 = IDENT_RE;
+  const FRAGMENT = {
+    begin: "<>",
+    end: "</>"
+  };
+  const XML_SELF_CLOSING = /<[A-Za-z0-9\\._:-]+\s*\/>/;
+  const XML_TAG = {
+    begin: /<[A-Za-z0-9\\._:-]+/,
+    end: /\/[A-Za-z0-9\\._:-]+>|\/>/,
+    /**
+     * @param {RegExpMatchArray} match
+     * @param {CallbackResponse} response
+     */
+    isTrulyOpeningTag: (match2, response) => {
+      const afterMatchIndex = match2[0].length + match2.index;
+      const nextChar = match2.input[afterMatchIndex];
+      if (
+        // HTML should not include another raw `<` inside a tag
+        // nested type?
+        // `<Array<Array<number>>`, etc.
+        nextChar === "<" || // the , gives away that this is not HTML
+        // `<T, A extends keyof T, V>`
+        nextChar === ","
+      ) {
+        response.ignoreMatch();
+        return;
+      }
+      if (nextChar === ">") {
+        if (!hasClosingTag(match2, { after: afterMatchIndex })) {
+          response.ignoreMatch();
+        }
+      }
+      let m;
+      const afterMatch = match2.input.substring(afterMatchIndex);
+      if (m = afterMatch.match(/^\s*=/)) {
+        response.ignoreMatch();
+        return;
+      }
+      if (m = afterMatch.match(/^\s+extends\s+/)) {
+        if (m.index === 0) {
+          response.ignoreMatch();
+          return;
+        }
+      }
+    }
+  };
+  const KEYWORDS$1 = {
+    $pattern: IDENT_RE,
+    keyword: KEYWORDS,
+    literal: LITERALS,
+    built_in: BUILT_INS,
+    "variable.language": BUILT_IN_VARIABLES
+  };
+  const decimalDigits = "[0-9](_?[0-9])*";
+  const frac = `\\.(${decimalDigits})`;
+  const decimalInteger = `0|[1-9](_?[0-9])*|0[0-7]*[89][0-9]*`;
+  const NUMBER = {
+    className: "number",
+    variants: [
+      // DecimalLiteral
+      { begin: `(\\b(${decimalInteger})((${frac})|\\.)?|(${frac}))[eE][+-]?(${decimalDigits})\\b` },
+      { begin: `\\b(${decimalInteger})\\b((${frac})\\b|\\.)?|(${frac})\\b` },
+      // DecimalBigIntegerLiteral
+      { begin: `\\b(0|[1-9](_?[0-9])*)n\\b` },
+      // NonDecimalIntegerLiteral
+      { begin: "\\b0[xX][0-9a-fA-F](_?[0-9a-fA-F])*n?\\b" },
+      { begin: "\\b0[bB][0-1](_?[0-1])*n?\\b" },
+      { begin: "\\b0[oO][0-7](_?[0-7])*n?\\b" },
+      // LegacyOctalIntegerLiteral (does not include underscore separators)
+      // https://tc39.es/ecma262/#sec-additional-syntax-numeric-literals
+      { begin: "\\b0[0-7]+n?\\b" }
+    ],
+    relevance: 0
+  };
+  const SUBST = {
+    className: "subst",
+    begin: "\\$\\{",
+    end: "\\}",
+    keywords: KEYWORDS$1,
+    contains: []
+    // defined later
+  };
+  const HTML_TEMPLATE = {
+    begin: ".?html`",
+    end: "",
+    starts: {
+      end: "`",
+      returnEnd: false,
+      contains: [
+        hljs.BACKSLASH_ESCAPE,
+        SUBST
+      ],
+      subLanguage: "xml"
+    }
+  };
+  const CSS_TEMPLATE = {
+    begin: ".?css`",
+    end: "",
+    starts: {
+      end: "`",
+      returnEnd: false,
+      contains: [
+        hljs.BACKSLASH_ESCAPE,
+        SUBST
+      ],
+      subLanguage: "css"
+    }
+  };
+  const GRAPHQL_TEMPLATE = {
+    begin: ".?gql`",
+    end: "",
+    starts: {
+      end: "`",
+      returnEnd: false,
+      contains: [
+        hljs.BACKSLASH_ESCAPE,
+        SUBST
+      ],
+      subLanguage: "graphql"
+    }
+  };
+  const TEMPLATE_STRING = {
+    className: "string",
+    begin: "`",
+    end: "`",
+    contains: [
+      hljs.BACKSLASH_ESCAPE,
+      SUBST
+    ]
+  };
+  const JSDOC_COMMENT = hljs.COMMENT(
+    /\/\*\*(?!\/)/,
+    "\\*/",
+    {
+      relevance: 0,
+      contains: [
+        {
+          begin: "(?=@[A-Za-z]+)",
+          relevance: 0,
+          contains: [
+            {
+              className: "doctag",
+              begin: "@[A-Za-z]+"
+            },
+            {
+              className: "type",
+              begin: "\\{",
+              end: "\\}",
+              excludeEnd: true,
+              excludeBegin: true,
+              relevance: 0
+            },
+            {
+              className: "variable",
+              begin: IDENT_RE$1 + "(?=\\s*(-)|$)",
+              endsParent: true,
+              relevance: 0
+            },
+            // eat spaces (not newlines) so we can find
+            // types or variables
+            {
+              begin: /(?=[^\n])\s/,
+              relevance: 0
+            }
+          ]
+        }
+      ]
+    }
+  );
+  const COMMENT = {
+    className: "comment",
+    variants: [
+      JSDOC_COMMENT,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.C_LINE_COMMENT_MODE
+    ]
+  };
+  const SUBST_INTERNALS = [
+    hljs.APOS_STRING_MODE,
+    hljs.QUOTE_STRING_MODE,
+    HTML_TEMPLATE,
+    CSS_TEMPLATE,
+    GRAPHQL_TEMPLATE,
+    TEMPLATE_STRING,
+    // Skip numbers when they are part of a variable name
+    { match: /\$\d+/ },
+    NUMBER
+    // This is intentional:
+    // See https://github.com/highlightjs/highlight.js/issues/3288
+    // hljs.REGEXP_MODE
+  ];
+  SUBST.contains = SUBST_INTERNALS.concat({
+    // we need to pair up {} inside our subst to prevent
+    // it from ending too early by matching another }
+    begin: /\{/,
+    end: /\}/,
+    keywords: KEYWORDS$1,
+    contains: [
+      "self"
+    ].concat(SUBST_INTERNALS)
+  });
+  const SUBST_AND_COMMENTS = [].concat(COMMENT, SUBST.contains);
+  const PARAMS_CONTAINS = SUBST_AND_COMMENTS.concat([
+    // eat recursive parens in sub expressions
+    {
+      begin: /(\s*)\(/,
+      end: /\)/,
+      keywords: KEYWORDS$1,
+      contains: ["self"].concat(SUBST_AND_COMMENTS)
+    }
+  ]);
+  const PARAMS = {
+    className: "params",
+    // convert this to negative lookbehind in v12
+    begin: /(\s*)\(/,
+    // to match the parms with
+    end: /\)/,
+    excludeBegin: true,
+    excludeEnd: true,
+    keywords: KEYWORDS$1,
+    contains: PARAMS_CONTAINS
+  };
+  const CLASS_OR_EXTENDS = {
+    variants: [
+      // class Car extends vehicle
+      {
+        match: [
+          /class/,
+          /\s+/,
+          IDENT_RE$1,
+          /\s+/,
+          /extends/,
+          /\s+/,
+          regex.concat(IDENT_RE$1, "(", regex.concat(/\./, IDENT_RE$1), ")*")
+        ],
+        scope: {
+          1: "keyword",
+          3: "title.class",
+          5: "keyword",
+          7: "title.class.inherited"
+        }
+      },
+      // class Car
+      {
+        match: [
+          /class/,
+          /\s+/,
+          IDENT_RE$1
+        ],
+        scope: {
+          1: "keyword",
+          3: "title.class"
+        }
+      }
+    ]
+  };
+  const CLASS_REFERENCE = {
+    relevance: 0,
+    match: regex.either(
+      // Hard coded exceptions
+      /\bJSON/,
+      // Float32Array, OutT
+      /\b[A-Z][a-z]+([A-Z][a-z]*|\d)*/,
+      // CSSFactory, CSSFactoryT
+      /\b[A-Z]{2,}([A-Z][a-z]+|\d)+([A-Z][a-z]*)*/,
+      // FPs, FPsT
+      /\b[A-Z]{2,}[a-z]+([A-Z][a-z]+|\d)*([A-Z][a-z]*)*/
+      // P
+      // single letters are not highlighted
+      // BLAH
+      // this will be flagged as a UPPER_CASE_CONSTANT instead
+    ),
+    className: "title.class",
+    keywords: {
+      _: [
+        // se we still get relevance credit for JS library classes
+        ...TYPES,
+        ...ERROR_TYPES
+      ]
+    }
+  };
+  const USE_STRICT = {
+    label: "use_strict",
+    className: "meta",
+    relevance: 10,
+    begin: /^\s*['"]use (strict|asm)['"]/
+  };
+  const FUNCTION_DEFINITION = {
+    variants: [
+      {
+        match: [
+          /function/,
+          /\s+/,
+          IDENT_RE$1,
+          /(?=\s*\()/
+        ]
+      },
+      // anonymous function
+      {
+        match: [
+          /function/,
+          /\s*(?=\()/
+        ]
+      }
+    ],
+    className: {
+      1: "keyword",
+      3: "title.function"
+    },
+    label: "func.def",
+    contains: [PARAMS],
+    illegal: /%/
+  };
+  const UPPER_CASE_CONSTANT = {
+    relevance: 0,
+    match: /\b[A-Z][A-Z_0-9]+\b/,
+    className: "variable.constant"
+  };
+  function noneOf(list) {
+    return regex.concat("(?!", list.join("|"), ")");
+  }
+  const FUNCTION_CALL = {
+    match: regex.concat(
+      /\b/,
+      noneOf([
+        ...BUILT_IN_GLOBALS,
+        "super",
+        "import"
+      ].map((x) => `${x}\\s*\\(`)),
+      IDENT_RE$1,
+      regex.lookahead(/\s*\(/)
+    ),
+    className: "title.function",
+    relevance: 0
+  };
+  const PROPERTY_ACCESS = {
+    begin: regex.concat(/\./, regex.lookahead(
+      regex.concat(IDENT_RE$1, /(?![0-9A-Za-z$_(])/)
+    )),
+    end: IDENT_RE$1,
+    excludeBegin: true,
+    keywords: "prototype",
+    className: "property",
+    relevance: 0
+  };
+  const GETTER_OR_SETTER = {
+    match: [
+      /get|set/,
+      /\s+/,
+      IDENT_RE$1,
+      /(?=\()/
+    ],
+    className: {
+      1: "keyword",
+      3: "title.function"
+    },
+    contains: [
+      {
+        // eat to avoid empty params
+        begin: /\(\)/
+      },
+      PARAMS
+    ]
+  };
+  const FUNC_LEAD_IN_RE = "(\\([^()]*(\\([^()]*(\\([^()]*\\)[^()]*)*\\)[^()]*)*\\)|" + hljs.UNDERSCORE_IDENT_RE + ")\\s*=>";
+  const FUNCTION_VARIABLE = {
+    match: [
+      /const|var|let/,
+      /\s+/,
+      IDENT_RE$1,
+      /\s*/,
+      /=\s*/,
+      /(async\s*)?/,
+      // async is optional
+      regex.lookahead(FUNC_LEAD_IN_RE)
+    ],
+    keywords: "async",
+    className: {
+      1: "keyword",
+      3: "title.function"
+    },
+    contains: [
+      PARAMS
+    ]
+  };
+  return {
+    name: "JavaScript",
+    aliases: ["js", "jsx", "mjs", "cjs"],
+    keywords: KEYWORDS$1,
+    // this will be extended by TypeScript
+    exports: { PARAMS_CONTAINS, CLASS_REFERENCE },
+    illegal: /#(?![$_A-z])/,
+    contains: [
+      hljs.SHEBANG({
+        label: "shebang",
+        binary: "node",
+        relevance: 5
+      }),
+      USE_STRICT,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      HTML_TEMPLATE,
+      CSS_TEMPLATE,
+      GRAPHQL_TEMPLATE,
+      TEMPLATE_STRING,
+      COMMENT,
+      // Skip numbers when they are part of a variable name
+      { match: /\$\d+/ },
+      NUMBER,
+      CLASS_REFERENCE,
+      {
+        scope: "attr",
+        match: IDENT_RE$1 + regex.lookahead(":"),
+        relevance: 0
+      },
+      FUNCTION_VARIABLE,
+      {
+        // "value" container
+        begin: "(" + hljs.RE_STARTERS_RE + "|\\b(case|return|throw)\\b)\\s*",
+        keywords: "return throw case",
+        relevance: 0,
+        contains: [
+          COMMENT,
+          hljs.REGEXP_MODE,
+          {
+            className: "function",
+            // we have to count the parens to make sure we actually have the
+            // correct bounding ( ) before the =>.  There could be any number of
+            // sub-expressions inside also surrounded by parens.
+            begin: FUNC_LEAD_IN_RE,
+            returnBegin: true,
+            end: "\\s*=>",
+            contains: [
+              {
+                className: "params",
+                variants: [
+                  {
+                    begin: hljs.UNDERSCORE_IDENT_RE,
+                    relevance: 0
+                  },
+                  {
+                    className: null,
+                    begin: /\(\s*\)/,
+                    skip: true
+                  },
+                  {
+                    begin: /(\s*)\(/,
+                    end: /\)/,
+                    excludeBegin: true,
+                    excludeEnd: true,
+                    keywords: KEYWORDS$1,
+                    contains: PARAMS_CONTAINS
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            // could be a comma delimited list of params to a function call
+            begin: /,/,
+            relevance: 0
+          },
+          {
+            match: /\s+/,
+            relevance: 0
+          },
+          {
+            // JSX
+            variants: [
+              { begin: FRAGMENT.begin, end: FRAGMENT.end },
+              { match: XML_SELF_CLOSING },
+              {
+                begin: XML_TAG.begin,
+                // we carefully check the opening tag to see if it truly
+                // is a tag and not a false positive
+                "on:begin": XML_TAG.isTrulyOpeningTag,
+                end: XML_TAG.end
+              }
+            ],
+            subLanguage: "xml",
+            contains: [
+              {
+                begin: XML_TAG.begin,
+                end: XML_TAG.end,
+                skip: true,
+                contains: ["self"]
+              }
+            ]
+          }
+        ]
+      },
+      FUNCTION_DEFINITION,
+      {
+        // prevent this from getting swallowed up by function
+        // since they appear "function like"
+        beginKeywords: "while if switch catch for"
+      },
+      {
+        // we have to count the parens to make sure we actually have the correct
+        // bounding ( ).  There could be any number of sub-expressions inside
+        // also surrounded by parens.
+        begin: "\\b(?!function)" + hljs.UNDERSCORE_IDENT_RE + "\\([^()]*(\\([^()]*(\\([^()]*\\)[^()]*)*\\)[^()]*)*\\)\\s*\\{",
+        // end parens
+        returnBegin: true,
+        label: "func.def",
+        contains: [
+          PARAMS,
+          hljs.inherit(hljs.TITLE_MODE, { begin: IDENT_RE$1, className: "title.function" })
+        ]
+      },
+      // catch ... so it won't trigger the property rule below
+      {
+        match: /\.\.\./,
+        relevance: 0
+      },
+      PROPERTY_ACCESS,
+      // hack: prevents detection of keywords in some circumstances
+      // .keyword()
+      // $keyword = x
+      {
+        match: "\\$" + IDENT_RE$1,
+        relevance: 0
+      },
+      {
+        match: [/\bconstructor(?=\s*\()/],
+        className: { 1: "title.function" },
+        contains: [PARAMS]
+      },
+      FUNCTION_CALL,
+      UPPER_CASE_CONSTANT,
+      CLASS_OR_EXTENDS,
+      GETTER_OR_SETTER,
+      {
+        match: /\$[(.]/
+        // relevance booster for a pattern common to JS libs: `$(something)` and `$.something`
+      }
+    ]
+  };
+}
+function typescript(hljs) {
+  const regex = hljs.regex;
+  const tsLanguage = javascript(hljs);
+  const IDENT_RE$1 = IDENT_RE;
+  const TYPES2 = [
+    "any",
+    "void",
+    "number",
+    "boolean",
+    "string",
+    "object",
+    "never",
+    "symbol",
+    "bigint",
+    "unknown"
+  ];
+  const NAMESPACE = {
+    begin: [
+      /namespace/,
+      /\s+/,
+      hljs.IDENT_RE
+    ],
+    beginScope: {
+      1: "keyword",
+      3: "title.class"
+    }
+  };
+  const INTERFACE = {
+    beginKeywords: "interface",
+    end: /\{/,
+    excludeEnd: true,
+    keywords: {
+      keyword: "interface extends",
+      built_in: TYPES2
+    },
+    contains: [tsLanguage.exports.CLASS_REFERENCE]
+  };
+  const USE_STRICT = {
+    className: "meta",
+    relevance: 10,
+    begin: /^\s*['"]use strict['"]/
+  };
+  const TS_SPECIFIC_KEYWORDS = [
+    "type",
+    // "namespace",
+    "interface",
+    "public",
+    "private",
+    "protected",
+    "implements",
+    "declare",
+    "abstract",
+    "readonly",
+    "enum",
+    "override",
+    "satisfies"
+  ];
+  const KEYWORDS$1 = {
+    $pattern: IDENT_RE,
+    keyword: KEYWORDS.concat(TS_SPECIFIC_KEYWORDS),
+    literal: LITERALS,
+    built_in: BUILT_INS.concat(TYPES2),
+    "variable.language": BUILT_IN_VARIABLES
+  };
+  const DECORATOR = {
+    className: "meta",
+    begin: "@" + IDENT_RE$1
+  };
+  const swapMode = (mode, label, replacement) => {
+    const indx = mode.contains.findIndex((m) => m.label === label);
+    if (indx === -1) {
+      throw new Error("can not find mode to replace");
+    }
+    mode.contains.splice(indx, 1, replacement);
+  };
+  Object.assign(tsLanguage.keywords, KEYWORDS$1);
+  tsLanguage.exports.PARAMS_CONTAINS.push(DECORATOR);
+  const ATTRIBUTE_HIGHLIGHT = tsLanguage.contains.find((c) => c.scope === "attr");
+  const OPTIONAL_KEY_OR_ARGUMENT = Object.assign(
+    {},
+    ATTRIBUTE_HIGHLIGHT,
+    { match: regex.concat(IDENT_RE$1, regex.lookahead(/\s*\?:/)) }
+  );
+  tsLanguage.exports.PARAMS_CONTAINS.push([
+    tsLanguage.exports.CLASS_REFERENCE,
+    // class reference for highlighting the params types
+    ATTRIBUTE_HIGHLIGHT,
+    // highlight the params key
+    OPTIONAL_KEY_OR_ARGUMENT
+    // Added for optional property assignment highlighting
+  ]);
+  tsLanguage.contains = tsLanguage.contains.concat([
+    DECORATOR,
+    NAMESPACE,
+    INTERFACE,
+    OPTIONAL_KEY_OR_ARGUMENT
+    // Added for optional property assignment highlighting
+  ]);
+  swapMode(tsLanguage, "shebang", hljs.SHEBANG());
+  swapMode(tsLanguage, "use_strict", USE_STRICT);
+  const functionDeclaration = tsLanguage.contains.find((m) => m.label === "func.def");
+  functionDeclaration.relevance = 0;
+  Object.assign(tsLanguage, {
+    name: "TypeScript",
+    aliases: [
+      "ts",
+      "tsx",
+      "mts",
+      "cts"
+    ]
+  });
+  return tsLanguage;
+}
+
 // src/Infrastructure/Presentation/components/code-display/code-display.component.ts
-var import_core30 = __toESM(require_core());
-var import_typescript = __toESM(require_typescript());
 var _c02 = ["codeBlock"];
 function CodeDisplayComponent_mat_icon_8_Template(rf, ctx) {
   if (rf & 1) {
@@ -54557,7 +54553,7 @@ var CodeDisplayComponent = class _CodeDisplayComponent {
   }
   initHighlightJs() {
     if (!_CodeDisplayComponent.hljsInitialized) {
-      import_core30.default.registerLanguage("typescript", import_typescript.default);
+      core_default.registerLanguage("typescript", typescript);
       _CodeDisplayComponent.hljsInitialized = true;
     }
   }
@@ -54572,7 +54568,7 @@ var CodeDisplayComponent = class _CodeDisplayComponent {
       element.className = element.className.replace(/\bhljs\b/g, "").trim();
       element.textContent = this.highlightedCode;
       element.className += " language-typescript";
-      import_core30.default.highlightElement(element);
+      core_default.highlightElement(element);
     }
   }
   copyToClipboard() {
@@ -78215,45 +78211,6 @@ export default [
   }
 };
 
-// src/Application/Services/HelpAppService.ts
-var HELP_TEXT = `Onion Architecture Generator
-\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
-Erzeugt eine vollst\xE4ndige Onion-Architektur (Domain, Application, Infrastructure)
-inklusive Frontend-Ger\xFCst und best\xFCckter Ordnerstruktur.
-
-USAGE
-  onion                         Interaktive Eingabe aller ben\xF6tigten Werte
-  onion --config <file>         Vollautomatischer Lauf auf Basis einer JSON-Konfiguration
-  onion --scan <src> <json>     Vorhandenes Projekt scannen und JSON-Config erzeugen
-
-FEATURES
-  \u2022 Onion-Ordnerstruktur mit Domain, Application und Infrastructure
-  \u2022 Generatoren f\xFCr Entities, Domain- & Application-Services
-  \u2022 Repository-Interface + Implementierungsskelett
-  \u2022 Dependency-Injection via Awilix
-  \u2022 Vorgefertigte Prettier- & ESLint-Konfiguration
-  \u2022 Frontend-Setup: Lit, React, Angular, Vue oder Vanilla
-  \u2022 Wahlweise interaktive Prompts oder reine JSON-Config
-
-EXAMPLES
-  onion                                   # startet interaktiv
-  onion --config myConfig.json            # nutzt vorhandene Konfig-Datei
-  onion --scan .\\react\\ reactConfig.json  # erstellt Konfig aus bestehendem Projekt
-
-CONFIG NOTES
-  \u2022 Services ohne Abh\xE4ngigkeiten brauchen ein leeres Array, z. B. "UserService": []
-  \u2022 Zul\xE4ssige uiFramework-Werte: react | angular | vue | lit | vanilla
-  \u2022 "folderPath" darf relativ oder absolut sein.
-`;
-var HelpAppService = class {
-  handleHelp() {
-    if (process.argv.includes("--help") || process.argv.includes("-h")) {
-      console.log(HELP_TEXT);
-      process.exit(0);
-    }
-  }
-};
-
 // node_modules/awilix/lib/awilix.browser.mjs
 var EOL = "\n";
 var ExtendableError = class extends Error {
@@ -85909,7 +85866,6 @@ container.register({
   onionAppService: asClass(OnionAppService).singleton(),
   onionConfig: asClass(OnionConfig).singleton(),
   awilixConfig: asClass(AwilixConfig).singleton(),
-  helpAppService: asClass(HelpAppService).singleton(),
   entityService: asClass(EntityService).singleton(),
   domainServiceService: asClass(DomainServiceService).singleton(),
   iRepoService: asClass(IRepoService).singleton(),
