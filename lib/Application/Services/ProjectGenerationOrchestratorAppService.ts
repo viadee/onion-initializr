@@ -94,7 +94,7 @@ export class ProjectGenerationOrchestratorAppService {
     );
 
     if (!initResult) {
-      throw new Error('Failed to initialize framework');
+      throw new Error('Failed to initialize framework.');
     }
 
     console.log(

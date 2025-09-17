@@ -29,7 +29,6 @@ test.describe('CLI Integration Tests', () => {
 
   test('should build CLI successfully', async () => {
     try {
-      console.log('🔨 Building CLI...');
       const { stdout, stderr } = await execAsync('npm run build', {
         cwd: process.cwd(),
         timeout: 30000, // 30 seconds
