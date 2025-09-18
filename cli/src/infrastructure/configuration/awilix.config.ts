@@ -16,8 +16,6 @@ import { FileService } from "../../../../lib/Domain/Services/FileService";
 import { PathRepository } from "../Repositories/PathRepository";
 import { IRepoService } from "../../../../lib/Domain/Services/IRepoService";
 import { FileSystemFileRepository } from "../Repositories/FileSystemFileRepository";
-import { NodeCommandRunner } from "../../../../gh-pages/src/Infrastructure/Repositories/NodeCommandRunner";
-import { RunCommandService } from "../Repositories/RunCommandService";
 import { ScanControllerAppService } from "../../Application/Services/ScanControllerAppService";
 import { ScannerAppService } from "../../Application/Services/ScannerAppService";
 import { FileHelperAppService } from "../../Application/Services/FileHelperAppService";
@@ -44,6 +42,8 @@ import { OnionConfigConnectionAppService } from "../../../../lib/Application/Ser
 import { OnionConfig } from "../../../../lib/Domain/Entities/OnionConfig";
 import { AwilixConfig } from "../../../../lib/Domain/Entities/AwilixConfig";
 import { LintAppService } from "../../../../lib/Application/Services/LintAppService";
+import { RunCommandService } from "../repositories/RunCommandService";
+import { NodeCommandRunner } from "../repositories/NodeCommandRunner";
 
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,

@@ -10,7 +10,7 @@
 // ───────────────────────────────────────────────────────────────────────────────
 // Resolve and run
 
-import { container } from '../../Infrastructure/Configuration/awilix.config';
+import { container } from "../../infrastructure/configuration/awilix.config";
 import { OnionCliAppService } from './OnionCliAppService';
 
 // ───────────────────────────────────────────────────────────────────────────────
