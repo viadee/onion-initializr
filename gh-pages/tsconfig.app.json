@@ -23,6 +23,7 @@
     "../lib/Application/Services/LintAppService.ts",
     "../lib/Domain/Services/ProjectInitService.ts",
     "../lib/Application/Services/Services/OnionCliAppService.ts",
-    "../lib/Application/Services/Services/MainAppService.ts"
+    "../lib/Application/Services/Services/MainAppService.ts",
+    "../cli/**/*"
   ]
 }
