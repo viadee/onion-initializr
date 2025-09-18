@@ -1,12 +1,10 @@
 import { ICommandRunner } from './../../../../lib/Domain/Interfaces/ICommandRunner';
-//import { RunCommandService } from './RunCommandService';
+import { RunCommandService } from './../../../../cli/src/infrastructure/repositories/RunCommandService';
 
 export class NodeCommandRunner implements ICommandRunner {
-  constructor() {} // private readonly commandRunnerService: RunCommandService
+  constructor(private readonly commandRunnerService: RunCommandService) {}
   async runCommand(command: string, cwd: string): Promise<string> {
-    //return await this.commandRunnerService.runCommand(command, cwd);
-    return '';
-    //
+    return await this.commandRunnerService.runCommand(command, cwd);
   }
 
   async installPackages(packages: string[], cwd: string): Promise<void> {
