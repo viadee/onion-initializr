@@ -44,7 +44,10 @@ export class CodeDisplayComponent implements OnInit, OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['content'] || changes['filename']) {
       this.processContent();
-      this.highlightBlock();
+      // Use setTimeout to ensure DOM has been updated
+      setTimeout(() => {
+        this.highlightBlock();
+      }, 0);
     }
   }
 
