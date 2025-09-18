@@ -35,7 +35,6 @@ import { ProgressTrackingAppService } from '../../Application/Services/ProgressT
 import { WebContainerAppService } from '../../Application/Services/WebContainerAppService';
 import { WebContainerOptimizedProjectAppService } from '../../Application/Services/WebContainerOptimizedProjectAppService';
 import { ZipAppService } from '../../Application/Services/ZipAppService';
-import { NodeCommandRunner } from '../Repositories/NodeCommandRunner';
 import { WebContainerCommandRunnerService } from '../Repositories/WebContainerCommandRunnerService';
 import { WebContainerFileRepository } from '../Repositories/WebContainerFileRepository';
 import { WebContainerHelperFunctions } from '../Repositories/WebContainerHelperFunctions';
@@ -46,8 +45,6 @@ import { OnionConfig } from '../../../../lib/Domain/Entities/OnionConfig';
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,
 });
-
-const browserService = new BrowserCheckAppService();
 
 container.register({
   generationOrchestrator: asClass(
@@ -114,85 +111,77 @@ container.register({
   lintAppService: asClass(LintAppService).singleton(),
 });
 
-// Register file repository based on environment
-if (browserService.isNode()) {
-  container.register({
-    commandRunner: asClass(NodeCommandRunner).singleton(),
-  });
-} else if (browserService.isBrowser()) {
-  container.register({
-    fileRepository: asClass(WebContainerFileRepository).singleton(),
-    webContainerRepository: asClass(WebContainerFileRepository).singleton(),
-    pathRepository: asClass(WebContainerPathRepository).singleton(),
-    projectService: asClass(WebContainerOptimizedProjectAppService).singleton(),
-    commandRunner: asClass(WebContainerCommandRunnerService).singleton(),
-    webContainerService: asClass(WebContainerAppService).singleton(),
+// Register services for browser environment (web app only runs in browser)
+container.register({
+  fileRepository: asClass(WebContainerFileRepository).singleton(),
+  webContainerRepository: asClass(WebContainerFileRepository).singleton(),
+  pathRepository: asClass(WebContainerPathRepository).singleton(),
+  projectService: asClass(WebContainerOptimizedProjectAppService).singleton(),
+  commandRunner: asClass(WebContainerCommandRunnerService).singleton(),
+  webContainerService: asClass(WebContainerAppService).singleton(),
 
-    // WebContainer can usually not be imported into node.js environments,
-    // so we use a proxy to lazy-load the service when needed
-    webContainerManager: asFunction(() => {
-      // Create a proxy that lazy-loads the actual service
-      type WebContainerManagerInstance = {
-        initialize(): Promise<unknown>;
-        reset(): Promise<void>;
-        isReady(): boolean;
-        getWebContainer(): unknown;
-      };
+  // WebContainer can usually not be imported into node.js environments,
+  // so we use a proxy to lazy-load the service when needed
+  webContainerManager: asFunction(() => {
+    // Create a proxy that lazy-loads the actual service
+    type WebContainerManagerInstance = {
+      initialize(): Promise<unknown>;
+      reset(): Promise<void>;
+      isReady(): boolean;
+      getWebContainer(): unknown;
+    };
 
-      let serviceInstance: WebContainerManagerInstance | null = null;
+    let serviceInstance: WebContainerManagerInstance | null = null;
 
-      const loadService = async () => {
-        if (!serviceInstance) {
-          const { WebContainerManagerAppService } = await import(
-            '../../Application/Services/WebContainerManagerAppService'
-          );
-          serviceInstance = new WebContainerManagerAppService();
-        }
-        return serviceInstance;
-      };
+    const loadService = async () => {
+      if (!serviceInstance) {
+        const { WebContainerManagerAppService } = await import(
+          '../../Application/Services/WebContainerManagerAppService'
+        );
+        serviceInstance = new WebContainerManagerAppService();
+      }
+      return serviceInstance;
+    };
 
-      // Return a proxy that looks like the service but lazy-loads it
-      return new Proxy(
-        {},
-        {
-          get(_target, prop) {
-            if (prop === 'initialize') {
-              return async () => {
-                const service = await loadService();
-                return service.initialize();
-              };
-            }
-            if (prop === 'reset') {
-              return async () => {
-                const service = await loadService();
-                return service.reset();
-              };
-            }
-            if (prop === 'isReady') {
-              return async () => {
-                const service = await loadService();
-                return service.isReady();
-              };
-            }
-            if (prop === 'getWebContainer') {
-              return async () => {
-                const service = await loadService();
-                return service.getWebContainer();
-              };
-            }
-            // For unknown methods, return undefined
-            return undefined;
-          },
-        }
-      );
-    }).singleton(),
-    helperFunctions: asClass(WebContainerHelperFunctions).singleton(),
-    downloadService: asClass(ProjectDownloadAppService).singleton(),
-    projectDownloadService: asClass(ProjectDownloadAppService).singleton(),
-    zipService: asClass(ZipAppService).singleton(),
-  });
-} else {
-  console.log('Unknown environment, no Runtime Environement detected');
-}
+    // Return a proxy that looks like the service but lazy-loads it
+    return new Proxy(
+      {},
+      {
+        get(_target, prop) {
+          if (prop === 'initialize') {
+            return async () => {
+              const service = await loadService();
+              return service.initialize();
+            };
+          }
+          if (prop === 'reset') {
+            return async () => {
+              const service = await loadService();
+              return service.reset();
+            };
+          }
+          if (prop === 'isReady') {
+            return async () => {
+              const service = await loadService();
+              return service.isReady();
+            };
+          }
+          if (prop === 'getWebContainer') {
+            return async () => {
+              const service = await loadService();
+              return service.getWebContainer();
+            };
+          }
+          // For unknown methods, return undefined
+          return undefined;
+        },
+      }
+    );
+  }).singleton(),
+  helperFunctions: asClass(WebContainerHelperFunctions).singleton(),
+  downloadService: asClass(ProjectDownloadAppService).singleton(),
+  projectDownloadService: asClass(ProjectDownloadAppService).singleton(),
+  zipService: asClass(ZipAppService).singleton(),
+});
 
 export { container };
