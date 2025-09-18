@@ -4,7 +4,7 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "outDir": "dist",
-    "rootDir": "../",
+    "rootDir": "..",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
@@ -12,14 +12,19 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": false,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "declaration": false,
+    "sourceMap": false
   },
   "include": [
     "src/**/*",
     "../lib/**/*"
   ],
   "exclude": [
-    "../gh-pages/src/Infrastructure/Presentation/**/*",
-    "../gh-pages/node_modules/**/*"
+    "node_modules/**/*",
+    "dist/**/*",
+    "../gh-pages/**/*",
+    "../coverage/**/*",
+    "../playwright-report/**/*"
   ]
 }
