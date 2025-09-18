@@ -1,6 +1,6 @@
 {
   "name": "onion-initialzr",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
