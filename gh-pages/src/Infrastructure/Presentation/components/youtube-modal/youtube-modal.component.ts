@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   templateUrl: './youtube-modal.component.html',
   styleUrls: ['./youtube-modal.component.scss'],
 })
-export class YouTubeModalComponent implements OnInit, OnDestroy {
+export class YouTubeModalComponent implements OnInit {
   private readonly videoId = '_q-i1Fn3hOM';
   safeVideoUrl: SafeResourceUrl;
 
@@ -20,18 +20,15 @@ export class YouTubeModalComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<YouTubeModalComponent>,
     private readonly sanitizer: DomSanitizer
   ) {
-    // Create safe YouTube embed URL
-    const videoUrl = `https://www.youtube.com/embed/${this.videoId}`;
+    // Create safe YouTube embed URL with proper parameters for production
+    // Using youtube-nocookie.com for better CORS compatibility
+    const videoUrl = `https://www.youtube-nocookie.com/embed/${this.videoId}?enablejsapi=1&origin=${window.location.origin}&rel=0&modestbranding=1`;
     this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
   }
 
   ngOnInit(): void {
     // Set flag in localStorage to remember user has seen the modal
     this.markModalAsSeen();
-  }
-
-  ngOnDestroy(): void {
-    // Cleanup if needed
   }
 
   closeModal(): void {
