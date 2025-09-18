@@ -20,7 +20,6 @@
     "src/**/*.test.ts",
     "src/Infrastructure/Repositories/FileSystemFileRepository.ts",
     "src/Infrastructure/Repositories/PathRepository.ts",
-    "src/Infrastructure/Repositories/RunCommandService.ts",
     "../lib/Application/Services/LintAppService.ts",
     "../lib/Domain/Services/ProjectInitService.ts",
     "../lib/Application/Services/Services/OnionCliAppService.ts",
