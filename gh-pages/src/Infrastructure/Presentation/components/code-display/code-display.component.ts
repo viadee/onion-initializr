@@ -28,7 +28,6 @@ export class CodeDisplayComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() code: string = '';
 
   lines: string[] = [];
-  highlightedCode: string = '';
   isCopied: boolean = false;
 
   private static hljsInitialized = false;
@@ -52,14 +51,16 @@ export class CodeDisplayComponent implements OnInit, OnChanges, AfterViewInit {
   private initHighlightJs() {
     if (!CodeDisplayComponent.hljsInitialized) {
       hljs.registerLanguage('typescript', typescript);
+      // Configure highlight.js to ignore unescaped HTML warnings for generated code templates
+      hljs.configure({
+        ignoreUnescapedHTML: true,
+      });
       CodeDisplayComponent.hljsInitialized = true;
     }
   }
 
   private processContent() {
     this.lines = this.content.split('\n');
-    // highlightedCode is now just the raw code, highlight.js will process it in the view
-    this.highlightedCode = this.content;
   }
 
   private highlightBlock() {
@@ -70,13 +71,10 @@ export class CodeDisplayComponent implements OnInit, OnChanges, AfterViewInit {
       delete element.dataset.highlighted;
       element.className = element.className.replace(/\bhljs\b/g, '').trim();
 
-      // Set content
-      element.textContent = this.highlightedCode;
-
       // Add language class
       element.className += ' language-typescript';
 
-      // Apply highlighting
+      // Apply highlighting - highlight.js will safely process the textContent
       hljs.highlightElement(element);
     }
   }

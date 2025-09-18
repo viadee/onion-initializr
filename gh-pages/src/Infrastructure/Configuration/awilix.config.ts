@@ -41,6 +41,7 @@ import { WebContainerHelperFunctions } from '../Repositories/WebContainerHelperF
 import { WebContainerPathRepository } from '../Repositories/WebContainerPathRepository';
 import { AwilixConfig } from '../../../../lib/Domain/Entities/AwilixConfig';
 import { OnionConfig } from '../../../../lib/Domain/Entities/OnionConfig';
+import { InputSanitizationService } from '../../Application/Services/InputSanitizationService';
 
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,
@@ -78,7 +79,7 @@ container.register({
     OnionConfigRepositoryService
   ).singleton(),
   onionConfigService: asClass(OnionConfigService).singleton(),
-
+  sanitizationService: asClass(InputSanitizationService).singleton(),
   onionConfigRepository: asClass(OnionConfigRepository).singleton(),
   applicationServiceService: asClass(ApplicationServiceService).singleton(),
   diagramAppService: asClass(DiagramAppService).singleton(),
@@ -97,6 +98,7 @@ container.register({
   diagramNodeManagementService: asClass(
     DiagramNodeManagementService
   ).singleton(),
+  inputSanitizationService: asClass(InputSanitizationService).singleton(),
   diagramConnectionService: asClass(DiagramConnectionAppService).singleton(),
   diagramProjectGenerationService: asClass(
     DiagramProjectGenerationService

@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { container } from '../../../Configuration/awilix.config';
 import { OnionConfigValidationService } from '../../../../../../lib/Domain/Services/OnionConfigValidationService';
 import { OnionConfig } from '../../../../../../lib/Domain/Entities/OnionConfig';
+import { InputSanitizationService } from '../../../../Application/Services/InputSanitizationService';
 
 @Component({
   standalone: true,
@@ -23,9 +24,14 @@ export class JsonUploadModalComponent {
   validationErrors: string[] = [];
 
   private readonly validationService: OnionConfigValidationService;
+  private readonly sanitizationService: InputSanitizationService;
+
   constructor() {
     this.validationService = container.resolve<OnionConfigValidationService>(
       'onionConfigValidationService'
+    );
+    this.sanitizationService = container.resolve<InputSanitizationService>(
+      'inputSanitizationService'
     );
   }
 
@@ -104,8 +110,27 @@ export class JsonUploadModalComponent {
       try {
         const jsonData = JSON.parse(e.target?.result as string);
 
+        // SECURITY: Sanitize uploaded JSON data before validation
+        const sanitizationResult =
+          this.sanitizationService.validateOnionConfigJson(jsonData);
+
+        if (!sanitizationResult.isValid) {
+          console.error(
+            'Uploaded configuration contains invalid or malicious data.'
+          );
+          this.validationErrors = [
+            sanitizationResult.errorMessage || 'Invalid data in JSON file',
+          ];
+          this.isUploading = false;
+          this.uploadProgress = 0;
+          return;
+        }
+
+        // Parse the sanitized JSON
+        const sanitizedData = JSON.parse(sanitizationResult.sanitizedValue);
+
         const validation =
-          this.validationService.validateConfigStructure(jsonData);
+          this.validationService.validateConfigStructure(sanitizedData);
 
         if (!validation.valid) {
           console.error('Uploaded configuration is invalid.');
@@ -116,7 +141,7 @@ export class JsonUploadModalComponent {
         }
 
         this.validationErrors = []; // clear previous errors
-        this.fileUploaded.emit(jsonData);
+        this.fileUploaded.emit(sanitizedData);
         this.closeModal();
       } catch (error) {
         console.error('Error parsing JSON:', error);

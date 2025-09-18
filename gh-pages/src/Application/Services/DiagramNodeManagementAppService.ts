@@ -1,6 +1,7 @@
 import { NodeType } from '../../../../lib/Domain/Entities/NodeType';
 import { OnionConfig } from '../../../../lib/Domain/Entities/OnionConfig';
 import { OnionConfigService } from '../../../../lib/Domain/Services/OnionConfigService';
+import { InputSanitizationService } from './InputSanitizationService';
 
 export interface NodeValidationResult {
   isValid: boolean;
@@ -15,17 +16,23 @@ export interface NodeOperationResult {
 }
 
 export class DiagramNodeManagementService {
-  constructor(private readonly onionConfigService: OnionConfigService) {}
+  constructor(
+    private readonly onionConfigService: OnionConfigService,
+    private readonly sanitizationService: InputSanitizationService
+  ) {}
 
   validateNodeName(name: string, data: OnionConfig): NodeValidationResult {
-    const trimmedName = name.trim();
+    // Use sanitization service for validation
+    const validationResult = this.sanitizationService.validateNodeName(name);
 
-    if (!trimmedName) {
+    if (!validationResult.isValid) {
       return {
         isValid: false,
-        errorMessage: 'Please enter a node name',
+        errorMessage: validationResult.errorMessage,
       };
     }
+
+    const sanitizedName = validationResult.sanitizedValue;
 
     // Check if name already exists
     const allNodes = [
@@ -35,7 +42,7 @@ export class DiagramNodeManagementService {
       ...this.getRepositories(data),
     ];
 
-    if (allNodes.includes(trimmedName)) {
+    if (allNodes.includes(sanitizedName)) {
       return {
         isValid: false,
         errorMessage: 'A node with this name already exists',
@@ -46,7 +53,19 @@ export class DiagramNodeManagementService {
   }
 
   addNode(name: string, nodeType: NodeType): NodeOperationResult {
-    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+    // Use sanitization service for validation and sanitization
+    const validationResult = this.sanitizationService.validateNodeName(name);
+
+    if (!validationResult.isValid) {
+      return {
+        success: false,
+        message: validationResult.errorMessage || 'Invalid node name',
+      };
+    }
+
+    const capitalizedName =
+      validationResult.sanitizedValue.charAt(0).toUpperCase() +
+      validationResult.sanitizedValue.slice(1);
     const trimmedName = capitalizedName.trim();
 
     let data: OnionConfig;
