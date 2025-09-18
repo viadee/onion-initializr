@@ -1,5 +1,6 @@
 /* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
 /* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+/* Exclude CLI directory to prevent Node.js dependencies from being compiled for browser */
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
