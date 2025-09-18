@@ -14,7 +14,7 @@
   },
   "description": "Generate Onion Architecture folder structure, files, and code for TypeScript projects",
   "bin": {
-    "onion": "dist/Application/Services/MainAppService.js"
+    "onion": "dist/cli/src/Application/Services/MainAppService.js"
   },
   "scripts": {
     "link": "npm run build && npm link",

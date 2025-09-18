@@ -16,7 +16,7 @@
   },
   "include": [
     "src/**/*",
-    "../gh-pages/src/Domain/**/*"
+    "../lib/**/*"
   ],
   "exclude": [
     "../gh-pages/src/Infrastructure/Presentation/**/*",

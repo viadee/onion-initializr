@@ -2,8 +2,8 @@ import chalk from "chalk";
 import prettier from "prettier";
 import { ScannerAppService } from "./ScannerAppService";
 import { FileService } from "../../../../lib/Domain/Services/FileService";
-import { FileEntity } from "../../../../gh-pages/src/Domain/Entities/FileEntity";
-import { PathAppService } from "../../../../gh-pages/src/Application/Services/PathAppService";
+import { FileEntity } from "../../../../lib/Domain/Entities/FileEntity";
+import { PathAppService } from "../../../../lib/Application/Services/PathAppService";
 
 export class ScanControllerAppService {
   constructor(

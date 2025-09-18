@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { ApplicationService } from "../../../../gh-pages/src/Domain/Entities/ApplicationService";
-import { DomainService } from "../../../../gh-pages/src/Domain/Entities/DomainService";
+import { ApplicationService } from "../../../../lib/Domain/Entities/ApplicationService";
+import { DomainService } from "../../../../lib/Domain/Entities/DomainService";
 import { AppServiceDependencyAppService } from "../../Application/Services/AppServiceDependencyAppService";
 describe("AppServiceDependencyAppService", () => {
   let service: AppServiceDependencyAppService;

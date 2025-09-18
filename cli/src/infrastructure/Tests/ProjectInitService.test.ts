@@ -1,8 +1,8 @@
 import { expect } from "chai";
-import { FileService } from "../../../../gh-pages/src/Domain/Services/FileService";
-import { PathAppService } from "../../../../gh-pages/src/Application/Services/PathAppService";
-import { ICommandRunner } from "../../../../gh-pages/src/Domain/Interfaces/ICommandRunner";
-import { LintAppService } from "../../../../gh-pages/src/Application/Services/LintAppService";
+import { FileService } from "../../../../lib/Domain/Services/FileService";
+import { PathAppService } from "../../../../lib/Application/Services/PathAppService";
+import { ICommandRunner } from "../../../../lib/Domain/Interfaces/ICommandRunner";
+import { LintAppService } from "../../../../lib/Application/Services/LintAppService";
 import { ProjectInitAppService } from "../../Application/Services/ProjectInitAppService";
 // Mock fs module for filesystem operations
 const mockFs = {

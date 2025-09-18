@@ -1,5 +1,5 @@
-import { DomainService } from '../../../../gh-pages/src/Domain/Entities/DomainService';
-import { ApplicationService } from '../../../../gh-pages/src/Domain/Entities/ApplicationService';
+import { DomainService } from "../../../../lib/Domain/Entities/DomainService";
+import { ApplicationService } from "../../../../lib/Domain/Entities/ApplicationService";
 
 /**
  * Service for managing application service dependencies through user interaction.
@@ -23,7 +23,7 @@ export class AppServiceDependencyAppService {
     Record<string, { domainServices: string[]; repositories: string[] }>
   > {
     const inquirer =
-      (await import('inquirer')).default ?? (await import('inquirer'));
+      (await import("inquirer")).default ?? (await import("inquirer"));
     const dependencies: Record<
       string,
       { domainServices: string[]; repositories: string[] }
@@ -32,10 +32,10 @@ export class AppServiceDependencyAppService {
     for (const appService of applicationServices) {
       const { chosenDomainServices } = await inquirer.prompt([
         {
-          type: 'checkbox',
-          name: 'chosenDomainServices',
+          type: "checkbox",
+          name: "chosenDomainServices",
           message: `Select Domain Services for ${appService.name}:`,
-          choices: domainServices.map(svc => ({
+          choices: domainServices.map((svc) => ({
             name: svc.serviceName, // what the user sees
             value: svc.serviceName, // what we store
           })),
@@ -44,8 +44,8 @@ export class AppServiceDependencyAppService {
 
       const { chosenRepos } = await inquirer.prompt([
         {
-          type: 'checkbox',
-          name: 'chosenRepos',
+          type: "checkbox",
+          name: "chosenRepos",
           message: `Select Repositories for ${appService.name}:`,
           choices: repositoryInterfaces,
         },

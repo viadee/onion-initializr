@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { FileService } from "../../../../lib/Domain/Services/FileService";
-import { OnionConfig } from "../../../../gh-pages/src/Domain/Entities/OnionConfig";
+import { OnionConfig } from "../../../../lib/Domain/Entities/OnionConfig";
 
 type InquirerPromptOptions = {
   type: "input" | "list" | "checkbox" | "confirm";
