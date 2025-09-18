@@ -20,7 +20,7 @@ Generate an [Onion Architecture](https://jeffreypalermo.com/blog/the-onion-archi
 
 ## Website
 
-https://viadee.github.io/onion-initializr/home
+https://viadee.github.io/onion-initializr
 ## Alternativly install locally
 
 1. **Clone the repository**
