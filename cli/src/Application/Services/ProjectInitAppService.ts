@@ -146,16 +146,16 @@ export class ProjectInitAppService implements IProjectService {
 
     switch (framework) {
       case "react":
-        setupCommand = `npx --yes create-vite@latest ${tempDir} --template react-ts`;
+        setupCommand = `npx --yes create-vite@latest ${tempDir} --template react-ts  --no-interactive`;
         break;
       case "vue":
-        setupCommand = `npx --yes create-vite@latest ${tempDir} --template vue-ts`;
+        setupCommand = `npx --yes create-vite@latest ${tempDir} --template vue-ts --no-interactive`;
         break;
       case "angular":
         setupCommand = `npx @angular/cli@latest new ${tempDir} --directory ${tempDir} --style=scss --routing --skip-git --skip-install --strict --inline-style=false --inline-template=false --defaults`;
         break;
       case "lit":
-        setupCommand = `npx --yes create-vite@latest ${tempDir} --template lit-ts`;
+        setupCommand = `npx --yes create-vite@latest ${tempDir} --template lit-ts --no-interactive`;
     }
 
     if (framework !== "vanilla") {

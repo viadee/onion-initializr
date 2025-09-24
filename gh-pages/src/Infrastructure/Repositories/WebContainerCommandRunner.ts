@@ -122,9 +122,9 @@ export class WebContainerCommandRunner implements ICommandRunner {
     template: string,
     cwd: string = '/'
   ): Promise<void> {
-    // Use --yes flag to automatically confirm package installation
+    // --no-interactive: Force non-interactive mode
     await this.runCommand(
-      `npx --yes create-vite@latest ${projectName} --template ${template}`,
+      `npx --yes create-vite@latest ${projectName} --template ${template} --no-interactive`,
       cwd
     );
   }

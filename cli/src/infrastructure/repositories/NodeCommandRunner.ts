@@ -25,7 +25,7 @@ export class NodeCommandRunner implements ICommandRunner {
     cwd: string
   ): Promise<void> {
     await this.runCommand(
-      `npx create-vite@latest ${projectName} --template ${template}`,
+      `npx create-vite@latest ${projectName} --template ${template}  --no-interactive`,
       cwd
     );
   }
