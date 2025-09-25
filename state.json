@@ -1,14 +1,4 @@
 {
   "cookies": [],
-  "origins": [
-    {
-      "origin": "http://localhost:4200",
-      "localStorage": [
-        {
-          "name": "onion-tutorial-modal-seen",
-          "value": "true"
-        }
-      ]
-    }
-  ]
+  "origins": []
 }

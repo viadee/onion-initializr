@@ -12,7 +12,7 @@ export class WebContainerManagerAppService {
       return this.webcontainer;
     }
 
-    // this.validateEnvironment();
+    this.validateEnvironment();
 
     console.log('Cross-origin isolation enabled, initializing WebContainer...');
     this.webcontainer = await WebContainer.boot();
@@ -45,9 +45,19 @@ export class WebContainerManagerAppService {
   }
 
   private validateEnvironment(): void {
-    if (!window.crossOriginIsolated) {
+    const isWebKit =
+      /webkit/i.test(navigator.userAgent) &&
+      !/chrome/i.test(navigator.userAgent);
+
+    if (!window.crossOriginIsolated && !isWebKit) {
       throw new Error(
         'WebContainer requires cross-origin isolation. Please restart the development server and try again.'
+      );
+    }
+
+    if (isWebKit) {
+      console.warn(
+        'Running on WebKit browser - WebContainer support is in beta and may have limitations'
       );
     }
   }

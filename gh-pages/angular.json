@@ -64,7 +64,7 @@
           "builder": "@angular/build:dev-server",
           "options": {
             "headers": {
-              "Cross-Origin-Embedder-Policy": "credentialless",
+              "Cross-Origin-Embedder-Policy": "require-corp",
               "Cross-Origin-Opener-Policy": "same-origin"
             }
           },
