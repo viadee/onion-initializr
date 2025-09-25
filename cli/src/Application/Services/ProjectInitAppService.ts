@@ -1,11 +1,12 @@
-import { LintAppService } from './../../../../lib/Application/Services/LintAppService';
+import { LintAppService } from "./../../../../lib/Application/Services/LintAppService";
+import { ConfigurationAppService } from "../../../../lib/Application/Services/ConfigurationAppService";
 import { FileService } from "../../../../lib/Domain/Services/FileService";
 import chalk from "chalk";
 import { PathAppService } from "../../../../lib/Application/Services/PathAppService";
 import { ICommandRunner } from "../../../../lib/Domain/Interfaces/ICommandRunner";
 import { IProjectService } from "../../../../lib/Domain/Interfaces/IProjectService";
-import { DiFramework } from '../../../../lib/Domain/Entities/DiFramework';
-import { UIFrameworks } from '../../../../lib/Domain/Entities/UiFramework';
+import { DiFramework } from "../../../../lib/Domain/Entities/DiFramework";
+import { UIFrameworks } from "../../../../lib/Domain/Entities/UiFramework";
 // Maps display name to internal framework key
 const frameworkDisplayMap: Record<string, keyof UIFrameworks> = {
   "React (Vite + TS)": "react",
@@ -26,7 +27,8 @@ export class ProjectInitAppService implements IProjectService {
     private readonly fileService: FileService,
     private readonly pathService: PathAppService,
     private readonly commandRunner: ICommandRunner,
-    private readonly lintAppService: LintAppService
+    private readonly lintAppService: LintAppService,
+    private readonly configurationAppService: ConfigurationAppService
   ) {}
   async isInitialized(folderPath: string): Promise<boolean> {
     const packageJson = this.pathService.join(folderPath, "package.json");
@@ -107,6 +109,13 @@ export class ProjectInitAppService implements IProjectService {
       this.lintAppService.createFlatEslintConfig(folderPath);
       await this.lintAppService.addLintScripts(folderPath);
       await this.lintAppService.addTypeModuleToPackageJson(folderPath);
+
+      const tsConfigFile =
+        await this.configurationAppService.updateVerbatimModuleSyntax(
+          folderPath,
+          false
+        );
+      await this.fileService.createFile(tsConfigFile);
 
       await this.formatCode(folderPath);
 
@@ -230,7 +239,6 @@ export class ProjectInitAppService implements IProjectService {
 
       // Process Lit framework templates
       await this.processFrameworkTemplates(folderPath, framework);
-      await this.useVerbatimSyntax(folderPath, false);
     }
   }
 
@@ -307,49 +315,6 @@ export class ProjectInitAppService implements IProjectService {
       filePath: shimsFilePath,
       content,
     });
-  }
-  private async useVerbatimSyntax(
-    folderPath: string,
-    value: boolean
-  ): Promise<boolean> {
-    const tsconfigPath = this.pathService.join(folderPath, "tsconfig.json");
-
-    // Check if tsconfig.json exists
-    if (!(await this.fileService.fileExists(tsconfigPath))) {
-      console.log(`tsconfig.json not found at ${tsconfigPath}`);
-      return false;
-    }
-
-    // Read the current tsconfig.json
-    const tsconfigFile = await this.fileService.readFile(tsconfigPath);
-    let content = tsconfigFile.content;
-
-    // Strip comments from JSON content to make it parseable
-    // Remove single-line comments (//)
-    content = content.replace(/\/\/.*$/gm, "");
-    // Remove multi-line comments (/* */)
-    content = content.replace(/\/\*[\s\S]*?\*\//g, "");
-    // Remove trailing commas before closing braces/brackets
-    content = content.replace(/,(\s*[}\]])/g, "$1");
-
-    const tsconfig = JSON.parse(content);
-
-    // Ensure compilerOptions exists
-    if (!tsconfig.compilerOptions) {
-      tsconfig.compilerOptions = {};
-    }
-
-    // Set verbatimModuleSyntax
-    tsconfig.compilerOptions.verbatimModuleSyntax = value;
-
-    // Write the updated tsconfig.json back (without comments, but properly formatted)
-    const updatedContent = JSON.stringify(tsconfig, null, 2);
-    await this.fileService.createFile({
-      filePath: tsconfigPath,
-      content: updatedContent,
-    });
-
-    return true;
   }
 
   private async processFrameworkTemplates(

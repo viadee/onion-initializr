@@ -87,9 +87,7 @@ export class OnionAppService {
         folderPath,
         false
       );
-    if (tsConfigFile) {
       allFileEntities.push(tsConfigFile);
-    }
 
     // Generate entities, repositories, domain services, application services
     const entityFiles = await this.generateEntities(folderPath, entityNames);

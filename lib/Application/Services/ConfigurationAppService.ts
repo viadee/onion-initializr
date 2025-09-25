@@ -10,11 +10,11 @@ export class ConfigurationAppService {
   async updateVerbatimModuleSyntax(
     folderPath: string,
     value: boolean
-  ): Promise<FileEntity | null> {
-    const configPath = this.pathService.join(folderPath, 'tsconfig.json');
-
-    if (!(await this.fileService.fileExists(configPath))) {
-      return null;
+  ): Promise<FileEntity> {
+    const configPath = await this.findTsConfigFile(folderPath);
+    
+    if (!configPath) {
+      throw new Error("No valid tsconfig file found");
     }
 
     const configFile = await this.fileService.readFile(configPath);
@@ -31,6 +31,17 @@ export class ConfigurationAppService {
         filePath: configPath,
         content: JSON.stringify(configContent, null, 2),
       };
+  }
+
+  private async findTsConfigFile(folderPath: string): Promise<string> {
+    // Try tsconfig.app.json first (CLI), then fallback to tsconfig.json (WEB)
+    const appConfigPath = this.pathService.join(folderPath, 'tsconfig.app.json');
+    const mainConfigPath = this.pathService.join(folderPath, 'tsconfig.json');
+    
+    if (await this.fileService.fileExists(appConfigPath)) {
+      return appConfigPath;
+    } else
+      return mainConfigPath;
   }
 
   private removeJsonComments(content: string): string {

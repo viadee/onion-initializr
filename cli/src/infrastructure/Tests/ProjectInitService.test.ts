@@ -124,11 +124,17 @@ describe("ProjectInitAppService", () => {
       addTypeModuleToPackageJson: async () => {},
     };
 
+    // Mock ConfigurationAppService
+    const mockConfigurationAppService = {
+      updateVerbatimModuleSyntax: async () => "",
+    };
+
     projectService = new ProjectInitAppService(
       mockFileService as FileService,
       mockPathService as PathAppService,
       mockCommandRunner as ICommandRunner,
-      mockLintAppService as unknown as LintAppService
+      mockLintAppService as unknown as LintAppService,
+      mockConfigurationAppService as any
     );
   });
 
