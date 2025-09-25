@@ -1,6 +1,6 @@
+import { ApplicationServiceService } from './../../../../../lib/Domain/Services/ApplicationServiceService';
+import { FileEntity } from './../../../../../lib/Domain/Entities/FileEntity';
 import { expect } from 'chai';
-import { ApplicationServiceService } from '../../../Domain/Services/ApplicationServiceService';
-import { FileEntity } from '../../../Domain/Entities/FileEntity';
 
 describe('ApplicationServiceService', () => {
   let service: ApplicationServiceService;
@@ -22,7 +22,10 @@ import { {{this}} } from "../../Domain/Interfaces/{{this}}";
   {{/if}}
 {{/each}}
 {{#if useAngularDI}}
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+{{#if repositories}}
+import { {{#each repositories}}{{toUpperSnakeCase (removeFirst this)}}_TOKEN{{#unless @last}}, {{/unless}}{{/each}} } from '../../Infrastructure/Presentation/injection-tokens';
+{{/if}}
 {{/if}}
 
 /**
@@ -34,10 +37,10 @@ import { Injectable } from '@angular/core';
 export class {{name}} {
   constructor(
     {{#each domainServices}}
-      {{#if this}}{{#if ../useAngularDI}}@Inject('{{this}}') {{/if}}private readonly {{lowerFirst this}}: {{this}},{{/if}}
+      {{#if this}}private readonly {{lowerFirst this}}: {{this}},{{/if}}
     {{/each}}
     {{#each repositories}}
-      {{#if this}}{{#if ../useAngularDI}}@Inject('{{this}}') {{/if}}private readonly {{lowerFirst (removeFirst this)}}: {{this}},{{/if}}
+      {{#if this}}{{#if ../useAngularDI}}@Inject({{toUpperSnakeCase (removeFirst this)}}_TOKEN) {{/if}}private readonly {{lowerFirst (removeFirst this)}}: {{this}},{{/if}}
     {{/each}}
   ) {}
 

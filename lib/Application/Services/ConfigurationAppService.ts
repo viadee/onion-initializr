@@ -11,7 +11,7 @@ export class ConfigurationAppService {
     folderPath: string,
     value: boolean
   ): Promise<FileEntity | null> {
-    const configPath = this.pathService.join(folderPath, 'tsconfig.app.json');
+    const configPath = this.pathService.join(folderPath, 'tsconfig.json');
 
     if (!(await this.fileService.fileExists(configPath))) {
       return null;
@@ -20,7 +20,6 @@ export class ConfigurationAppService {
     const configFile = await this.fileService.readFile(configPath);
     const cleanContent = this.removeJsonComments(configFile.content);
 
-    try {
       const configContent = JSON.parse(cleanContent);
 
       configContent.compilerOptions = {
@@ -32,11 +31,6 @@ export class ConfigurationAppService {
         filePath: configPath,
         content: JSON.stringify(configContent, null, 2),
       };
-    } catch (error) {
-      // Log error or handle parsing failure
-      console.error(`Failed to parse JSON config at ${configPath}:`, error);
-      return null;
-    }
   }
 
   private removeJsonComments(content: string): string {

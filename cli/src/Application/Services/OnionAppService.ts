@@ -1,4 +1,4 @@
-import { ApplicationService } from './../../../../lib/Domain/Entities/ApplicationService';
+import { ApplicationService } from "./../../../../lib/Domain/Entities/ApplicationService";
 import { EntityService } from "../../../../lib/Domain/Services/EntitityService";
 import { RepoService } from "../../../../lib/Domain/Services/RepoService";
 import { ApplicationServiceService } from "../../../../lib/Domain/Services/ApplicationServiceService";
@@ -15,7 +15,10 @@ import { AngularConfigAppService } from "../../../../lib/Application/Services/An
 import { ConfigurationAppService } from "../../../../lib/Application/Services/ConfigurationAppService";
 import { FolderStructureService } from "../../../../lib/Application/Services/FolderGenAppService";
 import { PathAppService } from "../../../../lib/Application/Services/PathAppService";
-import { DomainServiceConnections, ApplicationServiceDependencyMap } from "../../../../lib/Domain/Interfaces/DomainServiceConnections";
+import {
+  DomainServiceConnections,
+  ApplicationServiceDependencyMap,
+} from "../../../../lib/Domain/Interfaces/DomainServiceConnections";
 import { IProjectService } from "../../../../lib/Domain/Interfaces/IProjectService";
 import { AwilixConfig } from "../../../../lib/Domain/Entities/AwilixConfig";
 import { DiFramework } from "../../../../lib/Domain/Entities/DiFramework";
@@ -379,13 +382,7 @@ export class OnionAppService {
       const angularFiles =
         await this.angularConfigAppService.generateAngularProvidersFiles(
           folderPath,
-          entityNames,
-          domainServiceNames,
-          applicationServiceNames,
-          appServiceDeps as Record<
-            string,
-            { domainServices: string[]; repositories: string[] }
-          >
+          entityNames
         );
       fileEntities.push(...angularFiles);
     }

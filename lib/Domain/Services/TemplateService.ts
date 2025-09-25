@@ -39,6 +39,14 @@ export class TemplateService<T> {
       if (typeof str !== 'string' || !str.length) return '';
       return str.charAt(0).toLowerCase() + str.slice(1);
     });
+
+    Handlebars.registerHelper('toUpperSnakeCase', (str: unknown) => {
+      if (typeof str !== 'string' || !str.length) return '';
+      return str
+        .replace(/([A-Z])/g, '_$1')
+        .toUpperCase()
+        .replace(/^_/, '');
+    });
   }
 
   private registerArrayHelpers(): void {

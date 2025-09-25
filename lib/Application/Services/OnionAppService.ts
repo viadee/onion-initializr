@@ -377,13 +377,7 @@ export class OnionAppService {
       const angularFiles =
         await this.angularConfigAppService.generateAngularProvidersFiles(
           folderPath,
-          entityNames,
-          domainServiceNames,
-          applicationServiceNames,
-          appServiceDeps as Record<
-            string,
-            { domainServices: string[]; repositories: string[] }
-          >
+          entityNames
         );
       fileEntities.push(...angularFiles);
     }

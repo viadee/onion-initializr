@@ -1,5 +1,5 @@
 {{#if firstAppService}}
-import { Component{{#if useAngularDI}}, Inject{{/if}} } from '@angular/core';
+import { Component } from '@angular/core';
 {{#unless useAngularDI}}
 import container from '../Configuration/awilix.config';
 {{/unless}}
@@ -15,7 +15,7 @@ export class App {
   loading = false;
 
   {{#if useAngularDI}}
-  constructor(@Inject('{{firstAppService}}') private readonly {{camel firstAppService}}: {{firstAppService}}) {}
+  constructor(private readonly {{camel firstAppService}}: {{firstAppService}}) {}
   {{/if}}
 
   async runExampleUseCase() {

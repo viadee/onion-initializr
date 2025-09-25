@@ -1,11 +1,19 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-import { DI_PROVIDERS } from './di-providers';
+{{#if repositories}}
+import { {{#each repositories}}{{toUpperSnakeCase (removeFirst this)}}_TOKEN{{#unless @last}}, {{/unless}}{{/each}} } from './injection-tokens';
+{{#each repositories}}
+import { {{removeFirst this}} } from '../Repositories/{{removeFirst this}}';
+{{/each}}
+{{/if}}
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
-    ...DI_PROVIDERS
+    provideRouter(routes){{#if repositories}},
+    // Repository interface mappings
+    {{#each repositories}}
+    { provide: {{toUpperSnakeCase (removeFirst this)}}_TOKEN, useClass: {{removeFirst this}} }{{#unless @last}},{{/unless}}
+    {{/each}}{{/if}}
   ]
 };
