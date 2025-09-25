@@ -12,7 +12,7 @@ export class WebContainerManagerAppService {
       return this.webcontainer;
     }
 
-    this.validateEnvironment();
+    // this.validateEnvironment();
 
     console.log('Cross-origin isolation enabled, initializing WebContainer...');
     this.webcontainer = await WebContainer.boot();
