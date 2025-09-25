@@ -1,4 +1,4 @@
-# Onion Initialzr for Frontend
+# Onion Initializr for Frontend
 <img src="./gh-pages/public/onion_gpt.png" alt="Onion Architecture Diagram" width="50%"/>
 
 Generate an [Onion Architecture](https://jeffreypalermo.com/blog/the-onion-architecture-part-1/) structure with entities, services, and even a frontend framework — all from a simple Website. In alternative you can use the CLI locally using prompts or more direct using a config file instead of the website.
