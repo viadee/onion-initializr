@@ -19,6 +19,7 @@ import { IRepoService } from '../../../../../../lib/Domain/Services/IRepoService
 import { Subscription } from 'rxjs';
 import { container } from '../../../Configuration/awilix.config';
 import { YouTubeModalComponent } from '../youtube-modal/youtube-modal.component';
+import { BrowserWarningComponent } from '../browser-warning/browser-warning.component';
 import { IFileRepository } from '../../../../../../lib/Domain/Interfaces/IFileRepository';
 import { ProgressTrackingAppService } from '../../../../Application/Services/ProgressTrackingAppService';
 import { DiFramework } from '../../../../../../lib/Domain/Entities/DiFramework';
@@ -42,6 +43,7 @@ import { UIFrameworks } from '../../../../../../lib/Domain/Entities/UiFramework'
     MatDialogModule,
     Diagram,
     ScrollIndicatorComponent,
+    BrowserWarningComponent,
   ],
   templateUrl: './onion-gen.component.html',
   styleUrls: ['./onion-gen.component.scss'],
