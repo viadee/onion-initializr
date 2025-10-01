@@ -26,7 +26,7 @@ describe("AppServiceDependencyAppService", () => {
         const result = await service.pickDependencies(
           applicationServices,
           domainServices,
-          repositoryInterfaces
+          repositoryInterfaces,
         );
 
         expect(result).to.deep.equal({});
@@ -48,7 +48,7 @@ describe("AppServiceDependencyAppService", () => {
         const result = service.pickDependencies(
           applicationServices,
           domainServices,
-          repositoryInterfaces
+          repositoryInterfaces,
         );
         expect(result).to.be.instanceOf(Promise);
       });
@@ -63,7 +63,7 @@ describe("AppServiceDependencyAppService", () => {
         const result = service.pickDependencies(
           applicationServices,
           domainServices,
-          repositoryInterfaces
+          repositoryInterfaces,
         );
 
         expect(result).to.be.instanceOf(Promise);
@@ -76,7 +76,7 @@ describe("AppServiceDependencyAppService", () => {
           "UserAppService",
           [],
           [],
-          false
+          false,
         );
 
         expect(applicationService.name).to.equal("UserAppService");

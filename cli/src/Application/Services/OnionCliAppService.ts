@@ -28,7 +28,7 @@ export class OnionCliAppService {
     private readonly pathService: PathAppService,
     private readonly onionAppService: OnionAppService,
     private readonly fileService: FileService,
-    private readonly validationService: OnionConfigValidationService
+    private readonly validationService: OnionConfigValidationService,
   ) {}
 
   /**
@@ -49,7 +49,7 @@ export class OnionCliAppService {
 
     if (configurationFilePath) {
       const resolvedConfigPath = this.pathService.isAbsolute(
-        configurationFilePath
+        configurationFilePath,
       )
         ? configurationFilePath
         : this.pathService.resolve(process.cwd(), configurationFilePath);
@@ -66,7 +66,7 @@ export class OnionCliAppService {
 
     const rawFolderPath = await this.fileHelperService.getFolderPath(
       userConfig,
-      process.cwd()
+      process.cwd(),
     );
     const folderPath = this.pathService.isAbsolute(rawFolderPath)
       ? rawFolderPath
@@ -79,7 +79,7 @@ export class OnionCliAppService {
 
     const projectInitResult = await this.projectService.initialize(
       folderPath,
-      userConfig.uiFramework
+      userConfig.uiFramework,
     );
     uiFramework = projectInitResult?.uiFramework || "react";
     diFramework = projectInitResult?.diFramework || "awilix";
@@ -104,7 +104,7 @@ export class OnionCliAppService {
   }
 
   async generateOnionArchitecture(
-    params: OnionArchitectureGenerationParams
+    params: OnionArchitectureGenerationParams,
   ): Promise<FileEntity[]> {
     return this.onionAppService.generate(params);
   }

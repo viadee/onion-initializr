@@ -1,5 +1,5 @@
-import { RunCommandService } from './../../../../cli/src/infrastructure/repositories/RunCommandService';
-import { ICommandRunner } from './../../../../lib/Domain/Interfaces/ICommandRunner';
+import { RunCommandService } from "./../../../../cli/src/infrastructure/repositories/RunCommandService";
+import { ICommandRunner } from "./../../../../lib/Domain/Interfaces/ICommandRunner";
 
 export class NodeCommandRunner implements ICommandRunner {
   constructor(private readonly commandRunnerService: RunCommandService) {}
@@ -8,11 +8,11 @@ export class NodeCommandRunner implements ICommandRunner {
   }
 
   async installPackages(packages: string[], cwd: string): Promise<void> {
-    await this.runCommand(`npm install ${packages.join(' ')}`, cwd);
+    await this.runCommand(`npm install ${packages.join(" ")}`, cwd);
   }
 
   async npmInit(cwd: string): Promise<void> {
-    await this.runCommand('npm init -y', cwd);
+    await this.runCommand("npm init -y", cwd);
   }
 
   async runNpmScript(script: string, cwd: string): Promise<void> {
@@ -22,23 +22,23 @@ export class NodeCommandRunner implements ICommandRunner {
   async createViteProject(
     projectName: string,
     template: string,
-    cwd: string
+    cwd: string,
   ): Promise<void> {
     await this.runCommand(
       `npx create-vite@latest ${projectName} --template ${template}  --no-interactive`,
-      cwd
+      cwd,
     );
   }
 
   async createAngularProject(
     projectName: string,
     cwd: string,
-    options: string[] = []
+    options: string[] = [],
   ): Promise<void> {
-    const optionsStr = options.join(' ');
+    const optionsStr = options.join(" ");
     await this.runCommand(
       `npx @angular/cli@latest new ${projectName} ${optionsStr}`,
-      cwd
+      cwd,
     );
   }
 }

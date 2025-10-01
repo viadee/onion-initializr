@@ -6,7 +6,6 @@ import { IFileRepository } from "../../../../lib/Domain/Interfaces/IFileReposito
 let fs: typeof import("fs") | undefined;
 let path: typeof import("path") | undefined;
 
-
 export class FileSystemFileRepository implements IFileRepository {
   constructor(private readonly pathService: PathAppService) {}
 
@@ -37,7 +36,7 @@ export class FileSystemFileRepository implements IFileRepository {
         "Domain",
         "Services",
         "templates",
-        templateName
+        templateName,
       );
     } else {
       // Full path provided - construct from project root
@@ -46,7 +45,7 @@ export class FileSystemFileRepository implements IFileRepository {
         rootDir,
         "public",
         "templates",
-        templateName
+        templateName,
       );
     }
 
@@ -121,7 +120,7 @@ export class FileSystemFileRepository implements IFileRepository {
   }
 
   async getFileStats(
-    filePath: string
+    filePath: string,
   ): Promise<{ isDirectory(): boolean; isFile(): boolean }> {
     fs ??= await import("fs");
     const stats = fs.statSync(filePath);

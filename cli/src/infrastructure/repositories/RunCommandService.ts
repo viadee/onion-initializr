@@ -1,15 +1,15 @@
-import chalk from 'chalk';
+import chalk from "chalk";
 
 export class RunCommandService {
   async runCommand(command: string, cwd: string): Promise<string> {
     console.log(`Executing command: ${command} in ${cwd}`);
-    const ora = (await import('ora')).default ?? (await import('ora'));
+    const ora = (await import("ora")).default ?? (await import("ora"));
     const { exec } = (await import(
-      'child_process'
-    )) as typeof import('child_process');
+      "child_process"
+    )) as typeof import("child_process");
     const spinner = ora({
       text: `Running: ${command}`,
-      spinner: 'dots',
+      spinner: "dots",
     }).start();
 
     return new Promise((resolve, reject) => {
@@ -27,7 +27,7 @@ export class RunCommandService {
         resolve(stdout);
       });
 
-      process.stderr?.on('data', data => {
+      process.stderr?.on("data", (data) => {
         console.warn(chalk.yellow(data.toString()));
       });
     });

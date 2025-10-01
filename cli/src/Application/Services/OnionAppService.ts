@@ -53,14 +53,13 @@ export class OnionAppService {
     private readonly fileService: FileService,
     private readonly pathService: PathAppService,
     private readonly configurationAppService: ConfigurationAppService,
-    private readonly appServiceDependencyAppService: AppServiceDependencyAppService
+    private readonly appServiceDependencyAppService: AppServiceDependencyAppService,
   ) {}
 
   async generate(
-    params: OnionArchitectureGenerationParams
+    params: OnionArchitectureGenerationParams,
   ): Promise<FileEntity[]> {
     console.log("🧅 Starting Onion Architecture generation...");
-
     const {
       folderPath,
       entityNames,
@@ -79,7 +78,7 @@ export class OnionAppService {
       folderPath,
       uiFramework,
       passedDiFramework,
-      skipProjectInit
+      skipProjectInit,
     );
 
     // Collect all FileEntity objects from domain services
@@ -88,7 +87,7 @@ export class OnionAppService {
     const tsConfigFile =
       await this.configurationAppService.updateVerbatimModuleSyntax(
         folderPath,
-        false
+        false,
       );
     allFileEntities.push(tsConfigFile);
 
@@ -99,7 +98,7 @@ export class OnionAppService {
     const repositoryFiles = await this.generateRepositories(
       folderPath,
       entityNames,
-      diFramework
+      diFramework,
     );
     allFileEntities.push(...repositoryFiles);
 
@@ -108,7 +107,7 @@ export class OnionAppService {
       domainServiceNames,
       entityNames,
       domainServiceConnections,
-      diFramework
+      diFramework,
     );
     allFileEntities.push(...domainServiceFiles);
 
@@ -119,7 +118,7 @@ export class OnionAppService {
         domainServiceNames,
         entityNames,
         applicationServiceDependencies,
-        diFramework
+        diFramework,
       );
     allFileEntities.push(...appServiceFiles);
 
@@ -129,7 +128,7 @@ export class OnionAppService {
       domainServiceNames,
       applicationServiceNames,
       appServiceDeps,
-      diFramework
+      diFramework,
     );
     allFileEntities.push(...diConfigFiles);
 
@@ -137,7 +136,7 @@ export class OnionAppService {
       folderPath,
       uiFramework,
       diFramework,
-      applicationServiceNames
+      applicationServiceNames,
     );
     allFileEntities.push(...showcaseFiles);
 
@@ -154,7 +153,7 @@ export class OnionAppService {
     folderPath: string,
     framework: keyof UIFrameworks,
     passedDiFramework?: DiFramework,
-    skipProjectInit = true
+    skipProjectInit = true,
   ): Promise<DiFramework> {
     let diFramework: DiFramework = passedDiFramework || "awilix";
 
@@ -163,7 +162,7 @@ export class OnionAppService {
       const result = await this.projectService.initialize(
         folderPath,
         framework,
-        diFramework
+        diFramework,
       );
       diFramework = result!.diFramework;
       console.log(`✅ Project initialized (${Date.now() - stepStart}ms)`);
@@ -174,7 +173,7 @@ export class OnionAppService {
 
   private async generateEntities(
     folderPath: string,
-    entityNames: string[]
+    entityNames: string[],
   ): Promise<FileEntity[]> {
     const stepStart = Date.now();
 
@@ -185,13 +184,13 @@ export class OnionAppService {
       folderPath,
       "src",
       "Domain",
-      "Entities"
+      "Entities",
     );
 
     const fileEntities = this.entityService.generateEntitiesFiles(
       entitiesDir,
       entityNames,
-      template.content
+      template.content,
     );
     console.log(`✅ Entities generated (${Date.now() - stepStart}ms)`);
     return fileEntities;
@@ -200,30 +199,30 @@ export class OnionAppService {
   private async generateRepositories(
     folderPath: string,
     entityNames: string[],
-    diFramework: DiFramework
+    diFramework: DiFramework,
   ): Promise<FileEntity[]> {
     const stepStart = Date.now();
 
     // Load template content from repository
     const repoTemplate = await this.fileService.readTemplate(
-      "infrastructureRepository.hbs"
+      "infrastructureRepository.hbs",
     );
     const interfaceTemplate = await this.fileService.readTemplate(
-      "repositoryInterface.hbs"
+      "repositoryInterface.hbs",
     );
 
     const infraRepoDir = this.pathService.join(
       folderPath,
       "src",
       "Infrastructure",
-      "Repositories"
+      "Repositories",
     );
 
     const repoFiles = this.repoService.generateRepositoriesFiles(
       entityNames,
       diFramework,
       repoTemplate.content,
-      infraRepoDir
+      infraRepoDir,
     );
 
     // Prepare entity file paths for interface generation
@@ -234,13 +233,13 @@ export class OnionAppService {
         "src",
         "Domain",
         "Interfaces",
-        `I${entityName}Repository.ts`
+        `I${entityName}Repository.ts`,
       ),
     }));
 
     const interfaceFiles = this.iRepoService.generateRepositoryInterfacesFiles(
       entityFilePaths,
-      interfaceTemplate.content
+      interfaceTemplate.content,
     );
     console.log(`✅ Repositories generated (${Date.now() - stepStart}ms)`);
     return [...repoFiles, ...interfaceFiles];
@@ -251,7 +250,7 @@ export class OnionAppService {
     domainServiceNames: string[],
     entityNames: string[],
     domainServiceConnections: DomainServiceConnections | undefined,
-    diFramework: DiFramework
+    diFramework: DiFramework,
   ): Promise<FileEntity[]> {
     const stepStart = Date.now();
 
@@ -261,7 +260,7 @@ export class OnionAppService {
       folderPath,
       "src",
       "Domain",
-      "Services"
+      "Services",
     );
 
     const domainServiceParams: DomainServiceConnectorParams = {
@@ -284,7 +283,7 @@ export class OnionAppService {
     domainServiceNames: string[],
     entityNames: string[],
     applicationServiceDependencies: ApplicationServiceDependencyMap | undefined,
-    diFramework: DiFramework
+    diFramework: DiFramework,
   ): Promise<{
     appServiceDeps: ApplicationServiceDependencyMap;
     appServiceFiles: FileEntity[];
@@ -296,7 +295,7 @@ export class OnionAppService {
       appServiceDeps = await this.createDefaultApplicationServiceDependencies(
         applicationServiceNames,
         domainServiceNames,
-        entityNames
+        entityNames,
       );
     }
 
@@ -306,7 +305,7 @@ export class OnionAppService {
       folderPath,
       "src",
       "Application",
-      "Services"
+      "Services",
     );
 
     const appServiceFiles =
@@ -314,10 +313,10 @@ export class OnionAppService {
         appServiceDeps,
         diFramework,
         template.content,
-        appDir
+        appDir,
       );
     console.log(
-      `✅ Application services generated (${Date.now() - stepStart}ms)`
+      `✅ Application services generated (${Date.now() - stepStart}ms)`,
     );
 
     return {
@@ -329,20 +328,20 @@ export class OnionAppService {
   private async createDefaultApplicationServiceDependencies(
     applicationServiceNames: string[],
     domainServiceNames: string[],
-    entityNames: string[]
+    entityNames: string[],
   ): Promise<ApplicationServiceDependencyMap> {
     const applicationServiceObjects = applicationServiceNames.map(
-      (name: string) => new ApplicationService(name, [], [])
+      (name: string) => new ApplicationService(name, [], []),
     );
     const domainServiceObjects = domainServiceNames.map(
-      (name: string) => new DomainService(name, [])
+      (name: string) => new DomainService(name, []),
     );
     const iRepoList: string[] = entityNames.map((name) => `I${name}Repository`);
 
     return await this.appServiceDependencyAppService.pickDependencies(
       applicationServiceObjects,
       domainServiceObjects,
-      iRepoList
+      iRepoList,
     );
   }
 
@@ -352,7 +351,7 @@ export class OnionAppService {
     domainServiceNames: string[],
     applicationServiceNames: string[],
     appServiceDeps: ApplicationServiceDependencyMap,
-    diFramework: DiFramework
+    diFramework: DiFramework,
   ): Promise<FileEntity[]> {
     const stepStart = Date.now();
     let fileEntities: FileEntity[] = [];
@@ -362,25 +361,34 @@ export class OnionAppService {
         folderPath,
         entityNames,
         domainServiceNames,
-        applicationServiceNames
+        applicationServiceNames,
       );
       const awilixConfigPath = this.pathService.join(
         folderPath,
         "src",
         "Infrastructure",
         "Configuration",
-        "awilix.config.ts"
+        "awilix.config.ts",
       );
       const awilixFile = this.awilixCfgService.generateAwilixConfigFile(
         awilixConfigParams,
-        awilixConfigPath
+        awilixConfigPath,
       );
       fileEntities.push(awilixFile);
     } else if (diFramework === "angular") {
+      const applicationServicesData = Object.entries(appServiceDeps).map(
+        ([name, deps]) => ({
+          name,
+          domainServices: deps.domainServices || [],
+          repositories: deps.repositories || [],
+        }),
+      );
       const angularFiles =
         await this.angularConfigAppService.generateAngularProvidersFiles(
           folderPath,
-          entityNames
+          entityNames,
+          domainServiceNames,
+          applicationServicesData,
         );
       fileEntities.push(...angularFiles);
     }
@@ -393,7 +401,7 @@ export class OnionAppService {
     folderPath: string,
     framework: keyof UIFrameworks,
     diFramework: DiFramework,
-    applicationServiceNames: string[]
+    applicationServiceNames: string[],
   ): Promise<FileEntity[]> {
     if (!framework) return [];
 
@@ -402,7 +410,7 @@ export class OnionAppService {
       folderPath,
       framework,
       diFramework === "angular",
-      applicationServiceNames[0]
+      applicationServiceNames[0],
     );
 
     // Compute presentation directory
@@ -410,7 +418,7 @@ export class OnionAppService {
       folderPath,
       "src",
       "Infrastructure",
-      "Presentation"
+      "Presentation",
     );
 
     // Path builder function for templates and outputs
@@ -426,7 +434,7 @@ export class OnionAppService {
           "Infrastructure",
           "frameworks",
           "templates",
-          template
+          template,
         ),
         outputPath,
       };
@@ -434,16 +442,16 @@ export class OnionAppService {
 
     const fileEntities = await this.showcaseService.generateShowcaseFiles(
       showcaseAppGeneration,
-      buildPaths
+      buildPaths,
     );
     console.log(
-      `✅ Showcase application generated (${Date.now() - stepStart}ms)`
+      `✅ Showcase application generated (${Date.now() - stepStart}ms)`,
     );
     return fileEntities;
   }
 
   private async createDirectoriesForFiles(
-    fileEntities: FileEntity[]
+    fileEntities: FileEntity[],
   ): Promise<void> {
     const directories = new Set<string>();
 

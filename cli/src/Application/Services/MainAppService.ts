@@ -11,12 +11,12 @@
 // Resolve and run
 
 import { container } from "../../infrastructure/configuration/awilix.config";
-import { OnionCliAppService } from './OnionCliAppService';
+import { OnionCliAppService } from "./OnionCliAppService";
 
 // ───────────────────────────────────────────────────────────────────────────────
 (async () => {
   try {
-    const cli = container.resolve<OnionCliAppService>('onionCliAppService');
+    const cli = container.resolve<OnionCliAppService>("onionCliAppService");
     await cli.runOnionCli();
   } catch (err) {
     console.error(err instanceof Error ? err.message : err);

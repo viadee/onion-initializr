@@ -56,42 +56,6 @@ export class AngularConfigAppService {
   }
 
 
-
-  private async generateInjectionTokensFile(
-    folderPath: string,
-    entityNames: string[]
-  ): Promise<FileEntity> {
-    const templatePath = this.pathService.join(
-      'Infrastructure',
-      'frameworks',
-      'templates',
-      'angular',
-      'injection-tokens.ts.hbs'
-    );
-    const template = await this.fileService.readTemplate(templatePath);
-    
-    // Create repository interface names
-    const repositories = entityNames.map(entityName => `I${entityName}Repository`);
-    
-    const generator = new TemplateService<{ repositories: string[] }>(template.content);
-    const content = generator.render({ repositories });
-
-    const appDir = this.pathService.join(folderPath, 'src', 'Infrastructure', 'Presentation');
-    if (!(await this.fileService.dirExists(appDir))) {
-      await this.fileService.createDirectory(appDir);
-    }
-
-    const filePath = this.pathService.join(
-      folderPath,
-      'src',
-      'Infrastructure',
-      'Presentation',
-      'injection-tokens.ts'
-    );
-    const file = new FileEntity(filePath, content);
-    return file;
-  }
-
   private async generateAppConfigFile(
     folderPath: string,
     entityNames: string[]

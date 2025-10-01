@@ -18,7 +18,7 @@ export class AppServiceDependencyAppService {
   async pickDependencies(
     applicationServices: ApplicationService[],
     domainServices: DomainService[],
-    repositoryInterfaces: string[]
+    repositoryInterfaces: string[],
   ): Promise<
     Record<string, { domainServices: string[]; repositories: string[] }>
   > {

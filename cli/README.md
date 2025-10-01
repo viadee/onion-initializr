@@ -1,7 +1,8 @@
 # Onion Initialzr for Frontend
+
 <img src="https://raw.githubusercontent.com/viadee/onion-initializr/main/gh-pages/public/onion_gpt.png" alt="Onion Architecture Diagram" width="50%"/>
 
-Generate an [Onion Architecture](https://jeffreypalermo.com/blog/the-onion-architecture-part-1/) structure with entities, services, and even a frontend framework — all from a simple CLI. Alternativly you can use the [Website](https://viadee.github.io/onion-initializr) 
+Generate an [Onion Architecture](https://jeffreypalermo.com/blog/the-onion-architecture-part-1/) structure with entities, services, and even a frontend framework — all from a simple CLI. Alternativly you can use the [Website](https://viadee.github.io/onion-initializr)
 
 ---
 
@@ -19,10 +20,11 @@ Generate an [Onion Architecture](https://jeffreypalermo.com/blog/the-onion-archi
 ---
 
 ## Website
+
 [Generator Website](https://viadee.github.io/onion-initializr)
 
-
 ## Install locally
+
 ```bash
 npm install onion-initializr -g
 ```
@@ -83,7 +85,6 @@ When defining services, you must include an empty dependency array if there are 
 Note: You can also put the absolute Path (e.g. "/Users/YOURNAME/Desktop/generatedOnions/react-app").
 
 ---
-
 
 ### Which frameworks are supported?
 
@@ -155,4 +156,3 @@ npm run link
 ```bash
 npm run dev
 ```
-

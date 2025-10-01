@@ -31,15 +31,15 @@ export class FileHelperAppService {
 
     console.log(
       chalk.yellow(
-        `Failed to parse config file "${configFilePath}". Falling back to prompts.`
-      )
+        `Failed to parse config file "${configFilePath}". Falling back to prompts.`,
+      ),
     );
     return OnionConfig.empty();
   }
 
   getConfigFilePath(): string | undefined {
     const configArgIndex = process.argv.indexOf(
-      FileHelperAppService.CONFIG_ARG
+      FileHelperAppService.CONFIG_ARG,
     );
     const hasConfigArg = configArgIndex !== -1;
     const hasConfigValue = process.argv[configArgIndex + 1];
@@ -72,7 +72,7 @@ export class FileHelperAppService {
   private async getOrPromptString(
     config: OnionConfig,
     key: keyof OnionConfig,
-    promptOptions: InquirerPromptOptions
+    promptOptions: InquirerPromptOptions,
   ): Promise<string> {
     const valFromConfig = config[key];
 
@@ -99,7 +99,7 @@ export class FileHelperAppService {
   private async getOrPromptStringArray(
     config: OnionConfig,
     key: keyof OnionConfig,
-    promptOptions: InquirerPromptOptions
+    promptOptions: InquirerPromptOptions,
   ): Promise<string[]> {
     const valFromConfig = config[key];
 
@@ -122,7 +122,7 @@ export class FileHelperAppService {
 
   async getFolderPath(
     config: OnionConfig,
-    currentDir: string
+    currentDir: string,
   ): Promise<string> {
     return this.getOrPromptString(config, "folderPath", {
       type: "input",
