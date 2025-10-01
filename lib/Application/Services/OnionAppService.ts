@@ -372,10 +372,19 @@ export class OnionAppService {
       );
       fileEntities.push(awilixFile);
     } else if (diFramework === 'angular') {
+      // Prepare application services data for Angular providers
+      const applicationServicesData = Object.entries(appServiceDeps).map(([name, deps]) => ({
+        name,
+        domainServices: deps.domainServices || [],
+        repositories: deps.repositories || []
+      }));
+
       const angularFiles =
         await this.angularConfigAppService.generateAngularProvidersFiles(
           folderPath,
-          entityNames
+          entityNames,
+          domainServiceNames,
+          applicationServicesData
         );
       fileEntities.push(...angularFiles);
     }

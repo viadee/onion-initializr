@@ -24,7 +24,7 @@ Generate an [Onion Architecture](https://jeffreypalermo.com/blog/the-onion-archi
 
 ## Install locally
 ```bash
-npm install onion-initializr
+npm install onion-initializr -g
 ```
 
 ---

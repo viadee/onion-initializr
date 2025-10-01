@@ -3,15 +3,10 @@
 import { {{name}} } from "../Entities/{{name}}";
   {{/each}}
 {{/if}}
-{{#if useAngularDI}}
-import { Injectable } from '@angular/core';
-{{/if}}
+
 /**
  * Domain Service: {{serviceName}}
 */
-{{#if useAngularDI}}
-@Injectable({ providedIn: 'root' })
-{{/if}}
 export class {{serviceName}} {
   constructor(
   ) {}

@@ -1,8 +1,0 @@
-import { InjectionToken } from '@angular/core';
-{{#each repositories}}
-import { {{this}} } from '../../Domain/Interfaces/{{this}}';
-{{/each}}
-
-{{#each repositories}}
-export const {{toUpperSnakeCase (removeFirst this)}}_TOKEN = new InjectionToken<{{this}}>('{{this}}');
-{{/each}}
