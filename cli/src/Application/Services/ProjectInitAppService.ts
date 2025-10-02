@@ -28,7 +28,7 @@ export class ProjectInitAppService implements IProjectService {
     private readonly pathService: PathAppService,
     private readonly commandRunner: ICommandRunner,
     private readonly lintAppService: LintAppService,
-    private readonly configurationAppService: ConfigurationAppService,
+    private readonly configurationAppService: ConfigurationAppService
   ) {}
   async isInitialized(folderPath: string): Promise<boolean> {
     const packageJson = this.pathService.join(folderPath, "package.json");
@@ -51,7 +51,7 @@ export class ProjectInitAppService implements IProjectService {
     try {
       await this.commandRunner.runCommand(
         "npm i eslint-plugin-prettier",
-        folderPath,
+        folderPath
       );
       await this.commandRunner.runCommand("npm run format", folderPath);
       console.log(chalk.green("Code formatted with Prettier!"));
@@ -61,7 +61,7 @@ export class ProjectInitAppService implements IProjectService {
   }
   async initialize(
     folderPath: string,
-    uiFramework?: keyof UIFrameworks,
+    uiFramework?: keyof UIFrameworks
   ): Promise<
     { uiFramework: keyof UIFrameworks; diFramework: DiFramework } | undefined
   > {
@@ -113,9 +113,11 @@ export class ProjectInitAppService implements IProjectService {
       const tsConfigFile =
         await this.configurationAppService.updateVerbatimModuleSyntax(
           folderPath,
-          false,
+          false
         );
-      await this.fileService.createFile(tsConfigFile);
+      if (tsConfigFile) {
+        await this.fileService.createFile(tsConfigFile);
+      }
 
       await this.formatCode(folderPath);
 
@@ -140,14 +142,14 @@ export class ProjectInitAppService implements IProjectService {
     console.log(chalk.yellow("Installing ESLint and Prettier..."));
     await this.commandRunner.runCommand(
       "npm install --save-dev eslint prettier @eslint/js @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-prettier",
-      folderPath,
+      folderPath
     );
     console.log(chalk.green("Prettier and ESLint installed successfully!"));
   }
 
   async setupUIFramework(folderPath: string, framework: keyof UIFrameworks) {
     console.log(
-      chalk.yellow(`Setting up ${framework} project in ${folderPath}...`),
+      chalk.yellow(`Setting up ${framework} project in ${folderPath}...`)
     );
     const tempDir = "temp";
     const tempPath = this.pathService.join(folderPath, tempDir);
@@ -178,14 +180,14 @@ export class ProjectInitAppService implements IProjectService {
 
   async movePresentationFiles(
     folderPath: string,
-    framework: keyof UIFrameworks,
+    framework: keyof UIFrameworks
   ) {
     const srcPath = this.pathService.join(folderPath, "src");
     const presentationPath = this.pathService.join(
       folderPath,
       "src",
       "Infrastructure",
-      "Presentation",
+      "Presentation"
     );
 
     if (!(await this.fileService.fileExists(presentationPath))) {
@@ -244,7 +246,7 @@ export class ProjectInitAppService implements IProjectService {
 
   private async copyFolderRecursiveSync(
     source: string,
-    target: string,
+    target: string
   ): Promise<void> {
     if (!(await this.fileService.fileExists(target))) {
       await this.fileService.createDirectory(target);
@@ -267,7 +269,7 @@ export class ProjectInitAppService implements IProjectService {
 
   private async moveFilesAndCleanUp(
     fromPath: string,
-    toPath: string,
+    toPath: string
   ): Promise<void> {
     await this.copyFolderRecursiveSync(fromPath, toPath);
     await this.fileService.rmSync(fromPath);
@@ -279,7 +281,7 @@ export class ProjectInitAppService implements IProjectService {
 
   private async updateMultipleImports(
     filePath: string,
-    replacements: Record<string, string>,
+    replacements: Record<string, string>
   ): Promise<void> {
     if (!(await this.fileService.fileExists(filePath))) {
       return;
@@ -292,7 +294,7 @@ export class ProjectInitAppService implements IProjectService {
       const escapedOldPath = this.escapeRegExp(oldPath);
       const importRegex = new RegExp(
         `(import\\s+[^'"]*?['"])${escapedOldPath}(['"])`,
-        "g",
+        "g"
       );
 
       content = content.replace(importRegex, `$1${newPath}$2`);
@@ -319,7 +321,7 @@ export class ProjectInitAppService implements IProjectService {
 
   private async processFrameworkTemplates(
     folderPath: string,
-    framework: string,
+    framework: string
   ): Promise<void> {
     if (framework !== "lit") {
       return; // Only process Lit templates for now
@@ -332,7 +334,7 @@ export class ProjectInitAppService implements IProjectService {
       "Infrastructure",
       "frameworks",
       "templates",
-      framework,
+      framework
     );
 
     // Check if templates directory exists
@@ -344,11 +346,11 @@ export class ProjectInitAppService implements IProjectService {
     // Process index.html.hbs template
     const indexHtmlTemplatePath = this.pathService.join(
       templatesPath,
-      "index.html.hbs",
+      "index.html.hbs"
     );
     if (await this.fileService.fileExists(indexHtmlTemplatePath)) {
       const templateContent = await this.fileService.readFile(
-        indexHtmlTemplatePath,
+        indexHtmlTemplatePath
       );
 
       let processedContent = templateContent.content;
@@ -390,7 +392,7 @@ export class ProjectInitAppService implements IProjectService {
               return `import type {${imports}} from '${modulePath}'`;
             }
             return match;
-          },
+          }
         );
 
         await this.fileService.createFile({
@@ -403,7 +405,7 @@ export class ProjectInitAppService implements IProjectService {
 
   private async removeFile(
     folderPath: string,
-    filename: string,
+    filename: string
   ): Promise<void> {
     const filePath = this.pathService.join(folderPath, filename);
 
@@ -411,7 +413,7 @@ export class ProjectInitAppService implements IProjectService {
       if (await this.fileService.fileExists(filePath)) {
         await this.fileService.rmSync(filePath);
         console.log(
-          `\nFile ${filename} removed successfully from ${folderPath}`,
+          `\nFile ${filename} removed successfully from ${folderPath}`
         );
       }
     } catch (error) {
