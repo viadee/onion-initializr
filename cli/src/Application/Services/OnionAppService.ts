@@ -367,7 +367,7 @@ export class OnionAppService {
         folderPath,
         "src",
         "Infrastructure",
-        "Configuration",
+        "configuration",
         "awilix.config.ts"
       );
       const awilixFile = this.awilixCfgService.generateAwilixConfigFile(
