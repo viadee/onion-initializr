@@ -657,14 +657,46 @@ $white: #ffffff;
 
 // Footer
 .footer {
-  background: $text-dark;
-  color: $white;
-  text-align: center;
-  padding: 24px 0;
+  background: $secondary-gray;
+  border-top: 1px solid $border-gray;
+  padding: 40px 0;
 
-  p {
-    margin: 0;
-    opacity: 0.8;
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 20px;
+
+    p {
+      margin: 0;
+      color: $text-gray;
+      font-size: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+
+      a {
+        color: $text-gray;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: $primary-blue;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      text-align: center;
+    }
   }
 }
 

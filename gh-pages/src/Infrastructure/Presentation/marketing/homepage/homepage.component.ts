@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CodeDisplayComponent } from '../../components/code-display/code-display.component';
 
 interface Feature {
@@ -20,7 +20,7 @@ interface Company {
 @Component({
   selector: 'onion-gen',
   standalone: true,
-  imports: [CommonModule, CodeDisplayComponent],
+  imports: [CommonModule, CodeDisplayComponent, RouterModule],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
 })
