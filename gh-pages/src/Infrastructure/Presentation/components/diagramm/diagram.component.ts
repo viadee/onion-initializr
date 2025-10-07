@@ -40,6 +40,7 @@ import { DomainService } from '../../../../../../lib/Domain/Entities/DomainServi
 import { Entity } from '../../../../../../lib/Domain/Entities/Entity';
 import { NodeType } from '../../../../../../lib/Domain/Entities/NodeType';
 import { UIFrameworks } from '../../../../../../lib/Domain/Entities/UiFramework';
+import { UiLibrary } from '../../../../../../lib/Domain/Entities/UiLibrary';
 import { OnionConfig } from '../../../../../../lib/Domain/Entities/OnionConfig';
 
 type StatusType = 'success' | 'error' | 'info';
@@ -104,6 +105,7 @@ export class Diagram implements OnInit, OnDestroy {
     applicationServiceDependencies: {},
     uiFramework: 'vanilla' as keyof UIFrameworks,
     diFramework: 'awilix' as DiFramework,
+    uiLibrary: 'none' as UiLibrary,
   };
   @Output() nodeSelected = new EventEmitter<{
     name: string;

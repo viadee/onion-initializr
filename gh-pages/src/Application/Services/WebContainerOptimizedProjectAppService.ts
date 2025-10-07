@@ -1,9 +1,13 @@
+import { UiLibrary } from './../../../../lib/Domain/Entities/UiLibrary';
 import { FileService } from '../../../../lib/Domain/Services/FileService';
 import { WebContainerCommandRunner } from '../../Infrastructure/Repositories/WebContainerCommandRunner';
 import { WebContainerFileRepository } from '../../Infrastructure/Repositories/WebContainerFileRepository';
 import { WebContainerHelperFunctions } from '../../Infrastructure/Repositories/WebContainerHelperFunctions';
 import { IProjectService } from '../../../../lib/Domain/Interfaces/IProjectService';
-import { WebContainerOptimizationService } from './WebContainerOptimizationAppService';
+import {
+  WebContainerOptimizationService,
+  PackageJsonStructure,
+} from './WebContainerOptimizationAppService';
 import { IFileRepository } from '../../../../lib/Domain/Interfaces/IFileRepository';
 import { DiFramework } from '../../../../lib/Domain/Entities/DiFramework';
 import { FileEntity } from '../../../../lib/Domain/Entities/FileEntity';
@@ -52,9 +56,15 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
     folderPath: string,
     uiFramework: keyof UIFrameworks = 'react',
     diFramework: DiFramework = 'awilix',
+    uiLibrary: UiLibrary = 'none',
     progressCallback?: (phase: string, progress: number) => void
   ): Promise<
-    { uiFramework: keyof UIFrameworks; diFramework: DiFramework } | undefined
+    | {
+        uiFramework: keyof UIFrameworks;
+        diFramework: DiFramework;
+        uiLibrary: UiLibrary;
+      }
+    | undefined
   > {
     try {
       const startTime = Date.now();
@@ -72,6 +82,7 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
       // For WebContainer, we'll default to a framework since we can't prompt
       uiFramework = uiFramework || 'react';
       diFramework = diFramework || 'awilix';
+      uiLibrary = uiLibrary || 'none';
 
       const packageJsonPath = `${folderPath}/package.json`.replace(/\/+/g, '/');
       const originalPackageJson =
@@ -90,6 +101,28 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
         filePath: packageJsonPath,
         content: originalPackageJson.content,
       });
+      console.log(
+        'TCL: WebContainerOptimizedProjectAppService -> originalPackageJson.content',
+        originalPackageJson.content
+      );
+      console.log(
+        'TCL: WebContainerOptimizedProjectAppService -> uiLibrary',
+        uiLibrary
+      );
+      if (uiLibrary !== 'none') {
+        const updatedPackageJson = await this.setUpUiLibrary(
+          folderPath,
+          uiLibrary
+        );
+        await this.fileService.createFile({
+          filePath: packageJsonPath,
+          content: updatedPackageJson!.content,
+        });
+        console.log(
+          'TCL: WebContainerOptimizedProjectAppService -> updatedPackageJson!.content',
+          updatedPackageJson!.content
+        );
+      }
 
       progressCallback?.('create-framework', 100);
 
@@ -107,7 +140,7 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
         `✅ Optimized project initialization completed in ${totalDuration}s`
       );
 
-      return { uiFramework, diFramework };
+      return { uiFramework, diFramework, uiLibrary };
     } catch (error) {
       console.error('Optimized project initialization failed:', error);
       throw error;
@@ -458,5 +491,99 @@ export default [
       optimized: lockConfig ? 5 : 50, // 5s with lock files, 50s without
       standard: 50,
     };
+  }
+
+  async setUpUiLibrary(
+    folderPath: string,
+    uiLibrary: UiLibrary
+  ): Promise<FileEntity | undefined> {
+    console.log(`🎨 Setting up ${uiLibrary} UI library...`);
+
+    switch (uiLibrary) {
+      case 'none':
+        return undefined;
+
+      case 'shadcn':
+        return await this.setupShadCNLibrary(folderPath);
+
+      default:
+        console.log(`⚠️ UI library ${uiLibrary} not yet implemented`);
+        return undefined;
+    }
+  }
+  private async setupShadCNLibrary(folderPath: string): Promise<FileEntity> {
+    console.log('📦 Installing ShadCN/UI dependencies...');
+
+    const runner = await this.initializeCommandRunner();
+
+    // Install core ShadCN dependencies
+    await runner.runCommand(
+      'npm install class-variance-authority clsx tailwind-merge',
+      folderPath
+    );
+
+    // Install Tailwind CSS and related packages
+    await runner.runCommand(
+      'npm install -D tailwindcss postcss autoprefixer @tailwindcss/typography',
+      folderPath
+    );
+
+    // Install Radix UI components commonly used with ShadCN
+    await runner.runCommand(
+      'npm install @radix-ui/react-slot @radix-ui/react-dialog @radix-ui/react-dropdown-menu',
+      folderPath
+    );
+
+    // Create tailwind.config.js
+    const tailwindConfig = `/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}`;
+
+    await this.fileService.createFile({
+      filePath: `${folderPath}/tailwind.config.js`.replace(/\/+/g, '/'),
+      content: tailwindConfig,
+    });
+
+    // Create postcss.config.js
+    const postcssConfig = `export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}`;
+
+    await this.fileService.createFile({
+      filePath: `${folderPath}/postcss.config.js`.replace(/\/+/g, '/'),
+      content: postcssConfig,
+    });
+
+    // Add Tailwind directives to index.css
+    const indexCssPath = `${folderPath}/src/index.css`.replace(/\/+/g, '/');
+    const tailwindDirectives = `@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ShadCN/UI base styles will be added here */
+`;
+
+    await this.fileService.createFile({
+      filePath: indexCssPath,
+      content: tailwindDirectives,
+    });
+
+    console.log('✅ ShadCN/UI setup completed!');
+
+    // Return the updated package.json
+    const packageJsonPath = `${folderPath}/package.json`.replace(/\/+/g, '/');
+    const packageJson = await this.fileService.readFile(packageJsonPath);
+    return packageJson;
   }
 }

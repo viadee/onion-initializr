@@ -90,6 +90,7 @@ export class ProjectGenerationOrchestratorAppService {
       '/onion-project',
       config.uiFramework,
       config.diFramework,
+      config.uiLibrary,
       this.createFrameworkProgressHandler(progressCallback)
     );
 

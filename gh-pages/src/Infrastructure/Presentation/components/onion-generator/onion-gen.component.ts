@@ -23,6 +23,10 @@ import { BrowserWarningComponent } from '../browser-warning/browser-warning.comp
 import { IFileRepository } from '../../../../../../lib/Domain/Interfaces/IFileRepository';
 import { ProgressTrackingAppService } from '../../../../Application/Services/ProgressTrackingAppService';
 import { DiFramework } from '../../../../../../lib/Domain/Entities/DiFramework';
+import {
+  UiLibrary,
+  getAvailableUiLibrariesForFramework,
+} from '../../../../../../lib/Domain/Entities/UiLibrary';
 import { DomainService } from '../../../../../../lib/Domain/Entities/DomainService';
 import { Entity } from '../../../../../../lib/Domain/Entities/Entity';
 import { UIFrameworks } from '../../../../../../lib/Domain/Entities/UiFramework';
@@ -68,6 +72,7 @@ export class OnionGenComponent implements OnInit, OnDestroy {
   selectedNode: string | null = null;
   frameworks = ['angular', 'lit', 'react', 'vue', 'vanilla'];
   diFrameworks: DiFramework[] = ['awilix', 'angular'];
+  uiLibraries: UiLibrary[] = ['none'];
   generatedCode: string = ``;
 
   filename: string = '';
@@ -89,6 +94,7 @@ export class OnionGenComponent implements OnInit, OnDestroy {
       name: [OnionGenComponent.DEFAULT_PROJECT_NAME],
       framework: [OnionGenComponent.DEFAULT_FRAMEWORK],
       diFramework: [OnionGenComponent.DEPENDENCY_INJECTION_FRAMEWORK],
+      uiLibrary: ['none'],
     });
     this.entityService = container.resolve<EntityService>('entityService');
     this.domainService = container.resolve<DomainServiceService>(
@@ -143,9 +149,27 @@ export class OnionGenComponent implements OnInit, OnDestroy {
   public onFrameworkChange(framework: string): void {
     this.projectForm.get('framework')?.setValue(framework);
 
-    // Enforce rule: non-Angular frameworks must use Awilix
-    if (framework !== 'angular') {
+    // Set default DI framework based on UI framework
+    if (framework === 'angular') {
+      // Keep current DI framework for Angular (angular or awilix)
+    } else if (framework === 'react') {
+      // Default to awilix for React, but allow user to choose
+      if (
+        !this.projectForm.get('diFramework')?.value ||
+        this.projectForm.get('diFramework')?.value === 'angular'
+      ) {
+        this.projectForm.get('diFramework')?.setValue('awilix');
+      }
+    } else {
+      // Other frameworks must use Awilix
       this.projectForm.get('diFramework')?.setValue('awilix');
+    }
+
+    // Update UI library options and reset if not available
+    this.updateUiLibraries();
+    const currentUiLibrary = this.projectForm.get('uiLibrary')?.value;
+    if (!this.uiLibraries.includes(currentUiLibrary)) {
+      this.projectForm.get('uiLibrary')?.setValue('none');
     }
   }
 
@@ -154,15 +178,65 @@ export class OnionGenComponent implements OnInit, OnDestroy {
   }
 
   getDiFrameworkDisplayName(diFramework: DiFramework): string {
-    return diFramework === 'angular' ? 'Angular DI' : 'Awilix';
+    switch (diFramework) {
+      case 'angular':
+        return 'Angular DI';
+      case 'awilix':
+      default:
+        return 'Awilix';
+    }
   }
 
   shouldShowDiFrameworkSelection(): boolean {
-    return this.projectForm.get('framework')?.value === 'angular';
+    const framework = this.projectForm.get('framework')?.value;
+    return framework === 'angular';
+  }
+
+  shouldShowUiLibrarySelection(): boolean {
+    const framework = this.projectForm.get('framework')?.value;
+    return framework === 'react';
   }
 
   selectedDiFramework(): DiFramework {
     return this.projectForm.get('diFramework')?.value || 'awilix';
+  }
+
+  selectedUiLibrary(): UiLibrary {
+    return this.projectForm.get('uiLibrary')?.value || 'none';
+  }
+
+  getAvailableUiLibraries(): UiLibrary[] {
+    const framework = this.projectForm.get('framework')?.value;
+    return getAvailableUiLibrariesForFramework(framework);
+  }
+
+  getUiLibraryDisplayName(uiLibrary: UiLibrary): string {
+    switch (uiLibrary) {
+      case 'shadcn':
+        return 'ShadCN';
+      case 'none':
+      default:
+        return 'None';
+    }
+  }
+
+  getUiLibraryIconPath(uiLibrary: UiLibrary): string {
+    const iconMap: Record<UiLibrary, string> = {
+      none: 'typescript.svg',
+      shadcn: 'shadcn.png',
+    };
+
+    return iconMap[uiLibrary] || 'typescript.svg';
+  }
+
+  public onUiLibraryChange(uiLibrary: UiLibrary): void {
+    this.projectForm.get('uiLibrary')?.setValue(uiLibrary);
+    this.updateUiLibraries();
+  }
+
+  private updateUiLibraries(): void {
+    const framework = this.projectForm.get('framework')?.value;
+    this.uiLibraries = getAvailableUiLibrariesForFramework(framework);
   }
 
   public async generate() {

@@ -1,6 +1,7 @@
 import { DiFramework } from '../Entities/DiFramework';
 import { OnionConfig } from '../Entities/OnionConfig';
 import { UIFrameworks } from '../Entities/UiFramework';
+import { UiLibrary } from '../Entities/UiLibrary';
 import { IOnionConfigRepository } from './../Interfaces/IOnionConfigRepository';
 
 export class OnionConfigStateService {
@@ -32,6 +33,7 @@ export class OnionConfigStateService {
       applicationServiceDependencies: {},
       uiFramework: "vanilla" as keyof UIFrameworks,
       diFramework: "awilix" as DiFramework,
+      uiLibrary: "none" as UiLibrary,
     };
 
     this.data = emptyConfig;
