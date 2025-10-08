@@ -121,7 +121,7 @@ export class ProjectGenerationOrchestratorAppService {
       domainServiceConnections: config.domainServiceConnections || {},
       applicationServiceDependencies:
         config.applicationServiceDependencies || {},
-      skipProjectInit: false,
+      skipProjectInit: true,
     });
 
     console.log(

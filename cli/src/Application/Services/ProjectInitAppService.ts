@@ -117,7 +117,7 @@ export default {
         // Create postcss.config.js
         const postcssConfig = `export default {
   plugins: {
-    tailwindcss: {},
+    '@tailwindcss/postcss': {},
     autoprefixer: {},
   },
 }`;
