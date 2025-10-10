@@ -92,6 +92,35 @@ export class ProjectInitAppService implements IProjectService {
           "npm install @radix-ui/react-slot @radix-ui/react-dialog @radix-ui/react-dropdown-menu",
           folderPath
         );
+        await this.commandRunner.runCommand(
+          "npm install -D tailwindcss postcss autoprefixer",
+          folderPath
+        );
+
+        // create tailwind.config.js
+        await this.commandRunner.runCommand(
+          "npx tailwindcss init -p",
+          folderPath
+        );
+
+        const viteConfigPath = this.pathService.join(
+          folderPath,
+          "vite.config.ts"
+        );
+
+        const viteConfig = `import { defineConfig } from 'vite';  
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+});`;
+        await this.fileService.createFile({
+          filePath: viteConfigPath,
+          content: viteConfig,
+        });
+
 
         await this.commandRunner.runCommand(
           "npx shadcn@latest init -y",
@@ -101,22 +130,6 @@ export class ProjectInitAppService implements IProjectService {
           "npx shadcn@latest add button",
           folderPath
         );
-
-        // Create postcss.config.js
-        const postcssConfig = `import tailwindcss from '@tailwindcss/postcss';
-import autoprefixer from 'autoprefixer';
-
-export default {
-  plugins: [
-    tailwindcss,
-    autoprefixer,
-  ],
-};`;
-
-        await this.fileService.createFile({
-          filePath: this.pathService.join(folderPath, "postcss.config.js"),
-          content: postcssConfig,
-        });
 
         // Add Tailwind directives to index.css
         const indexCssPath = this.pathService.join(

@@ -101,14 +101,6 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
         filePath: packageJsonPath,
         content: originalPackageJson.content,
       });
-      console.log(
-        'TCL: WebContainerOptimizedProjectAppService -> originalPackageJson.content',
-        originalPackageJson.content
-      );
-      console.log(
-        'TCL: WebContainerOptimizedProjectAppService -> uiLibrary',
-        uiLibrary
-      );
       if (uiLibrary !== 'none') {
         const updatedPackageJson = await this.setUpUiLibrary(
           folderPath,
@@ -118,10 +110,6 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
           filePath: packageJsonPath,
           content: updatedPackageJson!.content,
         });
-        console.log(
-          'TCL: WebContainerOptimizedProjectAppService -> updatedPackageJson!.content',
-          updatedPackageJson!.content
-        );
       }
 
       progressCallback?.('create-framework', 100);
@@ -700,6 +688,20 @@ export default {
       content: tailwindDirectives,
     });
 
+    const viteConfigPath = `${folderPath}/vite.config.ts`.replace(/\/+/g, '/');
+
+    const viteConfig = `import { defineConfig } from 'vite';  
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+});`;
+    await this.fileService.createFile({
+      filePath: viteConfigPath,
+      content: viteConfig,
+    });
     console.log('✅ ShadCN setup completed!');
 
     // Return the updated package.json
