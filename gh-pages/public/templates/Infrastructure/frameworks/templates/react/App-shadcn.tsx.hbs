@@ -1,14 +1,10 @@
 import './App.css';
 import React, { useState } from 'react';
 {{#if firstAppService}}
-{{#if useShadcn}}
-// ShadCN/UI imports would go here when implemented
-// For now, using standard React with placeholder styling
-{{else}}
-import container from '../Configuration/awilix.config';
-{{/if}}
+import container from '../configuration/awilix.config';
 import { {{firstAppService}} } from '../../Application/Services/{{firstAppService}}';
 {{/if}}
+import { Button } from "../../components/ui/button";
 
 function App() {
   {{#if firstAppService}}
@@ -18,17 +14,9 @@ function App() {
   const handleRunExampleUseCase = async () => {
     setLoading(true);
     try {
-      {{#if useShadcn}}
-      // TODO: Implement ShadCN/UI service resolution
-      // For now, using direct instantiation
-      const service = new {{firstAppService}}();
-      await service.runExampleUseCase();
-      setMessage("{{firstAppService}}: use case executed ✅ (ShadeCN mode)");
-      {{else}}
       const service = container.resolve<{{{firstAppService}}}>("{{camel firstAppService}}");
       await service.runExampleUseCase();
       setMessage("{{firstAppService}}: use case executed ✅");
-      {{/if}}
     } catch (err) {
       setMessage("Error: " + (err as Error).message);
     } finally {
@@ -39,26 +27,15 @@ function App() {
 
   return (
     <div className="app">
-      <h1>🧅 Onion Architecture + React{{#if useShadcn}} + ShadCN/UI{{/if}}</h1>
+      <h1>🧅 Onion Architecture + React + ShadCN/UI</h1>
       {{#if firstAppService}}
-      <div className="content">
-        {{#if useShadcn}}
-        {/* ShadCN/UI Button component would be used here when implemented */}
-        <button 
-          onClick={handleRunExampleUseCase} 
-          disabled={loading}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
-        >
-          {loading ? "Running..." : message}
-        </button>
-        {{else}}
-        <button onClick={handleRunExampleUseCase} disabled={loading}>
-          {loading ? "Running..." : message}
-        </button>
-        {{/if}}
-      </div>
+      <Button onClick={handleRunExampleUseCase} disabled={loading}>
+        {loading ? "Running..." : "Run Use Case"}
+      </Button>
+      <p>{message}</p>
+      <Button variant={'secondary'}>This is a shadCN "secondary" Button</Button>
       {{else}}
-      <p>Add some entities and services to get started!</p>
+      <p>No application services were defined.</p>
       {{/if}}
     </div>
   );
