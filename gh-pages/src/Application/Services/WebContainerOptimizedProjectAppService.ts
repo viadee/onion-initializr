@@ -533,32 +533,21 @@ export default [
       'npm install @radix-ui/react-slot @radix-ui/react-dialog @radix-ui/react-dropdown-menu',
       folderPath
     );
+    await runner.runCommand('npx shadcn@latest init -y', folderPath);
 
-    // Create tailwind.config.js
-    const tailwindConfig = `/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}`;
-
-    await this.fileService.createFile({
-      filePath: `${folderPath}/tailwind.config.js`.replace(/\/+/g, '/'),
-      content: tailwindConfig,
-    });
+    await runner.runCommand('npx shadcn@latest add button', folderPath);
 
     // Create postcss.config.js
-    const postcssConfig = `export default {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-}`;
+    const postcssConfig = `import tailwindcss from '@tailwindcss/postcss';
+import autoprefixer from 'autoprefixer';
+
+export default {
+  plugins: [
+    tailwindcss,
+    autoprefixer,
+  ],
+};
+`;
 
     await this.fileService.createFile({
       filePath: `${folderPath}/postcss.config.js`.replace(/\/+/g, '/'),
@@ -567,11 +556,143 @@ export default {
 
     // Add Tailwind directives to index.css
     const indexCssPath = `${folderPath}/src/index.css`.replace(/\/+/g, '/');
-    const tailwindDirectives = `@tailwind base;
-@tailwind components;
-@tailwind utilities;
+    const tailwindDirectives = `@import "tailwindcss";
 
-/* ShadCN/UI base styles will be added here */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+  
+  * {
+    border-color: hsl(var(--border));
+  }
+  
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+}
+
+/* Custom ShadCN color utilities for Tailwind v4 */
+@layer utilities {
+  .bg-primary {
+    background-color: hsl(var(--primary));
+  }
+  
+  .bg-primary-foreground {
+    background-color: hsl(var(--primary-foreground));
+  }
+  
+  .text-primary {
+    color: hsl(var(--primary));
+  }
+  
+  .text-primary-foreground {
+    color: hsl(var(--primary-foreground));
+  }
+  
+  .bg-secondary {
+    background-color: hsl(var(--secondary));
+  }
+  
+  .text-secondary-foreground {
+    color: hsl(var(--secondary-foreground));
+  }
+  
+  .bg-destructive {
+    background-color: hsl(var(--destructive));
+  }
+  
+  .text-destructive-foreground {
+    color: hsl(var(--destructive-foreground));
+  }
+  
+  .bg-muted {
+    background-color: hsl(var(--muted));
+  }
+  
+  .text-muted-foreground {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .bg-accent {
+    background-color: hsl(var(--accent));
+  }
+  
+  .text-accent-foreground {
+    color: hsl(var(--accent-foreground));
+  }
+  
+  .bg-card {
+    background-color: hsl(var(--card));
+  }
+  
+  .text-card-foreground {
+    color: hsl(var(--card-foreground));
+  }
+  
+  .bg-background {
+    background-color: hsl(var(--background));
+  }
+  
+  .text-foreground {
+    color: hsl(var(--foreground));
+  }
+  
+  .border-input {
+    border-color: hsl(var(--input));
+  }
+  
+  .ring-ring {
+    --tw-ring-color: hsl(var(--ring));
+  }
+  
+  .ring-offset-background {
+    --tw-ring-offset-color: hsl(var(--background));
+  }
+}
+
 `;
 
     await this.fileService.createFile({
@@ -579,7 +700,7 @@ export default {
       content: tailwindDirectives,
     });
 
-    console.log('✅ ShadCN/UI setup completed!');
+    console.log('✅ ShadCN setup completed!');
 
     // Return the updated package.json
     const packageJsonPath = `${folderPath}/package.json`.replace(/\/+/g, '/');

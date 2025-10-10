@@ -122,6 +122,7 @@ export class ProjectGenerationOrchestratorAppService {
       applicationServiceDependencies:
         config.applicationServiceDependencies || {},
       skipProjectInit: true,
+      uiLibrary: config.uiLibrary || 'none',
     });
 
     console.log(

@@ -96,6 +96,7 @@ export class OnionCliAppService {
       domainServiceNames,
       applicationServiceNames,
       uiFramework,
+      uiLibrary: userConfig.uiLibrary || 'none',
       diFramework,
       domainServiceConnections: userConfig.domainServiceConnections,
       applicationServiceDependencies: userConfig.applicationServiceDependencies,
