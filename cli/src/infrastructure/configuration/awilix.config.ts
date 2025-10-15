@@ -42,7 +42,7 @@ import { OnionConfigConnectionAppService } from "../../../../lib/Application/Ser
 import { OnionConfig } from "../../../../lib/Domain/Entities/OnionConfig";
 import { AwilixConfig } from "../../../../lib/Domain/Entities/AwilixConfig";
 import { LintAppService } from "../../../../lib/Application/Services/LintAppService";
-import { RunCommandService } from "../repositories/RunCommandService";
+import { RunCommandService } from "../repositories/runCommandService";
 import { NodeCommandRunner } from "../repositories/NodeCommandRunner";
 
 const container = createContainer({
@@ -71,14 +71,14 @@ container.register({
   onionConfigStateService: asClass(OnionConfigStateService).singleton(),
   nodeService: asClass(OnionConfigNodeService).singleton(),
   onionConfigConnectionAppService: asClass(
-    OnionConfigConnectionAppService,
+    OnionConfigConnectionAppService
   ).singleton(),
   connectionValidator: asClass(OnionConfigConnectionAppService).singleton(),
   onionConfigValidationService: asClass(
-    OnionConfigValidationService,
+    OnionConfigValidationService
   ).singleton(),
   onionConfigRepositoryService: asClass(
-    OnionConfigRepositoryService,
+    OnionConfigRepositoryService
   ).singleton(),
   onionConfigService: asClass(OnionConfigService).singleton(),
 
@@ -86,23 +86,23 @@ container.register({
   applicationServiceService: asClass(ApplicationServiceService).singleton(),
   diagramAppService: asClass(DiagramAppService).singleton(),
   diagramConfigurationAppService: asClass(
-    DiagramConfigurationAppService,
+    DiagramConfigurationAppService
   ).singleton(),
   diagramPositionCalculatorAppService: asClass(
-    DiagramPositionCalculatorAppService,
+    DiagramPositionCalculatorAppService
   ).singleton(),
   diagramSVGRendererAppService: asClass(
-    DiagramSVGRendererAppService,
+    DiagramSVGRendererAppService
   ).singleton(),
   diagramNodeInteractionService: asClass(
-    DiagramNodeInteractionAppService,
+    DiagramNodeInteractionAppService
   ).singleton(),
   diagramNodeManagementService: asClass(
-    DiagramNodeManagementService,
+    DiagramNodeManagementService
   ).singleton(),
   diagramConnectionService: asClass(DiagramConnectionAppService).singleton(),
   diagramProjectGenerationService: asClass(
-    DiagramProjectGenerationService,
+    DiagramProjectGenerationService
   ).singleton(),
   pathService: asClass(PathAppService).singleton(),
   pathRepository: asClass(PathRepository).singleton(),
@@ -114,7 +114,7 @@ container.register({
   stateService: asClass(OnionConfigStateService).singleton(),
   onionAppService: asClass(OnionAppService).singleton(),
   appServiceDependencyAppService: asClass(
-    AppServiceDependencyAppService,
+    AppServiceDependencyAppService
   ).singleton(),
   configService: asClass(OnionConfigService).singleton(),
   lintAppService: asClass(LintAppService).singleton(),

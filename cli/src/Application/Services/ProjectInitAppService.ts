@@ -84,7 +84,7 @@ export class ProjectInitAppService implements IProjectService {
         );
 
         await this.commandRunner.runCommand(
-          "npm install -D tailwindcss postcss autoprefixer @tailwindcss/typography @tailwindcss/vite",
+          "npm install -D tailwindcss postcss autoprefixer @tailwindcss/typography @tailwindcss/vite @tailwindcss/postcss tailwindcss-cli",
           folderPath
         );
 
@@ -92,35 +92,56 @@ export class ProjectInitAppService implements IProjectService {
           "npm install @radix-ui/react-slot @radix-ui/react-dialog @radix-ui/react-dropdown-menu",
           folderPath
         );
-        await this.commandRunner.runCommand(
-          "npm install -D tailwindcss postcss autoprefixer",
-          folderPath
-        );
 
         // create tailwind.config.js
         await this.commandRunner.runCommand(
-          "npx tailwindcss init -p",
+          "npx tailwindcss-cli@latest init -p",
           folderPath
         );
+        const postcssConfig = `module.exports = {
+  plugins: {
+    '@tailwindcss/postcss': {},
+    autoprefixer: {},
+  },
+};
+`;
+
+        const newPostcssConfigPath = this.pathService.join(
+          folderPath,
+          "postcss.config.cjs"
+        );
+        this.fileService.rename(postcssConfig, newPostcssConfigPath);
+
+        // overwrite postcss.config.js
+        await this.fileService.createFile({
+          filePath: newPostcssConfigPath,
+          content: postcssConfig,
+        });
 
         const viteConfigPath = this.pathService.join(
           folderPath,
           "vite.config.ts"
         );
 
-        const viteConfig = `import { defineConfig } from 'vite';  
+        const viteConfig = `import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
+import path from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-});`;
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+});
+`;
         await this.fileService.createFile({
           filePath: viteConfigPath,
           content: viteConfig,
         });
-
 
         await this.commandRunner.runCommand(
           "npx shadcn@latest init -y",
@@ -137,143 +158,7 @@ export default defineConfig({
           "src",
           "index.css"
         );
-        const tailwindDirectives = `@import "tailwindcss";
-
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
-  }
- 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-  }
-  
-  * {
-    border-color: hsl(var(--border));
-  }
-  
-  body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-  }
-}
-
-/* Custom ShadCN color utilities for Tailwind v4 */
-@layer utilities {
-  .bg-primary {
-    background-color: hsl(var(--primary));
-  }
-  
-  .bg-primary-foreground {
-    background-color: hsl(var(--primary-foreground));
-  }
-  
-  .text-primary {
-    color: hsl(var(--primary));
-  }
-  
-  .text-primary-foreground {
-    color: hsl(var(--primary-foreground));
-  }
-  
-  .bg-secondary {
-    background-color: hsl(var(--secondary));
-  }
-  
-  .text-secondary-foreground {
-    color: hsl(var(--secondary-foreground));
-  }
-  
-  .bg-destructive {
-    background-color: hsl(var(--destructive));
-  }
-  
-  .text-destructive-foreground {
-    color: hsl(var(--destructive-foreground));
-  }
-  
-  .bg-muted {
-    background-color: hsl(var(--muted));
-  }
-  
-  .text-muted-foreground {
-    color: hsl(var(--muted-foreground));
-  }
-  
-  .bg-accent {
-    background-color: hsl(var(--accent));
-  }
-  
-  .text-accent-foreground {
-    color: hsl(var(--accent-foreground));
-  }
-  
-  .bg-card {
-    background-color: hsl(var(--card));
-  }
-  
-  .text-card-foreground {
-    color: hsl(var(--card-foreground));
-  }
-  
-  .bg-background {
-    background-color: hsl(var(--background));
-  }
-  
-  .text-foreground {
-    color: hsl(var(--foreground));
-  }
-  
-  .border-input {
-    border-color: hsl(var(--input));
-  }
-  
-  .ring-ring {
-    --tw-ring-color: hsl(var(--ring));
-  }
-  
-  .ring-offset-background {
-    --tw-ring-offset-color: hsl(var(--background));
-  }
-}
-`;
+        const tailwindDirectives = `@import "tailwindcss";`;
 
         await this.fileService.createFile({
           filePath: indexCssPath,

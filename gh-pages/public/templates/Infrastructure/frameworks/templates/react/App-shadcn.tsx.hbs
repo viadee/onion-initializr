@@ -37,6 +37,31 @@ function App() {
       {{else}}
       <p>No application services were defined.</p>
       {{/if}}
+      <div className="mt-10 p-5 border border-gray-300 rounded-lg bg-gray-50">
+        <h1>How to Add New ShadCN Components</h1>
+        <p>To add a new component from the shadcn library, use the following command:</p>
+        <pre className="bg-gray-900 text-gray-200 p-4 rounded overflow-auto">
+          <code>npx shadcn@latest add [component-name]</code>
+        </pre>
+        
+        <h3>Examples:</h3>
+        <pre className="bg-gray-900 text-gray-200 p-4 rounded overflow-auto">
+          <code>
+{`# Add a card component
+npx shadcn@latest add card`}
+          </code>
+        </pre>
+        <br />
+        <pre className="bg-gray-900 text-gray-200 p-4 rounded overflow-auto">
+          <code>
+{`# Add a modal component
+npx shadcn@latest add modal`}
+          </code>
+        </pre>
+
+        <p><strong>Note:</strong> Components will be added to <code>src/components/ui/</code> directory.</p>
+        <p> Afterwards you are able to use the shadcn components in your application.</p>
+      </div>
     </div>
   );
 }

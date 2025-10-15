@@ -252,14 +252,7 @@ export class ScannerAppService {
     ) {
       return "shadcn";
     }
-    // Check for Material-UI (not yet supported, so return none)
-    if ("@mui/material" in deps || "@material-ui/core" in deps) {
-      return "none"; // Will be supported in future
-    }
-    // Check for Ant Design (not yet supported, so return none)
-    if ("antd" in deps) {
-      return "none"; // Will be supported in future
-    }
+
 
     return "none";
   }

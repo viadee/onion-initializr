@@ -512,7 +512,7 @@ export default [
 
     // Install Tailwind CSS and related packages
     await runner.runCommand(
-      'npm install -D tailwindcss postcss autoprefixer @tailwindcss/typography',
+      'npm install -D tailwindcss postcss autoprefixer @tailwindcss/typography tailwindcss-cli @tailwindcss/vite @tailwindcss/postcss',
       folderPath
     );
 
@@ -521,166 +521,77 @@ export default [
       'npm install @radix-ui/react-slot @radix-ui/react-dialog @radix-ui/react-dropdown-menu',
       folderPath
     );
-    await runner.runCommand('npx shadcn@latest init -y', folderPath);
+    // shadcn expects a path alias
+    await addCompilerOptionsToTsConfig(folderPath, this.fileService);
 
-    await runner.runCommand('npx shadcn@latest add button', folderPath);
+    await runner.runCommand('npx tailwindcss-cli@latest init -p', folderPath);
 
-    // Create postcss.config.js
-    const postcssConfig = `import tailwindcss from '@tailwindcss/postcss';
-import autoprefixer from 'autoprefixer';
-
-export default {
-  plugins: [
-    tailwindcss,
-    autoprefixer,
-  ],
-};
-`;
-
-    await this.fileService.createFile({
-      filePath: `${folderPath}/postcss.config.js`.replace(/\/+/g, '/'),
-      content: postcssConfig,
-    });
-
-    // Add Tailwind directives to index.css
+    // ShadCN expects a minimal index.css
     const indexCssPath = `${folderPath}/src/index.css`.replace(/\/+/g, '/');
     const tailwindDirectives = `@import "tailwindcss";
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
-  }
- 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-  }
-  
-  * {
-    border-color: hsl(var(--border));
-  }
-  
-  body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-  }
+@theme {
+  --color-primary: hsl(240 5.9% 10%);
+  --color-primary-foreground: hsl(0 0% 98%);
+  --color-secondary: hsl(240 4.8% 95.9%);
+  --color-secondary-foreground: hsl(240 5.9% 10%);
+  --color-destructive: hsl(0 84.2% 60.2%);
+  --color-destructive-foreground: hsl(0 0% 98%);
+  --color-background: hsl(0 0% 100%);
+  --color-foreground: hsl(240 10% 3.9%);
+  --color-muted: hsl(240 4.8% 95.9%);
+  --color-muted-foreground: hsl(240 3.8% 46.1%);
+  --color-accent: hsl(240 4.8% 95.9%);
+  --color-accent-foreground: hsl(240 5.9% 10%);
+  --color-border: hsl(240 5.9% 90%);
+  --color-input: hsl(240 5.9% 90%);
+  --color-ring: hsl(240 5.9% 10%);
+  --radius: 0.5rem;
 }
 
-/* Custom ShadCN color utilities for Tailwind v4 */
-@layer utilities {
-  .bg-primary {
-    background-color: hsl(var(--primary));
-  }
-  
-  .bg-primary-foreground {
-    background-color: hsl(var(--primary-foreground));
-  }
-  
-  .text-primary {
-    color: hsl(var(--primary));
-  }
-  
-  .text-primary-foreground {
-    color: hsl(var(--primary-foreground));
-  }
-  
-  .bg-secondary {
-    background-color: hsl(var(--secondary));
-  }
-  
-  .text-secondary-foreground {
-    color: hsl(var(--secondary-foreground));
-  }
-  
-  .bg-destructive {
-    background-color: hsl(var(--destructive));
-  }
-  
-  .text-destructive-foreground {
-    color: hsl(var(--destructive-foreground));
-  }
-  
-  .bg-muted {
-    background-color: hsl(var(--muted));
-  }
-  
-  .text-muted-foreground {
-    color: hsl(var(--muted-foreground));
-  }
-  
-  .bg-accent {
-    background-color: hsl(var(--accent));
-  }
-  
-  .text-accent-foreground {
-    color: hsl(var(--accent-foreground));
-  }
-  
-  .bg-card {
-    background-color: hsl(var(--card));
-  }
-  
-  .text-card-foreground {
-    color: hsl(var(--card-foreground));
-  }
-  
-  .bg-background {
-    background-color: hsl(var(--background));
-  }
-  
-  .text-foreground {
-    color: hsl(var(--foreground));
-  }
-  
-  .border-input {
-    border-color: hsl(var(--input));
-  }
-  
-  .ring-ring {
-    --tw-ring-color: hsl(var(--ring));
-  }
-  
-  .ring-offset-background {
-    --tw-ring-offset-color: hsl(var(--background));
-  }
+/* Fallback utilities for ShadCN */
+.bg-primary {
+  background-color: hsl(240 5.9% 10%);
 }
-
+.text-primary-foreground {
+  color: hsl(0 0% 98%);
+}
+.bg-secondary {
+  background-color: hsl(240 4.8% 95.9%);
+}
+.text-secondary-foreground {
+  color: hsl(240 5.9% 10%);
+}
+.bg-destructive {
+  background-color: hsl(0 84.2% 60.2%);
+}
+.text-destructive-foreground {
+  color: hsl(0 0% 98%);
+}
+.bg-background {
+  background-color: hsl(0 0% 100%);
+}
+.text-foreground {
+  color: hsl(240 10% 3.9%);
+}
+.bg-accent {
+  background-color: hsl(240 4.8% 95.9%);
+}
+.text-accent-foreground {
+  color: hsl(240 5.9% 10%);
+}
+.border-input {
+  border-color: hsl(240 5.9% 90%);
+}
+.hover:bg-primary/90:hover {
+  background-color: hsl(240 5.9% 10% / 0.9);
+}
+.hover:bg-secondary/80:hover {
+  background-color: hsl(240 4.8% 95.9% / 0.8);
+}
+.hover:bg-destructive/90:hover {
+  background-color: hsl(0 84.2% 60.2% / 0.9);
+}
 `;
 
     await this.fileService.createFile({
@@ -688,16 +599,69 @@ export default {
       content: tailwindDirectives,
     });
 
+    await runner.runCommand(
+      'npx shadcn@latest init -y --base-color neutral',
+      folderPath
+    );
+
+    // the shadcn command add weird css directives to index.css, we dont want -> we overwrite the index.css again
+    await this.fileService.createFile({
+      filePath: indexCssPath,
+      content: tailwindDirectives,
+    });
+
+    await runner.runCommand('npx shadcn@latest add button -y', folderPath);
+
+    const postcssConfigPath = `${folderPath}/postcss.config.js`.replace(
+      /\/+/g,
+      '/'
+    );
+    const newPostcssConfigPath = `${folderPath}/postcss.config.cjs`;
+    this.fileService.rename(postcssConfigPath, newPostcssConfigPath);
+    const postcssConfig = `module.exports = {
+  plugins: {
+    '@tailwindcss/postcss': {},
+    autoprefixer: {},
+  },
+};
+`;
+    // overwrite postcss.config.cjs
+    await this.fileService.createFile({
+      filePath: newPostcssConfigPath,
+      content: postcssConfig,
+    });
+
+    const tailwindConfigPath = `${folderPath}/tailwind.config.js`.replace(
+      /\/+/g,
+      '/'
+    );
+    const tailwindConfig = `/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./src/**/*.{ts,tsx}', './index.html']
+}
+`;
+    await this.fileService.createFile({
+      filePath: tailwindConfigPath,
+      content: tailwindConfig,
+    });
+
     const viteConfigPath = `${folderPath}/vite.config.ts`.replace(/\/+/g, '/');
 
-    const viteConfig = `import { defineConfig } from 'vite';  
+    const viteConfig = `import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
+import path from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-});`;
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+});
+`;
     await this.fileService.createFile({
       filePath: viteConfigPath,
       content: viteConfig,
@@ -709,4 +673,58 @@ export default defineConfig({
     const packageJson = await this.fileService.readFile(packageJsonPath);
     return packageJson;
   }
+}
+
+async function addCompilerOptionsToTsConfig(
+  folderPath: string,
+  fileService: FileService
+): Promise<void> {
+  // Find the appropriate tsconfig file
+  const configPath = `${folderPath}/tsconfig.json`.replace(/\/+/g, '/');
+
+  if (!configPath) {
+    console.warn(
+      'No tsconfig.json file found, skipping compiler options update'
+    );
+    return;
+  }
+
+  try {
+    const configFile = await fileService.readFile(configPath);
+    const cleanContent = removeJsonComments(configFile.content);
+    const configContent = JSON.parse(cleanContent);
+
+    // Add baseUrl and paths configuration
+    configContent.compilerOptions = {
+      ...configContent.compilerOptions,
+      baseUrl: '.',
+      paths: {
+        '@/*': ['./src/*'],
+        ...(configContent.compilerOptions?.paths || {}),
+      },
+    };
+
+    await fileService.createFile({
+      filePath: configPath,
+      content: JSON.stringify(configContent, null, 2),
+    });
+
+    console.log('✓ Added compiler options (baseUrl and paths) to tsconfig');
+  } catch (error) {
+    console.error('Failed to update tsconfig.json:', error);
+  }
+}
+
+function removeJsonComments(content: string): string {
+  return content
+    .split('\n')
+    .filter(line => {
+      const trimmed = line.trim();
+      return (
+        !trimmed.startsWith('/*') &&
+        !trimmed.startsWith('//') &&
+        !trimmed.startsWith('*/')
+      );
+    })
+    .join('\n');
 }
