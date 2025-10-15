@@ -85,7 +85,7 @@ export class ShowcaseService {
       react: {
         main: uiLibrary === 'shadcn' 
           ? [
-              new ShowcaseTemplateFile("react/App-shadcn.tsx.hbs", "App.tsx"),
+              new ShowcaseTemplateFile("react/shadcn/App-shadcn.tsx.hbs", "App.tsx"),
               new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
             ]
           : [
@@ -93,8 +93,8 @@ export class ShowcaseService {
               new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
             ],
         extra: uiLibrary === 'shadcn' 
-          ? [new ShowcaseTemplateFile("react/shadcn.utils.ts.hbs", "utils.ts"),
-              new ShowcaseTemplateFile("react/shadcn.components.ts.hbs", "components.ts")
+          ? [new ShowcaseTemplateFile("react/shadcn/shadcn.utils.ts.hbs", "utils.ts"),
+              new ShowcaseTemplateFile("react/shadcn/shadcn.components.ts.hbs", "components.ts")
           ]
           : undefined,
       },

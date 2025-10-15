@@ -528,75 +528,13 @@ export default [
 
     // ShadCN expects a minimal index.css
     const indexCssPath = `${folderPath}/src/index.css`.replace(/\/+/g, '/');
-    const tailwindDirectives = `@import "tailwindcss";
-
-@theme {
-  --color-primary: hsl(240 5.9% 10%);
-  --color-primary-foreground: hsl(0 0% 98%);
-  --color-secondary: hsl(240 4.8% 95.9%);
-  --color-secondary-foreground: hsl(240 5.9% 10%);
-  --color-destructive: hsl(0 84.2% 60.2%);
-  --color-destructive-foreground: hsl(0 0% 98%);
-  --color-background: hsl(0 0% 100%);
-  --color-foreground: hsl(240 10% 3.9%);
-  --color-muted: hsl(240 4.8% 95.9%);
-  --color-muted-foreground: hsl(240 3.8% 46.1%);
-  --color-accent: hsl(240 4.8% 95.9%);
-  --color-accent-foreground: hsl(240 5.9% 10%);
-  --color-border: hsl(240 5.9% 90%);
-  --color-input: hsl(240 5.9% 90%);
-  --color-ring: hsl(240 5.9% 10%);
-  --radius: 0.5rem;
-}
-
-/* Fallback utilities for ShadCN */
-.bg-primary {
-  background-color: hsl(240 5.9% 10%);
-}
-.text-primary-foreground {
-  color: hsl(0 0% 98%);
-}
-.bg-secondary {
-  background-color: hsl(240 4.8% 95.9%);
-}
-.text-secondary-foreground {
-  color: hsl(240 5.9% 10%);
-}
-.bg-destructive {
-  background-color: hsl(0 84.2% 60.2%);
-}
-.text-destructive-foreground {
-  color: hsl(0 0% 98%);
-}
-.bg-background {
-  background-color: hsl(0 0% 100%);
-}
-.text-foreground {
-  color: hsl(240 10% 3.9%);
-}
-.bg-accent {
-  background-color: hsl(240 4.8% 95.9%);
-}
-.text-accent-foreground {
-  color: hsl(240 5.9% 10%);
-}
-.border-input {
-  border-color: hsl(240 5.9% 90%);
-}
-.hover:bg-primary/90:hover {
-  background-color: hsl(240 5.9% 10% / 0.9);
-}
-.hover:bg-secondary/80:hover {
-  background-color: hsl(240 4.8% 95.9% / 0.8);
-}
-.hover:bg-destructive/90:hover {
-  background-color: hsl(0 84.2% 60.2% / 0.9);
-}
-`;
+    const indexCssTemplate = await this.fileService.readTemplate(
+      'Infrastructure/frameworks/templates/react/shadcn/index.css.hbs'
+    );
 
     await this.fileService.createFile({
       filePath: indexCssPath,
-      content: tailwindDirectives,
+      content: indexCssTemplate.content,
     });
 
     await runner.runCommand(
@@ -607,7 +545,7 @@ export default [
     // the shadcn command add weird css directives to index.css, we dont want -> we overwrite the index.css again
     await this.fileService.createFile({
       filePath: indexCssPath,
-      content: tailwindDirectives,
+      content: indexCssTemplate.content,
     });
 
     await runner.runCommand('npx shadcn@latest add button -y', folderPath);
@@ -618,53 +556,37 @@ export default [
     );
     const newPostcssConfigPath = `${folderPath}/postcss.config.cjs`;
     this.fileService.rename(postcssConfigPath, newPostcssConfigPath);
-    const postcssConfig = `module.exports = {
-  plugins: {
-    '@tailwindcss/postcss': {},
-    autoprefixer: {},
-  },
-};
-`;
+
+    const postcssTemplate = await this.fileService.readTemplate(
+      'Infrastructure/frameworks/templates/react/shadcn/postcss.config.cjs.hbs'
+    );
+
     // overwrite postcss.config.cjs
     await this.fileService.createFile({
       filePath: newPostcssConfigPath,
-      content: postcssConfig,
+      content: postcssTemplate.content,
     });
 
     const tailwindConfigPath = `${folderPath}/tailwind.config.js`.replace(
       /\/+/g,
       '/'
     );
-    const tailwindConfig = `/** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./src/**/*.{ts,tsx}', './index.html']
-}
-`;
+    const tailwindTemplate = await this.fileService.readTemplate(
+      'Infrastructure/frameworks/templates/react/shadcn/tailwind.config.js.hbs'
+    );
     await this.fileService.createFile({
       filePath: tailwindConfigPath,
-      content: tailwindConfig,
+      content: tailwindTemplate.content,
     });
 
     const viteConfigPath = `${folderPath}/vite.config.ts`.replace(/\/+/g, '/');
 
-    const viteConfig = `import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
-import path from "path";
-
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
-});
-`;
+    const viteTemplate = await this.fileService.readTemplate(
+      'Infrastructure/frameworks/templates/react/shadcn/vite.config.ts.hbs'
+    );
     await this.fileService.createFile({
       filePath: viteConfigPath,
-      content: viteConfig,
+      content: viteTemplate.content,
     });
     console.log('✅ ShadCN setup completed!');
 
