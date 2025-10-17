@@ -84,7 +84,7 @@ export class ProjectGenerationOrchestratorAppService {
     progressCallback?: ProgressCallback
   ): Promise<void> {
     const frameworkStart = Date.now();
-    console.log('🏗️ Setting up UI framework (this may take 20-30 seconds)...');
+    console.log('Setting up UI framework (this may take 20-30 seconds)...');
 
     const initResult = await this.projectService.initialize(
       '/onion-project',

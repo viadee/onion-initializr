@@ -408,7 +408,7 @@ test.describe('CLI Workflow E2E Tests', () => {
   }
 
   async function installDependencies(projectPath: string): Promise<void> {
-    console.log(`📦 Installing dependencies in ${projectPath}`);
+    console.log(`Installing dependencies in ${projectPath}`);
 
     try {
       const { stdout, stderr } = await execAsync('npm install', {

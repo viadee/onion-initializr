@@ -222,7 +222,7 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
    * Fast dependency installation using lock file
    */
   private async fastInstallDependencies(folderPath: string): Promise<void> {
-    console.log('📦 Installing dependencies (optimized)...');
+    console.log('Installing dependencies (optimized)...');
 
     const commandRunner = await this.initializeCommandRunner();
     const startTime = Date.now();
@@ -243,7 +243,7 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
   ): Promise<void> {
     // This implementation depends on your existing framework setup logic
     // For now, we'll implement a basic version
-    console.log(`🎨 Setting up ${framework} framework...`);
+    console.log(`Setting up ${framework} framework...`);
 
     if (framework === 'vanilla') {
       // Vanilla doesn't need additional setup
@@ -485,7 +485,7 @@ export default [
     folderPath: string,
     uiLibrary: UiLibrary
   ): Promise<FileEntity | undefined> {
-    console.log(`🎨 Setting up ${uiLibrary} UI library...`);
+    console.log(`Setting up ${uiLibrary} UI library...`);
 
     switch (uiLibrary) {
       case 'none':
@@ -500,7 +500,7 @@ export default [
     }
   }
   private async setupShadCNLibrary(folderPath: string): Promise<FileEntity> {
-    console.log('📦 Installing ShadCN/UI dependencies...');
+    console.log('Installing ShadCN/UI dependencies...');
 
     const runner = await this.initializeCommandRunner();
 
