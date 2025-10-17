@@ -76,11 +76,11 @@ export class OnionAppService {
     } = params;
 
     await this.folderStructureService.createFolderStructure(folderPath);
-
     const diFramework = await this.initializeProject(
       folderPath,
       uiFramework,
       passedDiFramework,
+      uiLibrary,
       skipProjectInit
     );
 
@@ -157,6 +157,7 @@ export class OnionAppService {
     folderPath: string,
     framework: keyof UIFrameworks,
     passedDiFramework?: DiFramework,
+    uiLibrary: UiLibrary = "none",
     skipProjectInit = true
   ): Promise<DiFramework> {
     let diFramework: DiFramework = passedDiFramework || "awilix";
@@ -166,7 +167,8 @@ export class OnionAppService {
       const result = await this.projectService.initialize(
         folderPath,
         framework,
-        diFramework
+        diFramework,
+        uiLibrary
       );
       diFramework = result!.diFramework;
       console.log(`✅ Project initialized (${Date.now() - stepStart}ms)`);

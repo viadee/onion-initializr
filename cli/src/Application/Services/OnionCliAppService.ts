@@ -28,7 +28,7 @@ export class OnionCliAppService {
     private readonly pathService: PathAppService,
     private readonly onionAppService: OnionAppService,
     private readonly fileService: FileService,
-    private readonly validationService: OnionConfigValidationService,
+    private readonly validationService: OnionConfigValidationService
   ) {}
 
   /**
@@ -49,7 +49,7 @@ export class OnionCliAppService {
 
     if (configurationFilePath) {
       const resolvedConfigPath = this.pathService.isAbsolute(
-        configurationFilePath,
+        configurationFilePath
       )
         ? configurationFilePath
         : this.pathService.resolve(process.cwd(), configurationFilePath);
@@ -66,7 +66,7 @@ export class OnionCliAppService {
 
     const rawFolderPath = await this.fileHelperService.getFolderPath(
       userConfig,
-      process.cwd(),
+      process.cwd()
     );
     const folderPath = this.pathService.isAbsolute(rawFolderPath)
       ? rawFolderPath
@@ -76,13 +76,17 @@ export class OnionCliAppService {
 
     let uiFramework: keyof UIFrameworks | undefined;
     let diFramework: DiFramework;
+    let uiLibrary = userConfig.uiLibrary || "none";
 
     const projectInitResult = await this.projectService.initialize(
       folderPath,
-      userConfig.uiFramework,
+      userConfig.uiFramework
     );
     uiFramework = projectInitResult?.uiFramework || "react";
     diFramework = projectInitResult?.diFramework || "awilix";
+    if (projectInitResult?.uiLibrary) {
+      uiLibrary = projectInitResult.uiLibrary;
+    }
 
     const entityNames = await this.fileHelperService.getEntityNames(userConfig);
     const domainServiceNames =
@@ -96,7 +100,7 @@ export class OnionCliAppService {
       domainServiceNames,
       applicationServiceNames,
       uiFramework,
-      uiLibrary: userConfig.uiLibrary || 'none',
+      uiLibrary: uiLibrary,
       diFramework,
       domainServiceConnections: userConfig.domainServiceConnections,
       applicationServiceDependencies: userConfig.applicationServiceDependencies,
@@ -105,7 +109,7 @@ export class OnionCliAppService {
   }
 
   async generateOnionArchitecture(
-    params: OnionArchitectureGenerationParams,
+    params: OnionArchitectureGenerationParams
   ): Promise<FileEntity[]> {
     return this.onionAppService.generate(params);
   }
