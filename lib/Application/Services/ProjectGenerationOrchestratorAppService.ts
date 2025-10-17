@@ -84,12 +84,13 @@ export class ProjectGenerationOrchestratorAppService {
     progressCallback?: ProgressCallback
   ): Promise<void> {
     const frameworkStart = Date.now();
-    console.log('🏗️ Setting up UI framework (this may take 20-30 seconds)...');
+    console.log('Setting up UI framework (this may take 20-30 seconds)...');
 
     const initResult = await this.projectService.initialize(
       '/onion-project',
       config.uiFramework,
       config.diFramework,
+      config.uiLibrary,
       this.createFrameworkProgressHandler(progressCallback)
     );
 
@@ -120,7 +121,8 @@ export class ProjectGenerationOrchestratorAppService {
       domainServiceConnections: config.domainServiceConnections || {},
       applicationServiceDependencies:
         config.applicationServiceDependencies || {},
-      skipProjectInit: false,
+      skipProjectInit: true,
+      uiLibrary: config.uiLibrary || 'none',
     });
 
     console.log(

@@ -1,3 +1,4 @@
+import { UiLibrary } from './UiLibrary';
 import { UIFrameworks } from './UiFramework';
 import { DiFramework } from './DiFramework';
 
@@ -19,6 +20,7 @@ export class OnionConfig {
   >;
   uiFramework: keyof UIFrameworks | undefined;
   diFramework: DiFramework | undefined;
+  uiLibrary: UiLibrary | undefined;
 
   constructor(data: Partial<OnionConfig> = {}) {
     this.folderPath = data.folderPath ?? '';
@@ -30,6 +32,8 @@ export class OnionConfig {
       data.applicationServiceDependencies ?? {};
     this.uiFramework = data.uiFramework;
     this.diFramework = data.diFramework ?? 'awilix';
+    this.uiLibrary = data.uiLibrary;
+
   }
 
   static empty(): OnionConfig {

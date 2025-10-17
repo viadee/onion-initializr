@@ -129,12 +129,18 @@ describe("ProjectInitAppService", () => {
       updateVerbatimModuleSyntax: async () => "",
     };
 
+    // Mock UILibrarySetupService
+    const mockUILibrarySetupService = {
+      setupUILibrary: async () => {},
+    };
+
     projectService = new ProjectInitAppService(
       mockFileService as FileService,
       mockPathService as PathAppService,
       mockCommandRunner as ICommandRunner,
       mockLintAppService as unknown as LintAppService,
       mockConfigurationAppService as any,
+      mockUILibrarySetupService as any
     );
   });
 
@@ -311,7 +317,7 @@ describe("ProjectInitAppService", () => {
       const npmInitCalls = callLog.filter(
         (call) =>
           call.method === "runCommand" &&
-          (call.args[0] as string).includes("npm init"),
+          (call.args[0] as string).includes("npm init")
       );
       expect(npmInitCalls).to.have.lengthOf(0);
     });
@@ -368,7 +374,7 @@ describe("ProjectInitAppService", () => {
       } catch (error) {
         errorCaught = true;
         expect((error as Error).message).to.equal(
-          "Dependencies installation failed",
+          "Dependencies installation failed"
         );
       }
 
@@ -382,7 +388,7 @@ describe("ProjectInitAppService", () => {
       const installCommand = callLog.find(
         (call) =>
           call.method === "runCommand" &&
-          (call.args[0] as string).includes("npm install --save-dev"),
+          (call.args[0] as string).includes("npm install --save-dev")
       );
 
       expect(installCommand?.args[1]).to.equal(customPath);
@@ -530,7 +536,7 @@ describe("ProjectInitAppService", () => {
         const createCommands = callLog.filter(
           (call) =>
             call.method === "runCommand" &&
-            (call.args[0] as string).includes("npx"),
+            (call.args[0] as string).includes("npx")
         );
         expect(createCommands).to.have.lengthOf(0);
       });
@@ -586,7 +592,7 @@ describe("ProjectInitAppService", () => {
       const devDepsCommand = callLog.find(
         (call) =>
           call.method === "runCommand" &&
-          (call.args[0] as string).includes("npm install --save-dev eslint"),
+          (call.args[0] as string).includes("npm install --save-dev eslint")
       );
       expect(devDepsCommand).to.not.be.undefined;
     });
@@ -705,7 +711,7 @@ describe("ProjectInitAppService", () => {
     it("should not leak resources during multiple operations", async () => {
       // Simulate multiple rapid operations
       const operations = Array.from({ length: 10 }, (_, i) =>
-        projectService.isInitialized(`/project${i}`),
+        projectService.isInitialized(`/project${i}`)
       );
 
       const results = await Promise.all(operations);

@@ -30,5 +30,7 @@
   "diFramework": "awilix",
   "_chooseFromTheseDI": ["awilix", "angular"],
   "uiFramework": "lit",
-  "_chooseFromTheseUI": ["react", "angular", "vue", "lit", "vanilla"]
+  "_chooseFromTheseUI": ["react", "angular", "vue", "lit", "vanilla"],
+  "uiLibrary": "shadcn",
+  "_chooseFromTheseUILibraries": ["none", "shadcn"]
 }

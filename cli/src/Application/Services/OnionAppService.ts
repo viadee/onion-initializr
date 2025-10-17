@@ -26,12 +26,14 @@ import { DomainService } from "../../../../lib/Domain/Entities/DomainService";
 import { FileEntity } from "../../../../lib/Domain/Entities/FileEntity";
 import { ShowcaseAppGeneration } from "../../../../lib/Domain/Entities/ShowcaseAppGeneration";
 import { UIFrameworks } from "../../../../lib/Domain/Entities/UiFramework";
+import { UiLibrary } from "../../../../lib/Domain/Entities/UiLibrary";
 export interface OnionArchitectureGenerationParams {
   folderPath: string;
   entityNames: string[];
   domainServiceNames: string[];
   applicationServiceNames: string[];
   uiFramework: keyof UIFrameworks;
+  uiLibrary?: UiLibrary;
   diFramework?: DiFramework;
   domainServiceConnections?: DomainServiceConnections;
   applicationServiceDependencies?: ApplicationServiceDependencyMap;
@@ -66,6 +68,7 @@ export class OnionAppService {
       domainServiceNames,
       applicationServiceNames,
       uiFramework,
+      uiLibrary = "none",
       diFramework: passedDiFramework,
       domainServiceConnections,
       applicationServiceDependencies,
@@ -73,11 +76,11 @@ export class OnionAppService {
     } = params;
 
     await this.folderStructureService.createFolderStructure(folderPath);
-
     const diFramework = await this.initializeProject(
       folderPath,
       uiFramework,
       passedDiFramework,
+      uiLibrary,
       skipProjectInit
     );
 
@@ -136,6 +139,7 @@ export class OnionAppService {
       folderPath,
       uiFramework,
       diFramework,
+      uiLibrary,
       applicationServiceNames
     );
     allFileEntities.push(...showcaseFiles);
@@ -153,6 +157,7 @@ export class OnionAppService {
     folderPath: string,
     framework: keyof UIFrameworks,
     passedDiFramework?: DiFramework,
+    uiLibrary: UiLibrary = "none",
     skipProjectInit = true
   ): Promise<DiFramework> {
     let diFramework: DiFramework = passedDiFramework || "awilix";
@@ -162,7 +167,8 @@ export class OnionAppService {
       const result = await this.projectService.initialize(
         folderPath,
         framework,
-        diFramework
+        diFramework,
+        uiLibrary
       );
       diFramework = result!.diFramework;
       console.log(`✅ Project initialized (${Date.now() - stepStart}ms)`);
@@ -401,6 +407,7 @@ export class OnionAppService {
     folderPath: string,
     framework: keyof UIFrameworks,
     diFramework: DiFramework,
+    uiLibrary: UiLibrary,
     applicationServiceNames: string[]
   ): Promise<FileEntity[]> {
     if (!framework) return [];
@@ -410,6 +417,7 @@ export class OnionAppService {
       folderPath,
       framework,
       diFramework === "angular",
+      uiLibrary,
       applicationServiceNames[0]
     );
 

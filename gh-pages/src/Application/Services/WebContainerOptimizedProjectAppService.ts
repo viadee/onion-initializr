@@ -1,13 +1,18 @@
+import { UiLibrary } from './../../../../lib/Domain/Entities/UiLibrary';
 import { FileService } from '../../../../lib/Domain/Services/FileService';
 import { WebContainerCommandRunner } from '../../Infrastructure/Repositories/WebContainerCommandRunner';
 import { WebContainerFileRepository } from '../../Infrastructure/Repositories/WebContainerFileRepository';
 import { WebContainerHelperFunctions } from '../../Infrastructure/Repositories/WebContainerHelperFunctions';
 import { IProjectService } from '../../../../lib/Domain/Interfaces/IProjectService';
-import { WebContainerOptimizationService } from './WebContainerOptimizationAppService';
+import {
+  WebContainerOptimizationService,
+  PackageJsonStructure,
+} from './WebContainerOptimizationAppService';
 import { IFileRepository } from '../../../../lib/Domain/Interfaces/IFileRepository';
 import { DiFramework } from '../../../../lib/Domain/Entities/DiFramework';
 import { FileEntity } from '../../../../lib/Domain/Entities/FileEntity';
 import { UIFrameworks } from '../../../../lib/Domain/Entities/UiFramework';
+import { UILibrarySetupService } from '../../../../lib/Application/Services/UILibrarySetupService';
 /**
  * Optimized WebContainer project service that uses pre-generated lock files
  * to dramatically reduce installation time from ~50s to ~5s
@@ -18,7 +23,8 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
   constructor(
     private readonly fileService: FileService,
     private readonly fileRepository: IFileRepository,
-    private readonly helperFunctions: WebContainerHelperFunctions
+    private readonly helperFunctions: WebContainerHelperFunctions,
+    private readonly uiLibrarySetupService: UILibrarySetupService
   ) {}
 
   private async initializeCommandRunner(): Promise<WebContainerCommandRunner> {
@@ -52,9 +58,15 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
     folderPath: string,
     uiFramework: keyof UIFrameworks = 'react',
     diFramework: DiFramework = 'awilix',
+    uiLibrary: UiLibrary = 'none',
     progressCallback?: (phase: string, progress: number) => void
   ): Promise<
-    { uiFramework: keyof UIFrameworks; diFramework: DiFramework } | undefined
+    | {
+        uiFramework: keyof UIFrameworks;
+        diFramework: DiFramework;
+        uiLibrary: UiLibrary;
+      }
+    | undefined
   > {
     try {
       const startTime = Date.now();
@@ -72,6 +84,7 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
       // For WebContainer, we'll default to a framework since we can't prompt
       uiFramework = uiFramework || 'react';
       diFramework = diFramework || 'awilix';
+      uiLibrary = uiLibrary || 'none';
 
       const packageJsonPath = `${folderPath}/package.json`.replace(/\/+/g, '/');
       const originalPackageJson =
@@ -90,6 +103,16 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
         filePath: packageJsonPath,
         content: originalPackageJson.content,
       });
+      if (uiLibrary !== 'none') {
+        const updatedPackageJson = await this.setUpUiLibrary(
+          folderPath,
+          uiLibrary
+        );
+        await this.fileService.createFile({
+          filePath: packageJsonPath,
+          content: updatedPackageJson!.content,
+        });
+      }
 
       progressCallback?.('create-framework', 100);
 
@@ -107,7 +130,7 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
         `✅ Optimized project initialization completed in ${totalDuration}s`
       );
 
-      return { uiFramework, diFramework };
+      return { uiFramework, diFramework, uiLibrary };
     } catch (error) {
       console.error('Optimized project initialization failed:', error);
       throw error;
@@ -201,7 +224,7 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
    * Fast dependency installation using lock file
    */
   private async fastInstallDependencies(folderPath: string): Promise<void> {
-    console.log('📦 Installing dependencies (optimized)...');
+    console.log('Installing dependencies (optimized)...');
 
     const commandRunner = await this.initializeCommandRunner();
     const startTime = Date.now();
@@ -222,7 +245,7 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
   ): Promise<void> {
     // This implementation depends on your existing framework setup logic
     // For now, we'll implement a basic version
-    console.log(`🎨 Setting up ${framework} framework...`);
+    console.log(`Setting up ${framework} framework...`);
 
     if (framework === 'vanilla') {
       // Vanilla doesn't need additional setup
@@ -458,5 +481,24 @@ export default [
       optimized: lockConfig ? 5 : 50, // 5s with lock files, 50s without
       standard: 50,
     };
+  }
+
+  async setUpUiLibrary(
+    folderPath: string,
+    uiLibrary: UiLibrary
+  ): Promise<FileEntity | undefined> {
+    console.log(`Setting up ${uiLibrary} UI library...`);
+
+    const commandRunner = await this.initializeCommandRunner();
+    await this.uiLibrarySetupService.setupUILibrary(
+      folderPath,
+      uiLibrary,
+      commandRunner
+    );
+
+    // Return the updated package.json
+    const packageJsonPath = `${folderPath}/package.json`.replace(/\/+/g, '/');
+    const packageJson = await this.fileService.readFile(packageJsonPath);
+    return packageJson;
   }
 }

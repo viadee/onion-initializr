@@ -42,6 +42,7 @@ import { WebContainerPathRepository } from '../Repositories/WebContainerPathRepo
 import { AwilixConfig } from '../../../../lib/Domain/Entities/AwilixConfig';
 import { OnionConfig } from '../../../../lib/Domain/Entities/OnionConfig';
 import { InputSanitizationService } from '../../Application/Services/InputSanitizationService';
+import { UILibrarySetupService } from '../../../../lib/Application/Services/UILibrarySetupService';
 
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,
@@ -111,6 +112,7 @@ container.register({
   stateService: asClass(OnionConfigStateService).singleton(),
   configService: asClass(OnionConfigService).singleton(),
   lintAppService: asClass(LintAppService).singleton(),
+  uiLibrarySetupService: asClass(UILibrarySetupService).singleton(),
 });
 
 // Register services for browser environment (web app only runs in browser)

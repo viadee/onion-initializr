@@ -1,6 +1,7 @@
 import { FileEntity } from "../Entities/FileEntity";
 import { ShowcaseAppGeneration } from "../Entities/ShowcaseAppGeneration";
 import { UIFrameworks } from "../Entities/UiFramework";
+import { UiLibrary } from "../Entities/UiLibrary";
 import { FileService } from "./FileService";
 import Handlebars from "handlebars";
 import { ShowcaseTemplateFile } from "../Entities/ShowcaseTemplateFile";
@@ -36,7 +37,7 @@ export class ShowcaseService {
       return [];
     }
 
-    const templateFiles = this.getTemplateFilesForFramework(request.framework);
+    const templateFiles = this.getTemplateFilesForFramework(request.framework, request.uiLibrary);
     if (templateFiles.main.length === 0) {
       return [];
     }
@@ -67,7 +68,10 @@ export class ShowcaseService {
   /**
    * Get template files configuration for a specific framework
    */
-  private getTemplateFilesForFramework(framework: keyof UIFrameworks): {
+  private getTemplateFilesForFramework(
+    framework: keyof UIFrameworks, 
+    uiLibrary: UiLibrary = 'none'
+  ): {
     main: ShowcaseTemplateFile[];
     extra?: ShowcaseTemplateFile[];
   } {
@@ -79,10 +83,20 @@ export class ShowcaseService {
       }
     > = {
       react: {
-        main: [
-          new ShowcaseTemplateFile("react/App.tsx.hbs", "App.tsx"),
-          new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
-        ],
+        main: uiLibrary === 'shadcn' 
+          ? [
+              new ShowcaseTemplateFile("react/shadcn/App-shadcn.tsx.hbs", "App.tsx"),
+              new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
+            ]
+          : [
+              new ShowcaseTemplateFile("react/App.tsx.hbs", "App.tsx"),
+              new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
+            ],
+        extra: uiLibrary === 'shadcn' 
+          ? [new ShowcaseTemplateFile("react/shadcn/shadcn.utils.ts.hbs", "utils.ts"),
+              new ShowcaseTemplateFile("react/shadcn/shadcn.components.ts.hbs", "components.ts")
+          ]
+          : undefined,
       },
       angular: {
         main: [

@@ -7,6 +7,7 @@ import {
   DomainServiceConnections,
 } from '../../Domain/Interfaces/DomainServiceConnections';
 import { UIFrameworks } from '../../Domain/Entities/UiFramework';
+import { UiLibrary } from '../../Domain/Entities/UiLibrary';
 import { ShowcaseService } from '../../Domain/Services/ShowcaseService';
 import { ShowcaseAppGeneration } from '../../Domain/Entities/ShowcaseAppGeneration';
 import { AwilixConfigService } from '../../Domain/Services/AwilixConfigService';
@@ -30,6 +31,7 @@ export interface OnionArchitectureGenerationParams {
   domainServiceNames: string[];
   applicationServiceNames: string[];
   uiFramework: keyof UIFrameworks;
+  uiLibrary?: UiLibrary;
   diFramework?: DiFramework;
   domainServiceConnections?: DomainServiceConnections;
   applicationServiceDependencies?: ApplicationServiceDependencyMap;
@@ -64,11 +66,13 @@ export class OnionAppService {
       domainServiceNames,
       applicationServiceNames,
       uiFramework,
+      uiLibrary = 'none',
       diFramework: passedDiFramework,
       domainServiceConnections,
       applicationServiceDependencies,
       skipProjectInit = true,
     } = params;
+		console.log("TCL: OnionAppService -> params", params)
 
     await this.folderStructureService.createFolderStructure(folderPath);
 
@@ -135,6 +139,7 @@ export class OnionAppService {
       folderPath,
       uiFramework,
       diFramework,
+      uiLibrary,
       applicationServiceNames
     );
     allFileEntities.push(...showcaseFiles);
@@ -398,6 +403,7 @@ export class OnionAppService {
     folderPath: string,
     framework: keyof UIFrameworks,
     diFramework: DiFramework,
+    uiLibrary: UiLibrary,
     applicationServiceNames: string[]
   ): Promise<FileEntity[]> {
     if (!framework) return [];
@@ -407,6 +413,7 @@ export class OnionAppService {
       folderPath,
       framework,
       diFramework === 'angular',
+      uiLibrary,
       applicationServiceNames[0]
     );
 

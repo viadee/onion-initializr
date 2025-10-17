@@ -6,7 +6,9 @@ import { PathAppService } from "../../../../lib/Application/Services/PathAppServ
 import { ICommandRunner } from "../../../../lib/Domain/Interfaces/ICommandRunner";
 import { IProjectService } from "../../../../lib/Domain/Interfaces/IProjectService";
 import { DiFramework } from "../../../../lib/Domain/Entities/DiFramework";
+import { UiLibrary } from "../../../../lib/Domain/Entities/UiLibrary";
 import { UIFrameworks } from "../../../../lib/Domain/Entities/UiFramework";
+import { UILibrarySetupService } from "../../../../lib/Application/Services/UILibrarySetupService";
 // Maps display name to internal framework key
 const frameworkDisplayMap: Record<string, keyof UIFrameworks> = {
   "React (Vite + TS)": "react",
@@ -28,7 +30,8 @@ export class ProjectInitAppService implements IProjectService {
     private readonly pathService: PathAppService,
     private readonly commandRunner: ICommandRunner,
     private readonly lintAppService: LintAppService,
-    private readonly configurationAppService: ConfigurationAppService
+    private readonly configurationAppService: ConfigurationAppService,
+    private readonly uiLibrarySetupService: UILibrarySetupService
   ) {}
   async isInitialized(folderPath: string): Promise<boolean> {
     const packageJson = this.pathService.join(folderPath, "package.json");
@@ -59,11 +62,40 @@ export class ProjectInitAppService implements IProjectService {
       console.error(chalk.red(`Failed to lint/format code: ${error}`));
     }
   }
+
+  /**
+   * Setup UI Library specific packages and configuration
+   */
+  async setUpUiLibrary(
+    folderPath: string,
+    uiLibrary: UiLibrary
+  ): Promise<void> {
+    console.log(chalk.yellow(`Setting up ${uiLibrary} UI library...`));
+
+    try {
+      await this.uiLibrarySetupService.setupUILibrary(
+        folderPath,
+        uiLibrary,
+        this.commandRunner
+      );
+    } catch (error) {
+      console.error(chalk.red(`❌ Failed to setup ${uiLibrary}:`), error);
+      throw error;
+    }
+  }
+
   async initialize(
     folderPath: string,
-    uiFramework?: keyof UIFrameworks
+    uiFramework?: keyof UIFrameworks,
+    diFramework?: DiFramework,
+    uiLibrary?: UiLibrary
   ): Promise<
-    { uiFramework: keyof UIFrameworks; diFramework: DiFramework } | undefined
+    | {
+        uiFramework: keyof UIFrameworks;
+        diFramework: DiFramework;
+        uiLibrary: UiLibrary;
+      }
+    | undefined
   > {
     try {
       const inquirer =
@@ -82,7 +114,10 @@ export class ProjectInitAppService implements IProjectService {
         ]);
         uiFramework = frameworkDisplayMap[selectedDisplayName];
       }
-      let diFramework: DiFramework = "awilix";
+
+      // Use passed parameters or default values
+      diFramework = diFramework || "awilix";
+      uiLibrary = uiLibrary || "none";
 
       if (uiFramework === "angular") {
         const { selectedDiFramework } = await inquirer.prompt([
@@ -98,10 +133,29 @@ export class ProjectInitAppService implements IProjectService {
           },
         ]);
         diFramework = selectedDiFramework;
+      } else if (uiFramework === "react" && uiLibrary === "none") {
+        // Only prompt for UI library if not provided and using React
+        const { selectedUiLibrary } = await inquirer.prompt([
+          {
+            type: "list",
+            name: "selectedUiLibrary",
+            message: "What UI Library do you want to use ? (default: None)",
+            choices: [
+              { name: "None", value: "none" },
+              { name: "ShadCN", value: "shadcn" },
+            ],
+          },
+        ]);
+        uiLibrary = selectedUiLibrary;
       }
 
       uiFramework = uiFramework || "vanilla";
       await this.setupUIFramework(folderPath, uiFramework);
+
+      // Set up UI Library if selected
+      if (uiLibrary !== "none") {
+        await this.setUpUiLibrary(folderPath, uiLibrary as UiLibrary);
+      }
 
       if (diFramework === "awilix") {
         await this.installAwilix(folderPath);
@@ -121,7 +175,11 @@ export class ProjectInitAppService implements IProjectService {
 
       await this.formatCode(folderPath);
 
-      return { uiFramework, diFramework };
+      return {
+        uiFramework,
+        diFramework: diFramework as DiFramework,
+        uiLibrary: uiLibrary as UiLibrary,
+      };
     } catch (error) {
       console.error(chalk.red("Project initialization failed.", error));
       return undefined;
