@@ -129,12 +129,18 @@ describe("ProjectInitAppService", () => {
       updateVerbatimModuleSyntax: async () => "",
     };
 
+    // Mock UILibrarySetupService
+    const mockUILibrarySetupService = {
+      setupUILibrary: async () => {},
+    };
+
     projectService = new ProjectInitAppService(
       mockFileService as FileService,
       mockPathService as PathAppService,
       mockCommandRunner as ICommandRunner,
       mockLintAppService as unknown as LintAppService,
       mockConfigurationAppService as any,
+      mockUILibrarySetupService as any,
     );
   });
 
