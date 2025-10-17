@@ -44,6 +44,7 @@ import { AwilixConfig } from "../../../../lib/Domain/Entities/AwilixConfig";
 import { LintAppService } from "../../../../lib/Application/Services/LintAppService";
 import { RunCommandService } from "../repositories/runCommandService";
 import { NodeCommandRunner } from "../repositories/NodeCommandRunner";
+import { UILibrarySetupService } from "../../../../lib/Application/Services/UILibrarySetupService";
 
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,
@@ -118,6 +119,7 @@ container.register({
   ).singleton(),
   configService: asClass(OnionConfigService).singleton(),
   lintAppService: asClass(LintAppService).singleton(),
+  uiLibrarySetupService: asClass(UILibrarySetupService).singleton(),
   fileRepository: asClass(FileSystemFileRepository).singleton(),
   commandRunner: asClass(NodeCommandRunner).singleton(),
   commandRunnerService: asClass(RunCommandService).singleton(),

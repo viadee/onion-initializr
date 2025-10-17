@@ -8,6 +8,7 @@ import { IProjectService } from "../../../../lib/Domain/Interfaces/IProjectServi
 import { DiFramework } from "../../../../lib/Domain/Entities/DiFramework";
 import { UiLibrary } from "../../../../lib/Domain/Entities/UiLibrary";
 import { UIFrameworks } from "../../../../lib/Domain/Entities/UiFramework";
+import { UILibrarySetupService } from "../../../../lib/Application/Services/UILibrarySetupService";
 // Maps display name to internal framework key
 const frameworkDisplayMap: Record<string, keyof UIFrameworks> = {
   "React (Vite + TS)": "react",
@@ -29,7 +30,8 @@ export class ProjectInitAppService implements IProjectService {
     private readonly pathService: PathAppService,
     private readonly commandRunner: ICommandRunner,
     private readonly lintAppService: LintAppService,
-    private readonly configurationAppService: ConfigurationAppService
+    private readonly configurationAppService: ConfigurationAppService,
+    private readonly uiLibrarySetupService: UILibrarySetupService
   ) {}
   async isInitialized(folderPath: string): Promise<boolean> {
     const packageJson = this.pathService.join(folderPath, "package.json");
@@ -70,123 +72,12 @@ export class ProjectInitAppService implements IProjectService {
   ): Promise<void> {
     console.log(chalk.yellow(`Setting up ${uiLibrary} UI library...`));
 
-    if (uiLibrary === "none") {
-      return;
-    }
-
     try {
-      if (uiLibrary === "shadcn") {
-        console.log(chalk.blue("Installing ShadCN/UI dependencies..."));
-
-        await this.commandRunner.runCommand(
-          "npm install class-variance-authority clsx tailwind-merge",
-          folderPath
-        );
-
-        await this.commandRunner.runCommand(
-          "npm install -D tailwindcss postcss autoprefixer @tailwindcss/typography @tailwindcss/vite @tailwindcss/postcss tailwindcss-cli",
-          folderPath
-        );
-
-        await this.commandRunner.runCommand(
-          "npm install @radix-ui/react-slot @radix-ui/react-dialog @radix-ui/react-dropdown-menu",
-          folderPath
-        );
-
-        // shadcn expects a path alias
-        await this.addCompilerOptionsToTsConfig(folderPath);
-
-        // create tailwind.config.js
-        await this.commandRunner.runCommand(
-          "npx tailwindcss-cli@latest init -p",
-          folderPath
-        );
-
-        // ShadCN expects a minimal index.css
-        const indexCssPath = this.pathService.join(
-          folderPath,
-          "src",
-          "index.css"
-        );
-        const indexCssTemplate = await this.fileService.readTemplate(
-          "Infrastructure/frameworks/templates/react/shadcn/index.css.hbs"
-        );
-
-        await this.fileService.createFile({
-          filePath: indexCssPath,
-          content: indexCssTemplate.content,
-        });
-
-        await this.commandRunner.runCommand(
-          "npx shadcn@latest init -y --base-color neutral",
-          folderPath
-        );
-
-        // the shadcn command add weird css directives to index.css, we dont want -> we overwrite the index.css again
-        await this.fileService.createFile({
-          filePath: indexCssPath,
-          content: indexCssTemplate.content,
-        });
-
-        await this.commandRunner.runCommand(
-          "npx shadcn@latest add button -y",
-          folderPath
-        );
-
-        const postcssConfigPath = this.pathService.join(
-          folderPath,
-          "postcss.config.js"
-        );
-        const newPostcssConfigPath = this.pathService.join(
-          folderPath,
-          "postcss.config.cjs"
-        );
-
-        // Only rename if the original file exists
-        if (await this.fileService.fileExists(postcssConfigPath)) {
-          this.fileService.rename(postcssConfigPath, newPostcssConfigPath);
-        }
-
-        const postcssTemplate = await this.fileService.readTemplate(
-          "Infrastructure/frameworks/templates/react/shadcn/postcss.config.cjs.hbs"
-        );
-
-        // overwrite postcss.config.cjs
-        await this.fileService.createFile({
-          filePath: newPostcssConfigPath,
-          content: postcssTemplate.content,
-        });
-
-        const tailwindConfigPath = this.pathService.join(
-          folderPath,
-          "tailwind.config.js"
-        );
-        const tailwindTemplate = await this.fileService.readTemplate(
-          "Infrastructure/frameworks/templates/react/shadcn/tailwind.config.js.hbs"
-        );
-        await this.fileService.createFile({
-          filePath: tailwindConfigPath,
-          content: tailwindTemplate.content,
-        });
-
-        const viteConfigPath = this.pathService.join(
-          folderPath,
-          "vite.config.ts"
-        );
-        const viteTemplate = await this.fileService.readTemplate(
-          "Infrastructure/frameworks/templates/react/shadcn/vite.config.ts.hbs"
-        );
-        await this.fileService.createFile({
-          filePath: viteConfigPath,
-          content: viteTemplate.content,
-        });
-
-        console.log(chalk.green("✅ ShadCN setup completed!"));
-      } else {
-        console.log(
-          chalk.yellow(`⚠️ UI library ${uiLibrary} not yet implemented`)
-        );
-      }
+      await this.uiLibrarySetupService.setupUILibrary(
+        folderPath,
+        uiLibrary,
+        this.commandRunner
+      );
     } catch (error) {
       console.error(chalk.red(`❌ Failed to setup ${uiLibrary}:`), error);
       throw error;
@@ -592,71 +483,5 @@ export class ProjectInitAppService implements IProjectService {
     if (await this.fileService.dirExists(dirPath)) {
       await this.fileService.rmSync(dirPath);
     }
-  }
-
-  private async addCompilerOptionsToTsConfig(
-    folderPath: string
-  ): Promise<void> {
-    // Find the appropriate tsconfig file
-    const configPaths = [
-      this.pathService.join(folderPath, "tsconfig.json"),
-      this.pathService.join(folderPath, "tsconfig.app.json"),
-    ];
-
-    let configPath: string | null = null;
-    for (const path of configPaths) {
-      if (await this.fileService.fileExists(path)) {
-        configPath = path;
-        break;
-      }
-    }
-
-    if (!configPath) {
-      console.warn(
-        "No tsconfig.json file found, skipping compiler options update"
-      );
-      return;
-    }
-
-    try {
-      const configFile = await this.fileService.readFile(configPath);
-      const cleanContent = this.removeJsonComments(configFile.content);
-      const configContent = JSON.parse(cleanContent);
-
-      // Add baseUrl and paths configuration
-      configContent.compilerOptions = {
-        ...configContent.compilerOptions,
-        baseUrl: ".",
-        paths: {
-          "@/*": ["./src/*"],
-          ...(configContent.compilerOptions?.paths || {}),
-        },
-      };
-
-      await this.fileService.createFile({
-        filePath: configPath,
-        content: JSON.stringify(configContent, null, 2),
-      });
-
-      console.log(
-        chalk.green("✓ Added compiler options (baseUrl and paths) to tsconfig")
-      );
-    } catch (error) {
-      console.error(chalk.red("Failed to update tsconfig.json:"), error);
-    }
-  }
-
-  private removeJsonComments(content: string): string {
-    return content
-      .split("\n")
-      .filter((line) => {
-        const trimmed = line.trim();
-        return (
-          !trimmed.startsWith("/*") &&
-          !trimmed.startsWith("//") &&
-          !trimmed.startsWith("*/")
-        );
-      })
-      .join("\n");
   }
 }

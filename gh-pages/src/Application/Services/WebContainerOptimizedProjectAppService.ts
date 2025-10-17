@@ -12,6 +12,7 @@ import { IFileRepository } from '../../../../lib/Domain/Interfaces/IFileReposito
 import { DiFramework } from '../../../../lib/Domain/Entities/DiFramework';
 import { FileEntity } from '../../../../lib/Domain/Entities/FileEntity';
 import { UIFrameworks } from '../../../../lib/Domain/Entities/UiFramework';
+import { UILibrarySetupService } from '../../../../lib/Application/Services/UILibrarySetupService';
 /**
  * Optimized WebContainer project service that uses pre-generated lock files
  * to dramatically reduce installation time from ~50s to ~5s
@@ -22,7 +23,8 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
   constructor(
     private readonly fileService: FileService,
     private readonly fileRepository: IFileRepository,
-    private readonly helperFunctions: WebContainerHelperFunctions
+    private readonly helperFunctions: WebContainerHelperFunctions,
+    private readonly uiLibrarySetupService: UILibrarySetupService
   ) {}
 
   private async initializeCommandRunner(): Promise<WebContainerCommandRunner> {
@@ -487,166 +489,16 @@ export default [
   ): Promise<FileEntity | undefined> {
     console.log(`Setting up ${uiLibrary} UI library...`);
 
-    switch (uiLibrary) {
-      case 'none':
-        return undefined;
-
-      case 'shadcn':
-        return await this.setupShadCNLibrary(folderPath);
-
-      default:
-        console.log(`⚠️ UI library ${uiLibrary} not yet implemented`);
-        return undefined;
-    }
-  }
-  private async setupShadCNLibrary(folderPath: string): Promise<FileEntity> {
-    console.log('Installing ShadCN/UI dependencies...');
-
-    const runner = await this.initializeCommandRunner();
-
-    // Install core ShadCN dependencies
-    await runner.runCommand(
-      'npm install class-variance-authority clsx tailwind-merge',
-      folderPath
+    const commandRunner = await this.initializeCommandRunner();
+    await this.uiLibrarySetupService.setupUILibrary(
+      folderPath,
+      uiLibrary,
+      commandRunner
     );
-
-    // Install Tailwind CSS and related packages
-    await runner.runCommand(
-      'npm install -D tailwindcss postcss autoprefixer @tailwindcss/typography tailwindcss-cli @tailwindcss/vite @tailwindcss/postcss',
-      folderPath
-    );
-
-    // Install Radix UI components commonly used with ShadCN
-    await runner.runCommand(
-      'npm install @radix-ui/react-slot @radix-ui/react-dialog @radix-ui/react-dropdown-menu',
-      folderPath
-    );
-    // shadcn expects a path alias
-    await addCompilerOptionsToTsConfig(folderPath, this.fileService);
-
-    await runner.runCommand('npx tailwindcss-cli@latest init -p', folderPath);
-
-    // ShadCN expects a minimal index.css
-    const indexCssPath = `${folderPath}/src/index.css`.replace(/\/+/g, '/');
-    const indexCssTemplate = await this.fileService.readTemplate(
-      'Infrastructure/frameworks/templates/react/shadcn/index.css.hbs'
-    );
-
-    await this.fileService.createFile({
-      filePath: indexCssPath,
-      content: indexCssTemplate.content,
-    });
-
-    await runner.runCommand(
-      'npx shadcn@latest init -y --base-color neutral',
-      folderPath
-    );
-
-    // the shadcn command add weird css directives to index.css, we dont want -> we overwrite the index.css again
-    await this.fileService.createFile({
-      filePath: indexCssPath,
-      content: indexCssTemplate.content,
-    });
-
-    await runner.runCommand('npx shadcn@latest add button -y', folderPath);
-
-    const postcssConfigPath = `${folderPath}/postcss.config.js`.replace(
-      /\/+/g,
-      '/'
-    );
-    const newPostcssConfigPath = `${folderPath}/postcss.config.cjs`;
-    this.fileService.rename(postcssConfigPath, newPostcssConfigPath);
-
-    const postcssTemplate = await this.fileService.readTemplate(
-      'Infrastructure/frameworks/templates/react/shadcn/postcss.config.cjs.hbs'
-    );
-
-    // overwrite postcss.config.cjs
-    await this.fileService.createFile({
-      filePath: newPostcssConfigPath,
-      content: postcssTemplate.content,
-    });
-
-    const tailwindConfigPath = `${folderPath}/tailwind.config.js`.replace(
-      /\/+/g,
-      '/'
-    );
-    const tailwindTemplate = await this.fileService.readTemplate(
-      'Infrastructure/frameworks/templates/react/shadcn/tailwind.config.js.hbs'
-    );
-    await this.fileService.createFile({
-      filePath: tailwindConfigPath,
-      content: tailwindTemplate.content,
-    });
-
-    const viteConfigPath = `${folderPath}/vite.config.ts`.replace(/\/+/g, '/');
-
-    const viteTemplate = await this.fileService.readTemplate(
-      'Infrastructure/frameworks/templates/react/shadcn/vite.config.ts.hbs'
-    );
-    await this.fileService.createFile({
-      filePath: viteConfigPath,
-      content: viteTemplate.content,
-    });
-    console.log('✅ ShadCN setup completed!');
 
     // Return the updated package.json
     const packageJsonPath = `${folderPath}/package.json`.replace(/\/+/g, '/');
     const packageJson = await this.fileService.readFile(packageJsonPath);
     return packageJson;
   }
-}
-
-async function addCompilerOptionsToTsConfig(
-  folderPath: string,
-  fileService: FileService
-): Promise<void> {
-  // Find the appropriate tsconfig file
-  const configPath = `${folderPath}/tsconfig.json`.replace(/\/+/g, '/');
-
-  if (!configPath) {
-    console.warn(
-      'No tsconfig.json file found, skipping compiler options update'
-    );
-    return;
-  }
-
-  try {
-    const configFile = await fileService.readFile(configPath);
-    const cleanContent = removeJsonComments(configFile.content);
-    const configContent = JSON.parse(cleanContent);
-
-    // Add baseUrl and paths configuration
-    configContent.compilerOptions = {
-      ...configContent.compilerOptions,
-      baseUrl: '.',
-      paths: {
-        '@/*': ['./src/*'],
-        ...(configContent.compilerOptions?.paths || {}),
-      },
-    };
-
-    await fileService.createFile({
-      filePath: configPath,
-      content: JSON.stringify(configContent, null, 2),
-    });
-
-    console.log('✓ Added compiler options (baseUrl and paths) to tsconfig');
-  } catch (error) {
-    console.error('Failed to update tsconfig.json:', error);
-  }
-}
-
-function removeJsonComments(content: string): string {
-  return content
-    .split('\n')
-    .filter(line => {
-      const trimmed = line.trim();
-      return (
-        !trimmed.startsWith('/*') &&
-        !trimmed.startsWith('//') &&
-        !trimmed.startsWith('*/')
-      );
-    })
-    .join('\n');
 }
