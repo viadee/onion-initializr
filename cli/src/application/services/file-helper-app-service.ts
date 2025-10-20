@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import { FileService } from "../../../../lib/domain/services/file-service";
 import { OnionConfig } from "../../../../lib/domain/entities/onion-config";
+import inquirer from "inquirer";
 
 type InquirerPromptOptions = {
   type: "input" | "list" | "checkbox" | "confirm";
@@ -86,8 +87,6 @@ export class FileHelperAppService {
       return valFromConfig;
     }
 
-    const inquirer =
-      (await import("inquirer")).default ?? (await import("inquirer"));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const answers = await inquirer.prompt([promptOptions as any]);
     return answers[promptOptions.name] as string;
@@ -112,8 +111,6 @@ export class FileHelperAppService {
       return valFromConfig;
     }
 
-    const inquirer =
-      (await import("inquirer")).default ?? (await import("inquirer"));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const answers = await inquirer.prompt([promptOptions as any]);
     const stringValue = answers[promptOptions.name] as string;

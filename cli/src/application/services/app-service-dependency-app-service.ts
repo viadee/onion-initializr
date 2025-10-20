@@ -1,6 +1,6 @@
 import { DomainService } from "../../../../lib/domain/entities/domain-service";
 import { ApplicationService } from "../../../../lib/domain/entities/application-service";
-
+import inquirer from "inquirer";
 /**
  * Service for managing application service dependencies through user interaction.
  * Prompts the user to select domain services and repository interfaces for each application service.
@@ -22,8 +22,6 @@ export class AppServiceDependencyAppService {
   ): Promise<
     Record<string, { domainServices: string[]; repositories: string[] }>
   > {
-    const inquirer =
-      (await import("inquirer")).default ?? (await import("inquirer"));
     const dependencies: Record<
       string,
       { domainServices: string[]; repositories: string[] }

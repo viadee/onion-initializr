@@ -9,6 +9,9 @@ import { DiFramework } from "../../../../lib/domain/entities/di-framework";
 import { UiLibrary } from "../../../../lib/domain/entities/ui-library";
 import { UIFrameworks } from "../../../../lib/domain/entities/ui-framework";
 import { UILibrarySetupService } from "../../../../lib/application/services/uilibrary-setup-service";
+import inquirer from "inquirer";
+
+
 // Maps display name to internal framework key
 const frameworkDisplayMap: Record<string, keyof UIFrameworks> = {
   "React (Vite + TS)": "react",
@@ -98,8 +101,6 @@ export class ProjectInitAppService implements IProjectService {
     | undefined
   > {
     try {
-      const inquirer =
-        (await import("inquirer")).default ?? (await import("inquirer"));
       await this.ensureNpmInit(folderPath);
       await this.installDevDependencies(folderPath);
 

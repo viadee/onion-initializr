@@ -1,11 +1,10 @@
 import chalk from "chalk";
-
+import ora from "ora";
 export class RunCommandService {
   async runCommand(command: string, cwd: string): Promise<string> {
     console.log(`Executing command: ${command} in ${cwd}`);
-    const ora = (await import("ora")).default ?? (await import("ora"));
     const { exec } = (await import(
-      "child_process"
+      "node:child_process"
     )) as typeof import("child_process");
     const spinner = ora({
       text: `Running: ${command}`,
