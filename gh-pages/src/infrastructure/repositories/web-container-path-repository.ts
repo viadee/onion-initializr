@@ -1,4 +1,4 @@
-import { IPathRepository } from '../../../../lib/Domain/Interfaces/ipath-repository';
+import { IPathRepository } from '../../../../lib/domain/interfaces/ipath-repository';
 
 /**
  * WebContainer-compatible path repository that implements path operations

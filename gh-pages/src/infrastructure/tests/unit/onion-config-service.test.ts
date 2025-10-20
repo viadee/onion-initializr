@@ -1,11 +1,11 @@
 import { expect } from 'chai';
-import { OnionConfigService } from '../../../Domain/Services/OnionConfigService';
-import { OnionConfig } from '../../../Domain/Entities/OnionConfig';
-import { FileEntity } from '../../../Domain/Entities/FileEntity';
-import { OnionConfigStateService } from '../../../Domain/Services/OnionConfigStateService';
-import { OnionConfigNodeService } from '../../../Domain/Services/OnionConfigNodeService';
-import { OnionConfigConnectionAppService } from '../../../Application/Services/OnionConfigConnectionAppService';
-import { OnionConfigRepositoryService } from '../../../Domain/Services/OnionConfigRepositoryService';
+import { OnionConfigService } from '../../../domain/services/OnionConfigService';
+import { OnionConfig } from '../../../domain/entities/OnionConfig';
+import { FileEntity } from '../../../domain/entities/FileEntity';
+import { OnionConfigStateService } from '../../../domain/services/OnionConfigStateService';
+import { OnionConfigNodeService } from '../../../domain/services/OnionConfigNodeService';
+import { OnionConfigConnectionAppService } from '../../../application/services/OnionConfigConnectionAppService';
+import { OnionConfigRepositoryService } from '../../../domain/services/OnionConfigRepositoryService';
 
 describe('OnionConfigService', () => {
   let service: OnionConfigService;

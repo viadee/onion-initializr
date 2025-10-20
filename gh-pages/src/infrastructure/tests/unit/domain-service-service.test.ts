@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { DomainServiceService } from '../../../Domain/Services/DomainServiceService';
-import { FileEntity } from '../../../Domain/Entities/FileEntity';
-import { Entity } from '../../../Domain/Entities/Entity';
+import { DomainServiceService } from '../../../domain/services/DomainServiceService';
+import { FileEntity } from '../../../domain/entities/FileEntity';
+import { Entity } from '../../../domain/entities/entity';
 
 describe('DomainServiceService', () => {
   let service: DomainServiceService;
@@ -13,7 +13,7 @@ describe('DomainServiceService', () => {
   describe('generateDomainServicesFiles', () => {
     const mockTemplateContent = `{{#if entities.length}}
   {{#each entities}}
-import { {{name}} } from "../Entities/{{name}}";
+import { {{name}} } from "../entities/{{name}}";
   {{/each}}
 {{/if}}
 {{#if useAngularDI}}
@@ -41,7 +41,7 @@ export class {{serviceName}} {
   }
 }`;
 
-    const servicesDir = 'src/Domain/Services';
+    const servicesDir = 'src/domain/Services';
 
     it('should generate correct file paths for domain services', () => {
       const connections = {
@@ -128,10 +128,10 @@ export class {{serviceName}} {
 
       const generatedCode = result[0].content;
       expect(generatedCode).to.include(
-        'import { User } from "../Entities/User";'
+        'import { User } from "../entities/User";'
       );
       expect(generatedCode).to.include(
-        'import { Profile } from "../Entities/Profile";'
+        'import { Profile } from "../entities/Profile";'
       );
       expect(generatedCode).to.include('public exampleMethod(): void');
       expect(generatedCode).to.include('private readonly user: User');
@@ -344,7 +344,7 @@ export class {{serviceName}} {
   describe('connectAndGenerateFiles', () => {
     const mockTemplateContent = `{{#if entities.length}}
   {{#each entities}}
-import { {{name}} } from "../Entities/{{name}}";
+import { {{name}} } from "../entities/{{name}}";
   {{/each}}
 {{/if}}
 {{#if useAngularDI}}
@@ -374,7 +374,7 @@ export class {{serviceName}} {
 
     it('should use user-defined connections when provided', () => {
       const params = {
-        servicesDir: 'src/Domain/Services',
+        servicesDir: 'src/domain/Services',
         domainServiceNames: ['UserService', 'ProductService'],
         entityNames: ['User', 'Product', 'Order'],
         diFramework: 'awilix' as const,
@@ -405,7 +405,7 @@ export class {{serviceName}} {
 
     it('should create default connections when user config is empty', () => {
       const params = {
-        servicesDir: 'src/Domain/Services',
+        servicesDir: 'src/domain/Services',
         domainServiceNames: ['UserService', 'ProductService'],
         entityNames: ['User', 'Product'],
         diFramework: 'awilix' as const,
@@ -426,7 +426,7 @@ export class {{serviceName}} {
 
     it('should create default connections when user config is not provided', () => {
       const params = {
-        servicesDir: 'src/Domain/Services',
+        servicesDir: 'src/domain/Services',
         domainServiceNames: ['TestService'],
         entityNames: ['Test'],
         diFramework: 'awilix' as const,
@@ -441,7 +441,7 @@ export class {{serviceName}} {
 
     it('should handle empty domain service names', () => {
       const params = {
-        servicesDir: 'src/Domain/Services',
+        servicesDir: 'src/domain/Services',
         domainServiceNames: [],
         entityNames: ['User', 'Product'],
         diFramework: 'awilix' as const,
@@ -456,7 +456,7 @@ export class {{serviceName}} {
 
     it('should handle empty entity names', () => {
       const params = {
-        servicesDir: 'src/Domain/Services',
+        servicesDir: 'src/domain/Services',
         domainServiceNames: ['UserService'],
         entityNames: [],
         diFramework: 'awilix' as const,

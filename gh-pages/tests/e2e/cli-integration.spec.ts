@@ -62,7 +62,7 @@ test.describe('CLI Integration Tests', () => {
 
     try {
       const { stdout, stderr } = await execAsync(
-        'node dist/Application/Services/MainAppService.js --help',
+        'node dist/application/services/MainAppService.js --help',
         {
           cwd: process.cwd(),
           timeout: 10000,
@@ -262,7 +262,7 @@ export class Product {
 
     // Create mock Domain Service
     const productService = `
-import { Product } from '../Entities/Product';
+import { Product } from '../entities/Product';
 
 export class ProductService {
   constructor(
@@ -280,8 +280,8 @@ export class ProductService {
 
     // Create mock Application Service
     const productAppService = `
-import { ProductService } from '../../Domain/Services/ProductService';
-import { IProductRepository } from '../../Domain/Interfaces/IProductRepository';
+import { ProductService } from '../../domain/services/ProductService';
+import { IProductRepository } from '../../domain/interfaces/IProductRepository';
 
 export class ProductAppService {
   constructor(

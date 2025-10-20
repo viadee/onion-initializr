@@ -1,8 +1,8 @@
-import { DiFramework } from "../Entities/di-framework";
-import { DomainService } from "../Entities/domain-service";
-import { Entity } from "../Entities/Entity";
-import { FileEntity } from "../Entities/file-entity";
-import { DomainServiceConnections } from "../Interfaces/domain-service-connections";
+import { DiFramework } from "../entities/di-framework";
+import { DomainService } from "../entities/domain-service";
+import { Entity } from "../entities/entity";
+import { FileEntity } from "../entities/file-entity";
+import { DomainServiceConnections } from "../interfaces/domain-service-connections";
 import { TemplateService } from "./template-service";
 
 

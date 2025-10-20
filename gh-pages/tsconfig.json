@@ -3,6 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -18,7 +19,8 @@
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": false,
+    "forceConsistentCasingInFileNames": true,
+    
     "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {

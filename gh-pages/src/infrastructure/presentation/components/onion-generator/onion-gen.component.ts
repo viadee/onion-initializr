@@ -12,24 +12,24 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { Diagram } from '../diagramm/diagram.component';
 import { ScrollIndicatorComponent } from '../scroll-indicator/scroll-indicator.component';
-import { ApplicationServiceService } from '../../../../../../lib/Domain/Services/application-service-service';
-import { EntityService } from '../../../../../../lib/Domain/Services/entitity-service';
-import { DomainServiceService } from '../../../../../../lib/Domain/Services/domain-service-service';
-import { IRepoService } from '../../../../../../lib/Domain/Services/irepo-service';
+import { ApplicationServiceService } from '../../../../../../lib/domain/services/application-service-service';
+import { EntityService } from '../../../../../../lib/domain/services/entitity-service';
+import { DomainServiceService } from '../../../../../../lib/domain/services/domain-service-service';
+import { IRepoService } from '../../../../../../lib/domain/services/irepo-service';
 import { Subscription } from 'rxjs';
-import { container } from '../../../Configuration/awilix.config';
+import { container } from '../../../configuration/awilix.config';
 import { YouTubeModalComponent } from '../youtube-modal/youtube-modal.component';
 import { BrowserWarningComponent } from '../browser-warning/browser-warning.component';
-import { IFileRepository } from '../../../../../../lib/Domain/Interfaces/ifile-repository';
-import { ProgressTrackingAppService } from '../../../../Application/Services/progress-tracking-app-service';
-import { DiFramework } from '../../../../../../lib/Domain/Entities/di-framework';
+import { IFileRepository } from '../../../../../../lib/domain/interfaces/ifile-repository';
+import { ProgressTrackingAppService } from '../../../../application/services/progress-tracking-app-service';
+import { DiFramework } from '../../../../../../lib/domain/entities/di-framework';
 import {
   UiLibrary,
   getAvailableUiLibrariesForFramework,
-} from '../../../../../../lib/Domain/Entities/ui-library';
-import { DomainService } from '../../../../../../lib/Domain/Entities/domain-service';
-import { Entity } from '../../../../../../lib/Domain/Entities/Entity';
-import { UIFrameworks } from '../../../../../../lib/Domain/Entities/ui-framework';
+} from '../../../../../../lib/domain/entities/ui-library';
+import { DomainService } from '../../../../../../lib/domain/entities/domain-service';
+import { Entity } from '../../../../../../lib/domain/entities/entity';
+import { UIFrameworks } from '../../../../../../lib/domain/entities/ui-framework';
 
 @Component({
   selector: 'onion-gen',

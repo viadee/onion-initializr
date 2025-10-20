@@ -1,7 +1,7 @@
 import { test, expect, Page } from '@playwright/test';
 import * as fs from 'fs';
 import * as path from 'path';
-import { OnionConfig } from '../../src/Domain/Entities/OnionConfig';
+import { OnionConfig } from '../../src/domain/entities/OnionConfig';
 
 interface DownloadWatcher {
   downloadPath: string | null;

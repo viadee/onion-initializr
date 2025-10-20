@@ -1,4 +1,4 @@
-import { IPathRepository } from '../../Domain/Interfaces/ipath-repository';
+import { IPathRepository } from '../../domain/interfaces/ipath-repository';
 
 export class PathAppService {
   dirname(filePath: string) {

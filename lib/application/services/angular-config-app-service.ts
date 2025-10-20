@@ -1,6 +1,6 @@
-import { FileEntity } from '../../Domain/Entities/file-entity';
-import { FileService } from '../../Domain/Services/file-service';
-import { TemplateService } from '../../Domain/Services/template-service';
+import { FileEntity } from '../../domain/entities/file-entity';
+import { FileService } from '../../domain/services/file-service';
+import { TemplateService } from '../../domain/services/template-service';
 import { PathAppService } from './path-app-service';
 
 export class AngularConfigAppService {

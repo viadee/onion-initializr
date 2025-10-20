@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { EntityService } from '../../../Domain/Services/EntitityService';
-import { FileEntity } from '../../../Domain/Entities/FileEntity';
+import { EntityService } from '../../../domain/services/EntitityService';
+import { FileEntity } from '../../../domain/entities/FileEntity';
 
 describe('EntityService', () => {
   let service: EntityService;
@@ -12,7 +12,7 @@ describe('EntityService', () => {
   describe('generateEntitiesFiles', () => {
     describe('when generating files with valid inputs', () => {
       it('should generate single entity file', () => {
-        const entitiesDir = 'src/Domain/Entities';
+        const entitiesDir = 'src/domain/Entities';
         const entityNames = ['User'];
         const templateContent =
           'export class {{name}} {\n  constructor() {}\n}';
@@ -26,13 +26,13 @@ describe('EntityService', () => {
         expect(result).to.be.an('array');
         expect(result).to.have.length(1);
         expect(result[0]).to.be.instanceOf(FileEntity);
-        expect(result[0].filePath).to.equal('src/Domain/Entities\\User.ts');
+        expect(result[0].filePath).to.equal('src/domain/Entities\\User.ts');
         expect(result[0].content).to.include('export class User');
         expect(result[0].content).to.include('constructor() {}');
       });
 
       it('should generate multiple entity files', () => {
-        const entitiesDir = 'src/Domain/Entities';
+        const entitiesDir = 'src/domain/Entities';
         const entityNames = ['User', 'Product', 'Order'];
         const templateContent =
           'export class {{name}} {\n  constructor() {}\n}';
@@ -45,18 +45,18 @@ describe('EntityService', () => {
 
         expect(result).to.have.length(3);
 
-        expect(result[0].filePath).to.equal('src/Domain/Entities\\User.ts');
+        expect(result[0].filePath).to.equal('src/domain/Entities\\User.ts');
         expect(result[0].content).to.include('export class User');
 
-        expect(result[1].filePath).to.equal('src/Domain/Entities\\Product.ts');
+        expect(result[1].filePath).to.equal('src/domain/Entities\\Product.ts');
         expect(result[1].content).to.include('export class Product');
 
-        expect(result[2].filePath).to.equal('src/Domain/Entities\\Order.ts');
+        expect(result[2].filePath).to.equal('src/domain/Entities\\Order.ts');
         expect(result[2].content).to.include('export class Order');
       });
 
       it('should generate files with complex template content', () => {
-        const entitiesDir = 'src/Domain/Entities';
+        const entitiesDir = 'src/domain/Entities';
         const entityNames = ['User'];
         const templateContent = `export class {{name}} {
   constructor(
@@ -289,7 +289,7 @@ describe('EntityService', () => {
 
     describe('when validating file path generation', () => {
       it('should generate correct file paths for each entity', () => {
-        const entitiesDir = 'src/Domain/Entities';
+        const entitiesDir = 'src/domain/Entities';
         const entityNames = ['User', 'Product', 'Order'];
         const templateContent = 'export class {{name}} {}';
 
@@ -299,9 +299,9 @@ describe('EntityService', () => {
           templateContent
         );
 
-        expect(result[0].filePath).to.equal('src/Domain/Entities\\User.ts');
-        expect(result[1].filePath).to.equal('src/Domain/Entities\\Product.ts');
-        expect(result[2].filePath).to.equal('src/Domain/Entities\\Order.ts');
+        expect(result[0].filePath).to.equal('src/domain/Entities\\User.ts');
+        expect(result[1].filePath).to.equal('src/domain/Entities\\Product.ts');
+        expect(result[2].filePath).to.equal('src/domain/Entities\\Order.ts');
       });
 
       it('should use .ts file extension consistently', () => {
@@ -597,7 +597,7 @@ describe('EntityService', () => {
   describe('integration scenarios', () => {
     describe('when performing complete entity generation workflows', () => {
       it('should handle real-world entity template', () => {
-        const entitiesDir = 'src/Domain/Entities';
+        const entitiesDir = 'src/domain/Entities';
         const entityNames = ['User', 'Product'];
         const templateContent = `/**
  * Domain Entity: {{name}}
@@ -627,7 +627,7 @@ export class {{name}} {
         expect(result).to.have.length(2);
 
         // Verify User entity
-        expect(result[0].filePath).to.equal('src/Domain/Entities\\User.ts');
+        expect(result[0].filePath).to.equal('src/domain/Entities\\User.ts');
         expect(result[0].content).to.include('Domain Entity: User');
         expect(result[0].content).to.include('export class User');
         expect(result[0].content).to.include(
@@ -636,7 +636,7 @@ export class {{name}} {
         expect(result[0].content).to.include('equals(other: User): boolean');
 
         // Verify Product entity
-        expect(result[1].filePath).to.equal('src/Domain/Entities\\Product.ts');
+        expect(result[1].filePath).to.equal('src/domain/Entities\\Product.ts');
         expect(result[1].content).to.include('Domain Entity: Product');
         expect(result[1].content).to.include('export class Product');
         expect(result[1].content).to.include(
@@ -646,7 +646,7 @@ export class {{name}} {
       });
 
       it('should handle entity generation for e-commerce domain', () => {
-        const entitiesDir = 'src/Domain/Entities';
+        const entitiesDir = 'src/domain/Entities';
         const entityNames = ['User', 'Product', 'Order', 'Payment', 'Cart'];
         const templateContent =
           'export class {{name}} {\n  constructor(public id: string) {}\n}';
@@ -678,7 +678,7 @@ export class {{name}} {
       });
 
       it('should handle large entity sets efficiently', () => {
-        const entitiesDir = 'src/Domain/Entities';
+        const entitiesDir = 'src/domain/Entities';
         const entityNames = Array.from(
           { length: 20 },
           (_, i) => `Entity${i + 1}`

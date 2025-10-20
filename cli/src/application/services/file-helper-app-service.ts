@@ -1,6 +1,6 @@
 import chalk from "chalk";
-import { FileService } from "../../../../lib/Domain/Services/file-service";
-import { OnionConfig } from "../../../../lib/Domain/Entities/onion-config";
+import { FileService } from "../../../../lib/domain/services/file-service";
+import { OnionConfig } from "../../../../lib/domain/entities/onion-config";
 
 type InquirerPromptOptions = {
   type: "input" | "list" | "checkbox" | "confirm";

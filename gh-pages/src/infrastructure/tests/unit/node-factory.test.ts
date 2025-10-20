@@ -1,9 +1,10 @@
 import { expect } from 'chai';
-import { NodeFactory } from '../../../Domain/Services/NodeFactory';
-import { OnionConfig } from '../../../Domain/Entities/OnionConfig';
-import { NodeType } from '../../../Domain/Entities/NodeType';
-import { Entity } from '../../../Domain/Entities/Entity';
-import { DomainService } from '../../../Domain/Entities/DomainService';
+import { DomainService } from '../../../../../lib/domain/entities/domain-service';
+import { Entity } from '../../../../../lib/domain/entities/entity';
+import { NodeType } from '../../../../../lib/domain/entities/node-type';
+import { OnionConfig } from '../../../../../lib/domain/entities/onion-config';
+import { NodeFactory } from '../../../../../lib/domain/services/node-factory';
+
 
 describe('NodeFactory', () => {
   // Helper function to create mock config
@@ -29,6 +30,7 @@ describe('NodeFactory', () => {
     },
     uiFramework: 'react',
     diFramework: 'awilix',
+    uiLibrary: 'shadcn',
   });
 
   describe('createNode', () => {

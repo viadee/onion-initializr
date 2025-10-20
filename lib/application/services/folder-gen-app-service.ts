@@ -1,4 +1,4 @@
-import { FileService } from '../../Domain/Services/file-service';
+import { FileService } from '../../domain/services/file-service';
 import { PathAppService } from './path-app-service';
 
 /**

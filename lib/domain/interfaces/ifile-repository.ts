@@ -1,4 +1,4 @@
-import { FileEntity } from '../Entities/file-entity';
+import { FileEntity } from '../entities/file-entity';
 
 export interface IFileRepository {
   readTemplate(templatePath: string): Promise<FileEntity>;

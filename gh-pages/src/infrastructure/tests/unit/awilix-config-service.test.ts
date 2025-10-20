@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { AwilixConfigService } from '../../../Domain/Services/AwilixConfigService';
-import { AwilixConfig } from '../../../Domain/Entities/AwilixConfig';
-import { FileEntity } from '../../../Domain/Entities/FileEntity';
+import { AwilixConfigService } from '../../../domain/services/AwilixConfigService';
+import { AwilixConfig } from '../../../domain/entities/AwilixConfig';
+import { FileEntity } from '../../../domain/entities/FileEntity';
 
 describe('AwilixConfigService', () => {
   let service: AwilixConfigService;
@@ -14,12 +14,12 @@ describe('AwilixConfigService', () => {
     describe('when generating configuration with basic inputs', () => {
       it('should generate awilix config file with single entity', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User'],
           [],
           []
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -31,10 +31,10 @@ describe('AwilixConfigService', () => {
           'import { createContainer, asClass, InjectionMode } from "awilix"'
         );
         expect(content).to.include(
-          'import { User } from "../../Domain/Entities/User"'
+          'import { User } from "../../domain/entities/User"'
         );
         expect(content).to.include(
-          'import { UserRepository } from "../../Infrastructure/Repositories/UserRepository"'
+          'import { UserRepository } from "../../infrastructure/repositories/UserRepository"'
         );
         expect(content).to.include('user: asClass(User).singleton()');
         expect(content).to.include(
@@ -44,12 +44,12 @@ describe('AwilixConfigService', () => {
 
       it('should generate awilix config file with single domain service', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           [],
           ['UserService'],
           []
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -58,7 +58,7 @@ describe('AwilixConfigService', () => {
 
         const content = result.content;
         expect(content).to.include(
-          'import { UserService } from "../../Domain/Services/UserService"'
+          'import { UserService } from "../../domain/services/UserService"'
         );
         expect(content).to.include(
           'userService: asClass(UserService).singleton()'
@@ -67,12 +67,12 @@ describe('AwilixConfigService', () => {
 
       it('should generate awilix config file with single application service', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           [],
           [],
           ['UserAppService']
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -80,7 +80,7 @@ describe('AwilixConfigService', () => {
         expect(result.filePath).to.equal(configPath);
         const content = result.content;
         expect(content).to.include(
-          'import { UserAppService } from "../../Application/Services/UserAppService"'
+          'import { UserAppService } from "../../application/services/UserAppService"'
         );
         expect(content).to.include(
           'userAppService: asClass(UserAppService).singleton()'
@@ -91,12 +91,12 @@ describe('AwilixConfigService', () => {
     describe('when generating configuration with multiple services', () => {
       it('should generate config with multiple entities', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User', 'Product', 'Order'],
           [],
           []
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -104,24 +104,24 @@ describe('AwilixConfigService', () => {
 
         // Check entity imports
         expect(content).to.include(
-          'import { User } from "../../Domain/Entities/User"'
+          'import { User } from "../../domain/entities/User"'
         );
         expect(content).to.include(
-          'import { Product } from "../../Domain/Entities/Product"'
+          'import { Product } from "../../domain/entities/Product"'
         );
         expect(content).to.include(
-          'import { Order } from "../../Domain/Entities/Order"'
+          'import { Order } from "../../domain/entities/Order"'
         );
 
         // Check repository imports
         expect(content).to.include(
-          'import { UserRepository } from "../../Infrastructure/Repositories/UserRepository"'
+          'import { UserRepository } from "../../infrastructure/repositories/UserRepository"'
         );
         expect(content).to.include(
-          'import { ProductRepository } from "../../Infrastructure/Repositories/ProductRepository"'
+          'import { ProductRepository } from "../../infrastructure/repositories/ProductRepository"'
         );
         expect(content).to.include(
-          'import { OrderRepository } from "../../Infrastructure/Repositories/OrderRepository"'
+          'import { OrderRepository } from "../../infrastructure/repositories/OrderRepository"'
         );
 
         // Check registrations
@@ -141,12 +141,12 @@ describe('AwilixConfigService', () => {
 
       it('should generate config with multiple domain services', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           [],
           ['UserService', 'ProductService', 'OrderService'],
           []
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -154,13 +154,13 @@ describe('AwilixConfigService', () => {
 
         // Check imports
         expect(content).to.include(
-          'import { UserService } from "../../Domain/Services/UserService"'
+          'import { UserService } from "../../domain/services/UserService"'
         );
         expect(content).to.include(
-          'import { ProductService } from "../../Domain/Services/ProductService"'
+          'import { ProductService } from "../../domain/services/ProductService"'
         );
         expect(content).to.include(
-          'import { OrderService } from "../../Domain/Services/OrderService"'
+          'import { OrderService } from "../../domain/services/OrderService"'
         );
 
         // Check registrations
@@ -177,12 +177,12 @@ describe('AwilixConfigService', () => {
 
       it('should generate config with multiple application services', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           [],
           [],
           ['UserAppService', 'ProductAppService', 'OrderAppService']
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -190,13 +190,13 @@ describe('AwilixConfigService', () => {
 
         // Check imports
         expect(content).to.include(
-          'import { UserAppService } from "../../Application/Services/UserAppService"'
+          'import { UserAppService } from "../../application/services/UserAppService"'
         );
         expect(content).to.include(
-          'import { ProductAppService } from "../../Application/Services/ProductAppService"'
+          'import { ProductAppService } from "../../application/services/ProductAppService"'
         );
         expect(content).to.include(
-          'import { OrderAppService } from "../../Application/Services/OrderAppService"'
+          'import { OrderAppService } from "../../application/services/OrderAppService"'
         );
 
         // Check registrations
@@ -215,12 +215,12 @@ describe('AwilixConfigService', () => {
     describe('when generating comprehensive configuration', () => {
       it('should generate config with all service types', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User', 'Product'],
           ['UserService', 'ProductService'],
           ['UserAppService', 'ProductAppService']
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -228,28 +228,28 @@ describe('AwilixConfigService', () => {
 
         // Check all imports are present
         expect(content).to.include(
-          'import { User } from "../../Domain/Entities/User"'
+          'import { User } from "../../domain/entities/User"'
         );
         expect(content).to.include(
-          'import { Product } from "../../Domain/Entities/Product"'
+          'import { Product } from "../../domain/entities/Product"'
         );
         expect(content).to.include(
-          'import { UserRepository } from "../../Infrastructure/Repositories/UserRepository"'
+          'import { UserRepository } from "../../infrastructure/repositories/UserRepository"'
         );
         expect(content).to.include(
-          'import { ProductRepository } from "../../Infrastructure/Repositories/ProductRepository"'
+          'import { ProductRepository } from "../../infrastructure/repositories/ProductRepository"'
         );
         expect(content).to.include(
-          'import { UserService } from "../../Domain/Services/UserService"'
+          'import { UserService } from "../../domain/services/UserService"'
         );
         expect(content).to.include(
-          'import { ProductService } from "../../Domain/Services/ProductService"'
+          'import { ProductService } from "../../domain/services/ProductService"'
         );
         expect(content).to.include(
-          'import { UserAppService } from "../../Application/Services/UserAppService"'
+          'import { UserAppService } from "../../application/services/UserAppService"'
         );
         expect(content).to.include(
-          'import { ProductAppService } from "../../Application/Services/ProductAppService"'
+          'import { ProductAppService } from "../../application/services/ProductAppService"'
         );
 
         // Check all registrations are present
@@ -277,12 +277,12 @@ describe('AwilixConfigService', () => {
 
       it('should maintain proper registration order', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User'],
           ['UserService'],
           ['UserAppService']
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -311,12 +311,12 @@ describe('AwilixConfigService', () => {
     describe('when handling edge cases', () => {
       it('should generate config with empty arrays', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           [],
           [],
           []
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -340,22 +340,22 @@ describe('AwilixConfigService', () => {
 
       it('should handle entities with special characters in names', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User_Profile', 'API_Key'],
           [],
           []
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
         const content = result.content;
 
         expect(content).to.include(
-          'import { User_Profile } from "../../Domain/Entities/User_Profile"'
+          'import { User_Profile } from "../../domain/entities/User_Profile"'
         );
         expect(content).to.include(
-          'import { API_Key } from "../../Domain/Entities/API_Key"'
+          'import { API_Key } from "../../domain/entities/API_Key"'
         );
         expect(content).to.include(
           'user_Profile: asClass(User_Profile).singleton()'
@@ -365,12 +365,12 @@ describe('AwilixConfigService', () => {
 
       it('should handle services with numeric suffixes', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User2', 'Product3'],
           ['UserService2'],
           ['UserAppService3']
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -390,7 +390,7 @@ describe('AwilixConfigService', () => {
     describe('when validating file path handling', () => {
       it('should use provided config path correctly', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User'],
           [],
           []
@@ -404,7 +404,7 @@ describe('AwilixConfigService', () => {
 
       it('should handle different path formats', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User'],
           [],
           []
@@ -426,12 +426,12 @@ describe('AwilixConfigService', () => {
     describe('when validating generated code structure', () => {
       it('should generate valid TypeScript imports', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User'],
           ['UserService'],
           ['UserAppService']
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -454,12 +454,12 @@ describe('AwilixConfigService', () => {
 
       it('should generate valid registration syntax', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User'],
           ['UserService'],
           ['UserAppService']
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -482,12 +482,12 @@ describe('AwilixConfigService', () => {
 
       it('should generate complete container structure', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User'],
           [],
           []
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -516,12 +516,12 @@ describe('AwilixConfigService', () => {
     describe('when handling naming conventions', () => {
       it('should convert class names to camelCase for registration keys', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['UserProfile', 'APIKey', 'HTTPClient'],
           [],
           []
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -538,12 +538,12 @@ describe('AwilixConfigService', () => {
 
       it('should handle single character class names', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['A', 'B'],
           [],
           []
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -555,12 +555,12 @@ describe('AwilixConfigService', () => {
 
       it('should generate correct repository class names', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User', 'Product'],
           [],
           []
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -582,7 +582,7 @@ describe('AwilixConfigService', () => {
     describe('when generating complex real-world configurations', () => {
       it('should handle e-commerce domain configuration', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User', 'Product', 'Order', 'Payment', 'Cart'],
           ['UserService', 'ProductService', 'OrderService', 'PaymentService'],
           [
@@ -592,7 +592,7 @@ describe('AwilixConfigService', () => {
             'CartAppService',
           ]
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -620,12 +620,12 @@ describe('AwilixConfigService', () => {
         );
 
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           entities,
           domainServices,
           appServices
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -646,12 +646,12 @@ describe('AwilixConfigService', () => {
 
       it('should maintain consistency across multiple generations', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User', 'Product'],
           ['UserService'],
           ['UserAppService']
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result1 = service.generateAwilixConfigFile(config, configPath);
         const result2 = service.generateAwilixConfigFile(config, configPath);
@@ -664,12 +664,12 @@ describe('AwilixConfigService', () => {
     describe('when validating output quality', () => {
       it('should generate properly formatted TypeScript code', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User'],
           ['UserService'],
           ['UserAppService']
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 
@@ -694,12 +694,12 @@ describe('AwilixConfigService', () => {
 
       it('should generate clean import statements', () => {
         const config = new AwilixConfig(
-          'src/Infrastructure/Configuration',
+          'src/infrastructure/Configuration',
           ['User', 'Product'],
           ['UserService'],
           ['ProductAppService']
         );
-        const configPath = 'src/Infrastructure/Configuration/awilix.config.ts';
+        const configPath = 'src/infrastructure/configuration/awilix.config.ts';
 
         const result = service.generateAwilixConfigFile(config, configPath);
 

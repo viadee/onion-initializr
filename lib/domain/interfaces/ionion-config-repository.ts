@@ -1,4 +1,4 @@
-import { OnionConfig } from '../Entities/onion-config';
+import { OnionConfig } from '../entities/onion-config';
 
 export interface IOnionConfigRepository {
   save(data: OnionConfig, filename?: string): Promise<void>;

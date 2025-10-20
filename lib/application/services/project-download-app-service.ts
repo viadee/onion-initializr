@@ -1,7 +1,7 @@
 
-import { ZipAppService } from '../../../gh-pages/src/Application/Services/zip-app-service';
-import { WebContainerFileRepository } from '../../../gh-pages/src/Infrastructure/Repositories/web-container-file-repository';
-import { FileEntity } from '../../Domain/Entities/file-entity';
+import { ZipAppService } from '../../../gh-pages/src/application/services/zip-app-service';
+import { WebContainerFileRepository } from '../../../gh-pages/src/infrastructure/repositories/web-container-file-repository';
+import { FileEntity } from '../../domain/entities/file-entity';
 
 export interface DownloadResult {
   success: boolean;

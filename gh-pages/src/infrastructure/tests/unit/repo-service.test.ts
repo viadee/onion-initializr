@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { RepoService } from '../../../Domain/Services/RepoService';
-import { FileEntity } from '../../../Domain/Entities/FileEntity';
+import { RepoService } from '../../../domain/services/RepoService';
+import { FileEntity } from '../../../domain/entities/FileEntity';
 
 describe('RepoService', () => {
   let service: RepoService;
@@ -10,8 +10,8 @@ describe('RepoService', () => {
   });
 
   describe('generateRepositoriesFiles', () => {
-    const mockTemplateContent = `import { {{entityName}} } from "../../Domain/Entities/{{entityName}}";
-import { I{{entityName}}Repository } from "../../Domain/Interfaces/I{{entityName}}Repository";
+    const mockTemplateContent = `import { {{entityName}} } from "../../domain/entities/{{entityName}}";
+import { I{{entityName}}Repository } from "../../domain/interfaces/I{{entityName}}Repository";
 {{#if useAngularDI}}
 import { Injectable } from '@angular/core';
 {{/if}}
@@ -45,7 +45,7 @@ export class {{entityName}}Repository implements I{{entityName}}Repository {
   // TODO: Add more methods if defined in I{{entityName}}Repository
 }`;
 
-    const infraRepoDir = 'src/Infrastructure/Repositories';
+    const infraRepoDir = 'src/infrastructure/Repositories';
 
     it('should generate correct file paths for entities', () => {
       const entities = ['User', 'Product'];
@@ -298,7 +298,7 @@ export class {{entityName}}Repository {
     });
 
     it('should preserve template structure and formatting', () => {
-      const formattedTemplate = `import { {{entityName}} } from "../../Domain/Entities/{{entityName}}";
+      const formattedTemplate = `import { {{entityName}} } from "../../domain/entities/{{entityName}}";
 
 export class {{entityName}}Repository {
   async findAll(): Promise<{{entityName}}[]> {
@@ -316,7 +316,7 @@ export class {{entityName}}Repository {
 
       const generatedCode = result[0].content;
       expect(generatedCode).to.include(
-        'import { User } from "../../Domain/Entities/User";'
+        'import { User } from "../../domain/entities/User";'
       );
       expect(generatedCode).to.include('export class UserRepository {');
       expect(generatedCode).to.include('async findAll(): Promise<User[]>');

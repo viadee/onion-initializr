@@ -1,5 +1,5 @@
-import { OnionConfig } from "../Entities/onion-config";
-import { OnionRingType, OnionRing } from "../Entities/onion-ring";
+import { OnionConfig } from "../entities/onion-config";
+import { OnionRingType, OnionRing } from "../entities/onion-ring";
 
 
 export class OnionConfigRepositoryService {

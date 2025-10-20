@@ -1,10 +1,10 @@
-import { FileEntity } from "../Entities/file-entity";
-import { ShowcaseAppGeneration } from "../Entities/showcase-app-generation";
-import { UIFrameworks } from "../Entities/ui-framework";
-import { UiLibrary } from "../Entities/ui-library";
+import { FileEntity } from "../entities/file-entity";
+import { ShowcaseAppGeneration } from "../entities/showcase-app-generation";
+import { UIFrameworks } from "../entities/ui-framework";
+import { UiLibrary } from "../entities/ui-library";
 import { FileService } from "./file-service";
 import Handlebars from "handlebars";
-import { ShowcaseTemplateFile } from "../Entities/showcase-template-file";
+import { ShowcaseTemplateFile } from "../entities/showcase-template-file";
 interface TemplateContext {
   firstAppService?: string;
   useAngularDI?: boolean;

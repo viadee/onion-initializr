@@ -1,21 +1,21 @@
 #!/usr/bin/env node
 import { ScanControllerAppService } from "./scan-controller-app-service";
-import { OnionConfigService } from "../../../../lib/Domain/Services/onion-config-service";
+import { OnionConfigService } from "../../../../lib/domain/services/onion-config-service";
 import { FileHelperAppService } from "./file-helper-app-service";
 import {
   OnionAppService,
   OnionArchitectureGenerationParams,
 } from "./onion-app-service";
-import { OnionConfigValidationService } from "../../../../lib/Domain/Services/onion-config-validation-service";
-import { FileService } from "../../../../lib/Domain/Services/file-service";
-import { FolderStructureService } from "../../../../lib/Application/Services/folder-gen-app-service";
-import { PathAppService } from "../../../../lib/Application/Services/path-app-service";
-import { IProjectService } from "../../../../lib/Domain/Interfaces/iproject-service";
+import { OnionConfigValidationService } from "../../../../lib/domain/services/onion-config-validation-service";
+import { FileService } from "../../../../lib/domain/services/file-service";
+import { FolderStructureService } from "../../../../lib/application/services/folder-gen-app-service";
+import { PathAppService } from "../../../../lib/application/services/path-app-service";
+import { IProjectService } from "../../../../lib/domain/interfaces/iproject-service";
 import { HelpAppService } from "./help-app-service";
-import { DiFramework } from "../../../../lib/Domain/Entities/di-framework";
-import { FileEntity } from "../../../../lib/Domain/Entities/file-entity";
-import { OnionConfig } from "../../../../lib/Domain/Entities/onion-config";
-import { UIFrameworks } from "../../../../lib/Domain/Entities/ui-framework";
+import { DiFramework } from "../../../../lib/domain/entities/di-framework";
+import { FileEntity } from "../../../../lib/domain/entities/file-entity";
+import { OnionConfig } from "../../../../lib/domain/entities/onion-config";
+import { UIFrameworks } from "../../../../lib/domain/entities/ui-framework";
 
 export class OnionCliAppService {
   constructor(

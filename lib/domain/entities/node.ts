@@ -1,5 +1,5 @@
 import { NodeType, getNodeTypeDisplayName } from './node-type';
-import { Entity } from './Entity';
+import { Entity } from './entity';
 import { DomainService } from './domain-service';
 
 export class Node {

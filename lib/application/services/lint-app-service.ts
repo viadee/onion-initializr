@@ -1,6 +1,6 @@
-import { FileService } from '../../Domain/Services/file-service';
+import { FileService } from '../../domain/services/file-service';
 import { PathAppService } from './path-app-service';
-import { FileEntity } from '../../Domain/Entities/file-entity';
+import { FileEntity } from '../../domain/entities/file-entity';
 
 export class LintAppService {
   constructor(

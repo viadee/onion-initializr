@@ -1,14 +1,14 @@
-import { LintAppService } from "./../../../../lib/Application/Services/lint-app-service";
-import { ConfigurationAppService } from "../../../../lib/Application/Services/configuration-app-service";
-import { FileService } from "../../../../lib/Domain/Services/file-service";
+import { LintAppService } from "./../../../../lib/application/services/lint-app-service";
+import { ConfigurationAppService } from "../../../../lib/application/services/configuration-app-service";
+import { FileService } from "../../../../lib/domain/services/file-service";
 import chalk from "chalk";
-import { PathAppService } from "../../../../lib/Application/Services/path-app-service";
-import { ICommandRunner } from "../../../../lib/Domain/Interfaces/icommand-runner";
-import { IProjectService } from "../../../../lib/Domain/Interfaces/iproject-service";
-import { DiFramework } from "../../../../lib/Domain/Entities/di-framework";
-import { UiLibrary } from "../../../../lib/Domain/Entities/ui-library";
-import { UIFrameworks } from "../../../../lib/Domain/Entities/ui-framework";
-import { UILibrarySetupService } from "../../../../lib/Application/Services/uilibrary-setup-service";
+import { PathAppService } from "../../../../lib/application/services/path-app-service";
+import { ICommandRunner } from "../../../../lib/domain/interfaces/icommand-runner";
+import { IProjectService } from "../../../../lib/domain/interfaces/iproject-service";
+import { DiFramework } from "../../../../lib/domain/entities/di-framework";
+import { UiLibrary } from "../../../../lib/domain/entities/ui-library";
+import { UIFrameworks } from "../../../../lib/domain/entities/ui-framework";
+import { UILibrarySetupService } from "../../../../lib/application/services/uilibrary-setup-service";
 // Maps display name to internal framework key
 const frameworkDisplayMap: Record<string, keyof UIFrameworks> = {
   "React (Vite + TS)": "react",
@@ -262,7 +262,7 @@ export class ProjectInitAppService implements IProjectService {
 
       const mainFile = this.pathService.join(srcPath, "main.tsx");
       await this.updateMultipleImports(mainFile, {
-        "./App.tsx": "./infrastructure/Presentation/App.tsx",
+        "./App.tsx": "./infrastructure/presentation/App.tsx",
       });
     } else if (framework === "vue") {
       const from = this.pathService.join(srcPath, "App.vue");
@@ -280,7 +280,7 @@ export class ProjectInitAppService implements IProjectService {
 
       const mainFile = this.pathService.join(srcPath, "main.ts");
       await this.updateMultipleImports(mainFile, {
-        "./App.vue": "./infrastructure/Presentation/App.vue",
+        "./App.vue": "./infrastructure/presentation/App.vue",
       });
     } else if (framework === "angular") {
       const appDir = this.pathService.join(srcPath, "app");
@@ -291,8 +291,8 @@ export class ProjectInitAppService implements IProjectService {
 
       const mainFile = this.pathService.join(srcPath, "main.ts");
       await this.updateMultipleImports(mainFile, {
-        "./app/app.config": "./infrastructure/Presentation/app.config",
-        "./app/app": "./infrastructure/Presentation/app.component",
+        "./app/app.config": "./infrastructure/presentation/app.config",
+        "./app/app": "./infrastructure/presentation/app.component",
       });
     } else if (framework === "lit") {
       await this.removeFile(srcPath, "my-element.ts");

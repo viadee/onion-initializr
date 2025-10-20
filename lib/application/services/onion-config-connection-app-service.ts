@@ -1,8 +1,8 @@
-import { OnionConfig } from '../../Domain/Entities/onion-config';
-import { OnionConfigStateService } from '../../Domain/Services/onion-config-state-service';
-import { OnionConfigRepositoryService } from '../../Domain/Services/onion-config-repository-service';
-import { IConnectionValidator } from '../../Domain/Interfaces/iconnection-validator';
-import { OnionRing } from '../../Domain/Entities/onion-ring';
+import { OnionConfig } from '../../domain/entities/onion-config';
+import { OnionConfigStateService } from '../../domain/services/onion-config-state-service';
+import { OnionConfigRepositoryService } from '../../domain/services/onion-config-repository-service';
+import { IConnectionValidator } from '../../domain/interfaces/iconnection-validator';
+import { OnionRing } from '../../domain/entities/onion-ring';
 export class OnionConfigConnectionAppService implements IConnectionValidator {
   constructor(
     private readonly stateService: OnionConfigStateService,

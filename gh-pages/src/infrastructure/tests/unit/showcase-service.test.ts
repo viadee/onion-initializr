@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import { ShowcaseService } from '../../../Domain/Services/ShowcaseService';
-import { ShowcaseAppGeneration } from '../../../Domain/Entities/ShowcaseAppGeneration';
-import { FileService } from '../../../Domain/Services/FileService';
-import { FileEntity } from '../../../Domain/Entities/FileEntity';
-import { IFileRepository } from '../../../Domain/Interfaces/IFileRepository';
+import { ShowcaseService } from '../../../domain/services/ShowcaseService';
+import { ShowcaseAppGeneration } from '../../../domain/entities/ShowcaseAppGeneration';
+import { FileService } from '../../../domain/services/FileService';
+import { FileEntity } from '../../../domain/entities/FileEntity';
+import { IFileRepository } from '../../../domain/interfaces/IFileRepository';
 
 describe('ShowcaseService', () => {
   let service: ShowcaseService;

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { OnionConfigRepositoryService } from '../../../Domain/Services/OnionConfigRepositoryService';
-import { OnionConfig } from '../../../Domain/Entities/OnionConfig';
+import { OnionConfigRepositoryService } from '../../../domain/services/OnionConfigRepositoryService';
+import { OnionConfig } from '../../../domain/entities/OnionConfig';
 
 describe('OnionConfigRepositoryService', () => {
   let repositoryService: OnionConfigRepositoryService;

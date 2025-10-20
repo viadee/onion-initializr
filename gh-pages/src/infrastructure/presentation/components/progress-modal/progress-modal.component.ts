@@ -13,8 +13,8 @@ import {
   ProgressTrackingAppService,
   ProgressState,
   ProgressStep,
-} from '../../../../Application/Services/progress-tracking-app-service';
-import { container } from '../../../Configuration/awilix.config';
+} from '../../../../application/services/progress-tracking-app-service';
+import { container } from '../../../configuration/awilix.config';
 
 export interface ProgressModalData {
   title: string;

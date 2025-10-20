@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { FileService } from '../../../Domain/Services/FileService';
-import { FileEntity } from '../../../Domain/Entities/FileEntity';
-import { IFileRepository } from '../../../Domain/Interfaces/IFileRepository';
+import { FileService } from '../../../domain/services/FileService';
+import { FileEntity } from '../../../domain/entities/FileEntity';
+import { IFileRepository } from '../../../domain/interfaces/IFileRepository';
 
 describe('FileService', () => {
   let service: FileService;

@@ -1,4 +1,4 @@
-import { OnionConfig } from '../Entities/onion-config';
+import { OnionConfig } from '../entities/onion-config';
 
 /**
  * Interface for validating and managing connections between onion architecture layers

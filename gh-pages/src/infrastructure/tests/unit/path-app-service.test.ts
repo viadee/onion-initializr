@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { PathAppService } from '../../../Application/Services/PathAppService';
-import { IPathRepository } from '../../../Domain/Interfaces/IPathRepository';
+import { PathAppService } from '../../../application/services/PathAppService';
+import { IPathRepository } from '../../../domain/interfaces/IPathRepository';
 
 // Mock implementation of IPathRepository for testing
 class MockPathRepository implements IPathRepository {

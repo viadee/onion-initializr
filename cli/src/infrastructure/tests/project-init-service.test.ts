@@ -1,9 +1,9 @@
 import { expect } from "chai";
-import { FileService } from "../../../../lib/Domain/Services/file-service";
-import { PathAppService } from "../../../../lib/Application/Services/path-app-service";
-import { ICommandRunner } from "../../../../lib/Domain/Interfaces/icommand-runner";
-import { LintAppService } from "../../../../lib/Application/Services/lint-app-service";
-import { ProjectInitAppService } from "../../Application/Services/project-init-app-service";
+import { FileService } from "../../../../lib/domain/services/file-service";
+import { PathAppService } from "../../../../lib/application/services/path-app-service";
+import { ICommandRunner } from "../../../../lib/domain/interfaces/icommand-runner";
+import { LintAppService } from "../../../../lib/application/services/lint-app-service";
+import { ProjectInitAppService } from "../../application/services/project-init-app-service";
 // Mock fs module for filesystem operations
 const mockFs = {
   existsSync: () => true,

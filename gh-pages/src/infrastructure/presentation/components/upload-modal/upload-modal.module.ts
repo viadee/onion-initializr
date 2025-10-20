@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { container } from '../../../Configuration/awilix.config';
-import { OnionConfigValidationService } from '../../../../../../lib/Domain/Services/onion-config-validation-service';
-import { OnionConfig } from '../../../../../../lib/Domain/Entities/onion-config';
-import { InputSanitizationService } from '../../../../Application/Services/input-sanitization-service';
+import { container } from '../../../configuration/awilix.config';
+import { OnionConfigValidationService } from '../../../../../../lib/domain/services/onion-config-validation-service';
+import { OnionConfig } from '../../../../../../lib/domain/entities/onion-config';
+import { InputSanitizationService } from '../../../../application/services/input-sanitization-service';
 
 @Component({
   standalone: true,

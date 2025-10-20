@@ -1,5 +1,5 @@
-import { AwilixConfig } from "../Entities/awilix-config";
-import { FileEntity } from "../Entities/file-entity";
+import { AwilixConfig } from "../entities/awilix-config";
+import { FileEntity } from "../entities/file-entity";
 
 
 /**

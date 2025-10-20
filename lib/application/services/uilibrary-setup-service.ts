@@ -1,7 +1,7 @@
-import { FileService } from "../../Domain/Services/file-service";
+import { FileService } from "../../domain/services/file-service";
 import { PathAppService } from "./path-app-service";
-import { ICommandRunner } from "../../Domain/Interfaces/icommand-runner";
-import { UiLibrary } from "../../Domain/Entities/ui-library";
+import { ICommandRunner } from "../../domain/interfaces/icommand-runner";
+import { UiLibrary } from "../../domain/entities/ui-library";
 import Handlebars from "handlebars";
 
 /**

@@ -1,7 +1,7 @@
 import { expect } from "chai";
-import { ApplicationService } from "../../../../lib/Domain/Entities/application-service";
-import { DomainService } from "../../../../lib/Domain/Entities/domain-service";
-import { AppServiceDependencyAppService } from "../../Application/Services/app-service-dependency-app-service";
+import { ApplicationService } from "../../../../lib/domain/entities/application-service";
+import { DomainService } from "../../../../lib/domain/entities/domain-service";
+import { AppServiceDependencyAppService } from "../../application/services/app-service-dependency-app-service";
 describe("AppServiceDependencyAppService", () => {
   let service: AppServiceDependencyAppService;
 

@@ -1,29 +1,29 @@
-import { IProjectService } from '../../Domain/Interfaces/iproject-service';
-import { EntityService } from '../../Domain/Services/entitity-service';
-import { RepoService } from '../../Domain/Services/repo-service';
-import { ApplicationServiceService } from '../../Domain/Services/application-service-service';
+import { IProjectService } from '../../domain/interfaces/iproject-service';
+import { EntityService } from '../../domain/services/entitity-service';
+import { RepoService } from '../../domain/services/repo-service';
+import { ApplicationServiceService } from '../../domain/services/application-service-service';
 import {
   ApplicationServiceDependencyMap,
   DomainServiceConnections,
-} from '../../Domain/Interfaces/domain-service-connections';
-import { UIFrameworks } from '../../Domain/Entities/ui-framework';
-import { UiLibrary } from '../../Domain/Entities/ui-library';
-import { ShowcaseService } from '../../Domain/Services/showcase-service';
-import { ShowcaseAppGeneration } from '../../Domain/Entities/showcase-app-generation';
-import { AwilixConfigService } from '../../Domain/Services/awilix-config-service';
+} from '../../domain/interfaces/domain-service-connections';
+import { UIFrameworks } from '../../domain/entities/ui-framework';
+import { UiLibrary } from '../../domain/entities/ui-library';
+import { ShowcaseService } from '../../domain/services/showcase-service';
+import { ShowcaseAppGeneration } from '../../domain/entities/showcase-app-generation';
+import { AwilixConfigService } from '../../domain/services/awilix-config-service';
 import { FolderStructureService } from './folder-gen-app-service';
-import { AwilixConfig } from '../../Domain/Entities/awilix-config';
+import { AwilixConfig } from '../../domain/entities/awilix-config';
 import {
   DomainServiceConnectorParams,
   DomainServiceService,
-} from '../../Domain/Services/domain-service-service';
-import { IRepoService } from '../../Domain/Services/irepo-service';
-import { FileEntity } from '../../Domain/Entities/file-entity';
+} from '../../domain/services/domain-service-service';
+import { IRepoService } from '../../domain/services/irepo-service';
+import { FileEntity } from '../../domain/entities/file-entity';
 import { AngularConfigAppService } from './angular-config-app-service';
-import { DiFramework } from '../../Domain/Entities/di-framework';
+import { DiFramework } from '../../domain/entities/di-framework';
 import { PathAppService } from './path-app-service';
 import { ConfigurationAppService } from './configuration-app-service';
-import { FileService } from '../../Domain/Services/file-service';
+import { FileService } from '../../domain/services/file-service';
 
 export interface OnionArchitectureGenerationParams {
   folderPath: string;

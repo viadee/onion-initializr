@@ -1,32 +1,32 @@
 import { ApplicationService } from "./../../../../lib/domain/entities/application-service";
-import { EntityService } from "../../../../lib/Domain/Services/entitity-service";
-import { RepoService } from "../../../../lib/Domain/Services/repo-service";
-import { ApplicationServiceService } from "../../../../lib/Domain/Services/application-service-service";
-import { ShowcaseService } from "../../../../lib/Domain/Services/showcase-service";
-import { AwilixConfigService } from "../../../../lib/Domain/Services/awilix-config-service";
+import { EntityService } from "../../../../lib/domain/services/entitity-service";
+import { RepoService } from "../../../../lib/domain/services/repo-service";
+import { ApplicationServiceService } from "../../../../lib/domain/services/application-service-service";
+import { ShowcaseService } from "../../../../lib/domain/services/showcase-service";
+import { AwilixConfigService } from "../../../../lib/domain/services/awilix-config-service";
 import {
   DomainServiceConnectorParams,
   DomainServiceService,
-} from "../../../../lib/Domain/Services/domain-service-service";
-import { IRepoService } from "../../../../lib/Domain/Services/irepo-service";
+} from "../../../../lib/domain/services/domain-service-service";
+import { IRepoService } from "../../../../lib/domain/services/irepo-service";
 import { AppServiceDependencyAppService } from "./app-service-dependency-app-service";
-import { FileService } from "../../../../lib/Domain/Services/file-service";
-import { AngularConfigAppService } from "../../../../lib/Application/Services/angular-config-app-service";
-import { ConfigurationAppService } from "../../../../lib/Application/Services/configuration-app-service";
-import { FolderStructureService } from "../../../../lib/Application/Services/folder-gen-app-service";
-import { PathAppService } from "../../../../lib/Application/Services/path-app-service";
+import { FileService } from "../../../../lib/domain/services/file-service";
+import { AngularConfigAppService } from "../../../../lib/application/services/angular-config-app-service";
+import { ConfigurationAppService } from "../../../../lib/application/services/configuration-app-service";
+import { FolderStructureService } from "../../../../lib/application/services/folder-gen-app-service";
+import { PathAppService } from "../../../../lib/application/services/path-app-service";
 import {
   DomainServiceConnections,
   ApplicationServiceDependencyMap,
-} from "../../../../lib/Domain/Interfaces/domain-service-connections";
-import { IProjectService } from "../../../../lib/Domain/Interfaces/iproject-service";
-import { AwilixConfig } from "../../../../lib/Domain/Entities/awilix-config";
-import { DiFramework } from "../../../../lib/Domain/Entities/di-framework";
-import { DomainService } from "../../../../lib/Domain/Entities/domain-service";
-import { FileEntity } from "../../../../lib/Domain/Entities/file-entity";
-import { ShowcaseAppGeneration } from "../../../../lib/Domain/Entities/showcase-app-generation";
-import { UIFrameworks } from "../../../../lib/Domain/Entities/ui-framework";
-import { UiLibrary } from "../../../../lib/Domain/Entities/ui-library";
+} from "../../../../lib/domain/interfaces/domain-service-connections";
+import { IProjectService } from "../../../../lib/domain/interfaces/iproject-service";
+import { AwilixConfig } from "../../../../lib/domain/entities/awilix-config";
+import { DiFramework } from "../../../../lib/domain/entities/di-framework";
+import { DomainService } from "../../../../lib/domain/entities/domain-service";
+import { FileEntity } from "../../../../lib/domain/entities/file-entity";
+import { ShowcaseAppGeneration } from "../../../../lib/domain/entities/showcase-app-generation";
+import { UIFrameworks } from "../../../../lib/domain/entities/ui-framework";
+import { UiLibrary } from "../../../../lib/domain/entities/ui-library";
 export interface OnionArchitectureGenerationParams {
   folderPath: string;
   entityNames: string[];

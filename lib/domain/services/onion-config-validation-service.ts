@@ -1,7 +1,7 @@
-import { DiFramework, isValidDiFramework, VALID_DI_FRAMEWORKS } from "../Entities/di-framework";
-import { FileEntity } from "../Entities/file-entity";
-import { OnionConfig } from "../Entities/onion-config";
-import { UIFrameworks, isValidUiFramework, VALID_UI_FRAMEWORKS } from "../Entities/ui-framework";
+import { DiFramework, isValidDiFramework, VALID_DI_FRAMEWORKS } from "../entities/di-framework";
+import { FileEntity } from "../entities/file-entity";
+import { OnionConfig } from "../entities/onion-config";
+import { UIFrameworks, isValidUiFramework, VALID_UI_FRAMEWORKS } from "../entities/ui-framework";
 import { OnionConfigService } from "./onion-config-service";
 
 

@@ -1,7 +1,7 @@
 // Only import path for Node.js usage
 let path: typeof import("path") | undefined;
 
-import { IPathRepository } from "../../../../lib/Domain/Interfaces/ipath-repository";
+import { IPathRepository } from "../../../../lib/domain/interfaces/ipath-repository";
 
 export class PathRepository implements IPathRepository {
   dirname(filePath: string): string {

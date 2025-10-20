@@ -1,4 +1,4 @@
-import { OnionConfig } from "../Entities/onion-config";
+import { OnionConfig } from "../entities/onion-config";
 import { OnionConfigStateService } from "./onion-config-state-service";
 
 export class OnionConfigNodeService {

@@ -1,8 +1,8 @@
-import { DiFramework } from '../Entities/di-framework';
-import { OnionConfig } from '../Entities/onion-config';
-import { UIFrameworks } from '../Entities/ui-framework';
-import { UiLibrary } from '../Entities/ui-library';
-import { IOnionConfigRepository } from './../Interfaces/ionion-config-repository';
+import { DiFramework } from '../entities/di-framework';
+import { OnionConfig } from '../entities/onion-config';
+import { UIFrameworks } from '../entities/ui-framework';
+import { UiLibrary } from '../entities/ui-library';
+import { IOnionConfigRepository } from './../interfaces/ionion-config-repository';
 
 export class OnionConfigStateService {
   private data: OnionConfig;

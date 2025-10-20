@@ -1,5 +1,5 @@
-import { RunCommandService } from "./runCommandService";
-import { ICommandRunner } from "./../../../../lib/Domain/Interfaces/ICommandRunner";
+import { RunCommandService } from './run-command-service';
+import { ICommandRunner } from "./../../../../lib/domain/interfaces/icommand-runner";
 
 export class NodeCommandRunner implements ICommandRunner {
   constructor(private readonly commandRunnerService: RunCommandService) {}

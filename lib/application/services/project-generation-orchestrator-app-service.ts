@@ -1,7 +1,7 @@
-import { WebContainerManagerAppService } from '../../../gh-pages/src/Application/Services/web-container-manager-app-service';
-import { WebContainerOptimizedProjectAppService } from '../../../gh-pages/src/Application/Services/web-container-optimized-project-app-service';
-import { WebContainerFileRepository } from '../../../gh-pages/src/Infrastructure/Repositories/web-container-file-repository';
-import { OnionConfig } from '../../Domain/Entities/onion-config';
+import { WebContainerManagerAppService } from '../../../gh-pages/src/application/services/web-container-manager-app-service';
+import { WebContainerOptimizedProjectAppService } from '../../../gh-pages/src/application/services/web-container-optimized-project-app-service';
+import { WebContainerFileRepository } from '../../../gh-pages/src/infrastructure/repositories/web-container-file-repository';
+import { OnionConfig } from '../../domain/entities/onion-config';
 import { OnionAppService } from './onion-app-service';
 
 

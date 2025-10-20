@@ -1,6 +1,6 @@
-import { DiFramework } from '../../../../lib/Domain/Entities/di-framework';
-import { OnionConfig } from '../../../../lib/Domain/Entities/onion-config';
-import { UIFrameworks } from '../../../../lib/Domain/Entities/ui-framework';
+import { DiFramework } from '../../../../lib/domain/entities/di-framework';
+import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
+import { UIFrameworks } from '../../../../lib/domain/entities/ui-framework';
 import {
   ProgressStep,
   ProgressTrackingAppService,

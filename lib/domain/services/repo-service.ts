@@ -1,6 +1,6 @@
 import Handlebars from "handlebars";
-import { DiFramework } from "../Entities/di-framework";
-import { FileEntity } from "../Entities/file-entity";
+import { DiFramework } from "../entities/di-framework";
+import { FileEntity } from "../entities/file-entity";
 
 
 

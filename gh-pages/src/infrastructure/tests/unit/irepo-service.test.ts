@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { IRepoService } from '../../../Domain/Services/IRepoService';
-import { FileEntity } from '../../../Domain/Entities/FileEntity';
+import { IRepoService } from '../../../domain/services/IRepoService';
+import { FileEntity } from '../../../domain/entities/FileEntity';
 
 describe('IRepoService', () => {
   let service: IRepoService;
@@ -10,7 +10,7 @@ describe('IRepoService', () => {
   });
 
   describe('generateRepositoryInterfacesFiles', () => {
-    const mockTemplateContent = `import { {{entityName}} } from "../Entities/{{entityName}}";
+    const mockTemplateContent = `import { {{entityName}} } from "../entities/{{entityName}}";
 /**
  * Repository Interface: I{{entityName}}Repository
 */
@@ -27,11 +27,11 @@ export interface I{{entityName}}Repository {
       const entityFilePaths = [
         {
           entityName: 'User',
-          filePath: 'src/Domain/Interfaces/IUserRepository.ts',
+          filePath: 'src/domain/interfaces/IUserRepository.ts',
         },
         {
           entityName: 'Product',
-          filePath: 'src/Domain/Interfaces/IProductRepository.ts',
+          filePath: 'src/domain/interfaces/IProductRepository.ts',
         },
       ];
 
@@ -42,10 +42,10 @@ export interface I{{entityName}}Repository {
 
       expect(result).to.have.lengthOf(2);
       expect(result[0].filePath).to.equal(
-        'src/Domain/Interfaces/IUserRepository.ts'
+        'src/domain/interfaces/IUserRepository.ts'
       );
       expect(result[1].filePath).to.equal(
-        'src/Domain/Interfaces/IProductRepository.ts'
+        'src/domain/interfaces/IProductRepository.ts'
       );
     });
 
@@ -53,7 +53,7 @@ export interface I{{entityName}}Repository {
       const entityFilePaths = [
         {
           entityName: 'Order',
-          filePath: 'src/Domain/Interfaces/IOrderRepository.ts',
+          filePath: 'src/domain/interfaces/IOrderRepository.ts',
         },
       ];
 
@@ -71,7 +71,7 @@ export interface I{{entityName}}Repository {
       const entityFilePaths = [
         {
           entityName: 'Customer',
-          filePath: 'src/Domain/Interfaces/ICustomerRepository.ts',
+          filePath: 'src/domain/interfaces/ICustomerRepository.ts',
         },
       ];
 
@@ -82,7 +82,7 @@ export interface I{{entityName}}Repository {
 
       const generatedCode = result[0].content;
       expect(generatedCode).to.include(
-        'import { Customer } from "../Entities/Customer";'
+        'import { Customer } from "../entities/Customer";'
       );
       expect(generatedCode).to.include('export interface ICustomerRepository');
       expect(generatedCode).to.include(
@@ -97,15 +97,15 @@ export interface I{{entityName}}Repository {
       const entityFilePaths = [
         {
           entityName: 'User',
-          filePath: 'src/Domain/Interfaces/IUserRepository.ts',
+          filePath: 'src/domain/interfaces/IUserRepository.ts',
         },
         {
           entityName: 'Product',
-          filePath: 'src/Domain/Interfaces/IProductRepository.ts',
+          filePath: 'src/domain/interfaces/IProductRepository.ts',
         },
         {
           entityName: 'Order',
-          filePath: 'src/Domain/Interfaces/IOrderRepository.ts',
+          filePath: 'src/domain/interfaces/IOrderRepository.ts',
         },
       ];
 
@@ -117,11 +117,11 @@ export interface I{{entityName}}Repository {
       expect(result).to.have.lengthOf(3);
 
       const filePaths = result.map(file => file.filePath);
-      expect(filePaths).to.include('src/Domain/Interfaces/IUserRepository.ts');
+      expect(filePaths).to.include('src/domain/interfaces/IUserRepository.ts');
       expect(filePaths).to.include(
-        'src/Domain/Interfaces/IProductRepository.ts'
+        'src/domain/interfaces/IProductRepository.ts'
       );
-      expect(filePaths).to.include('src/Domain/Interfaces/IOrderRepository.ts');
+      expect(filePaths).to.include('src/domain/interfaces/IOrderRepository.ts');
 
       // Check that each interface has the correct entity name
       const userInterface = result.find(f =>
@@ -167,11 +167,11 @@ export interface I{{entityName}}Repository {
       const entityFilePaths = [
         {
           entityName: 'User_Profile',
-          filePath: 'src/Domain/Interfaces/IUser_ProfileRepository.ts',
+          filePath: 'src/domain/interfaces/IUser_ProfileRepository.ts',
         },
         {
           entityName: 'Product-Item',
-          filePath: 'src/Domain/Interfaces/IProduct-ItemRepository.ts',
+          filePath: 'src/domain/interfaces/IProduct-ItemRepository.ts',
         },
       ];
 
@@ -182,10 +182,10 @@ export interface I{{entityName}}Repository {
 
       expect(result).to.have.lengthOf(2);
       expect(result[0].filePath).to.equal(
-        'src/Domain/Interfaces/IUser_ProfileRepository.ts'
+        'src/domain/interfaces/IUser_ProfileRepository.ts'
       );
       expect(result[1].filePath).to.equal(
-        'src/Domain/Interfaces/IProduct-ItemRepository.ts'
+        'src/domain/interfaces/IProduct-ItemRepository.ts'
       );
 
       expect(result[0].content).to.include(
@@ -200,11 +200,11 @@ export interface I{{entityName}}Repository {
       const entityFilePaths = [
         {
           entityName: 'User2',
-          filePath: 'src/Domain/Interfaces/IUser2Repository.ts',
+          filePath: 'src/domain/interfaces/IUser2Repository.ts',
         },
         {
           entityName: 'Product123',
-          filePath: 'src/Domain/Interfaces/IProduct123Repository.ts',
+          filePath: 'src/domain/interfaces/IProduct123Repository.ts',
         },
       ];
 
@@ -254,7 +254,7 @@ export interface I{{entityName}}Repository {
       const entityFilePaths = [
         {
           entityName: 'UserProfile',
-          filePath: 'src/Domain/Interfaces/IUserProfileRepository.ts',
+          filePath: 'src/domain/interfaces/IUserProfileRepository.ts',
         },
       ];
 
@@ -273,7 +273,7 @@ export interface I{{entityName}}Repository {
     });
 
     it('should preserve template structure and formatting', () => {
-      const formattedTemplate = `import { {{entityName}} } from "../Entities/{{entityName}}";
+      const formattedTemplate = `import { {{entityName}} } from "../entities/{{entityName}}";
 
 /**
  * Repository interface for {{entityName}} entity
@@ -293,7 +293,7 @@ export interface I{{entityName}}Repository {
       const entityFilePaths = [
         {
           entityName: 'User',
-          filePath: 'src/Domain/Interfaces/IUserRepository.ts',
+          filePath: 'src/domain/interfaces/IUserRepository.ts',
         },
       ];
 
@@ -304,7 +304,7 @@ export interface I{{entityName}}Repository {
 
       const generatedCode = result[0].content;
       expect(generatedCode).to.include(
-        'import { User } from "../Entities/User";'
+        'import { User } from "../entities/User";'
       );
       expect(generatedCode).to.include(
         '* Repository interface for User entity'
@@ -315,7 +315,7 @@ export interface I{{entityName}}Repository {
     });
 
     it('should handle complex template with actual repository structure', () => {
-      const actualTemplate = `import { {{entityName}} } from "../Entities/{{entityName}}";
+      const actualTemplate = `import { {{entityName}} } from "../entities/{{entityName}}";
 /**
  * Repository Interface: I{{entityName}}Repository
 */
@@ -331,7 +331,7 @@ export interface I{{entityName}}Repository {
       const entityFilePaths = [
         {
           entityName: 'Product',
-          filePath: 'src/Domain/Interfaces/IProductRepository.ts',
+          filePath: 'src/domain/interfaces/IProductRepository.ts',
         },
       ];
 
@@ -444,7 +444,7 @@ export interface I{{entityName}}Repository {
     });
 
     it('should handle templates with actual repository structure', () => {
-      const actualTemplate = `import { {{entityName}} } from "../Entities/{{entityName}}";
+      const actualTemplate = `import { {{entityName}} } from "../entities/{{entityName}}";
 /**
  * Repository Interface: I{{entityName}}Repository
 */
@@ -469,7 +469,7 @@ export interface I{{entityName}}Repository {
     });
 
     it('should handle template with custom methods', () => {
-      const customTemplate = `import { {{entityName}} } from "../Entities/{{entityName}}";
+      const customTemplate = `import { {{entityName}} } from "../entities/{{entityName}}";
 
 export interface I{{entityName}}Repository {
   // Basic operations from actual template
@@ -489,7 +489,7 @@ export interface I{{entityName}}Repository {
       );
 
       expect(result).to.include(
-        'import { Invoice } from "../Entities/Invoice";'
+        'import { Invoice } from "../entities/Invoice";'
       );
       expect(result).to.include('export interface IInvoiceRepository');
       expect(result).to.include('findAll(): Promise<Invoice[] | null>');

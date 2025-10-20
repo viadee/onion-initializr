@@ -1,5 +1,5 @@
-import { FileEntity } from "../Entities/file-entity";
-import { IFileRepository } from "../Interfaces/ifile-repository";
+import { FileEntity } from "../entities/file-entity";
+import { IFileRepository } from "../interfaces/ifile-repository";
 
 /**
  * Service for basic file and directory operations.

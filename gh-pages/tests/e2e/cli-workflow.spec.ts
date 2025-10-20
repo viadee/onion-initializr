@@ -178,7 +178,7 @@ test.describe('CLI Workflow E2E Tests', () => {
 
     try {
       const { stdout, stderr } = await execAsync(
-        'node dist/Application/Services/MainAppService.js --help',
+        'node dist/application/services/MainAppService.js --help',
         {
           cwd: process.cwd(),
           timeout: 5000,
@@ -338,13 +338,13 @@ test.describe('CLI Workflow E2E Tests', () => {
     const expectedDirs = [
       'src',
       'src/Domain',
-      'src/Domain/Entities',
-      'src/Domain/Services',
-      'src/Domain/Interfaces',
+      'src/domain/Entities',
+      'src/domain/Services',
+      'src/domain/Interfaces',
       'src/Application',
-      'src/Application/Services',
+      'src/application/Services',
       'src/Infrastructure',
-      'src/Infrastructure/Repositories',
+      'src/infrastructure/Repositories',
     ];
 
     for (const dir of expectedDirs) {
@@ -360,12 +360,12 @@ test.describe('CLI Workflow E2E Tests', () => {
 
     // Verify some key files exist
     const expectedFiles = [
-      'src/Domain/Entities/User.ts',
-      'src/Domain/Entities/Product.ts',
-      'src/Domain/Services/UserService.ts',
-      'src/Domain/Services/ProductService.ts',
-      'src/Application/Services/UserAppService.ts',
-      'src/Application/Services/ProductAppService.ts',
+      'src/domain/entities/User.ts',
+      'src/domain/entities/Product.ts',
+      'src/domain/services/UserService.ts',
+      'src/domain/services/ProductService.ts',
+      'src/application/services/UserAppService.ts',
+      'src/application/services/ProductAppService.ts',
     ];
 
     for (const file of expectedFiles) {

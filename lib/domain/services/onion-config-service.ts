@@ -1,9 +1,9 @@
-import { IConnectionValidator } from "../Interfaces/iconnection-validator";
+import { IConnectionValidator } from "../interfaces/iconnection-validator";
 import { OnionConfigStateService } from "./onion-config-state-service";
 import { OnionConfigNodeService } from "./onion-config-node-service";
 import { OnionConfigRepositoryService } from "./onion-config-repository-service";
-import { FileEntity } from '../Entities/file-entity';
-import { OnionConfig } from '../Entities/onion-config';
+import { FileEntity } from '../entities/file-entity';
+import { OnionConfig } from '../entities/onion-config';
 
 /**
  * Facade service that coordinates all OnionConfig operations

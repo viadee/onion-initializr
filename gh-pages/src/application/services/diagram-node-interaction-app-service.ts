@@ -1,8 +1,8 @@
-import { DomainService } from '../../../../lib/Domain/Entities/domain-service';
-import { Entity } from '../../../../lib/Domain/Entities/Entity';
-import { NodeType } from '../../../../lib/Domain/Entities/node-type';
-import { OnionConfig } from '../../../../lib/Domain/Entities/onion-config';
-import { NodeFactory } from '../../../../lib/Domain/Services/node-factory';
+import { DomainService } from '../../../../lib/domain/entities/domain-service';
+import { Entity } from '../../../../lib/domain/entities/entity';
+import { NodeType } from '../../../../lib/domain/entities/node-type';
+import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
+import { NodeFactory } from '../../../../lib/domain/services/node-factory';
 
 export interface NodeInfo {
   name: string;

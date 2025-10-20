@@ -1,5 +1,5 @@
-import { DomainService } from "../../../../lib/Domain/Entities/domain-service";
-import { ApplicationService } from "../../../../lib/Domain/Entities/application-service";
+import { DomainService } from "../../../../lib/domain/entities/domain-service";
+import { ApplicationService } from "../../../../lib/domain/entities/application-service";
 
 /**
  * Service for managing application service dependencies through user interaction.

@@ -1,13 +1,13 @@
-import { WebContainerFileRepository } from '../../Infrastructure/Repositories/web-container-file-repository';
+import { WebContainerFileRepository } from '../../infrastructure/repositories/web-container-file-repository';
 
 import { WebContainerManagerAppService } from './web-container-manager-app-service';
 
 import {
   ProjectDownloadAppService,
   DownloadResult,
-} from '../../../../lib/Application/Services/project-download-app-service';
-import { ProjectGenerationOrchestratorAppService } from '../../../../lib/Application/Services/project-generation-orchestrator-app-service';
-import { OnionConfig } from '../../../../lib/Domain/Entities/onion-config';
+} from '../../../../lib/application/services/project-download-app-service';
+import { ProjectGenerationOrchestratorAppService } from '../../../../lib/application/services/project-generation-orchestrator-app-service';
+import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
 
 /**
  * Main service that coordinates WebContainer operations

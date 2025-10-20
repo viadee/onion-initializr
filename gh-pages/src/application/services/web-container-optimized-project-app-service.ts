@@ -1,18 +1,15 @@
-import { UiLibrary } from '../../../../lib/Domain/Entities/ui-library';
-import { FileService } from '../../../../lib/Domain/Services/file-service';
-import { WebContainerCommandRunner } from '../../Infrastructure/Repositories/web-container-command-runner';
-import { WebContainerFileRepository } from '../../Infrastructure/Repositories/web-container-file-repository';
-import { WebContainerHelperFunctions } from '../../Infrastructure/Repositories/web-container-helper-functions';
-import { IProjectService } from '../../../../lib/Domain/Interfaces/iproject-service';
-import {
-  WebContainerOptimizationService,
-  PackageJsonStructure,
-} from './web-container-optimization-app-service';
-import { IFileRepository } from '../../../../lib/Domain/Interfaces/ifile-repository';
-import { DiFramework } from '../../../../lib/Domain/Entities/di-framework';
-import { FileEntity } from '../../../../lib/Domain/Entities/file-entity';
-import { UIFrameworks } from '../../../../lib/Domain/Entities/ui-framework';
-import { UILibrarySetupService } from '../../../../lib/Application/Services/uilibrary-setup-service';
+import { UiLibrary } from '../../../../lib/domain/entities/ui-library';
+import { FileService } from '../../../../lib/domain/services/file-service';
+import { WebContainerCommandRunner } from '../../infrastructure/repositories/web-container-command-runner';
+import { WebContainerFileRepository } from '../../infrastructure/repositories/web-container-file-repository';
+import { WebContainerHelperFunctions } from '../../infrastructure/repositories/web-container-helper-functions';
+import { IProjectService } from '../../../../lib/domain/interfaces/iproject-service';
+import { WebContainerOptimizationService } from './web-container-optimization-app-service';
+import { IFileRepository } from '../../../../lib/domain/interfaces/ifile-repository';
+import { DiFramework } from '../../../../lib/domain/entities/di-framework';
+import { FileEntity } from '../../../../lib/domain/entities/file-entity';
+import { UIFrameworks } from '../../../../lib/domain/entities/ui-framework';
+import { UILibrarySetupService } from '../../../../lib/application/services/uilibrary-setup-service';
 /**
  * Optimized WebContainer project service that uses pre-generated lock files
  * to dramatically reduce installation time from ~50s to ~5s
@@ -357,7 +354,7 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
 
       const mainFile = `${srcPath}/main.ts`.replace(/\/+/g, '/');
       await this.helperFunctions.updateMultipleImports(mainFile, {
-        './App.vue': './infrastructure/Presentation/App.vue',
+        './App.vue': './infrastructure/presentation/App.vue',
       });
     } else if (framework === 'angular') {
       const appDir = `${srcPath}/app`.replace(/\/+/g, '/');
@@ -371,8 +368,8 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
 
       const mainFile = `${srcPath}/main.ts`.replace(/\/+/g, '/');
       await this.helperFunctions.updateMultipleImports(mainFile, {
-        './app/app.config': './infrastructure/Presentation/app.config',
-        './app/app': './infrastructure/Presentation/app.component',
+        './app/app.config': './infrastructure/presentation/app.config',
+        './app/app': './infrastructure/presentation/app.component',
       });
     } else if (framework === 'lit') {
       await this.helperFunctions.removeFile(srcPath, 'my-element.ts');

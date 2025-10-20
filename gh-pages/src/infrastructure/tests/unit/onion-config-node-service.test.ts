@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { OnionConfigNodeService } from '../../../Domain/Services/OnionConfigNodeService';
-import { OnionConfigStateService } from '../../../Domain/Services/OnionConfigStateService';
-import { OnionConfig } from '../../../Domain/Entities/OnionConfig';
+import { OnionConfigNodeService } from '../../../domain/services/OnionConfigNodeService';
+import { OnionConfigStateService } from '../../../domain/services/OnionConfigStateService';
+import { OnionConfig } from '../../../domain/entities/OnionConfig';
 
 describe('OnionConfigNodeService', () => {
   let nodeService: OnionConfigNodeService;

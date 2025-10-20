@@ -1,6 +1,6 @@
-import { PathAppService } from "../../../../lib/Application/Services/path-app-service";
-import { FileEntity } from "../../../../lib/Domain/Entities/file-entity";
-import { IFileRepository } from "../../../../lib/Domain/Interfaces/ifile-repository";
+import { PathAppService } from "../../../../lib/application/services/path-app-service";
+import { FileEntity } from "../../../../lib/domain/entities/file-entity";
+import { IFileRepository } from "../../../../lib/domain/interfaces/ifile-repository";
 
 // Only import fs and path for Node.js usage
 let fs: typeof import("fs") | undefined;
@@ -28,7 +28,7 @@ export class FileSystemFileRepository implements IFileRepository {
     let filePath: string;
 
     if (!templateName.includes("/") && !templateName.includes("\\")) {
-      // Simple filename - assume it's in Domain/Services/templates
+      // Simple filename - assume it's in Domain/services/templates
       filePath = this.pathService.join(
         __dirname,
         "..",

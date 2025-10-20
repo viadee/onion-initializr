@@ -1,6 +1,6 @@
-import { UIFrameworks } from '../Entities/ui-framework';
-import { DiFramework } from '../Entities/di-framework';
-import { UiLibrary } from '../Entities/ui-library';
+import { UIFrameworks } from '../entities/ui-framework';
+import { DiFramework } from '../entities/di-framework';
+import { UiLibrary } from '../entities/ui-library';
 
 export interface IProjectService {
   isInitialized(folderPath: string): Promise<boolean>;

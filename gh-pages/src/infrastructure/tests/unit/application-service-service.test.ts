@@ -1,5 +1,5 @@
-import { ApplicationServiceService } from './../../../../../lib/Domain/Services/ApplicationServiceService';
-import { FileEntity } from './../../../../../lib/Domain/Entities/FileEntity';
+import { ApplicationServiceService } from './../../../../../lib/domain/services/ApplicationServiceService';
+import { FileEntity } from './../../../../../lib/domain/entities/FileEntity';
 import { expect } from 'chai';
 
 describe('ApplicationServiceService', () => {
@@ -12,19 +12,19 @@ describe('ApplicationServiceService', () => {
   describe('generateApplicationServicesFiles', () => {
     const mockTemplateContent = `{{#each domainServices}}
   {{#if this}}
-import { {{this}} } from "../../Domain/Services/{{this}}";
+import { {{this}} } from "../../domain/services/{{this}}";
   {{/if}}
 {{/each}}
 
 {{#each repositories}}
   {{#if this}}
-import { {{this}} } from "../../Domain/Interfaces/{{this}}";
+import { {{this}} } from "../../domain/interfaces/{{this}}";
   {{/if}}
 {{/each}}
 {{#if useAngularDI}}
 import { Injectable, Inject } from '@angular/core';
 {{#if repositories}}
-import { {{#each repositories}}{{toUpperSnakeCase (removeFirst this)}}_TOKEN{{#unless @last}}, {{/unless}}{{/each}} } from '../../Infrastructure/Presentation/injection-tokens';
+import { {{#each repositories}}{{toUpperSnakeCase (removeFirst this)}}_TOKEN{{#unless @last}}, {{/unless}}{{/each}} } from '../../infrastructure/presentation/injection-tokens';
 {{/if}}
 {{/if}}
 
@@ -59,7 +59,7 @@ export class {{name}} {
   }
 }`;
 
-    const appDir = 'src/Application/Services';
+    const appDir = 'src/application/Services';
 
     it('should generate correct file paths for application services', () => {
       const mappings = {
