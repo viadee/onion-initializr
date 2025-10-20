@@ -10,7 +10,10 @@ export class WebContainerFileRepository
 
   async readTemplate(templateName: string): Promise<FileEntity> {
     let fetchUrl: string;
-    if (templateName.startsWith('infrastructure')) {
+    if (
+      templateName.startsWith('infrastructure') &&
+      templateName !== 'infrastructureRepository.hbs'
+    ) {
       fetchUrl = `/templates/${templateName}`;
     } else {
       fetchUrl = `/templates/domain/services/templates/${templateName}`;

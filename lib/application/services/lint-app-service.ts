@@ -9,8 +9,7 @@ export class LintAppService {
   ) {}
 
   createFlatEslintConfig(folderPath: string): void {
-    const configContent = `
-import js from '@eslint/js';
+    const configContent = `import js from '@eslint/js';
 import ts from '@typescript-eslint/eslint-plugin';
 import parser from '@typescript-eslint/parser';
 import prettier from 'eslint-plugin-prettier';
@@ -36,9 +35,7 @@ export default [
       'prettier/prettier': 'error',
     },
   },
-];
-`.trim();
-
+];`
     const filePath = this.pathService.join(folderPath, 'eslint.config.js');
     this.fileService.createFile(new FileEntity(filePath, configContent));
   }
