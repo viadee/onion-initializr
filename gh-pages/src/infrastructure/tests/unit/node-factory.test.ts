@@ -5,7 +5,6 @@ import { NodeType } from '../../../../../lib/domain/entities/node-type';
 import { OnionConfig } from '../../../../../lib/domain/entities/onion-config';
 import { NodeFactory } from '../../../../../lib/domain/services/node-factory';
 
-
 describe('NodeFactory', () => {
   // Helper function to create mock config
   const createMockConfig = (): OnionConfig => ({
@@ -130,6 +129,7 @@ describe('NodeFactory', () => {
         applicationServiceDependencies: {},
         uiFramework: 'vanilla',
         diFramework: 'awilix',
+        uiLibrary: 'none',
       };
 
       expect(() => NodeFactory.createNode('AnyNode', emptyConfig)).to.throw(
@@ -147,6 +147,7 @@ describe('NodeFactory', () => {
         applicationServiceDependencies: {},
         uiFramework: 'vanilla',
         diFramework: 'awilix',
+        uiLibrary: 'none',
       };
 
       expect(() =>

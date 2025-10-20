@@ -14,7 +14,7 @@
   },
   "description": "Generate Onion Architecture folder structure, files, and code for TypeScript projects",
   "bin": {
-    "onion": "dist/Application/Services/MainAppService.js"
+    "onion": "dist/application/services/MainAppService.js"
   },
   "scripts": {
     "link": "npm run build && npm link",
@@ -92,7 +92,7 @@
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
-    "typescript": "~5.8.2",
+    "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0"
   },
   "main": "eslint.config.js",
