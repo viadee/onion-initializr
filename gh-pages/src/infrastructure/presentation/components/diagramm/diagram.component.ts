@@ -445,7 +445,8 @@ export class Diagram implements OnInit, OnDestroy {
       const result = await this.diagramProjectGenerationService.generateProject(
         this.data,
         this.selectedFramework,
-        this.selectedDiFramework
+        this.selectedDiFramework,
+        this.selectedUiLibrary
       );
 
       if (result.success) {

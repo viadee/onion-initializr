@@ -1,6 +1,7 @@
 import { DiFramework } from '../../../../lib/domain/entities/di-framework';
 import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
 import { UIFrameworks } from '../../../../lib/domain/entities/ui-framework';
+import { UiLibrary } from '../../../../lib/domain/entities/ui-library';
 import {
   ProgressStep,
   ProgressTrackingAppService,
@@ -89,12 +90,14 @@ export class DiagramProjectGenerationService {
   async generateProject(
     data: OnionConfig,
     selectedFramework: keyof UIFrameworks,
-    selectedDiFramework: DiFramework
+    selectedDiFramework: DiFramework,
+    selectedUiLibrary: UiLibrary
   ): Promise<ProjectGenerationResult> {
     try {
       // Update framework selection
       data.uiFramework = selectedFramework;
       data.diFramework = selectedDiFramework;
+      data.uiLibrary = selectedUiLibrary;
 
       // Start the generation process with progress reporting
       const result = await this.webContainerService.generateOnionArchitecture(

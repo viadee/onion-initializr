@@ -33,7 +33,6 @@ export class ProjectGenerationOrchestratorAppService {
     console.log('🚀 Starting WebContainer Onion Architecture generation...');
 
     try {
-      console.log('diFramework selected:', config.diFramework);
       await this.initializeEnvironment(progressCallback);
       await this.setupFramework(config, progressCallback);
       await this.generateArchitecture(config, progressCallback);
