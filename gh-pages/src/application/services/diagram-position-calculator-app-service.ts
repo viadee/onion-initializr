@@ -1,4 +1,4 @@
-import { ItemPosition } from './../../../../lib/domain/entities/Diagramm';
+import { ItemPosition } from './../../../../lib/domain/entities/diagramm';
 import { DiagramConfigurationAppService } from './diagram-configuration-app-service';
 
 export interface DiagramCenter {

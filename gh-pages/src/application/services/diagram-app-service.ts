@@ -5,7 +5,7 @@ import {
   DiagramConfigurationAppService,
   RingConfig,
 } from './diagram-configuration-app-service';
-import { ItemPosition } from '../../../../lib/domain/entities/Diagramm';
+import { ItemPosition } from '../../../../lib/domain/entities/diagramm';
 import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
 
 interface NodeGroup {
