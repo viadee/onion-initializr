@@ -1,48 +1,48 @@
-import { OnionConfigConnectionAppService } from './../../../../lib/Application/Services/OnionConfigConnectionAppService';
-import { LintAppService } from './../../../../lib/Application/Services/LintAppService';
 import { createContainer, asClass, asFunction, InjectionMode } from 'awilix';
-import { OnionConfigRepository } from '../../Infrastructure/Repositories/OnionConfigRepository';
-import { OnionConfigService } from '../../../../lib/Domain/Services/OnionConfigService';
-import { OnionConfigStateService } from '../../../../lib/Domain/Services/OnionConfigStateService';
-import { OnionConfigNodeService } from '../../../../lib/Domain/Services/OnionConfigNodeService';
-import { OnionConfigValidationService } from '../../../../lib/Domain/Services/OnionConfigValidationService';
-import { OnionConfigRepositoryService } from '../../../../lib/Domain/Services/OnionConfigRepositoryService';
-import { AngularConfigAppService } from '../../../../lib/Application/Services/AngularConfigAppService';
-import { BrowserCheckAppService } from '../../../../lib/Application/Services/BrowserCheckAppService';
-import { ConfigurationAppService } from '../../../../lib/Application/Services/ConfigurationAppService';
-import { FolderStructureService } from '../../../../lib/Application/Services/FolderGenAppService';
-import { OnionAppService } from '../../../../lib/Application/Services/OnionAppService';
-import { PathAppService } from '../../../../lib/Application/Services/PathAppService';
-import { ProjectDownloadAppService } from '../../../../lib/Application/Services/ProjectDownloadAppService';
-import { ProjectGenerationOrchestratorAppService } from '../../../../lib/Application/Services/ProjectGenerationOrchestratorAppService';
-import { ApplicationServiceService } from '../../../../lib/Domain/Services/ApplicationServiceService';
-import { AwilixConfigService } from '../../../../lib/Domain/Services/AwilixConfigService';
-import { DomainServiceService } from '../../../../lib/Domain/Services/DomainServiceService';
-import { EntityService } from '../../../../lib/Domain/Services/EntitityService';
-import { FileService } from '../../../../lib/Domain/Services/FileService';
-import { IRepoService } from '../../../../lib/Domain/Services/IRepoService';
-import { RepoService } from '../../../../lib/Domain/Services/RepoService';
-import { ShowcaseService } from '../../../../lib/Domain/Services/ShowcaseService';
-import { DiagramAppService } from '../../Application/Services/DiagramAppService';
-import { DiagramConfigurationAppService } from '../../Application/Services/DiagramConfigurationAppService';
-import { DiagramConnectionAppService } from '../../Application/Services/DiagramConnectionAppService';
-import { DiagramNodeInteractionAppService } from '../../Application/Services/DiagramNodeInteractionAppService';
-import { DiagramNodeManagementService } from '../../Application/Services/DiagramNodeManagementAppService';
-import { DiagramPositionCalculatorAppService } from '../../Application/Services/DiagramPositionCalculatorAppService';
-import { DiagramProjectGenerationService } from '../../Application/Services/DiagramProjectGenerationAppService';
-import { DiagramSVGRendererAppService } from '../../Application/Services/DiagramSVGRendererAppService';
-import { ProgressTrackingAppService } from '../../Application/Services/ProgressTrackingAppService';
-import { WebContainerAppService } from '../../Application/Services/WebContainerAppService';
-import { WebContainerOptimizedProjectAppService } from '../../Application/Services/WebContainerOptimizedProjectAppService';
-import { ZipAppService } from '../../Application/Services/ZipAppService';
-import { WebContainerCommandRunnerService } from '../Repositories/WebContainerCommandRunnerService';
-import { WebContainerFileRepository } from '../Repositories/WebContainerFileRepository';
-import { WebContainerHelperFunctions } from '../Repositories/WebContainerHelperFunctions';
-import { WebContainerPathRepository } from '../Repositories/WebContainerPathRepository';
-import { AwilixConfig } from '../../../../lib/Domain/Entities/AwilixConfig';
-import { OnionConfig } from '../../../../lib/Domain/Entities/OnionConfig';
-import { InputSanitizationService } from '../../Application/Services/InputSanitizationService';
-import { UILibrarySetupService } from '../../../../lib/Application/Services/UILibrarySetupService';
+import { OnionConfigService } from '../../../../lib/Domain/Services/onion-config-service';
+import { OnionConfigStateService } from '../../../../lib/Domain/Services/onion-config-state-service';
+import { OnionConfigNodeService } from '../../../../lib/Domain/Services/onion-config-node-service';
+import { OnionConfigValidationService } from '../../../../lib/Domain/Services/onion-config-validation-service';
+import { OnionConfigRepositoryService } from '../../../../lib/Domain/Services/onion-config-repository-service';
+import { AngularConfigAppService } from '../../../../lib/Application/Services/angular-config-app-service';
+import { BrowserCheckAppService } from '../../../../lib/Application/Services/browser-check-app-service';
+import { ConfigurationAppService } from '../../../../lib/Application/Services/configuration-app-service';
+import { FolderStructureService } from '../../../../lib/Application/Services/folder-gen-app-service';
+import { OnionAppService } from '../../../../lib/Application/Services/onion-app-service';
+import { PathAppService } from '../../../../lib/Application/Services/path-app-service';
+import { ProjectDownloadAppService } from '../../../../lib/Application/Services/project-download-app-service';
+import { ProjectGenerationOrchestratorAppService } from '../../../../lib/Application/Services/project-generation-orchestrator-app-service';
+import { ApplicationServiceService } from '../../../../lib/Domain/Services/application-service-service';
+import { AwilixConfigService } from '../../../../lib/Domain/Services/awilix-config-service';
+import { DomainServiceService } from '../../../../lib/Domain/Services/domain-service-service';
+import { EntityService } from '../../../../lib/Domain/Services/entitity-service';
+import { FileService } from '../../../../lib/Domain/Services/file-service';
+import { IRepoService } from '../../../../lib/Domain/Services/irepo-service';
+import { RepoService } from '../../../../lib/Domain/Services/repo-service';
+import { ShowcaseService } from '../../../../lib/Domain/Services/showcase-service';
+import { DiagramAppService } from '../../Application/Services/diagram-app-service';
+import { DiagramConfigurationAppService } from '../../Application/Services/diagram-configuration-app-service';
+import { DiagramConnectionAppService } from '../../Application/Services/diagram-connection-app-service';
+import { DiagramNodeInteractionAppService } from '../../Application/Services/diagram-node-interaction-app-service';
+import { DiagramNodeManagementService } from '../../Application/Services/diagram-node-management-app-service';
+import { DiagramPositionCalculatorAppService } from '../../Application/Services/diagram-position-calculator-app-service';
+import { DiagramProjectGenerationService } from '../../Application/Services/diagram-project-generation-app-service';
+import { DiagramSVGRendererAppService } from '../../Application/Services/diagram-svgrenderer-app-service';
+import { ProgressTrackingAppService } from '../../Application/Services/progress-tracking-app-service';
+import { WebContainerAppService } from '../../Application/Services/web-container-app-service';
+import { WebContainerOptimizedProjectAppService } from '../../Application/Services/web-container-optimized-project-app-service';
+import { ZipAppService } from '../../Application/Services/zip-app-service';
+import { WebContainerCommandRunnerService } from '../Repositories/web-container-command-runner-service';
+import { WebContainerFileRepository } from '../Repositories/web-container-file-repository';
+import { WebContainerHelperFunctions } from '../Repositories/web-container-helper-functions';
+import { WebContainerPathRepository } from '../Repositories/web-container-path-repository';
+import { AwilixConfig } from '../../../../lib/Domain/Entities/awilix-config';
+import { OnionConfig } from '../../../../lib/Domain/Entities/onion-config';
+import { InputSanitizationService } from '../../Application/Services/input-sanitization-service';
+import { UILibrarySetupService } from '../../../../lib/Application/Services/uilibrary-setup-service';
+import { LintAppService } from '../../../../lib/Application/Services/lint-app-service';
+import { OnionConfigConnectionAppService } from '../../../../lib/Application/Services/onion-config-connection-app-service';
+import { OnionConfigRepository } from '../Repositories/onion-config-repository';
 
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,
@@ -140,7 +140,7 @@ container.register({
     const loadService = async () => {
       if (!serviceInstance) {
         const { WebContainerManagerAppService } = await import(
-          '../../Application/Services/WebContainerManagerAppService'
+          '../../Application/Services/web-container-manager-app-service'
         );
         serviceInstance = new WebContainerManagerAppService();
       }

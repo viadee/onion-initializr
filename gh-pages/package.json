@@ -33,7 +33,7 @@
     "github-build": "ng build --configuration production --base-href /onion-initializr/",
     "firebase-build": "ng build --configuration production --base-href /",
     "github-deploy": "npx angular-cli-ghpages --dir=dist/onion-initializr/browser --no-silent",
-    "copy:templates": "cpx \"public/templates/Domain/Services/templates/**/*.hbs\" dist/Domain/Services/templates && cpx \"public/templates/Infrastructure/frameworks/templates/**/*.hbs\" dist/Infrastructure/frameworks/templates"
+    "copy:templates": "cpx \"public/templates/domain/services/templates/**/*.hbs\" dist/domain/services/templates && cpx \"public/templates/infrastructure/frameworks/templates/**/*.hbs\" dist/infrastructure/frameworks/templates"
   },
   "dependencies": {
     "@angular/cdk": "^20.0.3",

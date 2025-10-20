@@ -27,21 +27,21 @@ import {
   ProgressModalData,
 } from '../progress-modal/progress-modal.component';
 import { container } from '../../../Configuration/awilix.config';
-import { OnionConfigService } from '../../../../../../lib/Domain/Services/OnionConfigService';
-import { DiagramAppService } from '../../../../Application/Services/DiagramAppService';
-import { DiagramConnectionAppService } from '../../../../Application/Services/DiagramConnectionAppService';
-import { DiagramNodeInteractionAppService } from '../../../../Application/Services/DiagramNodeInteractionAppService';
-import { DiagramNodeManagementService } from '../../../../Application/Services/DiagramNodeManagementAppService';
-import { DiagramProjectGenerationService } from '../../../../Application/Services/DiagramProjectGenerationAppService';
-import { ProgressTrackingAppService } from '../../../../Application/Services/ProgressTrackingAppService';
-import { WebContainerAppService } from '../../../../Application/Services/WebContainerAppService';
-import { DiFramework } from '../../../../../../lib/Domain/Entities/DiFramework';
-import { DomainService } from '../../../../../../lib/Domain/Entities/DomainService';
+import { OnionConfigService } from '../../../../../../lib/Domain/Services/onion-config-service';
+import { DiagramAppService } from '../../../../Application/Services/diagram-app-service';
+import { DiagramConnectionAppService } from '../../../../Application/Services/diagram-connection-app-service';
+import { DiagramNodeInteractionAppService } from '../../../../Application/Services/diagram-node-interaction-app-service';
+import { DiagramNodeManagementService } from '../../../../Application/Services/diagram-node-management-app-service';
+import { DiagramProjectGenerationService } from '../../../../Application/Services/diagram-project-generation-app-service';
+import { ProgressTrackingAppService } from '../../../../Application/Services/progress-tracking-app-service';
+import { WebContainerAppService } from '../../../../Application/Services/web-container-app-service';
+import { DiFramework } from '../../../../../../lib/Domain/Entities/di-framework';
+import { DomainService } from '../../../../../../lib/Domain/Entities/domain-service';
 import { Entity } from '../../../../../../lib/Domain/Entities/Entity';
-import { NodeType } from '../../../../../../lib/Domain/Entities/NodeType';
-import { UIFrameworks } from '../../../../../../lib/Domain/Entities/UiFramework';
-import { UiLibrary } from '../../../../../../lib/Domain/Entities/UiLibrary';
-import { OnionConfig } from '../../../../../../lib/Domain/Entities/OnionConfig';
+import { NodeType } from '../../../../../../lib/Domain/Entities/node-type';
+import { UIFrameworks } from '../../../../../../lib/Domain/Entities/ui-framework';
+import { UiLibrary } from '../../../../../../lib/Domain/Entities/ui-library';
+import { OnionConfig } from '../../../../../../lib/Domain/Entities/onion-config';
 
 type StatusType = 'success' | 'error' | 'info';
 

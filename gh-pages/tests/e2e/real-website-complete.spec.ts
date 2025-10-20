@@ -502,7 +502,7 @@ test.describe('Real Website Project Workflow E2E Tests', () => {
       const srcContents = fs.readdirSync(srcPath);
       console.log('📁 src/ contents:', srcContents);
 
-      const onionFolders = ['Domain', 'Application', 'Infrastructure'];
+      const onionFolders = ['domain', 'application', 'infrastructure'];
       for (const folder of onionFolders) {
         if (srcContents.includes(folder)) {
           console.log(`✓ Found onion layer: ${folder}`);
