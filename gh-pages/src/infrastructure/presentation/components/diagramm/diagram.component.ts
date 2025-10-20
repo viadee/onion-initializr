@@ -96,6 +96,7 @@ export class Diagram implements OnInit, OnDestroy {
   @Input() generatedCode: string = 'placeholder';
   @Input() selectedFramework: keyof UIFrameworks = 'vanilla';
   @Input() selectedDiFramework: DiFramework = 'awilix';
+  @Input() selectedUiLibrary: UiLibrary = 'none';
   data: OnionConfig = {
     entities: [],
     domainServices: [],
@@ -190,6 +191,11 @@ export class Diagram implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // Initialize data with current input values
+    this.data.uiFramework = this.selectedFramework;
+    this.data.diFramework = this.selectedDiFramework;
+    this.data.uiLibrary = this.selectedUiLibrary;
+
     this.loadDataAndRender();
   }
 
@@ -205,6 +211,9 @@ export class Diagram implements OnInit, OnDestroy {
     }
     if (changes['selectedDiFramework']) {
       this.data.diFramework = this.selectedDiFramework;
+    }
+    if (changes['selectedUiLibrary']) {
+      this.data.uiLibrary = this.selectedUiLibrary;
     }
   }
 

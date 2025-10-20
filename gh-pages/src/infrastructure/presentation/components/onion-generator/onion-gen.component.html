@@ -29,6 +29,7 @@
       #diagramRef
       [selectedFramework]="projectForm.get('framework')?.value"
       [selectedDiFramework]="selectedDiFramework()"
+      [selectedUiLibrary]="selectedUiLibrary()"
       (projectNameChange)="handleProjectNameChange($event)"
       (nodeSelected)="onNodeSelected($event)"
       [generatedCode]="generatedCode"

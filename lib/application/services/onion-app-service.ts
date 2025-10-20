@@ -72,8 +72,6 @@ export class OnionAppService {
       applicationServiceDependencies,
       skipProjectInit = true,
     } = params;
-		console.log("TCL: OnionAppService -> params", params)
-
     await this.folderStructureService.createFolderStructure(folderPath);
 
     const diFramework = await this.initializeProject(

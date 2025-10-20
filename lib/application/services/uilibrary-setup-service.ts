@@ -22,8 +22,6 @@ export class UILibrarySetupService {
     uiLibrary: UiLibrary,
     commandRunner: ICommandRunner
   ): Promise<void> {
-			console.log("TCL: UILibrarySetupService -> uiLibrary", uiLibrary)
-    
     if (uiLibrary === "none") {
       return;
     }

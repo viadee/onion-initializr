@@ -100,14 +100,8 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
         filePath: packageJsonPath,
         content: originalPackageJson.content,
       });
-      console.log('TCL: UILibrarySetupService -> uiLibrary', uiLibrary);
 
       if (uiLibrary !== 'none') {
-        console.log(
-          'TCL: UILibrarySetupService -> uiLibrary is none ',
-          uiLibrary
-        );
-
         const updatedPackageJson = await this.setUpUiLibrary(
           folderPath,
           uiLibrary
