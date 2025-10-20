@@ -1,0 +1,36 @@
+{
+  "folderPath": "/Users/B286/Desktop/generatedOnions/lit",
+  "entities": ["User", "Order", "Product"],
+  "domainServices": [
+    "UserService",
+    "PaymentService",
+
+    "OrderService",
+    "ProductService",
+    "ShippingService"
+  ],
+  "applicationServices": ["UserAppService", "OrderAppService"],
+  "domainServiceConnections": {
+    "OrderService": ["Order", "User"],
+    "UserService": [],
+    "ShippingService": ["Order"],
+    "ProductService": ["Product"],
+    "PaymentService": []
+  },
+  "applicationServiceDependencies": {
+    "UserAppService": {
+      "domainServices": ["UserService"],
+      "repositories": ["IUserRepository"]
+    },
+    "OrderAppService": {
+      "domainServices": ["OrderService"],
+      "repositories": ["IOrderRepository"]
+    }
+  },
+  "diFramework": "awilix",
+  "_chooseFromTheseDI": ["awilix", "angular"],
+  "uiFramework": "lit",
+  "_chooseFromTheseUI": ["react", "angular", "vue", "lit", "vanilla"],
+  "uiLibrary": "shadcn",
+  "_chooseFromTheseUILibraries": ["none", "shadcn"]
+}

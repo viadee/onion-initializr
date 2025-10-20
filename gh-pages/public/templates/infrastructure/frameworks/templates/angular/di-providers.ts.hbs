@@ -1,0 +1,14 @@
+import { Provider } from '@angular/core';
+{{#each imports}}
+{{{this}}}
+{{/each}}
+
+export const DI_PROVIDERS: Provider[] = [
+{{#each providers}}
+  {
+    provide: '{{provide}}',
+    useClass: {{useClass}}{{#if deps}},
+    deps: [{{#each deps}}'{{this}}'{{#unless @last}}, {{/unless}}{{/each}}]{{/if}}
+  }{{#unless @last}},{{/unless}}
+{{/each}}
+];

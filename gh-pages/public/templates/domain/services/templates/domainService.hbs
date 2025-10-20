@@ -1,0 +1,16 @@
+{{#if entities.length}}
+  {{#each entities}}
+import { {{name}} } from "../Entities/{{name}}";
+  {{/each}}
+{{/if}}
+
+/**
+ * Domain Service: {{serviceName}}
+*/
+export class {{serviceName}} {
+  constructor(
+  ) {}
+
+  public exampleMethod(): void 
+  {}
+}

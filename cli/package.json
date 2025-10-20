@@ -30,7 +30,7 @@
     "e2e:debug": "playwright test --debug",
     "clean": "rimraf dist",
     "build": "npm run clean && tsc --project tsconfig.cli.json && npm run copy:templates",
-    "copy:templates": "cpx \"../gh-pages/public/templates/**/*.hbs\" dist/cli/public/templates && cpx \"../gh-pages/public/templates/Domain/Services/templates/**/*.hbs\" dist/cli/src/Domain/Services/templates && cpx \"../gh-pages/public/templates/Infrastructure/frameworks/templates/**/*.hbs\" dist/cli/src/Infrastructure/frameworks/templates"
+    "copy:templates": "cpx \"../gh-pages/public/templates/**/*.hbs\" dist/cli/public/templates && cpx \"../gh-pages/public/templates/domain/services/templates/**/*.hbs\" dist/cli/src/domain/services/templates && cpx \"../gh-pages/public/templates/infrastructure/frameworks/templates/**/*.hbs\" dist/cli/src/infrastructure/frameworks/templates"
   },
   "dependencies": {
     "@angular/cdk": "^20.0.3",

@@ -1,0 +1,45 @@
+<div class="youtube-modal-overlay">
+  <div class="youtube-modal-content">
+    <!-- Header -->
+    <div class="modal-header">
+      <h2>Welcome to the Onion Initializr!</h2>
+      <button
+        mat-icon-button
+        class="close-button"
+        (click)="closeModal()"
+        aria-label="Close tutorial">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <!-- Video Content -->
+    <div class="video-container">
+      <video width="540" height="704" autoplay muted>
+        <source src="onion-tutorial-short.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <!-- Description -->
+    <div class="modal-description">
+      <p>
+        Learn how to use the Onion Architecture Generator to create clean,
+        maintainable frontend applications with proper separation of concerns.
+      </p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="modal-actions">
+      <button mat-button class="skip-button" (click)="skipTutorial()">
+        Skip Tutorial
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="got-it-button"
+        (click)="closeModal()">
+        Got it, let's start!
+      </button>
+    </div>
+  </div>
+</div>

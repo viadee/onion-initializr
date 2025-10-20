@@ -1,0 +1,546 @@
+{
+  "folderPath": "/Users/B286/Desktop/generatedOnions/lit",
+  "entities": [
+    "Entity1",
+    "Entity2",
+    "Entity3",
+    "Entity4",
+    "Entity5",
+    "Entity6",
+    "Entity7",
+    "Entity8",
+    "Entity9",
+    "Entity10",
+    "Entity11",
+    "Entity12",
+    "Entity13",
+    "Entity14",
+    "Entity15",
+    "Entity16",
+    "Entity17",
+    "Entity18",
+    "Entity19",
+    "Entity20",
+    "Entity21",
+    "Entity22",
+    "Entity23",
+    "Entity24",
+    "Entity25",
+    "Entity26",
+    "Entity27",
+    "Entity28",
+    "Entity29",
+    "Entity30",
+    "Entity31",
+    "Entity32",
+    "Entity33",
+    "Entity34",
+    "Entity35",
+    "Entity36",
+    "Entity37",
+    "Entity38",
+    "Entity39",
+    "Entity40",
+    "Entity41",
+    "Entity42",
+    "Entity43",
+    "Entity44",
+    "Entity45",
+    "Entity46",
+    "Entity47",
+    "Entity48",
+    "Entity49",
+    "Entity50"
+  ],
+
+  "domainServices": [
+    "DomainService1",
+    "DomainService2",
+    "DomainService3",
+    "DomainService4",
+    "DomainService5",
+    "DomainService6",
+    "DomainService7",
+    "DomainService8",
+    "DomainService9",
+    "DomainService10",
+    "DomainService11",
+    "DomainService12",
+    "DomainService13",
+    "DomainService14",
+    "DomainService15",
+    "DomainService16",
+    "DomainService17",
+    "DomainService18",
+    "DomainService19",
+    "DomainService20",
+    "DomainService21",
+    "DomainService22",
+    "DomainService23",
+    "DomainService24",
+    "DomainService25",
+    "DomainService26",
+    "DomainService27",
+    "DomainService28",
+    "DomainService29",
+    "DomainService30",
+    "DomainService31",
+    "DomainService32",
+    "DomainService33",
+    "DomainService34",
+    "DomainService35",
+    "DomainService36",
+    "DomainService37",
+    "DomainService38",
+    "DomainService39",
+    "DomainService40",
+    "DomainService41",
+    "DomainService42",
+    "DomainService43",
+    "DomainService44",
+    "DomainService45",
+    "DomainService46",
+    "DomainService47",
+    "DomainService48",
+    "DomainService49",
+    "DomainService50"
+  ],
+
+  "applicationServices": [
+    "AppService1",
+    "AppService2",
+    "AppService3",
+    "AppService4",
+    "AppService5",
+    "AppService6",
+    "AppService7",
+    "AppService8",
+    "AppService9",
+    "AppService10",
+    "AppService11",
+    "AppService12",
+    "AppService13",
+    "AppService14",
+    "AppService15",
+    "AppService16",
+    "AppService17",
+    "AppService18",
+    "AppService19",
+    "AppService20",
+    "AppService21",
+    "AppService22",
+    "AppService23",
+    "AppService24",
+    "AppService25",
+    "AppService26",
+    "AppService27",
+    "AppService28",
+    "AppService29",
+    "AppService30",
+    "AppService31",
+    "AppService32",
+    "AppService33",
+    "AppService34",
+    "AppService35",
+    "AppService36",
+    "AppService37",
+    "AppService38",
+    "AppService39",
+    "AppService40",
+    "AppService41",
+    "AppService42",
+    "AppService43",
+    "AppService44",
+    "AppService45",
+    "AppService46",
+    "AppService47",
+    "AppService48",
+    "AppService49",
+    "AppService50"
+  ],
+
+  "domainServiceConnections": {
+    "DomainService1": ["Entity1", "Entity2"],
+    "DomainService2": ["Entity2", "Entity3"],
+    "DomainService3": ["Entity3", "Entity4"],
+    "DomainService4": ["Entity4", "Entity5"],
+    "DomainService5": ["Entity5", "Entity6"],
+    "DomainService6": ["Entity6", "Entity7"],
+    "DomainService7": ["Entity7", "Entity8"],
+    "DomainService8": ["Entity8", "Entity9"],
+    "DomainService9": ["Entity9", "Entity10"],
+    "DomainService10": ["Entity10", "Entity11"],
+    "DomainService11": ["Entity11", "Entity12"],
+    "DomainService12": ["Entity12", "Entity13"],
+    "DomainService13": ["Entity13", "Entity14"],
+    "DomainService14": ["Entity14", "Entity15"],
+    "DomainService15": ["Entity15", "Entity16"],
+    "DomainService16": ["Entity16", "Entity17"],
+    "DomainService17": ["Entity17", "Entity18"],
+    "DomainService18": ["Entity18", "Entity19"],
+    "DomainService19": ["Entity19", "Entity20"],
+    "DomainService20": ["Entity20", "Entity21"],
+    "DomainService21": ["Entity21", "Entity22"],
+    "DomainService22": ["Entity22", "Entity23"],
+    "DomainService23": ["Entity23", "Entity24"],
+    "DomainService24": ["Entity24", "Entity25"],
+    "DomainService25": ["Entity25", "Entity26"],
+    "DomainService26": ["Entity26", "Entity27"],
+    "DomainService27": ["Entity27", "Entity28"],
+    "DomainService28": ["Entity28", "Entity29"],
+    "DomainService29": ["Entity29", "Entity30"],
+    "DomainService30": ["Entity30", "Entity31"],
+    "DomainService31": ["Entity31", "Entity32"],
+    "DomainService32": ["Entity32", "Entity33"],
+    "DomainService33": ["Entity33", "Entity34"],
+    "DomainService34": ["Entity34", "Entity35"],
+    "DomainService35": ["Entity35", "Entity36"],
+    "DomainService36": ["Entity36", "Entity37"],
+    "DomainService37": ["Entity37", "Entity38"],
+    "DomainService38": ["Entity38", "Entity39"],
+    "DomainService39": ["Entity39", "Entity40"],
+    "DomainService40": ["Entity40", "Entity41"],
+    "DomainService41": ["Entity41", "Entity42"],
+    "DomainService42": ["Entity42", "Entity43"],
+    "DomainService43": ["Entity43", "Entity44"],
+    "DomainService44": ["Entity44", "Entity45"],
+    "DomainService45": ["Entity45", "Entity46"],
+    "DomainService46": ["Entity46", "Entity47"],
+    "DomainService47": ["Entity47", "Entity48"],
+    "DomainService48": ["Entity48", "Entity49"],
+    "DomainService49": ["Entity49", "Entity50"],
+    "DomainService50": ["Entity50", "Entity1"]
+  },
+
+  "applicationServiceDependencies": {
+    "AppService1": {
+      "domainServices": ["DomainService1", "DomainService2"],
+      "repositories": ["IDomainService1Repository", "IDomainService2Repository"]
+    },
+    "AppService2": {
+      "domainServices": ["DomainService2", "DomainService3"],
+      "repositories": ["IDomainService2Repository", "IDomainService3Repository"]
+    },
+    "AppService3": {
+      "domainServices": ["DomainService3", "DomainService4"],
+      "repositories": ["IDomainService3Repository", "IDomainService4Repository"]
+    },
+    "AppService4": {
+      "domainServices": ["DomainService4", "DomainService5"],
+      "repositories": ["IDomainService4Repository", "IDomainService5Repository"]
+    },
+    "AppService5": {
+      "domainServices": ["DomainService5", "DomainService6"],
+      "repositories": ["IDomainService5Repository", "IDomainService6Repository"]
+    },
+    "AppService6": {
+      "domainServices": ["DomainService6", "DomainService7"],
+      "repositories": ["IDomainService6Repository", "IDomainService7Repository"]
+    },
+    "AppService7": {
+      "domainServices": ["DomainService7", "DomainService8"],
+      "repositories": ["IDomainService7Repository", "IDomainService8Repository"]
+    },
+    "AppService8": {
+      "domainServices": ["DomainService8", "DomainService9"],
+      "repositories": ["IDomainService8Repository", "IDomainService9Repository"]
+    },
+    "AppService9": {
+      "domainServices": ["DomainService9", "DomainService10"],
+      "repositories": [
+        "IDomainService9Repository",
+        "IDomainService10Repository"
+      ]
+    },
+    "AppService10": {
+      "domainServices": ["DomainService10", "DomainService11"],
+      "repositories": [
+        "IDomainService10Repository",
+        "IDomainService11Repository"
+      ]
+    },
+    "AppService11": {
+      "domainServices": ["DomainService11", "DomainService12"],
+      "repositories": [
+        "IDomainService11Repository",
+        "IDomainService12Repository"
+      ]
+    },
+    "AppService12": {
+      "domainServices": ["DomainService12", "DomainService13"],
+      "repositories": [
+        "IDomainService12Repository",
+        "IDomainService13Repository"
+      ]
+    },
+    "AppService13": {
+      "domainServices": ["DomainService13", "DomainService14"],
+      "repositories": [
+        "IDomainService13Repository",
+        "IDomainService14Repository"
+      ]
+    },
+    "AppService14": {
+      "domainServices": ["DomainService14", "DomainService15"],
+      "repositories": [
+        "IDomainService14Repository",
+        "IDomainService15Repository"
+      ]
+    },
+    "AppService15": {
+      "domainServices": ["DomainService15", "DomainService16"],
+      "repositories": [
+        "IDomainService15Repository",
+        "IDomainService16Repository"
+      ]
+    },
+    "AppService16": {
+      "domainServices": ["DomainService16", "DomainService17"],
+      "repositories": [
+        "IDomainService16Repository",
+        "IDomainService17Repository"
+      ]
+    },
+    "AppService17": {
+      "domainServices": ["DomainService17", "DomainService18"],
+      "repositories": [
+        "IDomainService17Repository",
+        "IDomainService18Repository"
+      ]
+    },
+    "AppService18": {
+      "domainServices": ["DomainService18", "DomainService19"],
+      "repositories": [
+        "IDomainService18Repository",
+        "IDomainService19Repository"
+      ]
+    },
+    "AppService19": {
+      "domainServices": ["DomainService19", "DomainService20"],
+      "repositories": [
+        "IDomainService19Repository",
+        "IDomainService20Repository"
+      ]
+    },
+    "AppService20": {
+      "domainServices": ["DomainService20", "DomainService21"],
+      "repositories": [
+        "IDomainService20Repository",
+        "IDomainService21Repository"
+      ]
+    },
+    "AppService21": {
+      "domainServices": ["DomainService21", "DomainService22"],
+      "repositories": [
+        "IDomainService21Repository",
+        "IDomainService22Repository"
+      ]
+    },
+    "AppService22": {
+      "domainServices": ["DomainService22", "DomainService23"],
+      "repositories": [
+        "IDomainService22Repository",
+        "IDomainService23Repository"
+      ]
+    },
+    "AppService23": {
+      "domainServices": ["DomainService23", "DomainService24"],
+      "repositories": [
+        "IDomainService23Repository",
+        "IDomainService24Repository"
+      ]
+    },
+    "AppService24": {
+      "domainServices": ["DomainService24", "DomainService25"],
+      "repositories": [
+        "IDomainService24Repository",
+        "IDomainService25Repository"
+      ]
+    },
+    "AppService25": {
+      "domainServices": ["DomainService25", "DomainService26"],
+      "repositories": [
+        "IDomainService25Repository",
+        "IDomainService26Repository"
+      ]
+    },
+    "AppService26": {
+      "domainServices": ["DomainService26", "DomainService27"],
+      "repositories": [
+        "IDomainService26Repository",
+        "IDomainService27Repository"
+      ]
+    },
+    "AppService27": {
+      "domainServices": ["DomainService27", "DomainService28"],
+      "repositories": [
+        "IDomainService27Repository",
+        "IDomainService28Repository"
+      ]
+    },
+    "AppService28": {
+      "domainServices": ["DomainService28", "DomainService29"],
+      "repositories": [
+        "IDomainService28Repository",
+        "IDomainService29Repository"
+      ]
+    },
+    "AppService29": {
+      "domainServices": ["DomainService29", "DomainService30"],
+      "repositories": [
+        "IDomainService29Repository",
+        "IDomainService30Repository"
+      ]
+    },
+    "AppService30": {
+      "domainServices": ["DomainService30", "DomainService31"],
+      "repositories": [
+        "IDomainService30Repository",
+        "IDomainService31Repository"
+      ]
+    },
+    "AppService31": {
+      "domainServices": ["DomainService31", "DomainService32"],
+      "repositories": [
+        "IDomainService31Repository",
+        "IDomainService32Repository"
+      ]
+    },
+    "AppService32": {
+      "domainServices": ["DomainService32", "DomainService33"],
+      "repositories": [
+        "IDomainService32Repository",
+        "IDomainService33Repository"
+      ]
+    },
+    "AppService33": {
+      "domainServices": ["DomainService33", "DomainService34"],
+      "repositories": [
+        "IDomainService33Repository",
+        "IDomainService34Repository"
+      ]
+    },
+    "AppService34": {
+      "domainServices": ["DomainService34", "DomainService35"],
+      "repositories": [
+        "IDomainService34Repository",
+        "IDomainService35Repository"
+      ]
+    },
+    "AppService35": {
+      "domainServices": ["DomainService35", "DomainService36"],
+      "repositories": [
+        "IDomainService35Repository",
+        "IDomainService36Repository"
+      ]
+    },
+    "AppService36": {
+      "domainServices": ["DomainService36", "DomainService37"],
+      "repositories": [
+        "IDomainService36Repository",
+        "IDomainService37Repository"
+      ]
+    },
+    "AppService37": {
+      "domainServices": ["DomainService37", "DomainService38"],
+      "repositories": [
+        "IDomainService37Repository",
+        "IDomainService38Repository"
+      ]
+    },
+    "AppService38": {
+      "domainServices": ["DomainService38", "DomainService39"],
+      "repositories": [
+        "IDomainService38Repository",
+        "IDomainService39Repository"
+      ]
+    },
+    "AppService39": {
+      "domainServices": ["DomainService39", "DomainService40"],
+      "repositories": [
+        "IDomainService39Repository",
+        "IDomainService40Repository"
+      ]
+    },
+    "AppService40": {
+      "domainServices": ["DomainService40", "DomainService41"],
+      "repositories": [
+        "IDomainService40Repository",
+        "IDomainService41Repository"
+      ]
+    },
+    "AppService41": {
+      "domainServices": ["DomainService41", "DomainService42"],
+      "repositories": [
+        "IDomainService41Repository",
+        "IDomainService42Repository"
+      ]
+    },
+    "AppService42": {
+      "domainServices": ["DomainService42", "DomainService43"],
+      "repositories": [
+        "IDomainService42Repository",
+        "IDomainService43Repository"
+      ]
+    },
+    "AppService43": {
+      "domainServices": ["DomainService43", "DomainService44"],
+      "repositories": [
+        "IDomainService43Repository",
+        "IDomainService44Repository"
+      ]
+    },
+    "AppService44": {
+      "domainServices": ["DomainService44", "DomainService45"],
+      "repositories": [
+        "IDomainService44Repository",
+        "IDomainService45Repository"
+      ]
+    },
+    "AppService45": {
+      "domainServices": ["DomainService45", "DomainService46"],
+      "repositories": [
+        "IDomainService45Repository",
+        "IDomainService46Repository"
+      ]
+    },
+    "AppService46": {
+      "domainServices": ["DomainService46", "DomainService47"],
+      "repositories": [
+        "IDomainService46Repository",
+        "IDomainService47Repository"
+      ]
+    },
+    "AppService47": {
+      "domainServices": ["DomainService47", "DomainService48"],
+      "repositories": [
+        "IDomainService47Repository",
+        "IDomainService48Repository"
+      ]
+    },
+    "AppService48": {
+      "domainServices": ["DomainService48", "DomainService49"],
+      "repositories": [
+        "IDomainService48Repository",
+        "IDomainService49Repository"
+      ]
+    },
+    "AppService49": {
+      "domainServices": ["DomainService49", "DomainService50"],
+      "repositories": [
+        "IDomainService49Repository",
+        "IDomainService50Repository"
+      ]
+    },
+    "AppService50": {
+      "domainServices": ["DomainService50", "DomainService1"],
+      "repositories": [
+        "IDomainService50Repository",
+        "IDomainService1Repository"
+      ]
+    }
+  },
+
+  "uiFramework": "lit",
+  "_chooseFromThese": ["react", "angular", "vue", "lit", "vanilla"]
+}

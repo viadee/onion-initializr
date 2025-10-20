@@ -1,0 +1,42 @@
+import './App.css';
+import React, { useState } from 'react';
+{{#if firstAppService}}
+import container from '../configuration/awilix.config';
+import { {{firstAppService}} } from '../../Application/Services/{{firstAppService}}';
+{{/if}}
+
+function App() {
+  {{#if firstAppService}}
+  const [message, setMessage] = useState("Click to run use case");
+  const [loading, setLoading] = useState(false);
+
+  const handleRunExampleUseCase = async () => {
+    setLoading(true);
+    try {
+      const service = container.resolve<{{{firstAppService}}}>("{{camel firstAppService}}");
+      await service.runExampleUseCase();
+      setMessage("{{firstAppService}}: use case executed ✅");
+    } catch (err) {
+      setMessage("Error: " + (err as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  {{/if}}
+
+  return (
+    <div className="app">
+      <h1>🧅 Onion Architecture + React</h1>
+      {{#if firstAppService}}
+      <button onClick={handleRunExampleUseCase} disabled={loading}>
+        {loading ? "Running..." : "Run Use Case"}
+      </button>
+      <p>{message}</p>
+      {{else}}
+      <p>No application services were defined.</p>
+      {{/if}}
+    </div>
+  );
+}
+
+export default App;

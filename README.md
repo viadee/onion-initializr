@@ -109,17 +109,17 @@ The generator creates a layered folder structure like this:
 
 ```plaintext
 |-- src
-|   |-- Application
-|   |   |-- Services/
-|   |-- Domain
-|   |   |-- Entities/
-|   |   |-- Services/
-|   |-- Infrastructure
-|   |   |-- Config/
+|   |-- application
+|   |   |-- services/
+|   |-- domain
+|   |   |-- entities/
+|   |   |-- services/
+|   |-- infrastructure
+|   |   |-- config/
 |   |   |   |-- awilix.config.json
-|   |   |-- Interfaces/
-|   |   |-- Presentation/
-|   |   |-- Repository/
+|   |   |-- interfaces/
+|   |   |-- presentation/
+|   |   |-- repository/
 |-- package.json
 ```
 

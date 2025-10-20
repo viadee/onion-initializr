@@ -1,0 +1,126 @@
+<app-browser-warning></app-browser-warning>
+
+<header class="app-header">
+  <div class="header-content">
+    <div class="logo">
+      <img src="onion_gpt.png" alt="Onion Architecture" />
+      <span>Onion Initializr</span>
+    </div>
+    <div class="header-actions">
+      <button
+        class="btn btn-outline tutorial-btn"
+        (click)="showTutorialModalManually()"
+        title="Watch tutorial">
+        <mat-icon>play_circle</mat-icon>
+        Tutorial
+      </button>
+      <button class="btn btn-secondary back-btn" (click)="navigateHome()">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Home
+      </button>
+    </div>
+  </div>
+</header>
+
+<mat-card class="main-content">
+  <h2 class="mat-primary">Onion Initializr</h2>
+  <form [formGroup]="projectForm">
+    <diagram
+      #diagramRef
+      [selectedFramework]="projectForm.get('framework')?.value"
+      [selectedDiFramework]="selectedDiFramework()"
+      (projectNameChange)="handleProjectNameChange($event)"
+      (nodeSelected)="onNodeSelected($event)"
+      [generatedCode]="generatedCode"
+      [filename]="filename" />
+
+    <div class="framework-buttons">
+      <div class="framework-label">Framework</div>
+      <div class="button-group">
+        @for (framework of frameworks; track framework) {
+          <button
+            class="btn framework-btn"
+            [ngClass]="
+              projectForm.get('framework')?.value === framework
+                ? 'btn-primary'
+                : 'btn-secondary'
+            "
+            type="button"
+            (click)="onFrameworkChange(framework)">
+            <img
+              [src]="getFrameworkIconPath(framework)"
+              [alt]="framework + ' logo'"
+              class="framework-logo" />
+            <span class="framework-name">{{ framework }}</span>
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- DI Framework Selection (shown only when Angular is selected) -->
+    @if (shouldShowDiFrameworkSelection()) {
+      <div class="framework-buttons">
+        <div class="framework-label">Dependency Injection</div>
+        <div class="button-group">
+          @for (diFramework of diFrameworks; track diFramework) {
+            <button
+              class="btn framework-btn"
+              [ngClass]="
+                selectedDiFramework() === diFramework
+                  ? 'btn-primary'
+                  : 'btn-secondary'
+              "
+              type="button"
+              (click)="onDiFrameworkChange(diFramework)">
+              <img
+                [src]="getDiFrameworkIconPath(diFramework)"
+                [alt]="diFramework + ' logo'"
+                class="framework-logo" />
+              <span class="framework-name">{{
+                getDiFrameworkDisplayName(diFramework)
+              }}</span>
+            </button>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- UI Library Selection (shown only when React is selected) -->
+    @if (shouldShowUiLibrarySelection()) {
+      <div class="framework-buttons">
+        <div class="framework-label">UI Library</div>
+        <div class="button-group">
+          @for (uiLibrary of getAvailableUiLibraries(); track uiLibrary) {
+            <button
+              class="btn framework-btn"
+              [ngClass]="
+                selectedUiLibrary() === uiLibrary
+                  ? 'btn-primary'
+                  : 'btn-secondary'
+              "
+              type="button"
+              (click)="onUiLibraryChange(uiLibrary)">
+              <img
+                [src]="getUiLibraryIconPath(uiLibrary)"
+                [alt]="uiLibrary + ' logo'"
+                class="framework-logo" />
+              <span class="framework-name">{{
+                getUiLibraryDisplayName(uiLibrary)
+              }}</span>
+            </button>
+          }
+        </div>
+      </div>
+    }
+
+    <button
+      id="generate"
+      class="btn btn-primary generate-btn"
+      (click)="generate()"
+      [disabled]="isGenerating">
+      <span>{{ isGenerating ? 'Generating...' : 'Download Project' }}</span>
+    </button>
+  </form>
+</mat-card>
+
+<app-scroll-indicator></app-scroll-indicator>

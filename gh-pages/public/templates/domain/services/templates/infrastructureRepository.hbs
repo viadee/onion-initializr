@@ -1,0 +1,34 @@
+import { {{entityName}} } from "../../Domain/Entities/{{entityName}}";
+import { I{{entityName}}Repository } from "../../Domain/Interfaces/I{{entityName}}Repository";
+{{#if useAngularDI}}
+import { Injectable } from '@angular/core';
+{{/if}}
+
+/**
+ * Repository: {{entityName}}Repository
+*/
+{{#if useAngularDI}}
+@Injectable({ providedIn: 'root' })
+{{/if}}
+export class {{entityName}}Repository implements I{{entityName}}Repository {
+  public async findAll(): Promise<{{{entityName}}}[] | null> {
+    // TODO: Implement retrieval from DB or other data source
+    return [];
+  }
+
+  public async findById(id: string): Promise<{{entityName}} | null> {
+    // TODO: Implement retrieval from DB or other data source
+    console.log('findById in {{entityName}}Repository called with id: ', id);
+    return null;
+  }
+
+  public async save({{lowerFirst entityName}}: {{entityName}}): Promise<void> {
+    // TODO: Implement persist logic
+  }
+
+  public async delete(id: string): Promise<void> {
+    // TODO: Implement delete logic
+  }
+
+  // TODO: Add more methods if defined in I{{entityName}}Repository
+}
