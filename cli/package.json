@@ -6,7 +6,8 @@
     "onion": "dist/cli/src/application/services/main-app-service.js"
   },
   "scripts": {
-    "link": "npm run build && npm link",
+    "prelink": "npm run build",
+    "link": "npm link",
     "lint": "eslint \"src/**/*.{ts,js}\"",
     "dev": "npm run start",
     "format": "prettier --write .",
