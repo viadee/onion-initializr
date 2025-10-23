@@ -30,7 +30,7 @@ export class FileSystemFileRepository implements IFileRepository {
         "domain",
         "services",
         "templates",
-        templateName
+        templateName,
       );
     } else {
       // Full path provided - construct from project root
@@ -39,7 +39,7 @@ export class FileSystemFileRepository implements IFileRepository {
         rootDir,
         "public",
         "templates",
-        templateName
+        templateName,
       );
     }
 
@@ -100,7 +100,7 @@ export class FileSystemFileRepository implements IFileRepository {
   }
 
   async getFileStats(
-    filePath: string
+    filePath: string,
   ): Promise<{ isDirectory(): boolean; isFile(): boolean }> {
     const stats = fs.statSync(filePath);
     return {

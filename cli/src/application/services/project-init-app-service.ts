@@ -11,7 +11,6 @@ import { UIFrameworks } from "../../../../lib/domain/entities/ui-framework";
 import { UILibrarySetupService } from "../../../../lib/application/services/uilibrary-setup-service";
 import { select } from "@inquirer/prompts";
 
-
 // Maps display name to internal framework key
 const frameworkDisplayMap: Record<string, keyof UIFrameworks> = {
   "React (Vite + TS)": "react",
@@ -34,7 +33,7 @@ export class ProjectInitAppService implements IProjectService {
     private readonly commandRunner: ICommandRunner,
     private readonly lintAppService: LintAppService,
     private readonly configurationAppService: ConfigurationAppService,
-    private readonly uiLibrarySetupService: UILibrarySetupService
+    private readonly uiLibrarySetupService: UILibrarySetupService,
   ) {}
   async isInitialized(folderPath: string): Promise<boolean> {
     const packageJson = this.pathService.join(folderPath, "package.json");
@@ -57,7 +56,7 @@ export class ProjectInitAppService implements IProjectService {
     try {
       await this.commandRunner.runCommand(
         "npm i eslint-plugin-prettier",
-        folderPath
+        folderPath,
       );
       await this.commandRunner.runCommand("npm run format", folderPath);
       console.log(chalk.green("Code formatted with Prettier!"));
@@ -71,7 +70,7 @@ export class ProjectInitAppService implements IProjectService {
    */
   async setUpUiLibrary(
     folderPath: string,
-    uiLibrary: UiLibrary
+    uiLibrary: UiLibrary,
   ): Promise<void> {
     console.log(chalk.yellow(`Setting up ${uiLibrary} UI library...`));
 
@@ -79,7 +78,7 @@ export class ProjectInitAppService implements IProjectService {
       await this.uiLibrarySetupService.setupUILibrary(
         folderPath,
         uiLibrary,
-        this.commandRunner
+        this.commandRunner,
       );
     } catch (error) {
       console.error(chalk.red(`❌ Failed to setup ${uiLibrary}:`), error);
@@ -91,7 +90,7 @@ export class ProjectInitAppService implements IProjectService {
     folderPath: string,
     uiFramework?: keyof UIFrameworks,
     diFramework?: DiFramework,
-    uiLibrary?: UiLibrary
+    uiLibrary?: UiLibrary,
   ): Promise<
     | {
         uiFramework: keyof UIFrameworks;
@@ -107,7 +106,7 @@ export class ProjectInitAppService implements IProjectService {
       if (!uiFramework) {
         const selectedDisplayName = await select({
           message: "Select a frontend framework to set up:",
-          choices: Object.keys(frameworkDisplayMap).map(name => ({
+          choices: Object.keys(frameworkDisplayMap).map((name) => ({
             name,
             value: name,
           })),
@@ -121,7 +120,8 @@ export class ProjectInitAppService implements IProjectService {
 
       if (uiFramework === "angular") {
         const selectedDiFramework = await select({
-          message: "What Dependency Injection Framework do you want to use ? (default: Awilix)",
+          message:
+            "What Dependency Injection Framework do you want to use ? (default: Awilix)",
           choices: [
             { name: "Awilix", value: "awilix" },
             { name: "Angular", value: "angular" },
@@ -158,7 +158,7 @@ export class ProjectInitAppService implements IProjectService {
       const tsConfigFile =
         await this.configurationAppService.updateVerbatimModuleSyntax(
           folderPath,
-          false
+          false,
         );
       if (tsConfigFile) {
         await this.fileService.createFile(tsConfigFile);
@@ -191,14 +191,14 @@ export class ProjectInitAppService implements IProjectService {
     console.log(chalk.yellow("Installing ESLint and Prettier..."));
     await this.commandRunner.runCommand(
       "npm install --save-dev eslint prettier @eslint/js @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-prettier",
-      folderPath
+      folderPath,
     );
     console.log(chalk.green("Prettier and ESLint installed successfully!"));
   }
 
   async setupUIFramework(folderPath: string, framework: keyof UIFrameworks) {
     console.log(
-      chalk.yellow(`Setting up ${framework} project in ${folderPath}...`)
+      chalk.yellow(`Setting up ${framework} project in ${folderPath}...`),
     );
     const tempDir = "temp";
     const tempPath = this.pathService.join(folderPath, tempDir);
@@ -229,14 +229,14 @@ export class ProjectInitAppService implements IProjectService {
 
   async movePresentationFiles(
     folderPath: string,
-    framework: keyof UIFrameworks
+    framework: keyof UIFrameworks,
   ) {
     const srcPath = this.pathService.join(folderPath, "src");
     const presentationPath = this.pathService.join(
       folderPath,
       "src",
       "infrastructure",
-      "Presentation"
+      "Presentation",
     );
 
     if (!(await this.fileService.fileExists(presentationPath))) {
@@ -295,7 +295,7 @@ export class ProjectInitAppService implements IProjectService {
 
   private async copyFolderRecursiveSync(
     source: string,
-    target: string
+    target: string,
   ): Promise<void> {
     if (!(await this.fileService.fileExists(target))) {
       await this.fileService.createDirectory(target);
@@ -318,7 +318,7 @@ export class ProjectInitAppService implements IProjectService {
 
   private async moveFilesAndCleanUp(
     fromPath: string,
-    toPath: string
+    toPath: string,
   ): Promise<void> {
     await this.copyFolderRecursiveSync(fromPath, toPath);
     await this.fileService.rmSync(fromPath);
@@ -330,7 +330,7 @@ export class ProjectInitAppService implements IProjectService {
 
   private async updateMultipleImports(
     filePath: string,
-    replacements: Record<string, string>
+    replacements: Record<string, string>,
   ): Promise<void> {
     if (!(await this.fileService.fileExists(filePath))) {
       return;
@@ -343,7 +343,7 @@ export class ProjectInitAppService implements IProjectService {
       const escapedOldPath = this.escapeRegExp(oldPath);
       const importRegex = new RegExp(
         `(import\\s+[^'"]*?['"])${escapedOldPath}(['"])`,
-        "g"
+        "g",
       );
 
       content = content.replace(importRegex, `$1${newPath}$2`);
@@ -370,7 +370,7 @@ export class ProjectInitAppService implements IProjectService {
 
   private async processFrameworkTemplates(
     folderPath: string,
-    framework: string
+    framework: string,
   ): Promise<void> {
     if (framework !== "lit") {
       return; // Only process Lit templates for now
@@ -383,7 +383,7 @@ export class ProjectInitAppService implements IProjectService {
       "infrastructure",
       "frameworks",
       "templates",
-      framework
+      framework,
     );
 
     // Check if templates directory exists
@@ -395,11 +395,11 @@ export class ProjectInitAppService implements IProjectService {
     // Process index.html.hbs template
     const indexHtmlTemplatePath = this.pathService.join(
       templatesPath,
-      "index.html.hbs"
+      "index.html.hbs",
     );
     if (await this.fileService.fileExists(indexHtmlTemplatePath)) {
       const templateContent = await this.fileService.readFile(
-        indexHtmlTemplatePath
+        indexHtmlTemplatePath,
       );
 
       let processedContent = templateContent.content;
@@ -441,7 +441,7 @@ export class ProjectInitAppService implements IProjectService {
               return `import type {${imports}} from '${modulePath}'`;
             }
             return match;
-          }
+          },
         );
 
         await this.fileService.createFile({
@@ -454,7 +454,7 @@ export class ProjectInitAppService implements IProjectService {
 
   private async removeFile(
     folderPath: string,
-    filename: string
+    filename: string,
   ): Promise<void> {
     const filePath = this.pathService.join(folderPath, filename);
 
@@ -462,7 +462,7 @@ export class ProjectInitAppService implements IProjectService {
       if (await this.fileService.fileExists(filePath)) {
         await this.fileService.rmSync(filePath);
         console.log(
-          `\nFile ${filename} removed successfully from ${folderPath}`
+          `\nFile ${filename} removed successfully from ${folderPath}`,
         );
       }
     } catch (error) {

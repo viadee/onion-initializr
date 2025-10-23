@@ -1,4 +1,4 @@
-import { RunCommandService } from './run-command-service';
+import { RunCommandService } from "./run-command-service";
 import { ICommandRunner } from "./../../../../lib/domain/interfaces/icommand-runner";
 
 export class NodeCommandRunner implements ICommandRunner {
@@ -22,23 +22,23 @@ export class NodeCommandRunner implements ICommandRunner {
   async createViteProject(
     projectName: string,
     template: string,
-    cwd: string
+    cwd: string,
   ): Promise<void> {
     await this.runCommand(
       `npx create-vite@latest ${projectName} --template ${template}  --no-interactive`,
-      cwd
+      cwd,
     );
   }
 
   async createAngularProject(
     projectName: string,
     cwd: string,
-    options: string[] = []
+    options: string[] = [],
   ): Promise<void> {
     const optionsStr = options.join(" ");
     await this.runCommand(
       `npx @angular/cli@latest new ${projectName} ${optionsStr}`,
-      cwd
+      cwd,
     );
   }
 }

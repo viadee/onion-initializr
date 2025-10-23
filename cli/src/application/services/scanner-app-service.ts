@@ -11,7 +11,7 @@ import { UIFrameworks } from "../../../../lib/domain/entities/ui-framework";
 export class ScannerAppService {
   constructor(
     private readonly fileService: FileService,
-    private readonly pathService: PathAppService
+    private readonly pathService: PathAppService,
   ) {}
 
   async scanOnionProject(folderPath: string): Promise<OnionConfig> {
@@ -22,7 +22,7 @@ export class ScannerAppService {
     const appServicesDir = this.pathService.join(
       src,
       "application",
-      "services"
+      "services",
     );
 
     const entities = await this.fileService.getNamesFromDir(entitiesDir);
@@ -33,7 +33,7 @@ export class ScannerAppService {
 
     const domainServiceConnections = await this.scanServiceDependencies(
       servicesDir,
-      entities
+      entities,
     );
     const applicationServiceDependencies =
       await this.scanAppServiceDependencies(appServicesDir);
@@ -56,7 +56,7 @@ export class ScannerAppService {
 
   private async scanServiceDependencies(
     dir: string,
-    knownEntities: string[]
+    knownEntities: string[],
   ): Promise<Record<string, string[]>> {
     const result: Record<string, string[]> = {};
     if (!(await this.fileService.dirExists(dir))) {
@@ -69,7 +69,7 @@ export class ScannerAppService {
       if (!fileName.endsWith(".ts")) {
         console.log(
           "⏭️ scanServiceDependencies: Skipping non-TS file/directory:",
-          fileName
+          fileName,
         );
         continue;
       }
@@ -84,7 +84,7 @@ export class ScannerAppService {
         // Improved regex to handle multi-line constructor parameters and proper spacing
         const regex = new RegExp(
           `private\\s+readonly\\s+\\w+\\s*:\\s*${entity}(?![\\w])`,
-          "gm"
+          "gm",
         );
         if (regex.test(file.content)) {
           injected.push(entity);
@@ -99,7 +99,7 @@ export class ScannerAppService {
   }
 
   private async scanAppServiceDependencies(
-    dir: string
+    dir: string,
   ): Promise<
     Record<string, { domainServices: string[]; repositories: string[] }>
   > {
@@ -111,7 +111,7 @@ export class ScannerAppService {
     if (!(await this.fileService.dirExists(dir))) {
       console.log(
         "❌ scanAppServiceDependencies: Directory does not exist:",
-        dir
+        dir,
       );
       return result;
     }
@@ -123,7 +123,7 @@ export class ScannerAppService {
       if (!fileName.endsWith(".ts")) {
         console.log(
           "⏭️ scanAppServiceDependencies: Skipping non-TS file/directory:",
-          fileName
+          fileName,
         );
         continue;
       }
@@ -135,7 +135,7 @@ export class ScannerAppService {
       const serviceName = this.pathService.basename(fileName, ".ts");
       const dependencies = this.extractServiceDependencies(
         file.content,
-        serviceName
+        serviceName,
       );
       result[serviceName] = dependencies;
     }
@@ -145,7 +145,7 @@ export class ScannerAppService {
 
   private extractServiceDependencies(
     fileContent: string,
-    serviceName: string
+    serviceName: string,
   ): { domainServices: string[]; repositories: string[] } {
     const domainServices: string[] = [];
     const repositories: string[] = [];
@@ -165,13 +165,13 @@ export class ScannerAppService {
         if (typeName.endsWith("Service")) {
           domainServices.push(typeName);
           console.log(
-            `🔗 Domain service dependency: ${serviceName} -> ${typeName}`
+            `🔗 Domain service dependency: ${serviceName} -> ${typeName}`,
           );
         }
         if (typeName.startsWith("I") && typeName.endsWith("Repository")) {
           repositories.push(typeName);
           console.log(
-            `🗃️ Repository dependency: ${serviceName} -> ${typeName}`
+            `🗃️ Repository dependency: ${serviceName} -> ${typeName}`,
           );
         }
       }
@@ -183,14 +183,14 @@ export class ScannerAppService {
   }
 
   private async detectUIFramework(
-    dir: string
+    dir: string,
   ): Promise<keyof UIFrameworks | undefined> {
     const pkgPath = this.pathService.join(dir, "package.json");
 
     if (!(await this.fileService.fileExists(pkgPath))) {
       console.log(
         "❌ detectUIFramework: package.json does not exist at:",
-        pkgPath
+        pkgPath,
       );
       return;
     }
@@ -209,7 +209,7 @@ export class ScannerAppService {
     return "vanilla";
   }
   private async detectDiFramework(
-    folderPath: string
+    folderPath: string,
   ): Promise<DiFramework | undefined> {
     const pkgPath = this.pathService.join(folderPath, "package.json");
 
@@ -230,7 +230,7 @@ export class ScannerAppService {
   }
 
   private async detectUiLibrary(
-    folderPath: string
+    folderPath: string,
   ): Promise<UiLibrary | undefined> {
     const pkgPath = this.pathService.join(folderPath, "package.json");
 
@@ -252,7 +252,6 @@ export class ScannerAppService {
     ) {
       return "shadcn";
     }
-
 
     return "none";
   }
