@@ -9,7 +9,7 @@ import { DiFramework } from "../../../../lib/domain/entities/di-framework";
 import { UiLibrary } from "../../../../lib/domain/entities/ui-library";
 import { UIFrameworks } from "../../../../lib/domain/entities/ui-framework";
 import { UILibrarySetupService } from "../../../../lib/application/services/uilibrary-setup-service";
-import inquirer from "inquirer";
+import { select } from "@inquirer/prompts";
 
 
 // Maps display name to internal framework key
@@ -105,14 +105,13 @@ export class ProjectInitAppService implements IProjectService {
       await this.installDevDependencies(folderPath);
 
       if (!uiFramework) {
-        const { selectedDisplayName } = await inquirer.prompt([
-          {
-            type: "list",
-            name: "selectedDisplayName",
-            message: "Select a frontend framework to set up:",
-            choices: Object.keys(frameworkDisplayMap),
-          },
-        ]);
+        const selectedDisplayName = await select({
+          message: "Select a frontend framework to set up:",
+          choices: Object.keys(frameworkDisplayMap).map(name => ({
+            name,
+            value: name,
+          })),
+        });
         uiFramework = frameworkDisplayMap[selectedDisplayName];
       }
 
@@ -121,33 +120,24 @@ export class ProjectInitAppService implements IProjectService {
       uiLibrary = uiLibrary || "none";
 
       if (uiFramework === "angular") {
-        const { selectedDiFramework } = await inquirer.prompt([
-          {
-            type: "list",
-            name: "selectedDiFramework",
-            message:
-              "What Dependency Injection Framework do you want to use ? (default: Awilix)",
-            choices: [
-              { name: "Awilix", value: "awilix" },
-              { name: "Angular", value: "angular" },
-            ],
-          },
-        ]);
-        diFramework = selectedDiFramework;
+        const selectedDiFramework = await select({
+          message: "What Dependency Injection Framework do you want to use ? (default: Awilix)",
+          choices: [
+            { name: "Awilix", value: "awilix" },
+            { name: "Angular", value: "angular" },
+          ],
+        });
+        diFramework = selectedDiFramework as DiFramework;
       } else if (uiFramework === "react" && uiLibrary === "none") {
         // Only prompt for UI library if not provided and using React
-        const { selectedUiLibrary } = await inquirer.prompt([
-          {
-            type: "list",
-            name: "selectedUiLibrary",
-            message: "What UI Library do you want to use ? (default: None)",
-            choices: [
-              { name: "None", value: "none" },
-              { name: "ShadCN", value: "shadcn" },
-            ],
-          },
-        ]);
-        uiLibrary = selectedUiLibrary;
+        const selectedUiLibrary = await select({
+          message: "What UI Library do you want to use ? (default: None)",
+          choices: [
+            { name: "None", value: "none" },
+            { name: "ShadCN", value: "shadcn" },
+          ],
+        });
+        uiLibrary = selectedUiLibrary as UiLibrary;
       }
 
       uiFramework = uiFramework || "vanilla";

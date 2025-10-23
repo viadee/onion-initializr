@@ -1,6 +1,6 @@
 import { DomainService } from "../../../../lib/domain/entities/domain-service";
 import { ApplicationService } from "../../../../lib/domain/entities/application-service";
-import inquirer from "inquirer";
+import { checkbox } from "@inquirer/prompts";
 /**
  * Service for managing application service dependencies through user interaction.
  * Prompts the user to select domain services and repository interfaces for each application service.
@@ -18,7 +18,7 @@ export class AppServiceDependencyAppService {
   async pickDependencies(
     applicationServices: ApplicationService[],
     domainServices: DomainService[],
-    repositoryInterfaces: string[],
+    repositoryInterfaces: string[]
   ): Promise<
     Record<string, { domainServices: string[]; repositories: string[] }>
   > {
@@ -28,26 +28,21 @@ export class AppServiceDependencyAppService {
     > = {};
 
     for (const appService of applicationServices) {
-      const { chosenDomainServices } = await inquirer.prompt([
-        {
-          type: "checkbox",
-          name: "chosenDomainServices",
-          message: `Select Domain Services for ${appService.name}:`,
-          choices: domainServices.map((svc) => ({
-            name: svc.serviceName, // what the user sees
-            value: svc.serviceName, // what we store
-          })),
-        },
-      ]);
+      const chosenDomainServices = await checkbox({
+        message: `Select Domain Services for ${appService.name}:`,
+        choices: domainServices.map((svc) => ({
+          name: svc.serviceName, // what the user sees
+          value: svc.serviceName, // what we store
+        })),
+      });
 
-      const { chosenRepos } = await inquirer.prompt([
-        {
-          type: "checkbox",
-          name: "chosenRepos",
-          message: `Select Repositories for ${appService.name}:`,
-          choices: repositoryInterfaces,
-        },
-      ]);
+      const chosenRepos = await checkbox({
+        message: `Select Repositories for ${appService.name}:`,
+        choices: repositoryInterfaces.map((repo) => ({
+          name: repo,
+          value: repo,
+        })),
+      });
 
       dependencies[appService.name] = {
         domainServices: chosenDomainServices as string[],
