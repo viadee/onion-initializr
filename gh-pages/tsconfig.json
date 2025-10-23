@@ -3,7 +3,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -20,7 +19,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    
+
     "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {

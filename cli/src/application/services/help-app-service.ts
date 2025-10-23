@@ -29,7 +29,7 @@ CONFIG NOTES
 `;
 export class HelpAppService {
   handleHelp(): void {
-    if (process.argv.includes("--help") || process.argv.includes("-h")) {
+    if (process.argv.includes('--help') || process.argv.includes('-h')) {
       console.log(HELP_TEXT);
       process.exit(0);
     }

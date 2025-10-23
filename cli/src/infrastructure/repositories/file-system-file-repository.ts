@@ -1,17 +1,17 @@
-import { PathAppService } from "../../../../lib/application/services/path-app-service";
-import { FileEntity } from "../../../../lib/domain/entities/file-entity";
-import { IFileRepository } from "../../../../lib/domain/interfaces/ifile-repository";
-import fs from "node:fs";
-import path from "node:path";
+import { PathAppService } from '../../../../lib/application/services/path-app-service';
+import { FileEntity } from '../../../../lib/domain/entities/file-entity';
+import { IFileRepository } from '../../../../lib/domain/interfaces/ifile-repository';
+import fs from 'node:fs';
+import path from 'node:path';
 
 export class FileSystemFileRepository implements IFileRepository {
   constructor(private readonly pathService: PathAppService) {}
 
   clearBrowserFiles(): void {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
   getBrowserFiles(): string[] {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   async rmSync(appDir: string): Promise<void> {
@@ -21,25 +21,25 @@ export class FileSystemFileRepository implements IFileRepository {
   async readTemplate(templateName: string): Promise<FileEntity> {
     let filePath: string;
 
-    if (!templateName.includes("/") && !templateName.includes("\\")) {
+    if (!templateName.includes('/') && !templateName.includes('\\')) {
       // Simple filename - assume it's in Domain/services/templates
       filePath = this.pathService.join(
         __dirname,
-        "..",
-        "..",
-        "domain",
-        "services",
-        "templates",
-        templateName,
+        '..',
+        '..',
+        'domain',
+        'services',
+        'templates',
+        templateName
       );
     } else {
       // Full path provided - construct from project root
-      const rootDir = this.pathService.resolve(__dirname, "../../../");
+      const rootDir = this.pathService.resolve(__dirname, '../../../');
       filePath = this.pathService.join(
         rootDir,
-        "public",
-        "templates",
-        templateName,
+        'public',
+        'templates',
+        templateName
       );
     }
 
@@ -47,13 +47,13 @@ export class FileSystemFileRepository implements IFileRepository {
   }
   async read(filePath: string): Promise<FileEntity> {
     if (!this.pathService.isAbsolute(filePath)) {
-      const rootDir = this.pathService.resolve(__dirname, "../../../");
+      const rootDir = this.pathService.resolve(__dirname, '../../../');
       filePath = this.pathService.join(rootDir, filePath);
     }
 
     return {
       filePath: filePath,
-      content: await fs.promises.readFile(filePath, "utf-8"),
+      content: await fs.promises.readFile(filePath, 'utf-8'),
     };
   }
 
@@ -68,7 +68,7 @@ export class FileSystemFileRepository implements IFileRepository {
   }
 
   async createFile(file: FileEntity): Promise<void> {
-    fs.writeFileSync(file.filePath, file.content, { encoding: "utf8" });
+    fs.writeFileSync(file.filePath, file.content, { encoding: 'utf8' });
   }
 
   async dirExists(dirPath: string): Promise<boolean> {
@@ -87,8 +87,8 @@ export class FileSystemFileRepository implements IFileRepository {
     if (!fs.existsSync(dir)) return [];
     return fs
       .readdirSync(dir)
-      .filter((f) => f.endsWith(".ts"))
-      .map((f) => path!.basename(f, ".ts"));
+      .filter(f => f.endsWith('.ts'))
+      .map(f => path!.basename(f, '.ts'));
   }
 
   async readdir(dir: string): Promise<string[]> {
@@ -100,7 +100,7 @@ export class FileSystemFileRepository implements IFileRepository {
   }
 
   async getFileStats(
-    filePath: string,
+    filePath: string
   ): Promise<{ isDirectory(): boolean; isFile(): boolean }> {
     const stats = fs.statSync(filePath);
     return {

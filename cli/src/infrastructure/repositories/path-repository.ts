@@ -1,5 +1,5 @@
-import { IPathRepository } from "../../../../lib/domain/interfaces/ipath-repository";
-import path from "node:path";
+import { IPathRepository } from '../../../../lib/domain/interfaces/ipath-repository';
+import path from 'node:path';
 export class PathRepository implements IPathRepository {
   dirname(filePath: string): string {
     return path.dirname(filePath);

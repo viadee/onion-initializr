@@ -1,32 +1,32 @@
-import { ApplicationService } from "./../../../../lib/domain/entities/application-service";
-import { EntityService } from "../../../../lib/domain/services/entitity-service";
-import { RepoService } from "../../../../lib/domain/services/repo-service";
-import { ApplicationServiceService } from "../../../../lib/domain/services/application-service-service";
-import { ShowcaseService } from "../../../../lib/domain/services/showcase-service";
-import { AwilixConfigService } from "../../../../lib/domain/services/awilix-config-service";
+import { ApplicationService } from './../../../../lib/domain/entities/application-service';
+import { EntityService } from '../../../../lib/domain/services/entitity-service';
+import { RepoService } from '../../../../lib/domain/services/repo-service';
+import { ApplicationServiceService } from '../../../../lib/domain/services/application-service-service';
+import { ShowcaseService } from '../../../../lib/domain/services/showcase-service';
+import { AwilixConfigService } from '../../../../lib/domain/services/awilix-config-service';
 import {
   DomainServiceConnectorParams,
   DomainServiceService,
-} from "../../../../lib/domain/services/domain-service-service";
-import { IRepoService } from "../../../../lib/domain/services/irepo-service";
-import { AppServiceDependencyAppService } from "./app-service-dependency-app-service";
-import { FileService } from "../../../../lib/domain/services/file-service";
-import { AngularConfigAppService } from "../../../../lib/application/services/angular-config-app-service";
-import { ConfigurationAppService } from "../../../../lib/application/services/configuration-app-service";
-import { FolderStructureService } from "../../../../lib/application/services/folder-gen-app-service";
-import { PathAppService } from "../../../../lib/application/services/path-app-service";
+} from '../../../../lib/domain/services/domain-service-service';
+import { IRepoService } from '../../../../lib/domain/services/irepo-service';
+import { AppServiceDependencyAppService } from './app-service-dependency-app-service';
+import { FileService } from '../../../../lib/domain/services/file-service';
+import { AngularConfigAppService } from '../../../../lib/application/services/angular-config-app-service';
+import { ConfigurationAppService } from '../../../../lib/application/services/configuration-app-service';
+import { FolderStructureService } from '../../../../lib/application/services/folder-gen-app-service';
+import { PathAppService } from '../../../../lib/application/services/path-app-service';
 import {
   DomainServiceConnections,
   ApplicationServiceDependencyMap,
-} from "../../../../lib/domain/interfaces/domain-service-connections";
-import { IProjectService } from "../../../../lib/domain/interfaces/iproject-service";
-import { AwilixConfig } from "../../../../lib/domain/entities/awilix-config";
-import { DiFramework } from "../../../../lib/domain/entities/di-framework";
-import { DomainService } from "../../../../lib/domain/entities/domain-service";
-import { FileEntity } from "../../../../lib/domain/entities/file-entity";
-import { ShowcaseAppGeneration } from "../../../../lib/domain/entities/showcase-app-generation";
-import { UIFrameworks } from "../../../../lib/domain/entities/ui-framework";
-import { UiLibrary } from "../../../../lib/domain/entities/ui-library";
+} from '../../../../lib/domain/interfaces/domain-service-connections';
+import { IProjectService } from '../../../../lib/domain/interfaces/iproject-service';
+import { AwilixConfig } from '../../../../lib/domain/entities/awilix-config';
+import { DiFramework } from '../../../../lib/domain/entities/di-framework';
+import { DomainService } from '../../../../lib/domain/entities/domain-service';
+import { FileEntity } from '../../../../lib/domain/entities/file-entity';
+import { ShowcaseAppGeneration } from '../../../../lib/domain/entities/showcase-app-generation';
+import { UIFrameworks } from '../../../../lib/domain/entities/ui-framework';
+import { UiLibrary } from '../../../../lib/domain/entities/ui-library';
 export interface OnionArchitectureGenerationParams {
   folderPath: string;
   entityNames: string[];
@@ -55,20 +55,20 @@ export class OnionAppService {
     private readonly fileService: FileService,
     private readonly pathService: PathAppService,
     private readonly configurationAppService: ConfigurationAppService,
-    private readonly appServiceDependencyAppService: AppServiceDependencyAppService,
+    private readonly appServiceDependencyAppService: AppServiceDependencyAppService
   ) {}
 
   async generate(
-    params: OnionArchitectureGenerationParams,
+    params: OnionArchitectureGenerationParams
   ): Promise<FileEntity[]> {
-    console.log("🧅 Starting Onion Architecture generation...");
+    console.log('🧅 Starting Onion Architecture generation...');
     const {
       folderPath,
       entityNames,
       domainServiceNames,
       applicationServiceNames,
       uiFramework,
-      uiLibrary = "none",
+      uiLibrary = 'none',
       diFramework: passedDiFramework,
       domainServiceConnections,
       applicationServiceDependencies,
@@ -81,7 +81,7 @@ export class OnionAppService {
       uiFramework,
       passedDiFramework,
       uiLibrary,
-      skipProjectInit,
+      skipProjectInit
     );
 
     // Collect all FileEntity objects from domain services
@@ -90,7 +90,7 @@ export class OnionAppService {
     const tsConfigFile =
       await this.configurationAppService.updateVerbatimModuleSyntax(
         folderPath,
-        false,
+        false
       );
     if (tsConfigFile) allFileEntities.push(tsConfigFile);
 
@@ -101,7 +101,7 @@ export class OnionAppService {
     const repositoryFiles = await this.generateRepositories(
       folderPath,
       entityNames,
-      diFramework,
+      diFramework
     );
     allFileEntities.push(...repositoryFiles);
 
@@ -110,7 +110,7 @@ export class OnionAppService {
       domainServiceNames,
       entityNames,
       domainServiceConnections,
-      diFramework,
+      diFramework
     );
     allFileEntities.push(...domainServiceFiles);
 
@@ -121,7 +121,7 @@ export class OnionAppService {
         domainServiceNames,
         entityNames,
         applicationServiceDependencies,
-        diFramework,
+        diFramework
       );
     allFileEntities.push(...appServiceFiles);
 
@@ -131,7 +131,7 @@ export class OnionAppService {
       domainServiceNames,
       applicationServiceNames,
       appServiceDeps,
-      diFramework,
+      diFramework
     );
     allFileEntities.push(...diConfigFiles);
 
@@ -140,7 +140,7 @@ export class OnionAppService {
       uiFramework,
       diFramework,
       uiLibrary,
-      applicationServiceNames,
+      applicationServiceNames
     );
     allFileEntities.push(...showcaseFiles);
 
@@ -157,10 +157,10 @@ export class OnionAppService {
     folderPath: string,
     framework: keyof UIFrameworks,
     passedDiFramework?: DiFramework,
-    uiLibrary: UiLibrary = "none",
-    skipProjectInit = true,
+    uiLibrary: UiLibrary = 'none',
+    skipProjectInit = true
   ): Promise<DiFramework> {
-    let diFramework: DiFramework = passedDiFramework || "awilix";
+    let diFramework: DiFramework = passedDiFramework || 'awilix';
 
     if (!skipProjectInit) {
       const stepStart = Date.now();
@@ -168,7 +168,7 @@ export class OnionAppService {
         folderPath,
         framework,
         diFramework,
-        uiLibrary,
+        uiLibrary
       );
       diFramework = result!.diFramework;
       console.log(`✅ Project initialized (${Date.now() - stepStart}ms)`);
@@ -179,24 +179,24 @@ export class OnionAppService {
 
   private async generateEntities(
     folderPath: string,
-    entityNames: string[],
+    entityNames: string[]
   ): Promise<FileEntity[]> {
     const stepStart = Date.now();
 
     // Load template content from repository
-    const template = await this.fileService.readTemplate("entity.hbs");
+    const template = await this.fileService.readTemplate('entity.hbs');
 
     const entitiesDir = this.pathService.join(
       folderPath,
-      "src",
-      "domain",
-      "entities",
+      'src',
+      'domain',
+      'entities'
     );
 
     const fileEntities = this.entityService.generateEntitiesFiles(
       entitiesDir,
       entityNames,
-      template.content,
+      template.content
     );
     console.log(`✅ Entities generated (${Date.now() - stepStart}ms)`);
     return fileEntities;
@@ -205,47 +205,47 @@ export class OnionAppService {
   private async generateRepositories(
     folderPath: string,
     entityNames: string[],
-    diFramework: DiFramework,
+    diFramework: DiFramework
   ): Promise<FileEntity[]> {
     const stepStart = Date.now();
 
     // Load template content from repository
     const repoTemplate = await this.fileService.readTemplate(
-      "infrastructureRepository.hbs",
+      'infrastructureRepository.hbs'
     );
     const interfaceTemplate = await this.fileService.readTemplate(
-      "repositoryInterface.hbs",
+      'repositoryInterface.hbs'
     );
 
     const infraRepoDir = this.pathService.join(
       folderPath,
-      "src",
-      "infrastructure",
-      "Repositories",
+      'src',
+      'infrastructure',
+      'Repositories'
     );
 
     const repoFiles = this.repoService.generateRepositoriesFiles(
       entityNames,
       diFramework,
       repoTemplate.content,
-      infraRepoDir,
+      infraRepoDir
     );
 
     // Prepare entity file paths for interface generation
-    const entityFilePaths = entityNames.map((entityName) => ({
+    const entityFilePaths = entityNames.map(entityName => ({
       entityName,
       filePath: this.pathService.join(
         folderPath,
-        "src",
-        "domain",
-        "Interfaces",
-        `I${entityName}Repository.ts`,
+        'src',
+        'domain',
+        'Interfaces',
+        `I${entityName}Repository.ts`
       ),
     }));
 
     const interfaceFiles = this.iRepoService.generateRepositoryInterfacesFiles(
       entityFilePaths,
-      interfaceTemplate.content,
+      interfaceTemplate.content
     );
     console.log(`✅ Repositories generated (${Date.now() - stepStart}ms)`);
     return [...repoFiles, ...interfaceFiles];
@@ -256,17 +256,17 @@ export class OnionAppService {
     domainServiceNames: string[],
     entityNames: string[],
     domainServiceConnections: DomainServiceConnections | undefined,
-    diFramework: DiFramework,
+    diFramework: DiFramework
   ): Promise<FileEntity[]> {
     const stepStart = Date.now();
 
-    const template = await this.fileService.readTemplate("domainService.hbs");
+    const template = await this.fileService.readTemplate('domainService.hbs');
 
     const servicesDir = this.pathService.join(
       folderPath,
-      "src",
-      "domain",
-      "Services",
+      'src',
+      'domain',
+      'Services'
     );
 
     const domainServiceParams: DomainServiceConnectorParams = {
@@ -289,7 +289,7 @@ export class OnionAppService {
     domainServiceNames: string[],
     entityNames: string[],
     applicationServiceDependencies: ApplicationServiceDependencyMap | undefined,
-    diFramework: DiFramework,
+    diFramework: DiFramework
   ): Promise<{
     appServiceDeps: ApplicationServiceDependencyMap;
     appServiceFiles: FileEntity[];
@@ -301,17 +301,17 @@ export class OnionAppService {
       appServiceDeps = await this.createDefaultApplicationServiceDependencies(
         applicationServiceNames,
         domainServiceNames,
-        entityNames,
+        entityNames
       );
     }
 
-    const template = await this.fileService.readTemplate("appService.hbs");
+    const template = await this.fileService.readTemplate('appService.hbs');
 
     const appDir = this.pathService.join(
       folderPath,
-      "src",
-      "application",
-      "services",
+      'src',
+      'application',
+      'services'
     );
 
     const appServiceFiles =
@@ -319,10 +319,10 @@ export class OnionAppService {
         appServiceDeps,
         diFramework,
         template.content,
-        appDir,
+        appDir
       );
     console.log(
-      `✅ Application services generated (${Date.now() - stepStart}ms)`,
+      `✅ Application services generated (${Date.now() - stepStart}ms)`
     );
 
     return {
@@ -334,20 +334,20 @@ export class OnionAppService {
   private async createDefaultApplicationServiceDependencies(
     applicationServiceNames: string[],
     domainServiceNames: string[],
-    entityNames: string[],
+    entityNames: string[]
   ): Promise<ApplicationServiceDependencyMap> {
     const applicationServiceObjects = applicationServiceNames.map(
-      (name: string) => new ApplicationService(name, [], []),
+      (name: string) => new ApplicationService(name, [], [])
     );
     const domainServiceObjects = domainServiceNames.map(
-      (name: string) => new DomainService(name, []),
+      (name: string) => new DomainService(name, [])
     );
-    const iRepoList: string[] = entityNames.map((name) => `I${name}Repository`);
+    const iRepoList: string[] = entityNames.map(name => `I${name}Repository`);
 
     return await this.appServiceDependencyAppService.pickDependencies(
       applicationServiceObjects,
       domainServiceObjects,
-      iRepoList,
+      iRepoList
     );
   }
 
@@ -357,44 +357,44 @@ export class OnionAppService {
     domainServiceNames: string[],
     applicationServiceNames: string[],
     appServiceDeps: ApplicationServiceDependencyMap,
-    diFramework: DiFramework,
+    diFramework: DiFramework
   ): Promise<FileEntity[]> {
     const stepStart = Date.now();
     let fileEntities: FileEntity[] = [];
 
-    if (diFramework === "awilix") {
+    if (diFramework === 'awilix') {
       const awilixConfigParams = new AwilixConfig(
         folderPath,
         entityNames,
         domainServiceNames,
-        applicationServiceNames,
+        applicationServiceNames
       );
       const awilixConfigPath = this.pathService.join(
         folderPath,
-        "src",
-        "infrastructure",
-        "configuration",
-        "awilix.config.ts",
+        'src',
+        'infrastructure',
+        'configuration',
+        'awilix.config.ts'
       );
       const awilixFile = this.awilixCfgService.generateAwilixConfigFile(
         awilixConfigParams,
-        awilixConfigPath,
+        awilixConfigPath
       );
       fileEntities.push(awilixFile);
-    } else if (diFramework === "angular") {
+    } else if (diFramework === 'angular') {
       const applicationServicesData = Object.entries(appServiceDeps).map(
         ([name, deps]) => ({
           name,
           domainServices: deps.domainServices || [],
           repositories: deps.repositories || [],
-        }),
+        })
       );
       const angularFiles =
         await this.angularConfigAppService.generateAngularProvidersFiles(
           folderPath,
           entityNames,
           domainServiceNames,
-          applicationServicesData,
+          applicationServicesData
         );
       fileEntities.push(...angularFiles);
     }
@@ -408,7 +408,7 @@ export class OnionAppService {
     framework: keyof UIFrameworks,
     diFramework: DiFramework,
     uiLibrary: UiLibrary,
-    applicationServiceNames: string[],
+    applicationServiceNames: string[]
   ): Promise<FileEntity[]> {
     if (!framework) return [];
 
@@ -416,33 +416,33 @@ export class OnionAppService {
     const showcaseAppGeneration = new ShowcaseAppGeneration(
       folderPath,
       framework,
-      diFramework === "angular",
+      diFramework === 'angular',
       uiLibrary,
-      applicationServiceNames[0],
+      applicationServiceNames[0]
     );
 
     // Compute presentation directory
     const presentationDir = this.pathService.join(
       folderPath,
-      "src",
-      "infrastructure",
-      "presentation",
+      'src',
+      'infrastructure',
+      'presentation'
     );
 
     // Path builder function for templates and outputs
     const buildPaths = (template: string, output: string) => {
       // Special case: for Lit projects, place index.html in project root instead of presentation directory
-      const shouldPlaceInRoot = framework === "lit" && output === "index.html";
+      const shouldPlaceInRoot = framework === 'lit' && output === 'index.html';
       const outputPath = shouldPlaceInRoot
         ? this.pathService.join(folderPath, output)
         : this.pathService.join(presentationDir, output);
 
       return {
         templatePath: this.pathService.join(
-          "infrastructure",
-          "frameworks",
-          "templates",
-          template,
+          'infrastructure',
+          'frameworks',
+          'templates',
+          template
         ),
         outputPath,
       };
@@ -450,22 +450,22 @@ export class OnionAppService {
 
     const fileEntities = await this.showcaseService.generateShowcaseFiles(
       showcaseAppGeneration,
-      buildPaths,
+      buildPaths
     );
     console.log(
-      `✅ Showcase application generated (${Date.now() - stepStart}ms)`,
+      `✅ Showcase application generated (${Date.now() - stepStart}ms)`
     );
     return fileEntities;
   }
 
   private async createDirectoriesForFiles(
-    fileEntities: FileEntity[],
+    fileEntities: FileEntity[]
   ): Promise<void> {
     const directories = new Set<string>();
 
     // Extract unique directories from file paths
     for (const file of fileEntities) {
-      const dir = file.filePath.substring(0, file.filePath.lastIndexOf("\\"));
+      const dir = file.filePath.substring(0, file.filePath.lastIndexOf('\\'));
       if (dir) {
         directories.add(dir);
       }

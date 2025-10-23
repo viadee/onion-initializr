@@ -1,21 +1,21 @@
 #!/usr/bin/env node
-import { ScanControllerAppService } from "./scan-controller-app-service";
-import { OnionConfigService } from "../../../../lib/domain/services/onion-config-service";
-import { FileHelperAppService } from "./file-helper-app-service";
+import { ScanControllerAppService } from './scan-controller-app-service';
+import { OnionConfigService } from '../../../../lib/domain/services/onion-config-service';
+import { FileHelperAppService } from './file-helper-app-service';
 import {
   OnionAppService,
   OnionArchitectureGenerationParams,
-} from "./onion-app-service";
-import { OnionConfigValidationService } from "../../../../lib/domain/services/onion-config-validation-service";
-import { FileService } from "../../../../lib/domain/services/file-service";
-import { FolderStructureService } from "../../../../lib/application/services/folder-gen-app-service";
-import { PathAppService } from "../../../../lib/application/services/path-app-service";
-import { IProjectService } from "../../../../lib/domain/interfaces/iproject-service";
-import { HelpAppService } from "./help-app-service";
-import { DiFramework } from "../../../../lib/domain/entities/di-framework";
-import { FileEntity } from "../../../../lib/domain/entities/file-entity";
-import { OnionConfig } from "../../../../lib/domain/entities/onion-config";
-import { UIFrameworks } from "../../../../lib/domain/entities/ui-framework";
+} from './onion-app-service';
+import { OnionConfigValidationService } from '../../../../lib/domain/services/onion-config-validation-service';
+import { FileService } from '../../../../lib/domain/services/file-service';
+import { FolderStructureService } from '../../../../lib/application/services/folder-gen-app-service';
+import { PathAppService } from '../../../../lib/application/services/path-app-service';
+import { IProjectService } from '../../../../lib/domain/interfaces/iproject-service';
+import { HelpAppService } from './help-app-service';
+import { DiFramework } from '../../../../lib/domain/entities/di-framework';
+import { FileEntity } from '../../../../lib/domain/entities/file-entity';
+import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
+import { UIFrameworks } from '../../../../lib/domain/entities/ui-framework';
 
 export class OnionCliAppService {
   constructor(
@@ -28,7 +28,7 @@ export class OnionCliAppService {
     private readonly pathService: PathAppService,
     private readonly onionAppService: OnionAppService,
     private readonly fileService: FileService,
-    private readonly validationService: OnionConfigValidationService,
+    private readonly validationService: OnionConfigValidationService
   ) {}
 
   /**
@@ -41,7 +41,7 @@ export class OnionCliAppService {
   public async runOnionCli() {
     this.helpAppService.handleHelp();
     await this.scanControllerService.handleScan();
-    console.log("🧅 Onion CLI - Generate Onion Architecture Structure\n");
+    console.log('🧅 Onion CLI - Generate Onion Architecture Structure\n');
     // helper immer schlechter name
     const configurationFilePath = this.fileHelperService.getConfigFilePath();
 
@@ -49,7 +49,7 @@ export class OnionCliAppService {
 
     if (configurationFilePath) {
       const resolvedConfigPath = this.pathService.isAbsolute(
-        configurationFilePath,
+        configurationFilePath
       )
         ? configurationFilePath
         : this.pathService.resolve(process.cwd(), configurationFilePath);
@@ -66,7 +66,7 @@ export class OnionCliAppService {
 
     const rawFolderPath = await this.fileHelperService.getFolderPath(
       userConfig,
-      process.cwd(),
+      process.cwd()
     );
     const folderPath = this.pathService.isAbsolute(rawFolderPath)
       ? rawFolderPath
@@ -76,14 +76,14 @@ export class OnionCliAppService {
 
     let uiFramework: keyof UIFrameworks | undefined;
     let diFramework: DiFramework;
-    let uiLibrary = userConfig.uiLibrary || "none";
+    let uiLibrary = userConfig.uiLibrary || 'none';
 
     const projectInitResult = await this.projectService.initialize(
       folderPath,
-      userConfig.uiFramework,
+      userConfig.uiFramework
     );
-    uiFramework = projectInitResult?.uiFramework || "react";
-    diFramework = projectInitResult?.diFramework || "awilix";
+    uiFramework = projectInitResult?.uiFramework || 'react';
+    diFramework = projectInitResult?.diFramework || 'awilix';
     if (projectInitResult?.uiLibrary) {
       uiLibrary = projectInitResult.uiLibrary;
     }
@@ -109,7 +109,7 @@ export class OnionCliAppService {
   }
 
   async generateOnionArchitecture(
-    params: OnionArchitectureGenerationParams,
+    params: OnionArchitectureGenerationParams
   ): Promise<FileEntity[]> {
     return this.onionAppService.generate(params);
   }

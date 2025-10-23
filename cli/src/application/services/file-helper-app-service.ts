@@ -1,10 +1,10 @@
-import chalk from "chalk";
-import { FileService } from "../../../../lib/domain/services/file-service";
-import { OnionConfig } from "../../../../lib/domain/entities/onion-config";
-import { input } from "@inquirer/prompts";
+import chalk from 'chalk';
+import { FileService } from '../../../../lib/domain/services/file-service';
+import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
+import { input } from '@inquirer/prompts';
 
 export class FileHelperAppService {
-  private static readonly CONFIG_ARG = "--config";
+  private static readonly CONFIG_ARG = '--config';
 
   constructor(private readonly fileService: FileService) {}
 
@@ -24,15 +24,15 @@ export class FileHelperAppService {
 
     console.log(
       chalk.yellow(
-        `Failed to parse config file "${configFilePath}". Falling back to prompts.`,
-      ),
+        `Failed to parse config file "${configFilePath}". Falling back to prompts.`
+      )
     );
     return OnionConfig.empty();
   }
 
   getConfigFilePath(): string | undefined {
     const configArgIndex = process.argv.indexOf(
-      FileHelperAppService.CONFIG_ARG,
+      FileHelperAppService.CONFIG_ARG
     );
     const hasConfigArg = configArgIndex !== -1;
     const hasConfigValue = process.argv[configArgIndex + 1];
@@ -49,7 +49,7 @@ export class FileHelperAppService {
   async readJsonFile(filePath: string): Promise<{ data?: any; error?: Error }> {
     try {
       if (!(await this.fileService.dirExists(filePath))) {
-        return { error: new Error("File does not exist.") };
+        return { error: new Error('File does not exist.') };
       }
       const jsonFile = await this.fileService.readFile(filePath);
       const parsed = JSON.parse(jsonFile.content);
@@ -66,17 +66,17 @@ export class FileHelperAppService {
     config: OnionConfig,
     key: keyof OnionConfig,
     message: string,
-    defaultValue?: string,
+    defaultValue?: string
   ): Promise<string> {
     const valFromConfig = config[key];
 
     const shouldPrompt =
       valFromConfig === undefined ||
       valFromConfig === null ||
-      (typeof valFromConfig === "string" && valFromConfig.trim() === "") ||
+      (typeof valFromConfig === 'string' && valFromConfig.trim() === '') ||
       (Array.isArray(valFromConfig) && valFromConfig.length === 0);
 
-    if (!shouldPrompt && typeof valFromConfig === "string") {
+    if (!shouldPrompt && typeof valFromConfig === 'string') {
       return valFromConfig;
     }
 
@@ -93,7 +93,7 @@ export class FileHelperAppService {
     config: OnionConfig,
     key: keyof OnionConfig,
     message: string,
-    defaultValue?: string,
+    defaultValue?: string
   ): Promise<string[]> {
     const valFromConfig = config[key];
 
@@ -115,46 +115,46 @@ export class FileHelperAppService {
 
   async getFolderPath(
     config: OnionConfig,
-    currentDir: string,
+    currentDir: string
   ): Promise<string> {
     return this.getOrPromptString(
       config,
-      "folderPath",
-      "Enter path to your project folder:",
-      currentDir,
+      'folderPath',
+      'Enter path to your project folder:',
+      currentDir
     );
   }
 
   async getEntityNames(config: OnionConfig): Promise<string[]> {
     return this.getOrPromptStringArray(
       config,
-      "entities",
-      "Enter entity names (comma-separated)",
-      "User, Order",
+      'entities',
+      'Enter entity names (comma-separated)',
+      'User, Order'
     );
   }
 
   async getDomainServiceNames(config: OnionConfig): Promise<string[]> {
     return this.getOrPromptStringArray(
       config,
-      "domainServices",
-      "Enter domain service names (comma-separated)",
-      "UserService, OrderService",
+      'domainServices',
+      'Enter domain service names (comma-separated)',
+      'UserService, OrderService'
     );
   }
 
   async getApplicationServiceNames(config: OnionConfig): Promise<string[]> {
     return this.getOrPromptStringArray(
       config,
-      "applicationServices",
-      "Enter application service names (comma-separated)",
-      "UserAppService",
+      'applicationServices',
+      'Enter application service names (comma-separated)',
+      'UserAppService'
     );
   }
 
   private stringToArray(value: string | string[]): string[] {
     return Array.isArray(value)
       ? value
-      : value.split(",").map((s: string) => s.trim());
+      : value.split(',').map((s: string) => s.trim());
   }
 }
