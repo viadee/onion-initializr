@@ -1,10 +1,10 @@
 import { ItemPosition } from './../../../../lib/domain/entities/diagramm';
 import { DiagramConfigurationAppService } from './diagram-configuration-app-service';
 
-export interface DiagramCenter {
+type Position = {
   x: number;
   y: number;
-}
+};
 
 export class DiagramPositionCalculatorAppService {
   constructor(
@@ -36,7 +36,7 @@ export class DiagramPositionCalculatorAppService {
     radius: number,
     index: number,
     total: number
-  ): { x: number; y: number } {
+  ): Position {
     const angleStep = (2 * Math.PI) / total;
     const angle = index * angleStep - Math.PI / 2;
     const center = this.diagramConfigurationAppService.center;

@@ -1,5 +1,17 @@
 import { OnionConfig } from '../entities/onion-config';
 
+type Result<T = unknown> = {
+  success: boolean;
+  message: string;
+  data?: T;
+};
+
+type ResultWithNull<T = unknown> = {
+  success: boolean;
+  message: string;
+  data: T | null;
+};
+
 /**
  * Interface for validating and managing connections between onion architecture layers
  */
@@ -10,11 +22,7 @@ export interface IConnectionValidator {
   addConnection(
     source: string,
     target: string
-  ): {
-    success: boolean;
-    message: string;
-    data: OnionConfig | null;
-  };
+  ): ResultWithNull<OnionConfig>;
 
   /**
    * Remove a connection between source and target nodes
@@ -22,7 +30,7 @@ export interface IConnectionValidator {
   removeConnection(
     source: string,
     target: string
-  ): { success: boolean; message: string; data?: OnionConfig };
+  ): Result<OnionConfig>;
 
   /**
    * Check if a connection exists between source and target

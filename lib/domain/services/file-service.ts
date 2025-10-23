@@ -1,6 +1,11 @@
 import { FileEntity } from "../entities/file-entity";
 import { IFileRepository } from "../interfaces/ifile-repository";
 
+type FileSystemEntry = {
+  isDirectory(): boolean;
+  isFile(): boolean;
+};
+
 /**
  * Service for basic file and directory operations.
  * Handles file system operations without technical concerns like compression.
@@ -70,7 +75,7 @@ export class FileService {
 
   async getFileStats(
     filePath: string
-  ): Promise<{ isDirectory(): boolean; isFile(): boolean }> {
+  ): Promise<FileSystemEntry> {
     return this.fileRepository.getFileStats(filePath);
   }
 }

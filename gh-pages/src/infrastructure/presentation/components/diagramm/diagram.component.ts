@@ -45,6 +45,11 @@ import { OnionConfig } from '../../../../../../lib/domain/entities/onion-config'
 
 type StatusType = 'success' | 'error' | 'info';
 
+type StatusInfo = {
+  type: StatusType;
+  message: string;
+};
+
 // Constants for clean code
 const PROGRESS_CONSTANTS = {
   DELAYS: {
@@ -568,7 +573,7 @@ export class Diagram implements OnInit, OnDestroy {
     return this.data.entities && this.data.entities.length > 0;
   }
 
-  getCrossOriginStatus(): { type: StatusType; message: string } {
+  getCrossOriginStatus(): StatusInfo {
     const status = this.diagramProjectGenerationService.getCrossOriginStatus();
     return {
       type: status.type,

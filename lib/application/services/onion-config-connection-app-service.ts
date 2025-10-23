@@ -3,6 +3,18 @@ import { OnionConfigStateService } from '../../domain/services/onion-config-stat
 import { OnionConfigRepositoryService } from '../../domain/services/onion-config-repository-service';
 import { IConnectionValidator } from '../../domain/interfaces/iconnection-validator';
 import { OnionRing } from '../../domain/entities/onion-ring';
+
+type Result<T = unknown> = {
+  success: boolean;
+  message: string;
+  data?: T;
+};
+
+type ResultWithNull<T = unknown> = {
+  success: boolean;
+  message: string;
+  data: T | null;
+};
 export class OnionConfigConnectionAppService implements IConnectionValidator {
   constructor(
     private readonly stateService: OnionConfigStateService,
@@ -12,11 +24,7 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
   addConnection(
     source: string,
     target: string
-  ): {
-    success: boolean;
-    message: string;
-    data: OnionConfig | null;
-  } {
+  ): ResultWithNull<OnionConfig> {
     const data = this.stateService.getData();
     if (!data) {
       return { success: false, message: 'No data loaded', data: null };
@@ -121,7 +129,7 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
   removeConnection(
     source: string,
     target: string
-  ): { success: boolean; message: string; data?: OnionConfig } {
+  ): Result<OnionConfig> {
     const data = this.stateService.getData();
     const newData: OnionConfig = { ...data };
     const sourceRing = this.repositoryService.getRing(source, data);
@@ -318,7 +326,7 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
     appService: string,
     dependency: string,
     dependencyType: 'domainServices' | 'repositories' = 'domainServices'
-  ): { success: boolean; message: string; data: OnionConfig } {
+  ): ResultWithNull<OnionConfig> {
     const data = this.stateService.getData();
 
     if (!data.applicationServiceDependencies[appService]) {

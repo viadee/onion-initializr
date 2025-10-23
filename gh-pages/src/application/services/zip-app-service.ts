@@ -3,6 +3,11 @@ import JSZip from 'jszip';
 import { BrowserCheckAppService } from '../../../../lib/application/services/browser-check-app-service';
 import { IFileRepository } from '../../../../lib/domain/interfaces/ifile-repository';
 
+type FileContent = {
+  path: string;
+  content: string;
+};
+
 /**
  * Service for ZIP file operations and downloads.
  * Handles technical concerns related to file compression and browser downloads.
@@ -73,7 +78,7 @@ export class ZipAppService {
    * Create ZIP from file paths and their contents
    */
   async createZipFromPaths(
-    filePaths: { path: string; content: string }[],
+    filePaths: FileContent[],
     zipFileName: string = 'generated-files.zip'
   ): Promise<void> {
     this.validateBrowserEnvironment();

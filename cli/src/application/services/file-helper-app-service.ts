@@ -3,6 +3,11 @@ import { FileService } from '../../../../lib/domain/services/file-service';
 import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
 import { input } from '@inquirer/prompts';
 
+interface JsonFileResult<T = unknown> {
+  data?: T;
+  error?: Error;
+}
+
 export class FileHelperAppService {
   private static readonly CONFIG_ARG = '--config';
 
@@ -43,10 +48,10 @@ export class FileHelperAppService {
   }
 
   /**
-   * Safely read and parse a JSON file. Returns undefined if the file doesn’t exist or parse fails.
+   * Safely read and parse a JSON file. Returns undefined if the file doesn't exist or parse fails.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async readJsonFile(filePath: string): Promise<{ data?: any; error?: Error }> {
+  async readJsonFile(filePath: string): Promise<JsonFileResult> {
     try {
       if (!(await this.fileService.dirExists(filePath))) {
         return { error: new Error('File does not exist.') };

@@ -3,6 +3,12 @@ import { FileService } from '../../domain/services/file-service';
 import { TemplateService } from '../../domain/services/template-service';
 import { PathAppService } from './path-app-service';
 
+type ApplicationServiceConfig = {
+  name: string;
+  domainServices: string[];
+  repositories: string[];
+};
+
 export class AngularConfigAppService {
   constructor(
     private readonly fileService: FileService,
@@ -13,7 +19,7 @@ export class AngularConfigAppService {
     folderPath: string,
     entityNames: string[],
     domainServices: string[] = [],
-    applicationServices: { name: string; domainServices: string[]; repositories: string[] }[] = []
+    applicationServices: ApplicationServiceConfig[] = []
   ): Promise<FileEntity[]> {
     const fileEntities: FileEntity[] = [];
 

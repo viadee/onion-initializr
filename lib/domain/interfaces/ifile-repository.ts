@@ -1,4 +1,9 @@
-import { FileEntity } from '../entities/file-entity';
+import { FileEntity } from "../entities/file-entity";
+
+type FileSystemEntry = {
+  isDirectory(): boolean;
+  isFile(): boolean;
+};
 
 export interface IFileRepository {
   readTemplate(templatePath: string): Promise<FileEntity>;
@@ -16,5 +21,5 @@ export interface IFileRepository {
   copyFile(source: string, destination: string): Promise<void>;
   getFileStats(
     filePath: string
-  ): Promise<{ isDirectory(): boolean; isFile(): boolean }>;
+  ): Promise<FileSystemEntry>;
 }

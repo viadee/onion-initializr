@@ -1,3 +1,8 @@
+type Position = {
+  x: number;
+  y: number;
+};
+
 export interface DiagramColors {
   entities: string;
   domainServices: string;
@@ -73,7 +78,7 @@ export class DiagramConfigurationAppService {
     return this.colors;
   }
 
-  get center(): { x: number; y: number } {
+  get center(): Position {
     return {
       x: this.config.width / 2,
       y: this.config.height / 2,
