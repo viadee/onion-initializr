@@ -54,7 +54,6 @@ export class ProjectDownloadAppService {
   }
 
   private generateZipFileName(projectName: string = 'onion-architecture-project'): string {
-		console.log("TCL: ProjectDownloadAppService -> projectName", projectName)
     // Sanitize the project name for use in filename
     const sanitizedName = projectName
       .toLowerCase()

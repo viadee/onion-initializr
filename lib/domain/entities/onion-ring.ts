@@ -2,12 +2,7 @@
  * Represents the different architectural rings in the onion architecture
  */
 export class OnionRing {
-  static readonly ENTITIES = new OnionRing('Entities');
-  static readonly DOMAIN_SERVICES = new OnionRing('Domain Services');
-  static readonly APPLICATION_SERVICES = new OnionRing('Application Services');
-  static readonly REPOSITORIES = new OnionRing('Repositories');
-
-  private constructor(private readonly _value: string) {}
+  constructor(private readonly _value: string) {}
 
   get value(): string {
     return this._value;
@@ -20,15 +15,22 @@ export class OnionRing {
   equals(other: OnionRing): boolean {
     return this._value === other._value;
   }
+}
 
-  static getAllRings(): OnionRing[] {
-    return [
-      OnionRing.ENTITIES,
-      OnionRing.DOMAIN_SERVICES,
-      OnionRing.APPLICATION_SERVICES,
-      OnionRing.REPOSITORIES,
-    ];
-  }
+// Export the onion ring instances
+export const ENTITIES = new OnionRing('Entities');
+export const DOMAIN_SERVICES = new OnionRing('Domain Services');
+export const APPLICATION_SERVICES = new OnionRing('Application Services');
+export const REPOSITORIES = new OnionRing('Repositories');
+
+// Export function to get all rings
+export function getAllRings(): OnionRing[] {
+  return [
+    ENTITIES,
+    DOMAIN_SERVICES,
+    APPLICATION_SERVICES,
+    REPOSITORIES,
+  ];
 }
 
 /**

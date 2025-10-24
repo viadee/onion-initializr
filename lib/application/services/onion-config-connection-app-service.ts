@@ -2,7 +2,11 @@ import { OnionConfig } from '../../domain/entities/onion-config';
 import { OnionConfigStateService } from '../../domain/services/onion-config-state-service';
 import { OnionConfigRepositoryService } from '../../domain/services/onion-config-repository-service';
 import { IConnectionValidator } from '../../domain/interfaces/iconnection-validator';
-import { OnionRing } from '../../domain/entities/onion-ring';
+import { 
+  ENTITIES,
+  DOMAIN_SERVICES,
+  APPLICATION_SERVICES
+} from '../../domain/entities/onion-ring';
 
 type Result<T = unknown> = {
   success: boolean;
@@ -139,7 +143,7 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
     let connectionRemoved = false;
 
     if (
-      sourceRing === OnionRing.DOMAIN_SERVICES &&
+      sourceRing === DOMAIN_SERVICES &&
       newData.domainServiceConnections?.[source]
     ) {
       const connections = newData.domainServiceConnections[source];
@@ -149,7 +153,7 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
         connectionRemoved = true;
       }
     } else if (
-      sourceRing === OnionRing.APPLICATION_SERVICES &&
+      sourceRing === APPLICATION_SERVICES &&
       newData.applicationServiceDependencies?.[source]
     ) {
       const domainDeps =
@@ -172,7 +176,7 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
     } else if (
       sourceIsRepo &&
       this.repositoryService.getRing(target, data) ===
-        OnionRing.APPLICATION_SERVICES
+        APPLICATION_SERVICES
     ) {
       const repoDeps =
         newData.applicationServiceDependencies?.[target]?.repositories;
@@ -208,9 +212,9 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
       this.repositoryService.isRepositoryName(source) &&
       this.repositoryService.isValidRepository(source, data.entities || []);
 
-    if (sourceRing === OnionRing.DOMAIN_SERVICES) {
+    if (sourceRing === DOMAIN_SERVICES) {
       return data.domainServiceConnections?.[source]?.includes(target) || false;
-    } else if (sourceRing === OnionRing.APPLICATION_SERVICES) {
+    } else if (sourceRing === APPLICATION_SERVICES) {
       const hasDomainConnection =
         data.applicationServiceDependencies?.[source]?.domainServices?.includes(
           target
@@ -223,7 +227,7 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
     } else if (
       sourceIsRepo &&
       this.repositoryService.getRing(target, data) ===
-        OnionRing.APPLICATION_SERVICES
+        APPLICATION_SERVICES
     ) {
       const deps = data.applicationServiceDependencies?.[target];
       return deps?.repositories?.includes(source) || false;
@@ -272,9 +276,9 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
       this.repositoryService.isRepositoryName(source) &&
       this.repositoryService.isValidRepository(source, data.entities || []);
 
-    if (sourceRing === OnionRing.DOMAIN_SERVICES) {
+    if (sourceRing === DOMAIN_SERVICES) {
       return data.domainServiceConnections?.[source] || [];
-    } else if (sourceRing === OnionRing.APPLICATION_SERVICES) {
+    } else if (sourceRing === APPLICATION_SERVICES) {
       const deps = data.applicationServiceDependencies?.[source];
       if (!deps) {
         return [];
@@ -310,20 +314,20 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
       return false;
     }
     if (
-      sourceRing === OnionRing.DOMAIN_SERVICES &&
-      targetRing !== OnionRing.ENTITIES
+      sourceRing === DOMAIN_SERVICES &&
+      targetRing !== ENTITIES
     )
       return false;
     if (
-      sourceRing === OnionRing.APPLICATION_SERVICES &&
-      targetRing !== OnionRing.DOMAIN_SERVICES &&
+      sourceRing === APPLICATION_SERVICES &&
+      targetRing !== DOMAIN_SERVICES &&
       !targetIsRepo
     )
       return false;
-    if (sourceIsRepo && targetRing !== OnionRing.APPLICATION_SERVICES) {
+    if (sourceIsRepo && targetRing !== APPLICATION_SERVICES) {
       return false;
     }
-    if (sourceRing === OnionRing.ENTITIES) {
+    if (sourceRing === ENTITIES) {
       return false;
     }
     if (source === target) {
