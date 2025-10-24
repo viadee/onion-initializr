@@ -123,8 +123,11 @@ export class Diagram implements OnInit, OnDestroy {
   @Output() projectNameChange = new EventEmitter<string>();
   projectName: string = '';
   selectedNode: string | null = null;
-  newNodeName = '';
-  nodeType: NodeType = NodeType.ENTITY;
+
+  // Individual input fields for each node type
+  entityName = '';
+  domainServiceName = '';
+  applicationServiceName = '';
 
   // Available targets for current connection
   availableTargets: string[] = [];
@@ -339,9 +342,30 @@ export class Diagram implements OnInit, OnDestroy {
       this.diagramConnectionService.getCurrentConnections(this.selectedNode);
   }
 
-  handleAddNode(): void {
+  handleAddNode(nodeType: string): void {
+    let nodeName: string;
+    let nodeTypeEnum: NodeType;
+
+    // Get the appropriate input field value and node type
+    switch (nodeType) {
+      case 'entity':
+        nodeName = this.entityName;
+        nodeTypeEnum = NodeType.ENTITY;
+        break;
+      case 'domain':
+        nodeName = this.domainServiceName;
+        nodeTypeEnum = NodeType.DOMAIN_SERVICE;
+        break;
+      case 'application':
+        nodeName = this.applicationServiceName;
+        nodeTypeEnum = NodeType.APPLICATION_SERVICE;
+        break;
+      default:
+        return;
+    }
+
     const validation = this.diagramNodeManagementService.validateNodeName(
-      this.newNodeName,
+      nodeName,
       this.data
     );
     if (!validation.isValid) {
@@ -352,13 +376,26 @@ export class Diagram implements OnInit, OnDestroy {
     }
 
     const result = this.diagramNodeManagementService.addNode(
-      this.newNodeName.trim(),
-      this.nodeType
+      nodeName.trim(),
+      nodeTypeEnum
     );
 
     if (result.success) {
       this.data = result.data!;
-      this.newNodeName = '';
+
+      // Clear the appropriate input field
+      switch (nodeType) {
+        case 'entity':
+          this.entityName = '';
+          break;
+        case 'domain':
+          this.domainServiceName = '';
+          break;
+        case 'application':
+          this.applicationServiceName = '';
+          break;
+      }
+
       this.renderDiagram();
     } else {
       this.snackBar.open(result.message, 'Close', {

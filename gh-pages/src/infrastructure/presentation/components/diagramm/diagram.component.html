@@ -12,8 +12,9 @@
   <section class="controls">
     <div class="control-group">
       <div class="form-field project-name-field">
-        <label>Project Name</label>
+        <label for="projectNameInput">Project Name</label>
         <input
+          id="projectNameInput"
           type="text"
           placeholder="Enter Project name"
           class="text-input"
@@ -33,32 +34,68 @@
 
   <section class="controls">
     <div class="control-group">
-      <div class="form-field">
-        <span class="generate-node-label">Add Nodes to Diagram</span>
+      <span class="generate-node-label">Add Nodes to Diagram</span>
 
-        <label>Node Type</label>
-        <select [(ngModel)]="nodeType" class="select-input">
-          <option value="entity">Entity</option>
-          <option value="domain">Domain Service</option>
-          <option value="application">Application Service</option>
-        </select>
-      </div>
-      <div class="form-field">
-        <label>Node Name</label>
+      <!-- Entity Row -->
+      <div class="node-add-row">
+        <label for="entityNameInput" class="node-type-label">Entity</label>
         <input
+          id="entityNameInput"
           type="text"
-          [(ngModel)]="newNodeName"
-          placeholder="Enter node name"
-          class="text-input" />
+          [(ngModel)]="entityName"
+          placeholder="Enter entity name"
+          class="text-input node-name-input" />
+        <button
+          type="button"
+          class="btn btn-primary add-node-btn"
+          (click)="handleAddNode('entity')"
+          [disabled]="!entityName.trim()">
+          <span class="btn-text-full">Add Entity</span>
+          <span class="btn-text-short">Add</span>
+        </button>
       </div>
-      <button
-        type="submit"
-        id="addNodeButton"
-        class="btn btn-primary"
-        (click)="handleAddNode()"
-        [disabled]="!newNodeName!.trim()">
-        Add Node
-      </button>
+
+      <!-- Domain Service Row -->
+      <div class="node-add-row">
+        <label for="domainServiceNameInput" class="node-type-label"
+          >Domain Service</label
+        >
+        <input
+          id="domainServiceNameInput"
+          type="text"
+          [(ngModel)]="domainServiceName"
+          placeholder="Enter domain service name"
+          class="text-input node-name-input" />
+        <button
+          type="button"
+          class="btn btn-primary add-node-btn"
+          (click)="handleAddNode('domain')"
+          [disabled]="!domainServiceName.trim()">
+          <span class="btn-text-full">Add Domain Service</span>
+          <span class="btn-text-short">Add</span>
+        </button>
+      </div>
+
+      <!-- Application Service Row -->
+      <div class="node-add-row">
+        <label for="applicationServiceNameInput" class="node-type-label"
+          >Application Service</label
+        >
+        <input
+          id="applicationServiceNameInput"
+          type="text"
+          [(ngModel)]="applicationServiceName"
+          placeholder="Enter application service name"
+          class="text-input node-name-input" />
+        <button
+          type="button"
+          class="btn btn-primary add-node-btn"
+          (click)="handleAddNode('application')"
+          [disabled]="!applicationServiceName.trim()">
+          <span class="btn-text-full">Add Application Service</span>
+          <span class="btn-text-short">Add</span>
+        </button>
+      </div>
       <button
         *ngIf="selectedNode"
         class="btn btn-danger"
@@ -74,7 +111,7 @@
         <p>Instructions:</p>
         <ol>
           <li>Click nodes to select them</li>
-          <li>Then click another to create a connection</li>
+          <li>Then click another node to create a connection</li>
           <li>Connections must stay within one ring distance</li>
         </ol>
       </div>
@@ -87,7 +124,7 @@
         <p>Instructions:</p>
         <ol>
           <li>Click nodes to select them</li>
-          <li>Then click to create a connection</li>
+          <li>Then click another node to create a connection</li>
           <li>Connections must stay within one ring distance</li>
         </ol>
       </div>
