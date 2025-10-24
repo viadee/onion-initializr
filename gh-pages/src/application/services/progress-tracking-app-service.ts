@@ -51,7 +51,9 @@ export class ProgressTrackingAppService {
     const currentState = this.progressSubject.value;
     const stepIndex = currentState.steps.findIndex(step => step.id === stepId);
 
-    if (stepIndex === -1) return;
+    if (stepIndex === -1) {
+      return;
+    }
 
     const updatedSteps = [...currentState.steps];
     updatedSteps[stepIndex] = {
@@ -75,7 +77,9 @@ export class ProgressTrackingAppService {
     const currentState = this.progressSubject.value;
     const stepIndex = currentState.steps.findIndex(step => step.id === stepId);
 
-    if (stepIndex === -1) return;
+    if (stepIndex === -1) {
+      return;
+    }
 
     const updatedSteps = [...currentState.steps];
     updatedSteps[stepIndex] = {
@@ -128,7 +132,9 @@ export class ProgressTrackingAppService {
     const currentState = this.progressSubject.value;
     const stepIndex = currentState.steps.findIndex(step => step.id === stepId);
 
-    if (stepIndex === -1) return;
+    if (stepIndex === -1) {
+      return;
+    }
 
     // Auto-start step if it hasn't been started yet
     const step = currentState.steps[stepIndex];
@@ -281,7 +287,9 @@ export class ProgressTrackingAppService {
       step => step.completed && step.startTime && step.endTime
     );
 
-    if (completedSteps.length === 0) return undefined;
+    if (completedSteps.length === 0) {
+      return undefined;
+    }
 
     // Calculate average time per weight unit from completed steps
     const totalCompletedTime = completedSteps.reduce((sum, step) => {

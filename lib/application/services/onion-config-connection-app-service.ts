@@ -234,7 +234,9 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
 
   getPossibleTargets(sourceNode: string): string[] {
     const data = this.stateService.getData();
-    if (!data) return [];
+    if (!data) {
+      return [];
+    }
 
     const { entities, domainServices, applicationServices } = data;
     const sourceIsRepo =
@@ -301,8 +303,12 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
       this.repositoryService.isRepositoryName(target) &&
       this.repositoryService.isValidRepository(target, data.entities || []);
 
-    if (!sourceRing && !sourceIsRepo) return false;
-    if (!targetRing && !targetIsRepo) return false;
+    if (!sourceRing && !sourceIsRepo) {
+      return false;
+    }
+    if (!targetRing && !targetIsRepo) {
+      return false;
+    }
     if (
       sourceRing === OnionRing.DOMAIN_SERVICES &&
       targetRing !== OnionRing.ENTITIES
@@ -314,10 +320,15 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
       !targetIsRepo
     )
       return false;
-    if (sourceIsRepo && targetRing !== OnionRing.APPLICATION_SERVICES)
+    if (sourceIsRepo && targetRing !== OnionRing.APPLICATION_SERVICES) {
       return false;
-    if (sourceRing === OnionRing.ENTITIES) return false;
-    if (source === target) return false;
+    }
+    if (sourceRing === OnionRing.ENTITIES) {
+      return false;
+    }
+    if (source === target) {
+      return false;
+    }
 
     return true;
   }

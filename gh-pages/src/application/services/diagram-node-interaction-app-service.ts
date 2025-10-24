@@ -24,7 +24,9 @@ export class DiagramNodeInteractionAppService {
   }
 
   handleNodeSelection(clickedNode: string | null): string | null {
-    if (!clickedNode) return null;
+    if (!clickedNode) {
+      return null;
+    }
 
     // Toggle selection: if clicking the same node, deselect it
     this.selectedNode = this.selectedNode === clickedNode ? null : clickedNode;

@@ -85,12 +85,16 @@ export class DiagramConnectionAppService {
   }
 
   getCurrentConnections(selectedNode: string | null): string[] {
-    if (!selectedNode) return [];
+    if (!selectedNode) {
+      return [];
+    }
     return this.onionConfigService.getCurrentTargets(selectedNode);
   }
 
   canInitiateConnections(selectedNode: string | null): boolean {
-    if (!selectedNode) return false;
+    if (!selectedNode) {
+      return false;
+    }
     return this.onionConfigService.getPossibleTargets(selectedNode).length > 0;
   }
 

@@ -195,7 +195,9 @@ export class DiagramAppService {
     onNodeClick: (item: string) => void,
     selectedNode: string | null
   ): void {
-    if (group.items.length === 0) return;
+    if (group.items.length === 0) {
+      return;
+    }
 
     group.items.forEach((item, index) => {
       const position =
@@ -300,16 +302,22 @@ export class DiagramAppService {
     markerId: string,
     drawnConnections: Set<string>
   ): void {
-    if (!data.domainServiceConnections) return;
+    if (!data.domainServiceConnections) {
+      return;
+    }
 
     Object.entries(data.domainServiceConnections).forEach(
       ([service, entities]) => {
         const fromPos = this.itemPositions[service];
-        if (!fromPos) return;
+        if (!fromPos) {
+          return;
+        }
 
         entities.forEach((entity: string | number) => {
           const toPos = this.itemPositions[entity];
-          if (!toPos) return;
+          if (!toPos) {
+            return;
+          }
 
           const connectionKey = `${service}->${entity}`;
           if (!drawnConnections.has(connectionKey)) {

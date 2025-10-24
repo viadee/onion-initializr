@@ -240,7 +240,9 @@ export class Diagram implements OnInit, OnDestroy {
   }
 
   private renderDiagram(): void {
-    if (!this.containerRef?.nativeElement) return;
+    if (!this.containerRef?.nativeElement) {
+      return;
+    }
 
     this.diagramAppService.createDiagram(
       this.containerRef.nativeElement,
@@ -256,7 +258,9 @@ export class Diagram implements OnInit, OnDestroy {
   }
 
   private handleNodeClick(clickedNode: string | null): void {
-    if (!clickedNode) return;
+    if (!clickedNode) {
+      return;
+    }
 
     const nodeInfo = this.determineNodeInfo(clickedNode);
 
@@ -396,7 +400,9 @@ export class Diagram implements OnInit, OnDestroy {
   }
 
   removeConnection(target: string): void {
-    if (!this.selectedNode) return;
+    if (!this.selectedNode) {
+      return;
+    }
 
     const result = this.diagramConnectionService.removeConnection(
       this.selectedNode,
@@ -529,9 +535,13 @@ export class Diagram implements OnInit, OnDestroy {
   }
 
   get selectedNodeRing(): string {
-    if (!this.selectedNode) return '';
+    if (!this.selectedNode) {
+      return '';
+    }
 
-    if (this.data.entities?.includes(this.selectedNode)) return 'Entity';
+    if (this.data.entities?.includes(this.selectedNode)) {
+      return 'Entity';
+    }
     if (this.data.domainServices?.includes(this.selectedNode))
       return 'Domain Service';
     if (this.data.applicationServices?.includes(this.selectedNode))

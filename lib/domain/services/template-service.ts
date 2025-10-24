@@ -26,22 +26,30 @@ export class TemplateService<T> {
 
   private registerStringHelpers(): void {
     Handlebars.registerHelper('lowerFirst', (str: unknown) => {
-      if (typeof str !== 'string' || !str.length) return '';
+      if (typeof str !== 'string' || !str.length) {
+        return '';
+      }
       return str.charAt(0).toLowerCase() + str.slice(1);
     });
 
     Handlebars.registerHelper('removeFirst', (str: unknown) => {
-      if (typeof str !== 'string' || str.length < 2) return '';
+      if (typeof str !== 'string' || str.length < 2) {
+        return '';
+      }
       return str.slice(1);
     });
 
     Handlebars.registerHelper('camel', (str: unknown) => {
-      if (typeof str !== 'string' || !str.length) return '';
+      if (typeof str !== 'string' || !str.length) {
+        return '';
+      }
       return str.charAt(0).toLowerCase() + str.slice(1);
     });
 
     Handlebars.registerHelper('toUpperSnakeCase', (str: unknown) => {
-      if (typeof str !== 'string' || !str.length) return '';
+      if (typeof str !== 'string' || !str.length) {
+        return '';
+      }
       return str
         .replace(/([A-Z])/g, '_$1')
         .toUpperCase()
@@ -56,15 +64,20 @@ export class TemplateService<T> {
 
   private registerUtilityHelpers(): void {
     Handlebars.registerHelper('firstRepoVarName', (repos: unknown[]) => {
-      if (!Array.isArray(repos) || typeof repos[0] !== 'string') return '';
+      if (!Array.isArray(repos) || typeof repos[0] !== 'string') {
+        return '';
+      }
       const raw = repos[0]; // e.g., 'IUserRepository'
-      if (raw.length < 2) return raw.toLowerCase(); // edge case
+      if (raw.length < 2) {
+        return raw.toLowerCase(); // edge case
+      }
       return raw.charAt(1).toLowerCase() + raw.slice(2); // remove "I" and lower first real char
     });
 
     Handlebars.registerHelper('firstServiceVarName', (services: unknown[]) => {
-      if (!Array.isArray(services) || typeof services[0] !== 'string')
+      if (!Array.isArray(services) || typeof services[0] !== 'string') {
         return '';
+      }
       const raw = services[0];
       return raw.charAt(0).toLowerCase() + raw.slice(1); // UserService → userService
     });
