@@ -9,23 +9,21 @@ import {
 
 
 export class OnionConfigRepositoryService {
+  private extractEntityFromRepository(repoName: string): string | null {
+    const match = /^I([A-Z][a-zA-Z0-9]*)Repository$/.exec(repoName);
+    return match ? match[1] : null;
+  }
+
   isRepositoryName(name: string): boolean {
-    // I**Repository
-    const repoPattern = /^I([A-Z][a-zA-Z0-9]*)Repository$/;
-    return repoPattern.test(name);
+    return this.extractEntityFromRepository(name) !== null;
   }
 
   isValidRepository(repoName: string, entities: string[]): boolean {
-    if (!this.isRepositoryName(repoName)) {
+    const entityName = this.extractEntityFromRepository(repoName);
+    if (!entityName) {
       return false;
     }
-
-    const match = /^I([A-Z][a-zA-Z0-9]*)Repository$/.exec(repoName);
-    if (!match) {
-      return false;
-    }
-
-    const entityName = match[1];
+    
     return entities?.includes(entityName) || false;
   }
 
