@@ -325,7 +325,7 @@ export class ProjectInitAppService implements IProjectService {
   }
 
   private escapeRegExp(string: string): string {
-    return string.replaceAll(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
   private async updateMultipleImports(
@@ -346,7 +346,7 @@ export class ProjectInitAppService implements IProjectService {
         'g'
       );
 
-      content = content.replaceAll(importRegex, `$1${newPath}$2`);
+      content = content.replace(importRegex, `$1${newPath}$2`);
     }
 
     await this.fileService.createFile({
@@ -434,7 +434,7 @@ export class ProjectInitAppService implements IProjectService {
         let content = fileEntity.content;
         const importRegex = /import\s+{([^}]+)}\s+from\s+['"]([^'"]+)['"]/g;
 
-        content = content.replaceAll(
+        content = content.replace(
           importRegex,
           (match: string, imports: string, modulePath: string) => {
             if (modulePath.includes('Interfaces')) {

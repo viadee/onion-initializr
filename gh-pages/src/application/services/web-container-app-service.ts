@@ -44,8 +44,8 @@ export class WebContainerAppService {
   /**
    * Download the generated project as a ZIP file
    */
-  async downloadProject(): Promise<DownloadResult> {
-    return await this.downloadService.downloadProject();
+  async downloadProject(projectName?: string): Promise<DownloadResult> {
+    return await this.downloadService.downloadProject(projectName);
   }
 
   /**

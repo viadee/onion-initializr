@@ -156,11 +156,14 @@ export class DiagramProjectGenerationService {
     }
   }
 
-  async downloadProject(): Promise<ProjectGenerationResult> {
+  async downloadProject(
+    projectName?: string
+  ): Promise<ProjectGenerationResult> {
     this.progressTrackingAppService.startStep('create-download');
 
     try {
-      const downloadResult = await this.webContainerService.downloadProject();
+      const downloadResult =
+        await this.webContainerService.downloadProject(projectName);
 
       if (!downloadResult.success) {
         this.progressTrackingAppService.setError(

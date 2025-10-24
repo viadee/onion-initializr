@@ -238,7 +238,7 @@ export class OnionAppService {
         folderPath,
         'src',
         'domain',
-        'Interfaces',
+        'interfaces',
         `I${entityName}Repository.ts`
       ),
     }));

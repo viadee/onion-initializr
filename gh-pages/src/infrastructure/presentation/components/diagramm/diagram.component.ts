@@ -468,8 +468,11 @@ export class Diagram implements OnInit, OnDestroy {
         };
 
         // After successful generation, proceed with download
+        const projectName = this.projectName;
         const downloadResult =
-          await this.diagramProjectGenerationService.downloadProject();
+          await this.diagramProjectGenerationService.downloadProject(
+            projectName
+          );
 
         if (downloadResult.success) {
           this.snackBar.open(UI_MESSAGES.SUCCESS.PROJECT_GENERATED, 'Close', {

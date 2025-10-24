@@ -17,7 +17,7 @@ export class ProjectDownloadAppService {
     private readonly zipService: ZipAppService
   ) {}
 
-  async downloadProject(): Promise<DownloadResult> {
+  async downloadProject(projectName?: string): Promise<DownloadResult> {
     try {
       console.log('Preparing project download...');
 
@@ -29,7 +29,7 @@ export class ProjectDownloadAppService {
         };
       }
 
-      const zipFileName = this.generateZipFileName();
+      const zipFileName = this.generateZipFileName(projectName);
       await this.createAndDownloadZip(projectFiles, zipFileName);
 
       console.log(`Downloaded project with ${projectFiles.length} files`);
@@ -53,12 +53,16 @@ export class ProjectDownloadAppService {
     return await this.fileRepository.getAllProjectFiles('/onion-project');
   }
 
-  private generateZipFileName(): string {
-    const timestamp = new Date()
-      .toISOString()
-      .replace(/[:.]/g, '-')
-      .slice(0, 19);
-    return `onion-architecture-project-${timestamp}.zip`;
+  private generateZipFileName(projectName: string = 'onion-architecture-project'): string {
+		console.log("TCL: ProjectDownloadAppService -> projectName", projectName)
+    // Sanitize the project name for use in filename
+    const sanitizedName = projectName
+      .toLowerCase()
+      .replaceAll(/[^a-z0-9-]/g, '-')
+      .replaceAll(/-+/g, '-')
+      .replaceAll(/(^-)|(-$)/g, '');
+    
+    return `${sanitizedName || 'onion-architecture-project'}.zip`;
   }
 
   private async createAndDownloadZip(
