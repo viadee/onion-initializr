@@ -185,8 +185,8 @@ export class OnionAppService {
     const entitiesDir = this.pathService.join(
       folderPath,
       'src',
-      'Domain',
-      'Entities'
+      'domain',
+      'entities'
     );
 
     const fileEntities = this.entityService.generateEntitiesFiles(
@@ -233,8 +233,8 @@ export class OnionAppService {
       filePath: this.pathService.join(
         folderPath,
         'src',
-        'Domain',
-        'Interfaces',
+        'domain',
+        'interfaces',
         `I${entityName}Repository.ts`
       ),
     }));
@@ -261,8 +261,8 @@ export class OnionAppService {
     const servicesDir = this.pathService.join(
       folderPath,
       'src',
-      'Domain',
-      'Services'
+      'domain',
+      'services'
     );
 
     const domainServiceParams: DomainServiceConnectorParams = {
@@ -306,8 +306,8 @@ export class OnionAppService {
     const appDir = this.pathService.join(
       folderPath,
       'src',
-      'Application',
-      'Services'
+      'application',
+      'services'
     );
 
     const appServiceFiles =

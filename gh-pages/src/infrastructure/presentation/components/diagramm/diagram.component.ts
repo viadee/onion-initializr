@@ -362,7 +362,7 @@ export class Diagram implements OnInit, OnDestroy {
     if (this.contextMenuTargetNode) {
       // Ensure the target node is selected
       this.selectedNode = this.contextMenuTargetNode;
-      this.handleRemoveNode();
+      this.handleDustbinClick();
     }
   }
 

@@ -266,7 +266,7 @@ export class OnionAppService {
       folderPath,
       'src',
       'domain',
-      'Services'
+      'services'
     );
 
     const domainServiceParams: DomainServiceConnectorParams = {
