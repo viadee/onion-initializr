@@ -420,7 +420,7 @@ export class OnionAppService {
       folderPath,
       'src',
       'infrastructure',
-      'Presentation'
+      'presentation'
     );
 
     // Path builder function for templates and outputs

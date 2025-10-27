@@ -236,7 +236,7 @@ export class ProjectInitAppService implements IProjectService {
       folderPath,
       'src',
       'infrastructure',
-      'Presentation'
+      'presentation'
     );
 
     if (!(await this.fileService.fileExists(presentationPath))) {

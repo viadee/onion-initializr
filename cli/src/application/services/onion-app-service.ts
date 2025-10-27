@@ -221,7 +221,7 @@ export class OnionAppService {
       folderPath,
       'src',
       'infrastructure',
-      'Repositories'
+      'repositories'
     );
 
     const repoFiles = this.repoService.generateRepositoriesFiles(
