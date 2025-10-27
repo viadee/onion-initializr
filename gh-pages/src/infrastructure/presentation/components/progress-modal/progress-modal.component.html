@@ -32,7 +32,9 @@
               [class.spinning]="progressState.isRunning">
               {{ getStepIcon(progressState.currentStep) }}
             </mat-icon>
-            <span class="step-label">{{ progressState.currentStep.label }}</span>
+            <span class="step-label">{{
+              progressState.currentStep.label
+            }}</span>
           </div>
 
           <!-- Estimated Time Remaining -->
@@ -63,10 +65,18 @@
                 <mat-icon class="step-icon completed">check_circle</mat-icon>
               } @else if (step.error) {
                 <mat-icon class="step-icon error">error</mat-icon>
-              } @else if (!step.completed && !step.error && i === progressState.currentStepIndex) {
-                <mat-icon class="step-icon current spinning">radio_button_unchecked</mat-icon>
+              } @else if (
+                !step.completed &&
+                !step.error &&
+                i === progressState.currentStepIndex
+              ) {
+                <mat-icon class="step-icon current spinning"
+                  >radio_button_unchecked</mat-icon
+                >
               } @else {
-                <mat-icon class="step-icon pending">radio_button_unchecked</mat-icon>
+                <mat-icon class="step-icon pending"
+                  >radio_button_unchecked</mat-icon
+                >
               }
             </div>
 
@@ -94,7 +104,11 @@
       }
 
       <!-- Completion Message -->
-      @if (!progressState.isRunning && !progressState.error && progressState.overallProgress >= 100) {
+      @if (
+        !progressState.isRunning &&
+        !progressState.error &&
+        progressState.overallProgress >= 100
+      ) {
         <div class="completion-section">
           <mat-icon class="completion-icon">check_circle</mat-icon>
           <div class="completion-content">
