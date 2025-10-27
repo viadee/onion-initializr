@@ -91,6 +91,10 @@ header .json-controls {
   gap: 16px;
 }
 
+.project-controls {
+  flex-direction: row;
+  align-items: end;
+}
 .node-add-row {
   display: flex;
   align-items: center;
