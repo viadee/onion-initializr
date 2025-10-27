@@ -26,6 +26,10 @@ import {
   ProgressModalComponent,
   ProgressModalData,
 } from '../progress-modal/progress-modal.component';
+import {
+  ConfirmationModalComponent,
+  ConfirmationModalData,
+} from '../confirmation-modal/confirmation-modal.component';
 import { container } from '../../../configuration/awilix.config';
 import { OnionConfigService } from '../../../../../../lib/domain/services/onion-config-service';
 import { DiagramAppService } from '../../../../application/services/diagram-app-service';
@@ -458,7 +462,34 @@ export class Diagram implements OnInit, OnDestroy {
   }
 
   handleDustbinClick(): void {
-    this.handleRemoveNode();
+    if (!this.selectedNode) {
+      return;
+    }
+
+    // Capture the selected node before opening the dialog
+    const nodeToDelete = this.selectedNode;
+
+    // Show confirmation modal
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      width: '600px',
+      disableClose: false,
+      panelClass: 'light-theme-dialog',
+      data: {
+        title: 'Confirm Deletion',
+        message: `Are you sure you want to delete "${nodeToDelete}"?\n\n`,
+        confirmText: 'Delete',
+        cancelText: 'Cancel',
+        confirmColor: 'warn',
+      } as ConfirmationModalData,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        // Ensure the node is still selected and use the captured value
+        this.selectedNode = nodeToDelete;
+        this.handleRemoveNode();
+      }
+    });
   }
 
   removeConnection(target: string): void {
