@@ -96,12 +96,6 @@
           <span class="btn-text-short">Add</span>
         </button>
       </div>
-      <button
-        *ngIf="selectedNode"
-        class="btn btn-danger"
-        (click)="handleRemoveNode()">
-        Remove “{{ selectedNode }}”
-      </button>
     </div>
   </section>
 
@@ -181,6 +175,12 @@
           </ng-template>
           <div class="json-controls">
             <button
+              *ngIf="selectedNode"
+              class="btn btn-danger"
+              (click)="handleRemoveNode()">
+              Remove "{{ selectedNode }}"
+            </button>
+            <button
               class="btn btn-primary"
               id="jsonDownload"
               (click)="saveData()">
@@ -192,6 +192,7 @@
               (click)="openUploadModal()">
               Upload JSON
             </button>
+
             <div>
               <mat-slide-toggle
                 class="data-summary-toggle"

@@ -256,6 +256,9 @@ export class Diagram implements OnInit, OnDestroy {
       this.selectedNode,
       () => {
         this.handleBackgroundClick();
+      },
+      () => {
+        this.handleDustbinClick();
       }
     );
   }
@@ -434,6 +437,10 @@ export class Diagram implements OnInit, OnDestroy {
         duration: PROGRESS_CONSTANTS.DELAYS.ERROR_MESSAGE,
       });
     }
+  }
+
+  handleDustbinClick(): void {
+    this.handleRemoveNode();
   }
 
   removeConnection(target: string): void {

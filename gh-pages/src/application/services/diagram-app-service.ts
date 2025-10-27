@@ -86,7 +86,8 @@ export class DiagramAppService {
     data: OnionConfig,
     onNodeClick: (item: string) => void,
     selectedNode: string | null,
-    onBackgroundClick?: () => void
+    onBackgroundClick?: () => void,
+    onDustbinClick?: () => void
   ) {
     this.itemPositions = {};
     const svg = this.initializeSVG(container, onBackgroundClick);
@@ -94,8 +95,10 @@ export class DiagramAppService {
     this.drawRings(svg);
     this.buildItemPositions(data);
     this.drawConnections(svg, data);
-
     this.drawNodes(svg, data, onNodeClick, selectedNode);
+
+    // Add dustbin for node deletion
+    this.addDustbin(svg, selectedNode, onDustbinClick);
   }
 
   private initializeSVG(
@@ -408,5 +411,56 @@ export class DiagramAppService {
       .transition()
       .duration(config.animationDuration)
       .style('opacity', 1);
+  }
+
+  private addDustbin(
+    svg: d3.Selection<SVGGElement, unknown, null, undefined>,
+    selectedNode: string | null,
+    onDustbinClick?: () => void
+  ): void {
+    const config = this.diagramConfigurationAppService.diagramConfig;
+
+    // Remove existing dustbin
+    svg.select('.dustbin-group').remove();
+
+    // Create dustbin group
+    const dustbinGroup = svg
+      .append('g')
+      .attr('class', 'dustbin-group')
+      .style('cursor', 'pointer')
+      .style('opacity', selectedNode ? 1 : 0.3);
+
+    // Position dustbin in top-right corner of diagram
+    const dustbinX = config.width - 50;
+    const dustbinY = 30;
+
+    // Add dustbin background circle
+    dustbinGroup
+      .append('circle')
+      .attr('cx', dustbinX)
+      .attr('cy', dustbinY)
+      .attr('r', 30)
+      .attr('fill', selectedNode ? '#fee2e2' : 'rgba(255, 255, 255, 0.9)')
+      .attr('stroke-width', 2);
+
+    // Add dustbin icon using clean SVG path
+    dustbinGroup
+      .append('path')
+      .attr(
+        'transform',
+        `translate(${dustbinX - 18}, ${dustbinY + 18}) scale(0.036)`
+      )
+      .attr(
+        'd',
+        'M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z'
+      )
+      .attr('fill', selectedNode ? '#ef4444' : '#6b7280');
+
+    // Add click handler
+    if (onDustbinClick && selectedNode) {
+      dustbinGroup.on('click', () => {
+        onDustbinClick();
+      });
+    }
   }
 }
