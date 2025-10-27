@@ -1,4 +1,5 @@
-<div class="modal-overlay" *ngIf="isOpen" (click)="onOverlayClick($event)">
+@if (isOpen) {
+<div class="modal-overlay" (click)="onOverlayClick($event)">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h3>Upload JSON File</h3>
@@ -14,7 +15,8 @@
         (dragleave)="onDragLeave($event)"
         (drop)="onDrop($event)"
         (click)="fileInput.click()">
-        <div class="upload-content" *ngIf="!isUploading && !selectedFile">
+        @if(!isUploading && !selectedFile) {
+        <div class="upload-content">
           <svg
             width="48"
             height="48"
@@ -32,8 +34,8 @@
           <p class="upload-text">Drag & drop your JSON file here</p>
           <p class="upload-subtext">or click to browse</p>
         </div>
-
-        <div class="upload-content" *ngIf="selectedFile && !isUploading">
+        } @if(selectedFile && !isUploading) {
+        <div class="upload-content">
           <svg
             width="48"
             height="48"
@@ -51,8 +53,8 @@
           <p class="upload-text">{{ selectedFile!.name }}</p>
           <p class="upload-subtext">{{ formatFileSize(selectedFile!.size) }}</p>
         </div>
-
-        <div class="upload-progress" *ngIf="isUploading">
+        } @if(isUploading) {
+        <div class="upload-progress">
           <div class="progress-circle">
             <svg width="60" height="60" viewBox="0 0 60 60">
               <circle
@@ -81,6 +83,7 @@
           </div>
           <p class="upload-text">Uploading...</p>
         </div>
+        }
       </div>
 
       <input
@@ -90,12 +93,14 @@
         style="display: none"
         (change)="onFileSelected($event)" />
     </div>
-    <div *ngIf="validationErrors.length > 0" class="error-messages">
+    @if(validationErrors.length > 0) {
+    <div class="error-messages">
       <h4>Configuration Errors:</h4>
       <ul>
         <li *ngFor="let error of validationErrors">{{ error }}</li>
       </ul>
     </div>
+    }
     <div class="modal-footer">
       <button class="btn btn-secondary" (click)="closeModal()">Cancel</button>
       <button
@@ -107,3 +112,4 @@
     </div>
   </div>
 </div>
+}

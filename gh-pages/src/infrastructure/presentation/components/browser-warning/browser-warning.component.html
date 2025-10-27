@@ -1,45 +1,48 @@
 <!-- Persistent warning banner (always visible when on WebKit) -->
-<div *ngIf="isWebKit" class="browser-warning-banner">
-  <div class="banner-content">
-    <mat-icon class="warning-icon-banner">warning</mat-icon>
-    <span class="banner-text">
-      <strong>Browser Compatibility Warning:</strong> You are using
-      Safari/WebKit. Project generation will not work. Please switch to Chrome,
-      Firefox, or Edge.
-    </span>
+@if (isWebKit) {
+  <div class="browser-warning-banner">
+    <div class="banner-content">
+      <mat-icon class="warning-icon-banner">warning</mat-icon>
+      <span class="banner-text">
+        <strong>Browser Compatibility Warning:</strong> You are using
+        Safari/WebKit. Project generation will not work. Please switch to
+        Chrome, Firefox, or Edge.
+      </span>
+    </div>
   </div>
-</div>
+}
 
 <!-- Modal popup (dismissible) -->
-<div
-  *ngIf="isVisible"
-  class="browser-warning-backdrop"
-  (click)="dismiss()"
-  (keydown.escape)="dismiss()">
+@if (isVisible) {
   <div
-    class="browser-warning-modal"
-    (click)="$event.stopPropagation()"
-    (keydown)="$event.stopPropagation()">
-    <div class="warning-header">
-      <div class="warning-icon">⚠️</div>
-      <h2>Browser Compatibility Notice</h2>
-    </div>
+    class="browser-warning-backdrop"
+    (click)="dismiss()"
+    (keydown.escape)="dismiss()">
+    <div
+      class="browser-warning-modal"
+      (click)="$event.stopPropagation()"
+      (keydown)="$event.stopPropagation()">
+      <div class="warning-header">
+        <div class="warning-icon">⚠️</div>
+        <h2>Browser Compatibility Notice</h2>
+      </div>
 
-    <div class="warning-content">
-      <p class="warning-message">
-        You are using Safari or a WebKit-based browser. The Project generation
-        will not work on Safari due to compatibility issues. Please use a
-        different browser.
-      </p>
-      <div class="action-buttons">
-        <button
-          mat-raised-button
-          color="primary"
-          class="btn-dismiss"
-          (click)="dismiss()">
-          Got It
-        </button>
+      <div class="warning-content">
+        <p class="warning-message">
+          You are using Safari or a WebKit-based browser. The Project generation
+          will not work on Safari due to compatibility issues. Please use a
+          different browser.
+        </p>
+        <div class="action-buttons">
+          <button
+            mat-raised-button
+            color="primary"
+            class="btn-dismiss"
+            (click)="dismiss()">
+            Got It
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+}

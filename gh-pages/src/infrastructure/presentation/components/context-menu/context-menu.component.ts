@@ -17,6 +17,7 @@ export interface ContextMenuPosition {
 export interface ContextMenuItem {
   label: string;
   icon?: string;
+  svgPath?: string;
   action: () => void;
   disabled?: boolean;
 }

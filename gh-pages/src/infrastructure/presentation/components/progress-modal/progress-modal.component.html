@@ -24,110 +24,98 @@
       </div>
 
       <!-- Current Step Information -->
-      <div class="current-step" *ngIf="progressState.currentStep">
-        <div class="step-header">
-          <mat-icon
-            class="step-icon"
-            [class.spinning]="progressState.isRunning">
-            {{ getStepIcon(progressState.currentStep) }}
-          </mat-icon>
-          <span class="step-label">{{ progressState.currentStep.label }}</span>
-        </div>
+      @if (progressState.currentStep) {
+        <div class="current-step">
+          <div class="step-header">
+            <mat-icon
+              class="step-icon"
+              [class.spinning]="progressState.isRunning">
+              {{ getStepIcon(progressState.currentStep) }}
+            </mat-icon>
+            <span class="step-label">{{ progressState.currentStep.label }}</span>
+          </div>
 
-        <!-- Estimated Time Remaining -->
-        <div class="time-estimate" *ngIf="progressState.estimatedTimeRemaining">
-          <mat-icon class="time-icon">schedule</mat-icon>
-          <span
-            >{{
-              formatTime(progressState.estimatedTimeRemaining)
-            }}
-            remaining</span
-          >
+          <!-- Estimated Time Remaining -->
+          @if (progressState.estimatedTimeRemaining) {
+            <div class="time-estimate">
+              <mat-icon class="time-icon">schedule</mat-icon>
+              <span
+                >{{
+                  formatTime(progressState.estimatedTimeRemaining)
+                }}
+                remaining</span
+              >
+            </div>
+          }
         </div>
-      </div>
+      }
 
       <!-- Steps List -->
       <div class="steps-list">
-        <div
-          *ngFor="let step of progressState.steps; let i = index"
-          class="step-item"
-          [class.completed]="step.completed"
-          [class.current]="i === progressState.currentStepIndex"
-          [class.error]="step.error">
-          <div class="step-indicator">
-            <mat-icon
-              *ngIf="step.completed && !step.error"
-              class="step-icon completed"
-              >check_circle</mat-icon
-            >
-            <mat-icon *ngIf="step.error" class="step-icon error"
-              >error</mat-icon
-            >
-            <mat-icon
-              *ngIf="
-                !step.completed &&
-                !step.error &&
-                i === progressState.currentStepIndex
-              "
-              class="step-icon current spinning"
-              >radio_button_unchecked</mat-icon
-            >
-            <mat-icon
-              *ngIf="
-                !step.completed &&
-                !step.error &&
-                i !== progressState.currentStepIndex
-              "
-              class="step-icon pending"
-              >radio_button_unchecked</mat-icon
-            >
-          </div>
+        @for (step of progressState.steps; track step.label; let i = $index) {
+          <div
+            class="step-item"
+            [class.completed]="step.completed"
+            [class.current]="i === progressState.currentStepIndex"
+            [class.error]="step.error">
+            <div class="step-indicator">
+              @if (step.completed && !step.error) {
+                <mat-icon class="step-icon completed">check_circle</mat-icon>
+              } @else if (step.error) {
+                <mat-icon class="step-icon error">error</mat-icon>
+              } @else if (!step.completed && !step.error && i === progressState.currentStepIndex) {
+                <mat-icon class="step-icon current spinning">radio_button_unchecked</mat-icon>
+              } @else {
+                <mat-icon class="step-icon pending">radio_button_unchecked</mat-icon>
+              }
+            </div>
 
-          <div class="step-details">
-            <span class="step-name">{{ step.label }}</span>
-            <span *ngIf="step.error" class="step-error">{{ step.error }}</span>
-            <span
-              *ngIf="step.completed && step.startTime && step.endTime"
-              class="step-duration">
-              {{ formatDuration(step.endTime - step.startTime) }}
-            </span>
+            <div class="step-details">
+              <span class="step-name">{{ step.label }}</span>
+              @if (step.error) {
+                <span class="step-error">{{ step.error }}</span>
+              }
+              @if (step.completed && step.startTime && step.endTime) {
+                <span class="step-duration">
+                  {{ formatDuration(step.endTime - step.startTime) }}
+                </span>
+              }
+            </div>
           </div>
-        </div>
+        }
       </div>
 
       <!-- Error Message -->
-      <div *ngIf="progressState.error" class="error-section">
-        <mat-icon class="error-icon">error_outline</mat-icon>
-        <span class="error-message">{{ progressState.error }}</span>
-      </div>
+      @if (progressState.error) {
+        <div class="error-section">
+          <mat-icon class="error-icon">error_outline</mat-icon>
+          <span class="error-message">{{ progressState.error }}</span>
+        </div>
+      }
 
       <!-- Completion Message -->
-      <div
-        *ngIf="
-          !progressState.isRunning &&
-          !progressState.error &&
-          progressState.overallProgress >= 100
-        "
-        class="completion-section">
-        <mat-icon class="completion-icon">check_circle</mat-icon>
-        <div class="completion-content">
-          <span class="completion-message">
-            Project generation completed successfully!
-          </span>
-          <span class="completion-hint">
-            Click outside this dialog to close
-          </span>
+      @if (!progressState.isRunning && !progressState.error && progressState.overallProgress >= 100) {
+        <div class="completion-section">
+          <mat-icon class="completion-icon">check_circle</mat-icon>
+          <div class="completion-content">
+            <span class="completion-message">
+              Project generation completed successfully!
+            </span>
+            <span class="completion-hint">
+              Click outside this dialog to close
+            </span>
+          </div>
         </div>
-      </div>
+      }
     </div>
   </mat-dialog-content>
 
-  <mat-dialog-actions
-    *ngIf="data.allowCancel && progressState.isRunning"
-    class="modal-actions">
-    <button mat-button (click)="cancel()" class="cancel-button">
-      <mat-icon>close</mat-icon>
-      Cancel
-    </button>
-  </mat-dialog-actions>
+  @if (data.allowCancel && progressState.isRunning) {
+    <mat-dialog-actions class="modal-actions">
+      <button mat-button (click)="cancel()" class="cancel-button">
+        <mat-icon>close</mat-icon>
+        Cancel
+      </button>
+    </mat-dialog-actions>
+  }
 </div>

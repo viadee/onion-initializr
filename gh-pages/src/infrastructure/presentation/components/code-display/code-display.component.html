@@ -13,11 +13,12 @@
       (click)="copyToClipboard()"
       [class.copied]="isCopied"
       title="Copy to clipboard">
-      <mat-icon
-        *ngIf="!isCopied"
-        class="copy-icon"
-        fontIcon="content_copy"></mat-icon>
-      <mat-icon *ngIf="isCopied" class="check-icon" fontIcon="check"></mat-icon>
+      @if (!isCopied) {
+        <mat-icon class="copy-icon" fontIcon="content_copy"></mat-icon>
+      } @else {
+        <mat-icon class="check-icon" fontIcon="check"></mat-icon>
+      }
+
       <span class="copy-text">{{ isCopied ? 'Copied!' : 'Copy' }}</span>
     </button>
   </div>

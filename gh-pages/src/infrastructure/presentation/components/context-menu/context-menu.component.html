@@ -1,14 +1,28 @@
-<div class="context-menu" [ngStyle]="menuStyle" *ngIf="visible">
-  <div
-    class="context-menu-item"
-    *ngFor="let item of items"
-    [class.disabled]="item.disabled"
-    (click)="onItemClick(item)"
-    (keydown.enter)="onItemClick(item)"
-    tabindex="0">
-    <mat-icon *ngIf="item.icon" class="context-menu-icon">{{
-      item.icon
-    }}</mat-icon>
-    <span class="context-menu-label">{{ item.label }}</span>
+@if (visible) {
+  <div class="context-menu" [ngStyle]="menuStyle">
+    @for (item of items; track item.label) {
+      <div
+        class="context-menu-item"
+        [class.disabled]="item.disabled"
+        (click)="onItemClick(item)"
+        (keydown.enter)="onItemClick(item)"
+        tabindex="0">
+        <!-- Material Icon -->
+        @if (item.icon && !item.svgPath) {
+          <mat-icon class="context-menu-icon">{{ item.icon }}</mat-icon>
+        }
+        <!-- Custom SVG Icon -->
+        @if (item.svgPath) {
+          <svg
+            class="context-menu-icon"
+            viewBox="0 -960 960 960"
+            fill="currentColor">
+            <path [attr.d]="item.svgPath"></path>
+          </svg>
+        }
+
+        <span class="context-menu-label">{{ item.label }}</span>
+      </div>
+    }
   </div>
-</div>
+}

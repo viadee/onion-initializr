@@ -68,13 +68,16 @@
         <div class="feature-icon">{{ feature.icon }}</div>
         <h3>{{ feature.title }}</h3>
 
-        <p *ngIf="feature.title === 'Onion Architecture'">
-          Follows onion architecture principles with proper dependency
-          injection. Learn more about Jeffrey Palermo's onion architecture.
-        </p>
-        <p *ngIf="feature.title !== 'Onion Architecture'">
-          {{ feature.description }}
-        </p>
+        @if (feature.title === 'Onion Architecture') {
+          <p>
+            Follows onion architecture principles with proper dependency
+            injection. Learn more about Jeffrey Palermo's onion architecture.
+          </p>
+        } @else {
+          <p>
+            {{ feature.description }}
+          </p>
+        }
       </button>
     </div>
   </div>

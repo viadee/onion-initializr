@@ -1,14 +1,15 @@
 <div class="container">
-  <p
-    *ngIf="statusMessage"
-    class="status"
-    [ngClass]="{
-      success: statusType === 'success',
-      error: statusType === 'error',
-      info: statusType === 'info',
-    }">
-    {{ statusMessage }}
-  </p>
+  @if (statusMessage) {
+    <p
+      class="status"
+      [ngClass]="{
+        success: statusType === 'success',
+        error: statusType === 'error',
+        info: statusType === 'info',
+      }">
+      {{ statusMessage }}
+    </p>
+  }
   <section class="controls">
     <div class="control-group project-controls">
       <div class="form-field project-name-field">
@@ -124,14 +125,16 @@
       </div>
       <div class="diagramAndCodeWrapper">
         <div>
-          <ng-container *ngIf="showDataSummary; else codeBlock">
+          @if (showDataSummary) {
             <section class="data-summary">
               <h3>Current Elements:</h3>
               <div class="summary-grid">
                 <div class="summary-column">
                   <strong>Entities ({{ data!.entities!.length || 0 }}):</strong>
                   <ul>
-                    <li *ngFor="let e of data?.entities || []">{{ e }}</li>
+                    @for (e of data?.entities || []; track e) {
+                      <li>{{ e }}</li>
+                    }
                   </ul>
                 </div>
                 <div class="summary-column">
@@ -141,9 +144,9 @@
                     }}):</strong
                   >
                   <ul>
-                    <li *ngFor="let s of data?.domainServices || []">
-                      {{ s }}
-                    </li>
+                    @for (s of data?.domainServices || []; track s) {
+                      <li>{{ s }}</li>
+                    }
                   </ul>
                 </div>
                 <div class="summary-column">
@@ -153,33 +156,35 @@
                     }}):</strong
                   >
                   <ul>
-                    <li *ngFor="let s of data?.applicationServices || []">
-                      {{ s }}
-                    </li>
+                    @for (s of data?.applicationServices || []; track s) {
+                      <li>{{ s }}</li>
+                    }
                   </ul>
                 </div>
                 <div class="summary-column">
                   <strong>Repositories ({{ repositories.length }}):</strong>
                   <ul>
-                    <li *ngFor="let r of repositories">{{ r }}</li>
+                    @for (r of repositories; track r) {
+                      <li>{{ r }}</li>
+                    }
                   </ul>
                 </div>
               </div>
             </section>
-          </ng-container>
-          <ng-template #codeBlock>
+          } @else {
             <app-code-display
               class="code-display"
               [filename]="filename"
               [content]="generatedCode"></app-code-display>
-          </ng-template>
+          }
           <div class="json-controls">
-            <button
-              *ngIf="selectedNode"
-              class="btn btn-danger"
-              (click)="handleRemoveNode()">
-              Remove "{{ selectedNode }}"
-            </button>
+            @if (selectedNode) {
+              <button
+                class="btn btn-danger"
+                (click)="handleRemoveNode()">
+                Remove "{{ selectedNode }}"
+              </button>
+            }
             <button
               class="btn btn-primary"
               id="jsonDownload"
@@ -205,29 +210,34 @@
       </div>
     </header>
   </div>
-  <section *ngIf="hasSelectedNode" class="selected-panel">
-    <h3>
-      {{ selectedNode }}
-      <small>{{ selectedNodeRing }}</small>
-    </h3>
+  @if (hasSelectedNode) {
+    <section class="selected-panel">
+      <h3>
+        {{ selectedNode }}
+        <small>{{ selectedNodeRing }}</small>
+      </h3>
 
-    <div *ngIf="currentConnections.length; else noConn">
-      <strong>Connections:</strong>
-      <ul>
-        <li *ngFor="let tgt of currentConnections">
-          <span class="connection-target">{{ tgt }}</span>
-          <button
-            class="btn btn-remove-connection"
-            (click)="removeConnection(tgt)">
-            ✕
-          </button>
-        </li>
-      </ul>
-    </div>
-    <ng-template #noConn>
-      <em>No connections yet.</em>
-    </ng-template>
-  </section>
+      @if (currentConnections.length) {
+        <div>
+          <strong>Connections:</strong>
+          <ul>
+            @for (tgt of currentConnections; track tgt) {
+              <li>
+                <span class="connection-target">{{ tgt }}</span>
+                <button
+                  class="btn btn-remove-connection"
+                  (click)="removeConnection(tgt)">
+                  ✕
+                </button>
+              </li>
+            }
+          </ul>
+        </div>
+      } @else {
+        <em>No connections yet.</em>
+      }
+    </section>
+  }
 </div>
 
 <app-json-upload-modal
