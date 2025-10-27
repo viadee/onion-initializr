@@ -464,7 +464,7 @@ export class DiagramAppService {
       .append('path')
       .attr(
         'transform',
-        `translate(${dustbinX - 18}, ${dustbinY + 18}) scale(0.036)`
+        `translate(${dustbinX - 17}, ${dustbinY + 18}) scale(0.036)`
       )
       .attr(
         'd',
