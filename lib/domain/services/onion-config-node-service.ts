@@ -38,9 +38,14 @@ export class OnionConfigNodeService {
 
   removeNode(name: string): OnionConfig {
     return this.stateService.updateData((current) => {
-      const newData: OnionConfig = { ...current };
+      let newData: OnionConfig = { ...current };
 
+      // remove associated repository before entity is removed
+      if(newData.entities.includes(name)) {
+        newData = this.removeNode(`I${name}Repository`);
+      }
       newData.entities = (newData.entities || []).filter((e: string) => e !== name);
+      
 
       if (newData.domainServices) {
         newData.domainServices = newData.domainServices.filter(
@@ -66,10 +71,10 @@ export class OnionConfigNodeService {
           )) {
             const deps = newData.applicationServiceDependencies[key];
             deps.domainServices = deps.domainServices.filter((s: string) => s !== name);
+            deps.repositories = deps.repositories.filter((r: string) => r !== name);
           }
         }
       }
-
       return newData;
     });
   }

@@ -42,6 +42,7 @@ import { NodeType } from '../../../../../../lib/domain/entities/node-type';
 import { UIFrameworks } from '../../../../../../lib/domain/entities/ui-framework';
 import { UiLibrary } from '../../../../../../lib/domain/entities/ui-library';
 import { OnionConfig } from '../../../../../../lib/domain/entities/onion-config';
+import { OnionConfigRepositoryService } from '../../../../../../lib/domain/services/onion-config-repository-service';
 
 type StatusType = 'success' | 'error' | 'info';
 
@@ -67,6 +68,8 @@ const UI_MESSAGES = {
     CROSS_ORIGIN_ERROR:
       'WebContainer requires cross-origin isolation. Please restart the Angular dev server.',
     UNEXPECTED_ERROR: 'Unexpected error occurred',
+    CAN_NOT_REMOVE_REPOSITORY:
+      'Repositories are associated with entities. Delete the entity to also delete the repository.',
   } as const,
   SUCCESS: {
     NODE_REMOVED: 'Removed "{0}" successfully',
@@ -144,6 +147,7 @@ export class Diagram implements OnInit, OnDestroy {
   private readonly diagramNodeManagementService: DiagramNodeManagementService;
   private readonly diagramConnectionService: DiagramConnectionAppService;
   private readonly diagramProjectGenerationService: DiagramProjectGenerationService;
+  private readonly onionConfigRepositoryService: OnionConfigRepositoryService;
   showUploadModal = false;
 
   // WebContainer properties
@@ -169,6 +173,10 @@ export class Diagram implements OnInit, OnDestroy {
     private readonly dialog: MatDialog,
     private readonly cdr: ChangeDetectorRef
   ) {
+    this.onionConfigRepositoryService =
+      container.resolve<OnionConfigRepositoryService>(
+        'onionConfigRepositoryService'
+      );
     this.diagramAppService =
       container.resolve<DiagramAppService>('diagramAppService');
     this.onionConfigService =
@@ -415,6 +423,16 @@ export class Diagram implements OnInit, OnDestroy {
       return;
     }
 
+    if (this.onionConfigRepositoryService.isRepositoryName(this.selectedNode)) {
+      this.snackBar.open(
+        UI_MESSAGES.ERRORS.CAN_NOT_REMOVE_REPOSITORY,
+        'Close',
+        {
+          duration: PROGRESS_CONSTANTS.DELAYS.ERROR_MESSAGE,
+        }
+      );
+      return;
+    }
     const result = this.diagramNodeManagementService.removeNode(
       this.selectedNode
     );
