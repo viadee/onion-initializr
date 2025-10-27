@@ -202,7 +202,13 @@ export class AngularConfigAppService {
 
     for (const repository of repositories) {
       const repositoryClass = repository.replace('I', ''); // Remove 'I' prefix
-      const entityName = repositoryClass.replace('Repository', '');
+      const lastRepositoryIndex = repositoryClass.lastIndexOf('Repository');
+
+      // entityName is the part after the I and before THE LAST 'Repository'.
+      // The following logic handles edge cases like 'IRepositoryMetadataRepository'. 
+      const entityName = lastRepositoryIndex >= 0 
+        ? repositoryClass.substring(0, lastRepositoryIndex) + repositoryClass.substring(lastRepositoryIndex + 'Repository'.length)
+        : repositoryClass;
       
       const generator = new TemplateService<{ 
         repositoryInterface: string; 
