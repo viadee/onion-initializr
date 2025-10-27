@@ -2,16 +2,13 @@
   <div class="modal-header">
     <h2 mat-dialog-title>{{ data.title }}</h2>
   </div>
-  
+
   <div class="modal-content" mat-dialog-content>
     <p>{{ data.message }}</p>
   </div>
-  
+
   <div class="modal-actions" mat-dialog-actions>
-    <button
-      mat-button
-      (click)="onCancel()"
-      class="cancel-button">
+    <button mat-button (click)="onCancel()" class="cancel-button">
       {{ data.cancelText }}
     </button>
     <button

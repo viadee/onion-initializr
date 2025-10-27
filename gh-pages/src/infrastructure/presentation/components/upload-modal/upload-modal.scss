@@ -1,3 +1,5 @@
+@import '../_shared/variables';
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -12,7 +14,7 @@
 }
 
 .modal-content {
-  background: white;
+  background: $background-primary;
   border-radius: 8px;
   width: 90%;
   max-width: 500px;
@@ -26,12 +28,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 24px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid $border-color;
 }
 
 .modal-header h3 {
   margin: 0;
-  color: #333;
+  color: $text-primary;
   font-size: 18px;
   font-weight: 600;
 }
@@ -40,7 +42,7 @@
   background: none;
   border: none;
   font-size: 24px;
-  color: #666;
+  color: $text-secondary;
   cursor: pointer;
   padding: 0;
   width: 30px;
@@ -53,7 +55,7 @@
 }
 
 .close-btn:hover {
-  background-color: #f0f0f0;
+  background-color: $background-secondary;
 }
 
 .modal-body {
@@ -106,14 +108,14 @@
 .upload-text {
   margin: 0;
   font-size: 16px;
-  color: #333;
+  color: $text-primary;
   font-weight: 500;
 }
 
 .upload-subtext {
   margin: 0;
   font-size: 14px;
-  color: #666;
+  color: $text-secondary;
 }
 
 .upload-progress {
@@ -142,8 +144,8 @@
   justify-content: flex-end;
   gap: 12px;
   padding: 20px 24px;
-  border-top: 1px solid #e0e0e0;
-  background-color: #f8f9fa;
+  border-top: 1px solid $border-color;
+  background-color: $background-secondary;
 }
 
 .btn {
@@ -158,7 +160,7 @@
 }
 .error-messages {
   padding: 0 24px 0 24px;
-  color: red;
+  color: $error-color;
   margin-top: 1rem;
   ul {
     padding-left: 1.25rem;
@@ -171,19 +173,19 @@
 }
 
 .btn-secondary {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: $background-secondary;
+  color: $text-primary;
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: #e0e0e0;
+  background-color: darken($background-secondary, 10%);
 }
 
 .btn-primary {
-  background-color: #4a90e2;
+  background-color: $primary-color;
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: #357abd;
+  background-color: darken($primary-color, 10%);
 }

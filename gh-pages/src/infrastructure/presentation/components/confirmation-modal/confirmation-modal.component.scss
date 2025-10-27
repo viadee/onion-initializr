@@ -1,10 +1,33 @@
-$error-color: #f44336;
-$background-primary: #ffffff;
+@import '../_shared/variables';
 
-$text-primary: #212121;
-$text-secondary: #757575;
+::ng-deep .light-theme-dialog .mat-mdc-dialog-container {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
 
-$border-color: #e0e0e0;
+// Global dialog overrides to ensure light theme
+:host ::ng-deep .mat-mdc-dialog-container {
+  background-color: $background-primary !important;
+  color: $text-primary !important;
+  overflow: hidden !important;
+}
+
+:host ::ng-deep .mat-mdc-dialog-content {
+  background-color: $background-primary !important;
+  color: $text-primary !important;
+}
+
+:host ::ng-deep .mdc-dialog__surface {
+  background-color: $background-primary !important;
+}
+
+:host ::ng-deep .mat-mdc-dialog-title {
+  color: $text-primary !important;
+}
+
+:host ::ng-deep .mat-mdc-dialog-actions {
+  background-color: $background-primary !important;
+}
 
 .confirmation-modal {
   min-width: 500px;

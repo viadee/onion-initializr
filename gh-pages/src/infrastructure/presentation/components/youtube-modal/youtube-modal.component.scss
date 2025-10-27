@@ -1,3 +1,5 @@
+@import '../_shared/variables';
+
 .youtube-modal-overlay {
   position: fixed;
   top: 0;
@@ -39,21 +41,21 @@
   justify-content: space-between;
   align-items: center;
   padding: 24px 32px 16px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid $border-color;
 
   h2 {
     margin: 0;
-    color: #1976d2;
+    color: $primary-color;
     font-size: 24px;
     font-weight: 600;
   }
 
   .close-button {
-    color: #666;
+    color: $text-secondary;
 
     &:hover {
-      color: #333;
-      background-color: #f5f5f5;
+      color: $text-primary;
+      background-color: $background-secondary;
     }
   }
 }
@@ -75,7 +77,7 @@
 
 .modal-description {
   padding: 0 32px 24px;
-  color: #555;
+  color: $text-secondary;
 
   p {
     font-size: 16px;
@@ -97,7 +99,7 @@
 
       &::before {
         content: '✓';
-        color: #4caf50;
+        color: $success-color;
         font-weight: bold;
         margin-right: 8px;
       }
@@ -110,24 +112,24 @@
   gap: 16px;
   justify-content: flex-end;
   padding: 16px 32px 32px;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid $border-color;
 
   .skip-button {
-    color: #666;
+    color: $text-secondary;
 
     &:hover {
-      background-color: #f5f5f5;
+      background-color: $background-secondary;
     }
   }
 
   .got-it-button {
-    background-color: #1976d2;
+    background-color: $primary-color;
     color: white;
     font-weight: 500;
     min-width: 140px;
 
     &:hover {
-      background-color: #1565c0;
+      background-color: darken($primary-color, 10%);
     }
   }
 }

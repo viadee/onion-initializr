@@ -57,9 +57,9 @@ export class ProjectDownloadAppService {
     // Sanitize the project name for use in filename
     const sanitizedName = projectName
       .toLowerCase()
-      .replaceAll(/[^a-z0-9-]/g, '-')
-      .replaceAll(/-+/g, '-')
-      .replaceAll(/(^-)|(-$)/g, '');
+      .replace(/[^a-z0-9-]/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/(^-)|(-$)/g, '');
     
     return `${sanitizedName || 'onion-architecture-project'}.zip`;
   }

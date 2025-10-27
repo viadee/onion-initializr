@@ -1,6 +1,8 @@
+@import '../_shared/variables';
+
 .container {
   margin: 0 auto;
-  background: white;
+  background: $background-primary;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -16,7 +18,7 @@
 .header h1 {
   font-size: 2rem;
   font-weight: bold;
-  color: #1f2937;
+  color: $text-primary;
 }
 .wrapper {
   display: flex;
@@ -25,9 +27,9 @@
   width: 100%;
 }
 .instruction-list {
-  color: #1f2937;
+  color: $text-primary;
   line-height: 1.5;
-  background-color: #f9fafb;
+  background-color: $background-secondary;
   padding: 16px;
   border-radius: 8px;
   margin-top: 0;
@@ -40,7 +42,7 @@
 .instruction-list p {
   font-weight: 600;
   margin: 0 0 8px 0;
-  color: #374151;
+  color: $text-secondary;
 }
 
 .instruction-list ul {
@@ -51,7 +53,7 @@
 
 .instruction-list li {
   margin-bottom: 4px;
-  color: #1f2937;
+  color: $text-primary;
 }
 
 #no-show {
@@ -64,7 +66,7 @@
 }
 
 header .json-controls {
-  background-color: #f9fafb;
+  background-color: $background-secondary;
   display: flex;
   flex-direction: row;
   gap: 16px;
@@ -81,7 +83,7 @@ header .json-controls {
 .controls {
   margin-bottom: 24px;
   padding: 16px;
-  background: #f9fafb;
+  background: $background-secondary;
   border-radius: 8px;
 }
 
@@ -109,7 +111,7 @@ header .json-controls {
   min-width: 140px;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #374151;
+  color: $text-secondary;
   text-align: left;
 }
 
@@ -179,14 +181,14 @@ header .json-controls {
 .form-field label {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #374151;
+  color: $text-secondary;
   margin-bottom: 8px;
 }
 
 .select-input,
 .text-input {
   padding: 8px 12px;
-  border: 1px solid #d1d5db;
+  border: 1px solid $border-color;
   border-radius: 6px;
   font-size: 14px;
 }
@@ -194,8 +196,8 @@ header .json-controls {
 .select-input:focus,
 .text-input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: $primary-color;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
 .btn {
@@ -209,33 +211,33 @@ header .json-controls {
 }
 
 .data-summary-toggle {
-  --mat-slide-toggle-label-text-color: #000000;
+  --mat-slide-toggle-label-text-color: $text-primary;
 }
 .btn:disabled {
-  background: #d1d5db;
+  background: $border-color;
   cursor: not-allowed;
 }
 
 .btn-primary {
-  background: #3b82f6;
+  background: $primary-color;
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #2563eb;
+  background: darken($primary-color, 10%);
 }
 
 .btn-danger {
-  background: #ef4444;
+  background: $error-primary;
   color: white;
 }
 
 .btn-danger:hover {
-  background: #dc2626;
+  background: $error-hover;
 }
 
 .btn-remove-connection {
-  background: #f87171;
+  background: $error-light;
   color: white;
   border: none;
   border-radius: 4px;
@@ -253,7 +255,7 @@ header .json-controls {
 }
 
 .btn-remove-connection:hover {
-  background: #ef4444;
+  background: $error-primary;
   transform: scale(1.05);
 }
 
@@ -263,7 +265,7 @@ header .json-controls {
 
 .connection-target {
   font-weight: 500;
-  color: #374151;
+  color: $diagram-text-secondary;
 }
 
 .selected-panel {
@@ -271,18 +273,18 @@ header .json-controls {
   max-width: 792px;
   margin-bottom: 24px;
   padding: 16px;
-  background: #f9fafb;
+  background: $diagram-background;
   border-radius: 8px;
 }
 
 .selected-panel h3 {
   margin: 0 0 12px 0;
-  color: #1f2937;
+  color: $diagram-text-primary;
   font-weight: 600;
 }
 
 .selected-panel small {
-  color: #6b7280;
+  color: $diagram-text-muted;
   font-weight: normal;
 }
 
@@ -297,7 +299,7 @@ header .json-controls {
   align-items: center;
   justify-content: space-between;
   padding: 8px 0;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid $diagram-border;
 }
 
 .selected-panel li:last-child {
@@ -307,20 +309,20 @@ header .json-controls {
 .status-message {
   margin-bottom: 16px;
   padding: 12px;
-  background: #fef3c7;
-  border: 1px solid #f59e0b;
+  background: $warning-background;
+  border: 1px solid $warning-border;
   border-radius: 6px;
 }
 
 .status-message p {
-  color: #92400e;
+  color: $warning-text;
   margin: 0;
 }
 
 .legend {
   margin-bottom: 24px;
   padding: 16px;
-  background: #f9fafb;
+  background: $diagram-background;
   border-radius: 8px;
 }
 
@@ -348,23 +350,23 @@ header .json-controls {
 }
 
 .legend-color.entities {
-  background: #81d34b;
+  background: $layer-application;
 }
 .legend-color.domain-services {
-  background: #b071d9;
+  background: $layer-domain;
 }
 .legend-color.app-services {
-  background: #61c6d6;
+  background: $layer-infrastructure;
 }
 .legend-color.selected {
-  background: #ffa500;
+  background: $layer-presentation;
 }
 
 .diagramAndCodeWrapper {
   width: 100%;
 }
 .diagram-wrapper {
-  border: 1px solid #d1d5db;
+  border: 1px solid $diagram-border-gray;
   border-radius: 8px;
   background: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -378,7 +380,7 @@ header .json-controls {
 
 .data-summary {
   padding: 16px;
-  background: #f9fafb;
+  background: $diagram-background;
   border-radius: 8px;
 }
 
