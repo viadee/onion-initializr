@@ -1,12 +1,12 @@
 {{#each domainServices}}
   {{#if this}}
-import { {{this}} } from "../../Domain/Services/{{this}}";
+import { {{this}} } from "../../domain/services/{{this}}";
   {{/if}}
 {{/each}}
 
 {{#each repositories}}
   {{#if this}}
-import { {{this}} } from "../../Domain/Interfaces/{{this}}";
+import { {{this}} } from "../../domain/interfaces/{{this}}";
   {{/if}}
 {{/each}}
 

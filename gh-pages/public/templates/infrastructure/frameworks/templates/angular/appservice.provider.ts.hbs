@@ -1,13 +1,13 @@
-import { {{name}} } from '../../Application/Services/{{name}}';
+import { {{name}} } from '../../application/services/{{name}}';
 {{#each domainServices}}
 {{#if this}}
-import { {{this}} } from '../../Domain/Services/{{this}}';
+import { {{this}} } from '../../domain/services/{{this}}';
 {{/if}}
 {{/each}}
 {{#each repositories}}
 {{#if this}}
-import { {{this}} } from '../../Domain/Interfaces/{{this}}';
-import { {{removeFirst this}} } from '../Repositories/{{removeFirst this}}';
+import { {{this}} } from '../../domain/interfaces/{{this}}';
+import { {{removeFirst this}} } from '../repositories/{{removeFirst this}}';
 {{/if}}
 {{/each}}
 

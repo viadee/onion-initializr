@@ -16,7 +16,7 @@ export class AwilixConfigService {
       return {
         className,
         varName: this.lowerFirst(className),
-        importPath: `../../infrastructure/Repositories/${className}`,
+        importPath: `../../infrastructure/repositories/${className}`,
       };
     });
 
@@ -31,7 +31,7 @@ export class AwilixConfigService {
     const domainServiceRegistrations = params.domainServices.map((service) => ({
       className: service,
       varName: this.lowerFirst(service),
-      importPath: `../../domain/Services/${service}`,
+      importPath: `../../domain/services/${service}`,
     }));
 
     const appServiceRegistrations = params.applicationServices.map(
