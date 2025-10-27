@@ -235,3 +235,10 @@
   (fileUploaded)="onFileUploaded($event)"
   (modalClosed)="onModalClosed()">
 </app-json-upload-modal>
+
+<context-menu
+  [visible]="contextMenuVisible"
+  [position]="contextMenuPosition"
+  [items]="contextMenuItems"
+  (closeMenu)="closeContextMenu()">
+</context-menu>

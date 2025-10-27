@@ -87,7 +87,8 @@ export class DiagramAppService {
     onNodeClick: (item: string) => void,
     selectedNode: string | null,
     onBackgroundClick?: () => void,
-    onDustbinClick?: () => void
+    onDustbinClick?: () => void,
+    onNodeRightClick?: (item: string, event: MouseEvent) => void
   ) {
     this.itemPositions = {};
     const svg = this.initializeSVG(container, onBackgroundClick);
@@ -95,7 +96,7 @@ export class DiagramAppService {
     this.drawRings(svg);
     this.buildItemPositions(data);
     this.drawConnections(svg, data);
-    this.drawNodes(svg, data, onNodeClick, selectedNode);
+    this.drawNodes(svg, data, onNodeClick, selectedNode, onNodeRightClick);
 
     // Add dustbin for node deletion
     this.addDustbin(svg, selectedNode, onDustbinClick);
@@ -183,26 +184,34 @@ export class DiagramAppService {
     svg: d3.Selection<SVGGElement, unknown, null, undefined>,
     data: OnionConfig,
     onNodeClick: (item: string) => void,
-    selectedNode: string | null
+    selectedNode: string | null,
+    onNodeRightClick?: (item: string, event: MouseEvent) => void
   ): void {
     const nodeGroups = this.getNodeGroups(data);
 
-    nodeGroups.forEach(group => {
-      this.drawNodeGroup(svg, group, onNodeClick, selectedNode);
-    });
+    for (const group of nodeGroups) {
+      this.drawNodeGroup(
+        svg,
+        group,
+        onNodeClick,
+        selectedNode,
+        onNodeRightClick
+      );
+    }
   }
 
   private drawNodeGroup(
     svg: d3.Selection<SVGGElement, unknown, null, undefined>,
     group: NodeGroup,
     onNodeClick: (item: string) => void,
-    selectedNode: string | null
+    selectedNode: string | null,
+    onNodeRightClick?: (item: string, event: MouseEvent) => void
   ): void {
     if (group.items.length === 0) {
       return;
     }
 
-    group.items.forEach((item, index) => {
+    for (const [index, item] of group.items.entries()) {
       const position =
         this.diagramPositionCalculatorAppService.calculateNodePosition(
           group.radius,
@@ -224,9 +233,12 @@ export class DiagramAppService {
         position.y,
         group.color,
         isSelected,
-        onNodeClick
+        {
+          onNodeClick,
+          onNodeRightClick,
+        }
       );
-    });
+    }
   }
 
   private drawSingleNode(
@@ -236,12 +248,16 @@ export class DiagramAppService {
     y: number,
     groupColor: string,
     isSelected: boolean,
-    onNodeClick: (item: string) => void
+    callbacks: {
+      onNodeClick: (item: string) => void;
+      onNodeRightClick?: (item: string, event: MouseEvent) => void;
+    }
   ): void {
     const nodeGroup = this.diagramSVGRendererAppService.createNodeGroup(
       svg,
       item,
-      onNodeClick
+      callbacks.onNodeClick,
+      callbacks.onNodeRightClick
     );
 
     const config = this.diagramConfigurationAppService.diagramConfig;

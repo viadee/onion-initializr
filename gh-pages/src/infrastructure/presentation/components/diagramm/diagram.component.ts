@@ -30,6 +30,11 @@ import {
   ConfirmationModalComponent,
   ConfirmationModalData,
 } from '../confirmation-modal/confirmation-modal.component';
+import {
+  ContextMenuComponent,
+  ContextMenuPosition,
+  ContextMenuItem,
+} from '../context-menu/context-menu.component';
 import { container } from '../../../configuration/awilix.config';
 import { OnionConfigService } from '../../../../../../lib/domain/services/onion-config-service';
 import { DiagramAppService } from '../../../../application/services/diagram-app-service';
@@ -38,7 +43,6 @@ import { DiagramNodeInteractionAppService } from '../../../../application/servic
 import { DiagramNodeManagementService } from '../../../../application/services/diagram-node-management-app-service';
 import { DiagramProjectGenerationService } from '../../../../application/services/diagram-project-generation-app-service';
 import { ProgressTrackingAppService } from '../../../../application/services/progress-tracking-app-service';
-import { WebContainerAppService } from '../../../../application/services/web-container-app-service';
 import { DiFramework } from '../../../../../../lib/domain/entities/di-framework';
 import { DomainService } from '../../../../../../lib/domain/entities/domain-service';
 import { Entity } from '../../../../../../lib/domain/entities/entity';
@@ -96,6 +100,7 @@ const UI_MESSAGES = {
     MatDialogModule,
     MatSnackBarModule,
     JsonUploadModalComponent,
+    ContextMenuComponent,
   ],
   templateUrl: './diagram.component.html',
   styleUrls: ['./diagram.component.scss'],
@@ -143,9 +148,15 @@ export class Diagram implements OnInit, OnDestroy {
   // UI messages
   statusMessage = '';
   statusType: StatusType = 'info';
+
+  // Context menu properties
+  contextMenuVisible = false;
+  contextMenuPosition: ContextMenuPosition = { x: 0, y: 0 };
+  contextMenuItems: ContextMenuItem[] = [];
+  contextMenuTargetNode: string | null = null;
+
   private readonly diagramAppService: DiagramAppService;
   private readonly onionConfigService: OnionConfigService;
-  private readonly webContainerService: WebContainerAppService;
   private readonly progressTrackingAppService: ProgressTrackingAppService;
   private readonly diagramNodeInteractionService: DiagramNodeInteractionAppService;
   private readonly diagramNodeManagementService: DiagramNodeManagementService;
@@ -185,9 +196,6 @@ export class Diagram implements OnInit, OnDestroy {
       container.resolve<DiagramAppService>('diagramAppService');
     this.onionConfigService =
       container.resolve<OnionConfigService>('onionConfigService');
-    this.webContainerService = container.resolve<WebContainerAppService>(
-      'webContainerService'
-    );
     this.progressTrackingAppService =
       container.resolve<ProgressTrackingAppService>(
         'progressTrackingAppService'
@@ -271,6 +279,9 @@ export class Diagram implements OnInit, OnDestroy {
       },
       () => {
         this.handleDustbinClick();
+      },
+      (item: string, event: MouseEvent) => {
+        this.handleNodeRightClick(item, event);
       }
     );
   }
@@ -309,6 +320,54 @@ export class Diagram implements OnInit, OnDestroy {
     this.renderDiagram();
     this.cdr.detectChanges();
     this.updateNodeInfo();
+    // Close context menu if open
+    this.closeContextMenu();
+  }
+
+  private handleNodeRightClick(item: string, event: MouseEvent): void {
+    // First select the node (same as left click selection logic)
+    this.selectedNode = this.selectedNode === item ? null : item;
+    this.renderDiagram();
+    this.cdr.detectChanges();
+    this.updateNodeInfo();
+
+    // Only show context menu if a node is now selected
+    if (this.selectedNode) {
+      this.showContextMenu(item, event);
+    }
+  }
+
+  private showContextMenu(targetNode: string, event: MouseEvent): void {
+    this.contextMenuTargetNode = targetNode;
+    this.contextMenuPosition = {
+      x: event.clientX,
+      y: event.clientY,
+    };
+
+    this.contextMenuItems = [
+      {
+        label: 'Delete Node',
+        icon: 'delete',
+        action: () => this.handleContextMenuDelete(),
+        disabled:
+          this.onionConfigRepositoryService.isRepositoryName(targetNode),
+      },
+    ];
+
+    this.contextMenuVisible = true;
+  }
+
+  private handleContextMenuDelete(): void {
+    if (this.contextMenuTargetNode) {
+      // Ensure the target node is selected
+      this.selectedNode = this.contextMenuTargetNode;
+      this.handleRemoveNode();
+    }
+  }
+
+  closeContextMenu(): void {
+    this.contextMenuVisible = false;
+    this.contextMenuTargetNode = null;
   }
 
   private determineNodeInfo(clickedNode: string): {

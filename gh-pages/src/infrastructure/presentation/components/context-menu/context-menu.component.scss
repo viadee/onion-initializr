@@ -1,0 +1,44 @@
+@use '../_shared/variables' as vars;
+
+.context-menu {
+  position: fixed;
+  z-index: 10000;
+  background: vars.$background-primary;
+  border: 1px solid vars.$border-color;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 120px;
+  padding: 4px 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.context-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: vars.$text-primary;
+  transition: background-color 0.2s ease;
+
+  &:hover:not(.disabled) {
+    background-color: vars.$background-secondary;
+  }
+
+  &.disabled {
+    color: vars.$text-muted;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.context-menu-icon {
+  margin-right: 8px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.context-menu-label {
+  white-space: nowrap;
+}

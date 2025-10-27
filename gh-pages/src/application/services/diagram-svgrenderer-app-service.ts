@@ -58,9 +58,10 @@ export class DiagramSVGRendererAppService {
   createNodeGroup(
     svg: d3.Selection<SVGGElement, unknown, null, undefined>,
     item: string,
-    onNodeClick: (item: string) => void
+    onNodeClick: (item: string) => void,
+    onNodeRightClick?: (item: string, event: MouseEvent) => void
   ): d3.Selection<SVGGElement, unknown, null, undefined> {
-    return svg
+    const nodeGroup = svg
       .append('g')
       .attr('class', 'node')
       .style('cursor', 'pointer')
@@ -68,6 +69,16 @@ export class DiagramSVGRendererAppService {
         event.stopPropagation();
         onNodeClick(item);
       });
+
+    if (onNodeRightClick) {
+      nodeGroup.on('contextmenu', (event: MouseEvent) => {
+        event.preventDefault();
+        event.stopPropagation();
+        onNodeRightClick(item, event);
+      });
+    }
+
+    return nodeGroup;
   }
 
   drawRingCircle(

@@ -1,0 +1,14 @@
+<div class="context-menu" [ngStyle]="menuStyle" *ngIf="visible">
+  <div
+    class="context-menu-item"
+    *ngFor="let item of items"
+    [class.disabled]="item.disabled"
+    (click)="onItemClick(item)"
+    (keydown.enter)="onItemClick(item)"
+    tabindex="0">
+    <mat-icon *ngIf="item.icon" class="context-menu-icon">{{
+      item.icon
+    }}</mat-icon>
+    <span class="context-menu-label">{{ item.label }}</span>
+  </div>
+</div>
