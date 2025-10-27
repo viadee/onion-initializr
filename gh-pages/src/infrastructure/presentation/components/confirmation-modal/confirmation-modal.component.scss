@@ -1,4 +1,5 @@
-@import '../_shared/variables';
+@use "sass:color";
+@use '../_shared/variables';
 
 ::ng-deep .light-theme-dialog .mat-mdc-dialog-container {
   border-radius: 8px !important;
@@ -7,34 +8,34 @@
 
 // Global dialog overrides to ensure light theme
 :host ::ng-deep .mat-mdc-dialog-container {
-  background-color: $background-primary !important;
-  color: $text-primary !important;
+  background-color: variables.$background-primary !important;
+  color: variables.$text-primary !important;
   overflow: hidden !important;
 }
 
 :host ::ng-deep .mat-mdc-dialog-content {
-  background-color: $background-primary !important;
-  color: $text-primary !important;
+  background-color: variables.$background-primary !important;
+  color: variables.$text-primary !important;
 }
 
 :host ::ng-deep .mdc-dialog__surface {
-  background-color: $background-primary !important;
+  background-color: variables.$background-primary !important;
 }
 
 :host ::ng-deep .mat-mdc-dialog-title {
-  color: $text-primary !important;
+  color: variables.$text-primary !important;
 }
 
 :host ::ng-deep .mat-mdc-dialog-actions {
-  background-color: $background-primary !important;
+  background-color: variables.$background-primary !important;
 }
 
 .confirmation-modal {
   min-width: 500px;
   max-width: 600px;
-  background: $background-primary !important;
+  background: variables.$background-primary !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
-  color: $text-primary;
+  color: variables.$text-primary;
   padding: 24px;
 
   @media (max-width: 480px) {
@@ -43,10 +44,10 @@
 }
 
 .modal-header {
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid variables.$border-color;
   padding-bottom: 16px;
   margin-bottom: 24px;
-  background: $background-primary;
+  background: variables.$background-primary;
 
   h2 {
     display: flex;
@@ -55,7 +56,7 @@
     margin: 0;
     font-size: 1.5rem;
     font-weight: 500;
-    color: $text-primary !important;
+    color: variables.$text-primary !important;
 
     // Mobile responsive adjustments
     @media (max-width: 768px) {
@@ -73,12 +74,12 @@
 
 .modal-content {
   padding: 0;
-  background: $background-primary !important;
-  color: $text-primary !important;
+  background: variables.$background-primary !important;
+  color: variables.$text-primary !important;
 
   p {
     margin: 0;
-    color: $text-primary;
+    color: variables.$text-primary;
     line-height: 1.6;
     font-size: 16px;
     white-space: pre-line;
@@ -95,11 +96,11 @@
   gap: 12px;
   padding-top: 24px;
   margin-top: 24px;
-  border-top: 1px solid $border-color;
-  background: $background-primary !important;
+  border-top: 1px solid variables.$border-color;
+  background: variables.$background-primary !important;
 
   .cancel-button {
-    color: $text-secondary;
+    color: variables.$text-secondary;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.04);
@@ -110,11 +111,11 @@
     min-width: 100px;
 
     &.mat-warn {
-      background-color: $error-color;
+      background-color: variables.$error-color;
       color: white;
 
       &:hover {
-        background-color: darken($error-color, 10%);
+        background-color: color.adjust(variables.$error-color, $lightness: -10%);
       }
     }
   }

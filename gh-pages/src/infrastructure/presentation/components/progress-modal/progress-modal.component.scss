@@ -1,4 +1,4 @@
-@import '../_shared/variables';
+@use '../_shared/variables';
 
 ::ng-deep .light-theme-dialog .mat-mdc-dialog-container {
   border-radius: 8px !important;
@@ -7,60 +7,60 @@
 
 // Global dialog overrides to ensure light theme
 :host ::ng-deep .mat-mdc-dialog-container {
-  background-color: $background-primary !important;
-  color: $text-primary !important;
+  background-color: variables.$background-primary !important;
+  color: variables.$text-primary !important;
   overflow: hidden !important;
 }
 
 :host ::ng-deep .mat-mdc-dialog-content {
-  background-color: $background-primary !important;
-  color: $text-primary !important;
+  background-color: variables.$background-primary !important;
+  color: variables.$text-primary !important;
 }
 
 :host ::ng-deep .mdc-dialog__surface {
-  background-color: $background-primary !important;
+  background-color: variables.$background-primary !important;
 }
 
 :host ::ng-deep .mat-mdc-dialog-title {
-  color: $text-primary !important;
+  color: variables.$text-primary !important;
 }
 
 :host ::ng-deep .mat-mdc-dialog-actions {
-  background-color: $background-primary !important;
+  background-color: variables.$background-primary !important;
 }
 
 // Global light theme dialog class
 ::ng-deep .light-theme-dialog {
   .mat-mdc-dialog-container {
-    background-color: $background-primary !important;
-    color: $text-primary !important;
+    background-color: variables.$background-primary !important;
+    color: variables.$text-primary !important;
   }
 
   .mdc-dialog__surface {
-    background-color: $background-primary !important;
-    color: $text-primary !important;
+    background-color: variables.$background-primary !important;
+    color: variables.$text-primary !important;
   }
 
   .mat-mdc-dialog-content {
-    background-color: $background-primary !important;
-    color: $text-primary !important;
+    background-color: variables.$background-primary !important;
+    color: variables.$text-primary !important;
   }
 
   .mat-mdc-dialog-title {
-    color: $text-primary !important;
+    color: variables.$text-primary !important;
   }
 
   .mat-mdc-dialog-actions {
-    background-color: $background-primary !important;
+    background-color: variables.$background-primary !important;
   }
 }
 
 .progress-modal {
   min-width: 500px;
   max-width: 600px;
-  background: $background-primary !important;
+  background: variables.$background-primary !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
-  color: $text-primary;
+  color: variables.$text-primary;
   padding: 24px;
 
   // Mobile responsive adjustments
@@ -79,10 +79,10 @@
 }
 
 .modal-header {
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid variables.$border-color;
   padding-bottom: 16px;
   margin-bottom: 24px;
-  background: $background-primary;
+  background: variables.$background-primary;
 }
 
 .modal-title {
@@ -92,10 +92,10 @@
   margin: 0;
   font-size: 1.5rem;
   font-weight: 500;
-  color: $text-primary !important;
+  color: variables.$text-primary !important;
 
   .title-icon {
-    color: $primary-color;
+    color: variables.$primary-color;
     font-size: 1.8rem;
     width: 1.8rem;
     height: 1.8rem;
@@ -123,8 +123,8 @@
 
 .modal-content {
   padding: 0;
-  background: $background-primary !important;
-  color: $text-primary !important;
+  background: variables.$background-primary !important;
+  color: variables.$text-primary !important;
 }
 
 .progress-section {
@@ -143,10 +143,10 @@
 }
 
 .overall-progress {
-  background: $background-accent;
+  background: variables.$background-accent;
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid $border-accent;
+  border: 1px solid variables.$border-accent;
 
   // Mobile responsive adjustments
   @media (max-width: 768px) {
@@ -167,13 +167,13 @@
 
   .progress-label {
     font-weight: 500;
-    color: $text-secondary;
+    color: variables.$text-secondary;
   }
 
   .progress-percentage {
     font-weight: 600;
     font-size: 1.1rem;
-    color: $primary-color;
+    color: variables.$primary-color;
   }
 }
 
@@ -186,15 +186,15 @@
   ::ng-deep .mat-mdc-progress-bar-fill::after {
     background: linear-gradient(
       90deg,
-      $primary-color 0%,
-      $secondary-color 100%
+      variables.$primary-color 0%,
+      variables.$secondary-color 100%
     );
   }
 }
 
 .current-step {
-  background: rgba($primary-color, 0.08);
-  border: 1px solid rgba($primary-color, 0.2);
+  background: rgba(variables.$primary-color, 0.08);
+  border: 1px solid rgba(variables.$primary-color, 0.2);
   border-radius: 12px;
   padding: 16px;
 
@@ -205,12 +205,12 @@
     margin-bottom: 8px;
 
     .step-icon {
-      color: $primary-color;
+      color: variables.$primary-color;
     }
 
     .step-label {
       font-weight: 500;
-      color: $text-primary;
+      color: variables.$text-primary;
     }
   }
 
@@ -218,7 +218,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: $text-secondary;
+    color: variables.$text-secondary;
     font-size: 0.9rem;
 
     .time-icon {
@@ -242,33 +242,33 @@
   padding: 12px;
   border-radius: 8px;
   transition: all 0.3s ease;
-  background: $background-secondary;
+  background: variables.$background-secondary;
   border: 1px solid transparent;
 
   &.completed {
-    background: rgba($success-color, 0.08);
-    border: 1px solid rgba($success-color, 0.2);
+    background: rgba(variables.$success-color, 0.08);
+    border: 1px solid rgba(variables.$success-color, 0.2);
 
     .step-icon.completed {
-      color: $success-color;
+      color: variables.$success-color;
     }
   }
 
   &.current {
-    background: rgba($primary-color, 0.08);
-    border: 1px solid rgba($primary-color, 0.2);
+    background: rgba(variables.$primary-color, 0.08);
+    border: 1px solid rgba(variables.$primary-color, 0.2);
 
     .step-icon.current {
-      color: $primary-color;
+      color: variables.$primary-color;
     }
   }
 
   &.error {
-    background: rgba($error-color, 0.08);
-    border: 1px solid rgba($error-color, 0.2);
+    background: rgba(variables.$error-color, 0.08);
+    border: 1px solid rgba(variables.$error-color, 0.2);
 
     .step-icon.error {
-      color: $error-color;
+      color: variables.$error-color;
     }
   }
 
@@ -278,7 +278,7 @@
 
     .step-icon {
       &.pending {
-        color: $text-muted;
+        color: variables.$text-muted;
       }
     }
   }
@@ -291,16 +291,16 @@
 
     .step-name {
       font-weight: 500;
-      color: $text-primary;
+      color: variables.$text-primary;
     }
 
     .step-error {
-      color: $error-color;
+      color: variables.$error-color;
       font-size: 0.9rem;
     }
 
     .step-duration {
-      color: $text-muted;
+      color: variables.$text-muted;
       font-size: 0.8rem;
     }
   }
@@ -311,17 +311,17 @@
   align-items: center;
   gap: 12px;
   padding: 16px;
-  background: rgba($error-color, 0.08);
-  border: 1px solid rgba($error-color, 0.2);
+  background: rgba(variables.$error-color, 0.08);
+  border: 1px solid rgba(variables.$error-color, 0.2);
   border-radius: 8px;
 
   .error-icon {
-    color: $error-color;
+    color: variables.$error-color;
     flex-shrink: 0;
   }
 
   .error-message {
-    color: $error-color;
+    color: variables.$error-color;
     font-weight: 500;
   }
 }
@@ -331,12 +331,12 @@
   align-items: center;
   gap: 12px;
   padding: 16px;
-  background: rgba($success-color, 0.08);
-  border: 1px solid rgba($success-color, 0.2);
+  background: rgba(variables.$success-color, 0.08);
+  border: 1px solid rgba(variables.$success-color, 0.2);
   border-radius: 8px;
 
   .completion-icon {
-    color: $success-color;
+    color: variables.$success-color;
     flex-shrink: 0;
     font-size: 1.5rem;
     width: 1.5rem;
@@ -349,29 +349,29 @@
     gap: 4px;
 
     .completion-message {
-      color: $success-color;
+      color: variables.$success-color;
       font-weight: 500;
       font-size: 1rem;
     }
 
     .completion-hint {
-      color: $text-secondary;
+      color: variables.$text-secondary;
       font-size: 0.9rem;
     }
   }
 }
 
 .modal-actions {
-  border-top: 1px solid $border-color;
+  border-top: 1px solid variables.$border-color;
   padding-top: 16px;
   margin-top: 24px;
   justify-content: flex-end;
 
   .cancel-button {
-    color: $text-secondary;
+    color: variables.$text-secondary;
 
     &:hover {
-      background-color: rgba($text-secondary, 0.08);
+      background-color: rgba(variables.$text-secondary, 0.08);
     }
   }
 }

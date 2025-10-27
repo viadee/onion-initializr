@@ -1,4 +1,5 @@
-@import '../_shared/variables';
+@use "sass:color";
+@use '../_shared/variables';
 
 .modal-overlay {
   position: fixed;
@@ -14,7 +15,7 @@
 }
 
 .modal-content {
-  background: $background-primary;
+  background: variables.$background-primary;
   border-radius: 8px;
   width: 90%;
   max-width: 500px;
@@ -28,12 +29,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 24px;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid variables.$border-color;
 }
 
 .modal-header h3 {
   margin: 0;
-  color: $text-primary;
+  color: variables.$text-primary;
   font-size: 18px;
   font-weight: 600;
 }
@@ -42,7 +43,7 @@
   background: none;
   border: none;
   font-size: 24px;
-  color: $text-secondary;
+  color: variables.$text-secondary;
   cursor: pointer;
   padding: 0;
   width: 30px;
@@ -55,7 +56,7 @@
 }
 
 .close-btn:hover {
-  background-color: $background-secondary;
+  background-color: variables.$background-secondary;
 }
 
 .modal-body {
@@ -108,14 +109,14 @@
 .upload-text {
   margin: 0;
   font-size: 16px;
-  color: $text-primary;
+  color: variables.$text-primary;
   font-weight: 500;
 }
 
 .upload-subtext {
   margin: 0;
   font-size: 14px;
-  color: $text-secondary;
+  color: variables.$text-secondary;
 }
 
 .upload-progress {
@@ -144,8 +145,8 @@
   justify-content: flex-end;
   gap: 12px;
   padding: 20px 24px;
-  border-top: 1px solid $border-color;
-  background-color: $background-secondary;
+  border-top: 1px solid variables.$border-color;
+  background-color: variables.$background-secondary;
 }
 
 .btn {
@@ -160,7 +161,7 @@
 }
 .error-messages {
   padding: 0 24px 0 24px;
-  color: $error-color;
+  color: variables.$error-color;
   margin-top: 1rem;
   ul {
     padding-left: 1.25rem;
@@ -173,19 +174,19 @@
 }
 
 .btn-secondary {
-  background-color: $background-secondary;
-  color: $text-primary;
+  background-color: variables.$background-secondary;
+  color: variables.$text-primary;
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: darken($background-secondary, 10%);
+  background-color: color.adjust(variables.$background-secondary, $lightness: -10%);
 }
 
 .btn-primary {
-  background-color: $primary-color;
+  background-color: variables.$primary-color;
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: darken($primary-color, 10%);
+  background-color: color.adjust(variables.$primary-color, $lightness: -10%);
 }

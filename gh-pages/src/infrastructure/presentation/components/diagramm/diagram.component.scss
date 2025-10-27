@@ -1,8 +1,9 @@
-@import '../_shared/variables';
+@use "sass:color";
+@use '../_shared/variables';
 
 .container {
   margin: 0 auto;
-  background: $background-primary;
+  background: variables.$background-primary;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -18,7 +19,7 @@
 .header h1 {
   font-size: 2rem;
   font-weight: bold;
-  color: $text-primary;
+  color: variables.$text-primary;
 }
 .wrapper {
   display: flex;
@@ -27,9 +28,9 @@
   width: 100%;
 }
 .instruction-list {
-  color: $text-primary;
+  color: variables.$text-primary;
   line-height: 1.5;
-  background-color: $background-secondary;
+  background-color: variables.$background-secondary;
   padding: 16px;
   border-radius: 8px;
   margin-top: 0;
@@ -42,7 +43,7 @@
 .instruction-list p {
   font-weight: 600;
   margin: 0 0 8px 0;
-  color: $text-secondary;
+  color: variables.$text-secondary;
 }
 
 .instruction-list ul {
@@ -53,7 +54,7 @@
 
 .instruction-list li {
   margin-bottom: 4px;
-  color: $text-primary;
+  color: variables.$text-primary;
 }
 
 #no-show {
@@ -66,7 +67,7 @@
 }
 
 header .json-controls {
-  background-color: $background-secondary;
+  background-color: variables.$background-secondary;
   display: flex;
   flex-direction: row;
   gap: 16px;
@@ -83,7 +84,7 @@ header .json-controls {
 .controls {
   margin-bottom: 24px;
   padding: 16px;
-  background: $background-secondary;
+  background: variables.$background-secondary;
   border-radius: 8px;
 }
 
@@ -111,7 +112,7 @@ header .json-controls {
   min-width: 140px;
   font-size: 0.875rem;
   font-weight: 500;
-  color: $text-secondary;
+  color: variables.$text-secondary;
   text-align: left;
 }
 
@@ -181,14 +182,14 @@ header .json-controls {
 .form-field label {
   font-size: 0.875rem;
   font-weight: 500;
-  color: $text-secondary;
+  color: variables.$text-secondary;
   margin-bottom: 8px;
 }
 
 .select-input,
 .text-input {
   padding: 8px 12px;
-  border: 1px solid $border-color;
+  border: 1px solid variables.$border-color;
   border-radius: 6px;
   font-size: 14px;
 }
@@ -196,7 +197,7 @@ header .json-controls {
 .select-input:focus,
 .text-input:focus {
   outline: none;
-  border-color: $primary-color;
+  border-color: variables.$primary-color;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
@@ -214,30 +215,30 @@ header .json-controls {
   --mat-slide-toggle-label-text-color: $text-primary;
 }
 .btn:disabled {
-  background: $border-color;
+  background: variables.$border-color;
   cursor: not-allowed;
 }
 
 .btn-primary {
-  background: $primary-color;
+  background: variables.$primary-color;
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: darken($primary-color, 10%);
+  background: color.adjust(variables.$primary-color, $lightness: -10%);
 }
 
 .btn-danger {
-  background: $error-primary;
+  background: variables.$error-primary;
   color: white;
 }
 
 .btn-danger:hover {
-  background: $error-hover;
+  background: variables.$error-hover;
 }
 
 .btn-remove-connection {
-  background: $error-light;
+  background: variables.$error-light;
   color: white;
   border: none;
   border-radius: 4px;
@@ -255,7 +256,7 @@ header .json-controls {
 }
 
 .btn-remove-connection:hover {
-  background: $error-primary;
+  background: variables.$error-primary;
   transform: scale(1.05);
 }
 
@@ -265,7 +266,7 @@ header .json-controls {
 
 .connection-target {
   font-weight: 500;
-  color: $diagram-text-secondary;
+  color: variables.$diagram-text-secondary;
 }
 
 .selected-panel {
@@ -273,18 +274,18 @@ header .json-controls {
   max-width: 792px;
   margin-bottom: 24px;
   padding: 16px;
-  background: $diagram-background;
+  background: variables.$diagram-background;
   border-radius: 8px;
 }
 
 .selected-panel h3 {
   margin: 0 0 12px 0;
-  color: $diagram-text-primary;
+  color: variables.$diagram-text-primary;
   font-weight: 600;
 }
 
 .selected-panel small {
-  color: $diagram-text-muted;
+  color: variables.$diagram-text-muted;
   font-weight: normal;
 }
 
@@ -299,7 +300,7 @@ header .json-controls {
   align-items: center;
   justify-content: space-between;
   padding: 8px 0;
-  border-bottom: 1px solid $diagram-border;
+  border-bottom: 1px solid variables.$diagram-border;
 }
 
 .selected-panel li:last-child {
@@ -309,20 +310,20 @@ header .json-controls {
 .status-message {
   margin-bottom: 16px;
   padding: 12px;
-  background: $warning-background;
-  border: 1px solid $warning-border;
+  background: variables.$warning-background;
+  border: 1px solid variables.$warning-border;
   border-radius: 6px;
 }
 
 .status-message p {
-  color: $warning-text;
+  color: variables.$warning-text;
   margin: 0;
 }
 
 .legend {
   margin-bottom: 24px;
   padding: 16px;
-  background: $diagram-background;
+  background: variables.$diagram-background;
   border-radius: 8px;
 }
 
@@ -350,23 +351,23 @@ header .json-controls {
 }
 
 .legend-color.entities {
-  background: $layer-application;
+  background: variables.$layer-application;
 }
 .legend-color.domain-services {
-  background: $layer-domain;
+  background: variables.$layer-domain;
 }
 .legend-color.app-services {
-  background: $layer-infrastructure;
+  background: variables.$layer-infrastructure;
 }
 .legend-color.selected {
-  background: $layer-presentation;
+  background: variables.$layer-presentation;
 }
 
 .diagramAndCodeWrapper {
   width: 100%;
 }
 .diagram-wrapper {
-  border: 1px solid $diagram-border-gray;
+  border: 1px solid variables.$diagram-border-gray;
   border-radius: 8px;
   background: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -380,7 +381,7 @@ header .json-controls {
 
 .data-summary {
   padding: 16px;
-  background: $diagram-background;
+  background: variables.$diagram-background;
   border-radius: 8px;
 }
 
