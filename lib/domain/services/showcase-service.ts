@@ -87,10 +87,12 @@ export class ShowcaseService {
           ? [
               new ShowcaseTemplateFile("react/shadcn/App-shadcn.tsx.hbs", "App.tsx"),
               new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
+              new ShowcaseTemplateFile("shared/README.md.hbs", "README.md"),
             ]
           : [
               new ShowcaseTemplateFile("react/App.tsx.hbs", "App.tsx"),
               new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
+              new ShowcaseTemplateFile("shared/README.md.hbs", "README.md"),
             ],
         extra: uiLibrary === 'shadcn' 
           ? [new ShowcaseTemplateFile("react/shadcn/shadcn.utils.ts.hbs", "utils.ts"),
@@ -109,18 +111,21 @@ export class ShowcaseService {
             "app.component.html"
           ),
           new ShowcaseTemplateFile("shared/App.css.hbs", "app.component.scss"),
+          new ShowcaseTemplateFile("shared/README.md.hbs", "README.md"),
         ],
       },
       vue: {
         main: [
           new ShowcaseTemplateFile("vue/App.vue.hbs", "App.vue"),
           new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
+          new ShowcaseTemplateFile("shared/README.md.hbs", "README.md"),
         ],
       },
       lit: {
         main: [
           new ShowcaseTemplateFile("lit/App.ts.hbs", "App.ts"),
           new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
+          new ShowcaseTemplateFile("shared/README.md.hbs", "README.md"),
         ],
         extra: [new ShowcaseTemplateFile("lit/index.html.hbs", "index.html")],
       },

@@ -120,7 +120,7 @@ The generator creates a layered folder structure like this:
 |   |   |-- services/
 |   |-- infrastructure
 |   |   |-- config/
-|   |   |   |-- awilix.config.json
+|   |   |   |-- awilix.config.ts
 |   |   |-- interfaces/
 |   |   |-- presentation/
 |   |   |-- repository/

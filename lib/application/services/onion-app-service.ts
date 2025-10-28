@@ -58,8 +58,6 @@ export class OnionAppService {
   async generate(
     params: OnionArchitectureGenerationParams
   ): Promise<FileEntity[]> {
-    console.log('🧅 Starting Onion Architecture generation...');
-
     const {
       folderPath,
       entityNames,
@@ -425,8 +423,8 @@ export class OnionAppService {
 
     // Path builder function for templates and outputs
     const buildPaths = (template: string, output: string) => {
-      // Special case: for Lit projects, place index.html in project root instead of presentation directory
-      const shouldPlaceInRoot = framework === 'lit' && output === 'index.html';
+      // Special cases: place certain files in project root instead of presentation directory
+      const shouldPlaceInRoot = (framework === 'lit' && output === 'index.html') || output === 'README.md';
       const outputPath = shouldPlaceInRoot
         ? this.pathService.join(folderPath, output)
         : this.pathService.join(presentationDir, output);

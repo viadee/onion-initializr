@@ -130,9 +130,9 @@
               <h3>Current Elements:</h3>
               <div class="summary-grid">
                 <div class="summary-column">
-                  <strong>Entities ({{ data!.entities!.length || 0 }}):</strong>
+                  <strong>Entities ({{ data.entities.length || 0 }}):</strong>
                   <ul>
-                    @for (e of data?.entities || []; track e) {
+                    @for (e of data.entities || []; track e) {
                       <li>{{ e }}</li>
                     }
                   </ul>
@@ -144,7 +144,7 @@
                     }}):</strong
                   >
                   <ul>
-                    @for (s of data?.domainServices || []; track s) {
+                    @for (s of data.domainServices || []; track s) {
                       <li>{{ s }}</li>
                     }
                   </ul>
@@ -156,7 +156,7 @@
                     }}):</strong
                   >
                   <ul>
-                    @for (s of data?.applicationServices || []; track s) {
+                    @for (s of data.applicationServices || []; track s) {
                       <li>{{ s }}</li>
                     }
                   </ul>
