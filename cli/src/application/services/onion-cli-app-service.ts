@@ -16,6 +16,7 @@ import { DiFramework } from '../../../../lib/domain/entities/di-framework';
 import { FileEntity } from '../../../../lib/domain/entities/file-entity';
 import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
 import { UIFrameworks } from '../../../../lib/domain/entities/ui-framework';
+import { UiLibrary } from '../../../../lib/domain/entities/ui-library';
 
 export class OnionCliAppService {
   constructor(
@@ -74,19 +75,12 @@ export class OnionCliAppService {
 
     await this.folderStructureService.createFolderStructure(folderPath);
 
-    let uiFramework: keyof UIFrameworks | undefined;
-    let diFramework: DiFramework;
-    let uiLibrary = userConfig.uiLibrary || 'none';
+    const isAlreadyInitialized =
+      await this.projectService.isInitialized(folderPath);
 
-    const projectInitResult = await this.projectService.initialize(
-      folderPath,
-      userConfig.uiFramework
-    );
-    uiFramework = projectInitResult?.uiFramework || 'react';
-    diFramework = projectInitResult?.diFramework || 'awilix';
-    if (projectInitResult?.uiLibrary) {
-      uiLibrary = projectInitResult.uiLibrary;
-    }
+    const { uiFramework, diFramework, uiLibrary } = isAlreadyInitialized
+      ? await this.handleExistingProject(folderPath, userConfig)
+      : await this.handleNewProject(folderPath, userConfig);
 
     const entityNames = await this.fileHelperService.getEntityNames(userConfig);
     const domainServiceNames =
@@ -112,5 +106,56 @@ export class OnionCliAppService {
     params: OnionArchitectureGenerationParams
   ): Promise<FileEntity[]> {
     return this.onionAppService.generate(params);
+  }
+
+  private async handleExistingProject(
+    folderPath: string,
+    userConfig: OnionConfig
+  ): Promise<{
+    uiFramework: keyof UIFrameworks;
+    diFramework: DiFramework;
+    uiLibrary: UiLibrary;
+  }> {
+    const detected = this.projectService.detectFrameworks
+      ? await this.projectService.detectFrameworks(folderPath)
+      : this.getDefaultFrameworks();
+
+    return {
+      uiFramework: userConfig.uiFramework || detected.uiFramework,
+      diFramework: detected.diFramework,
+      uiLibrary: userConfig.uiLibrary || detected.uiLibrary,
+    };
+  }
+
+  private async handleNewProject(
+    folderPath: string,
+    userConfig: OnionConfig
+  ): Promise<{
+    uiFramework: keyof UIFrameworks;
+    diFramework: DiFramework;
+    uiLibrary: UiLibrary;
+  }> {
+    const projectInitResult = await this.projectService.initialize(
+      folderPath,
+      userConfig.uiFramework
+    );
+
+    return {
+      uiFramework: projectInitResult?.uiFramework || 'react',
+      diFramework: projectInitResult?.diFramework || 'awilix',
+      uiLibrary: projectInitResult?.uiLibrary || userConfig.uiLibrary || 'none',
+    };
+  }
+
+  private getDefaultFrameworks(): {
+    uiFramework: keyof UIFrameworks;
+    diFramework: DiFramework;
+    uiLibrary: UiLibrary;
+  } {
+    return {
+      uiFramework: 'react',
+      diFramework: 'awilix',
+      uiLibrary: 'none',
+    };
   }
 }

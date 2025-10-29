@@ -1,6 +1,6 @@
 {
   "name": "onion-initializr",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Generate Onion Architecture folder structure, files, and code for TypeScript projects",
   "bin": {
     "onion": "dist/cli/src/application/services/main-app-service.js"

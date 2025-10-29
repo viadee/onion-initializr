@@ -44,6 +44,57 @@ export class ProjectInitAppService implements IProjectService {
     );
   }
 
+  /**
+   * Detect the UI framework and DI framework from an existing project
+   */
+  async detectFrameworks(folderPath: string): Promise<{
+    uiFramework: keyof UIFrameworks;
+    diFramework: DiFramework;
+    uiLibrary: UiLibrary;
+  }> {
+    const packageJsonPath = this.pathService.join(folderPath, 'package.json');
+
+    let uiFramework: keyof UIFrameworks = 'vanilla';
+    let diFramework: DiFramework = 'awilix';
+    let uiLibrary: UiLibrary = 'none';
+
+    if (await this.fileService.fileExists(packageJsonPath)) {
+      const packageJsonFile = await this.fileService.readFile(packageJsonPath);
+      const packageJson = JSON.parse(packageJsonFile.content);
+      const dependencies = {
+        ...packageJson.dependencies,
+        ...packageJson.devDependencies,
+      };
+
+      // Detect UI framework
+      if (dependencies['react'] || dependencies['react-dom']) {
+        uiFramework = 'react';
+      } else if (dependencies['vue']) {
+        uiFramework = 'vue';
+      } else if (dependencies['@angular/core']) {
+        uiFramework = 'angular';
+      } else if (dependencies['lit']) {
+        uiFramework = 'lit';
+      }
+
+      // Detect DI framework
+      if (dependencies['@angular/core']) {
+        diFramework = 'angular';
+      }
+      // Default is already awilix, no need for else clause
+
+      // Detect UI library
+      if (
+        dependencies['@shadcn/ui'] ||
+        dependencies['@radix-ui/react-avatar']
+      ) {
+        uiLibrary = 'shadcn';
+      }
+    }
+
+    return { uiFramework, diFramework, uiLibrary };
+  }
+
   async installAwilix(folderPath: string) {
     try {
       await this.commandRunner.runCommand('npm install awilix', folderPath);
