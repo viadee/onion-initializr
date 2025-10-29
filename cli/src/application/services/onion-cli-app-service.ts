@@ -122,7 +122,7 @@ export class OnionCliAppService {
 
     return {
       uiFramework: userConfig.uiFramework || detected.uiFramework,
-      diFramework: detected.diFramework,
+      diFramework: userConfig.diFramework || detected.diFramework,
       uiLibrary: userConfig.uiLibrary || detected.uiLibrary,
     };
   }

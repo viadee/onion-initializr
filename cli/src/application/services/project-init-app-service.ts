@@ -78,10 +78,12 @@ export class ProjectInitAppService implements IProjectService {
       }
 
       // Detect DI framework
-      if (dependencies['@angular/core']) {
+      // If only Angular core is present (without Awilix), use Angular DI
+      // Otherwise default to Awilix (even if Angular is present, Awilix takes precedence)
+      if (dependencies['@angular/core'] && !dependencies['awilix']) {
         diFramework = 'angular';
       }
-      // Default is already awilix, no need for else clause
+      // Default is already awilix
 
       // Detect UI library
       if (
