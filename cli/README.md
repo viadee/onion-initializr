@@ -98,10 +98,18 @@ Use `uiFramework` in your config.
 
 ### Which DI-Frameworks are supported?
 
-Use `diFramework` in your config.
+Use `diFramework` in your config. If `uiFramework` is Angular, you can select Angular as your DI-Framework.   
 
 - **Awilix**
 - **Angular**
+
+
+### Which UI-Libraries are supported?
+
+When using `uiFramework` React, you can set `uiLibrary` to shadcn in your config.
+
+-**ShadCN**
+
 
 ## Output Structure
 
