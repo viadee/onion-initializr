@@ -18,9 +18,9 @@
     "e2e": "playwright test",
     "e2e:headed": "playwright test --headed",
     "e2e:debug": "playwright test --debug",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
     "prebuild": "pnpm run clean",
-    "build": "tsc --project tsconfig.json",
+    "build": "tsc -b",
     "postbuild": "cpx \"../gh-pages/public/templates/**/*.hbs\" dist/cli/public/templates && cpx \"../gh-pages/public/templates/domain/services/templates/**/*.hbs\" dist/cli/src/domain/services/templates && cpx \"../gh-pages/public/templates/infrastructure/frameworks/templates/**/*.hbs\" dist/cli/src/infrastructure/frameworks/templates"
   },
   "dependencies": {

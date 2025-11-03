@@ -5,6 +5,14 @@
 /tmp
 /out-tsc
 /bazel-out
+*.tsbuildinfo
+
+# TypeScript compiled output in src directories (should only be in dist/out-tsc)
+**/src/**/*.js
+**/src/**/*.js.map
+**/src/**/*.d.ts
+**/src/**/*.d.ts.map
+!**/src/**/*.spec.js
 
 # Node
 /node_modules

@@ -1,7 +1,6 @@
-
-import { ZipAppService } from '../../../gh-pages/src/application/services/zip-app-service';
-import { WebContainerFileRepository } from '../../../gh-pages/src/infrastructure/repositories/web-container-file-repository';
-import { FileEntity } from '../../domain/entities/file-entity';
+import { ZipAppService } from './zip-app-service';
+import { WebContainerFileRepository } from '../../infrastructure/repositories/web-container-file-repository';
+import { FileEntity } from '../../../../lib/domain/entities/file-entity';
 
 export interface DownloadResult {
   success: boolean;
@@ -53,14 +52,16 @@ export class ProjectDownloadAppService {
     return await this.fileRepository.getAllProjectFiles('/onion-project');
   }
 
-  private generateZipFileName(projectName: string = 'onion-architecture-project'): string {
+  private generateZipFileName(
+    projectName: string = 'onion-architecture-project'
+  ): string {
     // Sanitize the project name for use in filename
     const sanitizedName = projectName
       .toLowerCase()
       .replace(/[^a-z0-9-]/g, '-')
       .replace(/-+/g, '-')
       .replace(/(^-)|(-$)/g, '');
-    
+
     return `${sanitizedName || 'onion-architecture-project'}.zip`;
   }
 

@@ -4,3 +4,4 @@ packages:
   - 'lib'
   # Exclude template lockfiles from workspace
   - '!gh-pages/public/lockfiles/**'
+minimumReleaseAge: 1440

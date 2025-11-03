@@ -4,7 +4,7 @@
   "private": true,
   "description": "Onion Architecture Initializr - Monorepo root",
   "scripts": {
-    "build": "pnpm -r build",
+    "build": "pnpm --filter lib build && pnpm -r build",
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
     "format": "prettier --write .",

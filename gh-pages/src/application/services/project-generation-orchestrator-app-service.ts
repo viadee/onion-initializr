@@ -1,9 +1,8 @@
-import { WebContainerManagerAppService } from '../../../gh-pages/src/application/services/web-container-manager-app-service';
-import { WebContainerOptimizedProjectAppService } from '../../../gh-pages/src/application/services/web-container-optimized-project-app-service';
-import { WebContainerFileRepository } from '../../../gh-pages/src/infrastructure/repositories/web-container-file-repository';
-import { OnionConfig } from '../../domain/entities/onion-config';
-import { OnionAppService } from './onion-app-service';
-
+import { WebContainerManagerAppService } from './web-container-manager-app-service';
+import { WebContainerOptimizedProjectAppService } from './web-container-optimized-project-app-service';
+import { WebContainerFileRepository } from '../../infrastructure/repositories/web-container-file-repository';
+import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
+import { OnionAppService } from '../../../../lib/application/services/onion-app-service';
 
 export interface GenerationResult {
   success: boolean;

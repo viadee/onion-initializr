@@ -10,8 +10,8 @@
     "./domain/*": "./domain/*"
   },
   "scripts": {
-    "build": "tsc",
-    "clean": "rimraf dist",
+    "build": "tsc -b",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
     "lint": "echo 'No linting configured for lib'"
   },
   "devDependencies": {

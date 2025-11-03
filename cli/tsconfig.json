@@ -16,12 +16,14 @@
     "declaration": false,
     "sourceMap": false
   },
-  "include": ["src/**/*", "../lib/**/*"],
+  "include": ["src/**/*"],
   "exclude": [
     "node_modules/**/*",
-    "dist/**/*",
-    "../gh-pages/**/*",
-    "../coverage/**/*",
-    "../playwright-report/**/*"
+    "dist/**/*"
+  ],
+  "references": [
+    {
+      "path": "../lib"
+    }
   ]
 }

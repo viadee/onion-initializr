@@ -9,6 +9,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "rootDir": ".",
+    "composite": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -27,6 +28,6 @@
     "dist",
     "**/*.test.ts",
     "**/*.spec.ts",
-    "../**/*"
+    "../gh-pages/**"
   ]
 }

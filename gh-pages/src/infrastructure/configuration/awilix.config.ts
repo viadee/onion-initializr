@@ -10,8 +10,8 @@ import { ConfigurationAppService } from '../../../../lib/application/services/co
 import { FolderStructureService } from '../../../../lib/application/services/folder-gen-app-service';
 import { OnionAppService } from '../../../../lib/application/services/onion-app-service';
 import { PathAppService } from '../../../../lib/application/services/path-app-service';
-import { ProjectDownloadAppService } from '../../../../lib/application/services/project-download-app-service';
-import { ProjectGenerationOrchestratorAppService } from '../../../../lib/application/services/project-generation-orchestrator-app-service';
+import { ProjectDownloadAppService } from '../../application/services/project-download-app-service';
+import { ProjectGenerationOrchestratorAppService } from '../../application/services/project-generation-orchestrator-app-service';
 import { ApplicationServiceService } from '../../../../lib/domain/services/application-service-service';
 import { AwilixConfigService } from '../../../../lib/domain/services/awilix-config-service';
 import { DomainServiceService } from '../../../../lib/domain/services/domain-service-service';
