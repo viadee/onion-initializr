@@ -1,8 +1,8 @@
 import { expect } from 'chai';
-import { FileService } from '../../../../lib/domain/services/file-service';
-import { PathAppService } from '../../../../lib/application/services/path-app-service';
-import { ICommandRunner } from '../../../../lib/domain/interfaces/icommand-runner';
-import { LintAppService } from '../../../../lib/application/services/lint-app-service';
+import { FileService } from '@onion-initializr/lib/domain/services/file-service';
+import { PathAppService } from '@onion-initializr/lib/application/services/path-app-service';
+import { ICommandRunner } from '@onion-initializr/lib/domain/interfaces/icommand-runner';
+import { LintAppService } from '@onion-initializr/lib/application/services/lint-app-service';
 import { ProjectInitAppService } from '../../application/services/project-init-app-service';
 // Mock fs module for filesystem operations
 const mockFs = {

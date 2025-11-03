@@ -1,20 +1,20 @@
 import { createContainer, asClass, InjectionMode } from 'awilix';
 
 import { OnionConfigRepository } from '../../../../gh-pages/src/infrastructure/repositories/onion-config-repository';
-import { OnionConfigService } from '../../../../lib/domain/services/onion-config-service';
-import { OnionConfigStateService } from '../../../../lib/domain/services/onion-config-state-service';
-import { OnionConfigNodeService } from '../../../../lib/domain/services/onion-config-node-service';
-import { OnionConfigValidationService } from '../../../../lib/domain/services/onion-config-validation-service';
-import { OnionConfigRepositoryService } from '../../../../lib/domain/services/onion-config-repository-service';
-import { AwilixConfigService } from '../../../../lib/domain/services/awilix-config-service';
-import { ShowcaseService } from '../../../../lib/domain/services/showcase-service';
-import { EntityService } from '../../../../lib/domain/services/entitity-service';
-import { DomainServiceService } from '../../../../lib/domain/services/domain-service-service';
-import { RepoService } from '../../../../lib/domain/services/repo-service';
-import { ApplicationServiceService } from '../../../../lib/domain/services/application-service-service';
-import { FileService } from '../../../../lib/domain/services/file-service';
+import { OnionConfigService } from '@onion-initializr/lib/domain/services/onion-config-service';
+import { OnionConfigStateService } from '@onion-initializr/lib/domain/services/onion-config-state-service';
+import { OnionConfigNodeService } from '@onion-initializr/lib/domain/services/onion-config-node-service';
+import { OnionConfigValidationService } from '@onion-initializr/lib/domain/services/onion-config-validation-service';
+import { OnionConfigRepositoryService } from '@onion-initializr/lib/domain/services/onion-config-repository-service';
+import { AwilixConfigService } from '@onion-initializr/lib/domain/services/awilix-config-service';
+import { ShowcaseService } from '@onion-initializr/lib/domain/services/showcase-service';
+import { EntityService } from '@onion-initializr/lib/domain/services/entitity-service';
+import { DomainServiceService } from '@onion-initializr/lib/domain/services/domain-service-service';
+import { RepoService } from '@onion-initializr/lib/domain/services/repo-service';
+import { ApplicationServiceService } from '@onion-initializr/lib/domain/services/application-service-service';
+import { FileService } from '@onion-initializr/lib/domain/services/file-service';
 import { PathRepository } from '../repositories/path-repository';
-import { IRepoService } from '../../../../lib/domain/services/irepo-service';
+import { IRepoService } from '@onion-initializr/lib/domain/services/irepo-service';
 import { FileSystemFileRepository } from '../repositories/file-system-file-repository';
 import { ScanControllerAppService } from '../../application/services/scan-controller-app-service';
 import { ScannerAppService } from '../../application/services/scanner-app-service';
@@ -32,19 +32,19 @@ import { DiagramProjectGenerationService } from '../../../../gh-pages/src/applic
 import { DiagramSVGRendererAppService } from '../../../../gh-pages/src/application/services/diagram-svgrenderer-app-service';
 import { HelpAppService } from '../../application/services/help-app-service';
 import { ProgressTrackingAppService } from '../../../../gh-pages/src/application/services/progress-tracking-app-service';
-import { AngularConfigAppService } from '../../../../lib/application/services/angular-config-app-service';
-import { BrowserCheckAppService } from '../../../../lib/application/services/browser-check-app-service';
-import { ConfigurationAppService } from '../../../../lib/application/services/configuration-app-service';
-import { FolderStructureService } from '../../../../lib/application/services/folder-gen-app-service';
-import { PathAppService } from '../../../../lib/application/services/path-app-service';
+import { AngularConfigAppService } from '@onion-initializr/lib/application/services/angular-config-app-service';
+import { BrowserCheckAppService } from '@onion-initializr/lib/application/services/browser-check-app-service';
+import { ConfigurationAppService } from '@onion-initializr/lib/application/services/configuration-app-service';
+import { FolderStructureService } from '@onion-initializr/lib/application/services/folder-gen-app-service';
+import { PathAppService } from '@onion-initializr/lib/application/services/path-app-service';
 import { OnionAppService } from '../../application/services/onion-app-service';
-import { OnionConfigConnectionAppService } from '../../../../lib/application/services/onion-config-connection-app-service';
-import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
-import { AwilixConfig } from '../../../../lib/domain/entities/awilix-config';
-import { LintAppService } from '../../../../lib/application/services/lint-app-service';
+import { OnionConfigConnectionAppService } from '@onion-initializr/lib/application/services/onion-config-connection-app-service';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
+import { AwilixConfig } from '@onion-initializr/lib/domain/entities/awilix-config';
+import { LintAppService } from '@onion-initializr/lib/application/services/lint-app-service';
 import { RunCommandService } from '../repositories/run-command-service';
 import { NodeCommandRunner } from '../repositories/node-command-runner';
-import { UILibrarySetupService } from '../../../../lib/application/services/uilibrary-setup-service';
+import { UILibrarySetupService } from '@onion-initializr/lib/application/services/uilibrary-setup-service';
 
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC,

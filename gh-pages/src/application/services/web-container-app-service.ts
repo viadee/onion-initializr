@@ -7,7 +7,7 @@ import {
   DownloadResult,
 } from './project-download-app-service';
 import { ProjectGenerationOrchestratorAppService } from './project-generation-orchestrator-app-service';
-import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
 
 /**
  * Main service that coordinates WebContainer operations

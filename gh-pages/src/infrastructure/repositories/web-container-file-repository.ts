@@ -1,7 +1,7 @@
 import { IWebContainerRepository } from '../interfaces/iweb-container-repository';
 import { WebContainer } from '@webcontainer/api';
-import { FileEntity } from '../../../../lib/domain/entities/file-entity';
-import { IFileRepository } from '../../../../lib/domain/interfaces/ifile-repository';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
+import { IFileRepository } from '@onion-initializr/lib/domain/interfaces/ifile-repository';
 export class WebContainerFileRepository
   implements IFileRepository, IWebContainerRepository
 {

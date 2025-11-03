@@ -1,5 +1,5 @@
-import { DiFramework } from '../../../../lib/domain/entities/di-framework';
-import { UIFrameworks } from '../../../../lib/domain/entities/ui-framework';
+import { DiFramework } from '@onion-initializr/lib/domain/entities/di-framework';
+import { UIFrameworks } from '@onion-initializr/lib/domain/entities/ui-framework';
 
 export interface PreBundledDependencies {
   awilix: boolean;

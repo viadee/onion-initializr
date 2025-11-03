@@ -1,4 +1,4 @@
-import { IPathRepository } from '../../../../lib/domain/interfaces/ipath-repository';
+import { IPathRepository } from '@onion-initializr/lib/domain/interfaces/ipath-repository';
 import path from 'node:path';
 export class PathRepository implements IPathRepository {
   dirname(filePath: string): string {

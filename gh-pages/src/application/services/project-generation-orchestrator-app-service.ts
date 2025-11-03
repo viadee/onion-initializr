@@ -1,8 +1,8 @@
 import { WebContainerManagerAppService } from './web-container-manager-app-service';
 import { WebContainerOptimizedProjectAppService } from './web-container-optimized-project-app-service';
 import { WebContainerFileRepository } from '../../infrastructure/repositories/web-container-file-repository';
-import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
-import { OnionAppService } from '../../../../lib/application/services/onion-app-service';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
+import { OnionAppService } from '@onion-initializr/lib/application/services/onion-app-service';
 
 export interface GenerationResult {
   success: boolean;

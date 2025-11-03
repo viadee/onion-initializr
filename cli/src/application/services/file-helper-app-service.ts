@@ -1,6 +1,6 @@
 import chalk from 'chalk';
-import { FileService } from '../../../../lib/domain/services/file-service';
-import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
+import { FileService } from '@onion-initializr/lib/domain/services/file-service';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
 import { input } from '@inquirer/prompts';
 
 interface JsonFileResult<T = unknown> {

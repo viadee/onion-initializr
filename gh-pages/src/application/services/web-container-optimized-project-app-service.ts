@@ -1,15 +1,15 @@
-import { UiLibrary } from '../../../../lib/domain/entities/ui-library';
-import { FileService } from '../../../../lib/domain/services/file-service';
+import { UiLibrary } from '@onion-initializr/lib/domain/entities/ui-library';
+import { FileService } from '@onion-initializr/lib/domain/services/file-service';
 import { WebContainerCommandRunner } from '../../infrastructure/repositories/web-container-command-runner';
 import { WebContainerFileRepository } from '../../infrastructure/repositories/web-container-file-repository';
 import { WebContainerHelperFunctions } from '../../infrastructure/repositories/web-container-helper-functions';
-import { IProjectService } from '../../../../lib/domain/interfaces/iproject-service';
+import { IProjectService } from '@onion-initializr/lib/domain/interfaces/iproject-service';
 import { WebContainerOptimizationService } from './web-container-optimization-app-service';
-import { IFileRepository } from '../../../../lib/domain/interfaces/ifile-repository';
-import { DiFramework } from '../../../../lib/domain/entities/di-framework';
-import { FileEntity } from '../../../../lib/domain/entities/file-entity';
-import { UIFrameworks } from '../../../../lib/domain/entities/ui-framework';
-import { UILibrarySetupService } from '../../../../lib/application/services/uilibrary-setup-service';
+import { IFileRepository } from '@onion-initializr/lib/domain/interfaces/ifile-repository';
+import { DiFramework } from '@onion-initializr/lib/domain/entities/di-framework';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
+import { UIFrameworks } from '@onion-initializr/lib/domain/entities/ui-framework';
+import { UILibrarySetupService } from '@onion-initializr/lib/application/services/uilibrary-setup-service';
 /**
  * Optimized WebContainer project service that uses pre-generated lock files
  * to dramatically reduce installation time from ~50s to ~5s

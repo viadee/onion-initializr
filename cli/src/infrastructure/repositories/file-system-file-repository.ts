@@ -1,6 +1,6 @@
-import { PathAppService } from '../../../../lib/application/services/path-app-service';
-import { FileEntity } from '../../../../lib/domain/entities/file-entity';
-import { IFileRepository } from '../../../../lib/domain/interfaces/ifile-repository';
+import { PathAppService } from '@onion-initializr/lib/application/services/path-app-service';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
+import { IFileRepository } from '@onion-initializr/lib/domain/interfaces/ifile-repository';
 import fs from 'node:fs';
 import path from 'node:path';
 

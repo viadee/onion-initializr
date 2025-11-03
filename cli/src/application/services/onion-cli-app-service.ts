@@ -1,22 +1,22 @@
 #!/usr/bin/env node
 import { ScanControllerAppService } from './scan-controller-app-service';
-import { OnionConfigService } from '../../../../lib/domain/services/onion-config-service';
+import { OnionConfigService } from '@onion-initializr/lib/domain/services/onion-config-service';
 import { FileHelperAppService } from './file-helper-app-service';
 import {
   OnionAppService,
   OnionArchitectureGenerationParams,
 } from './onion-app-service';
-import { OnionConfigValidationService } from '../../../../lib/domain/services/onion-config-validation-service';
-import { FileService } from '../../../../lib/domain/services/file-service';
-import { FolderStructureService } from '../../../../lib/application/services/folder-gen-app-service';
-import { PathAppService } from '../../../../lib/application/services/path-app-service';
-import { IProjectService } from '../../../../lib/domain/interfaces/iproject-service';
+import { OnionConfigValidationService } from '@onion-initializr/lib/domain/services/onion-config-validation-service';
+import { FileService } from '@onion-initializr/lib/domain/services/file-service';
+import { FolderStructureService } from '@onion-initializr/lib/application/services/folder-gen-app-service';
+import { PathAppService } from '@onion-initializr/lib/application/services/path-app-service';
+import { IProjectService } from '@onion-initializr/lib/domain/interfaces/iproject-service';
 import { HelpAppService } from './help-app-service';
-import { DiFramework } from '../../../../lib/domain/entities/di-framework';
-import { FileEntity } from '../../../../lib/domain/entities/file-entity';
-import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
-import { UIFrameworks } from '../../../../lib/domain/entities/ui-framework';
-import { UiLibrary } from '../../../../lib/domain/entities/ui-library';
+import { DiFramework } from '@onion-initializr/lib/domain/entities/di-framework';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
+import { UIFrameworks } from '@onion-initializr/lib/domain/entities/ui-framework';
+import { UiLibrary } from '@onion-initializr/lib/domain/entities/ui-library';
 
 export class OnionCliAppService {
   constructor(

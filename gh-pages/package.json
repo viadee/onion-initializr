@@ -35,6 +35,7 @@
     "@angular/material": "20.0.3",
     "@angular/platform-browser": "20.0.3",
     "@angular/router": "20.0.3",
+    "@onion-initializr/lib": "workspace:*",
     "@types/handlebars": "4.0.40",
     "@webcontainer/api": "1.6.1",
     "awilix": "12.0.5",

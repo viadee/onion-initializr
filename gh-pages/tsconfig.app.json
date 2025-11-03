@@ -13,7 +13,9 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "handlebars": ["./node_modules/handlebars"]
+      "handlebars": ["./node_modules/handlebars"],
+      "@onion-initializr/lib/application/*": ["../lib/application/*"],
+      "@onion-initializr/lib/domain/*": ["../lib/domain/*"]
     }
   },
   "include": ["src/**/*.ts"],

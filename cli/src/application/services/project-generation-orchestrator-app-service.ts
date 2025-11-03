@@ -2,7 +2,7 @@ import { WebContainerFileRepository } from '../../../../gh-pages/src/infrastruct
 import { OnionCliAppService } from './onion-cli-app-service';
 import { WebContainerManagerAppService } from '../../../../gh-pages/src/application/services/web-container-manager-app-service';
 import { WebContainerOptimizedProjectAppService } from '../../../../gh-pages/src/application/services/web-container-optimized-project-app-service';
-import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
 
 export interface GenerationResult {
   success: boolean;

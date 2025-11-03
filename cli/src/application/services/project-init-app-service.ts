@@ -1,14 +1,14 @@
 import { LintAppService } from './../../../../lib/application/services/lint-app-service';
-import { ConfigurationAppService } from '../../../../lib/application/services/configuration-app-service';
-import { FileService } from '../../../../lib/domain/services/file-service';
+import { ConfigurationAppService } from '@onion-initializr/lib/application/services/configuration-app-service';
+import { FileService } from '@onion-initializr/lib/domain/services/file-service';
 import chalk from 'chalk';
-import { PathAppService } from '../../../../lib/application/services/path-app-service';
-import { ICommandRunner } from '../../../../lib/domain/interfaces/icommand-runner';
-import { IProjectService } from '../../../../lib/domain/interfaces/iproject-service';
-import { DiFramework } from '../../../../lib/domain/entities/di-framework';
-import { UiLibrary } from '../../../../lib/domain/entities/ui-library';
-import { UIFrameworks } from '../../../../lib/domain/entities/ui-framework';
-import { UILibrarySetupService } from '../../../../lib/application/services/uilibrary-setup-service';
+import { PathAppService } from '@onion-initializr/lib/application/services/path-app-service';
+import { ICommandRunner } from '@onion-initializr/lib/domain/interfaces/icommand-runner';
+import { IProjectService } from '@onion-initializr/lib/domain/interfaces/iproject-service';
+import { DiFramework } from '@onion-initializr/lib/domain/entities/di-framework';
+import { UiLibrary } from '@onion-initializr/lib/domain/entities/ui-library';
+import { UIFrameworks } from '@onion-initializr/lib/domain/entities/ui-framework';
+import { UILibrarySetupService } from '@onion-initializr/lib/application/services/uilibrary-setup-service';
 import { select } from '@inquirer/prompts';
 
 // Maps display name to internal framework key

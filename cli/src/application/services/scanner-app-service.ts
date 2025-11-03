@@ -1,9 +1,9 @@
-import { FileService } from '../../../../lib/domain/services/file-service';
-import { PathAppService } from '../../../../lib/application/services/path-app-service';
-import { DiFramework } from '../../../../lib/domain/entities/di-framework';
-import { UiLibrary } from '../../../../lib/domain/entities/ui-library';
-import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
-import { UIFrameworks } from '../../../../lib/domain/entities/ui-framework';
+import { FileService } from '@onion-initializr/lib/domain/services/file-service';
+import { PathAppService } from '@onion-initializr/lib/application/services/path-app-service';
+import { DiFramework } from '@onion-initializr/lib/domain/entities/di-framework';
+import { UiLibrary } from '@onion-initializr/lib/domain/entities/ui-library';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
+import { UIFrameworks } from '@onion-initializr/lib/domain/entities/ui-framework';
 
 // This Scanner allows you to create a JSON File
 // with in the CLI based on the project you are

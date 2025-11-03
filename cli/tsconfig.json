@@ -5,6 +5,11 @@
     "moduleResolution": "node",
     "outDir": "dist",
     "rootDir": "..",
+    "baseUrl": ".",
+    "paths": {
+      "@onion-initializr/lib/application/*": ["../lib/application/*"],
+      "@onion-initializr/lib/domain/*": ["../lib/domain/*"]
+    },
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,

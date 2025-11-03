@@ -1,32 +1,32 @@
 import { ApplicationService } from './../../../../lib/domain/entities/application-service';
-import { EntityService } from '../../../../lib/domain/services/entitity-service';
-import { RepoService } from '../../../../lib/domain/services/repo-service';
-import { ApplicationServiceService } from '../../../../lib/domain/services/application-service-service';
-import { ShowcaseService } from '../../../../lib/domain/services/showcase-service';
-import { AwilixConfigService } from '../../../../lib/domain/services/awilix-config-service';
+import { EntityService } from '@onion-initializr/lib/domain/services/entitity-service';
+import { RepoService } from '@onion-initializr/lib/domain/services/repo-service';
+import { ApplicationServiceService } from '@onion-initializr/lib/domain/services/application-service-service';
+import { ShowcaseService } from '@onion-initializr/lib/domain/services/showcase-service';
+import { AwilixConfigService } from '@onion-initializr/lib/domain/services/awilix-config-service';
 import {
   DomainServiceConnectorParams,
   DomainServiceService,
-} from '../../../../lib/domain/services/domain-service-service';
-import { IRepoService } from '../../../../lib/domain/services/irepo-service';
+} from '@onion-initializr/lib/domain/services/domain-service-service';
+import { IRepoService } from '@onion-initializr/lib/domain/services/irepo-service';
 import { AppServiceDependencyAppService } from './app-service-dependency-app-service';
-import { FileService } from '../../../../lib/domain/services/file-service';
-import { AngularConfigAppService } from '../../../../lib/application/services/angular-config-app-service';
-import { ConfigurationAppService } from '../../../../lib/application/services/configuration-app-service';
-import { FolderStructureService } from '../../../../lib/application/services/folder-gen-app-service';
-import { PathAppService } from '../../../../lib/application/services/path-app-service';
+import { FileService } from '@onion-initializr/lib/domain/services/file-service';
+import { AngularConfigAppService } from '@onion-initializr/lib/application/services/angular-config-app-service';
+import { ConfigurationAppService } from '@onion-initializr/lib/application/services/configuration-app-service';
+import { FolderStructureService } from '@onion-initializr/lib/application/services/folder-gen-app-service';
+import { PathAppService } from '@onion-initializr/lib/application/services/path-app-service';
 import {
   DomainServiceConnections,
   ApplicationServiceDependencyMap,
-} from '../../../../lib/domain/interfaces/domain-service-connections';
-import { IProjectService } from '../../../../lib/domain/interfaces/iproject-service';
-import { AwilixConfig } from '../../../../lib/domain/entities/awilix-config';
-import { DiFramework } from '../../../../lib/domain/entities/di-framework';
-import { DomainService } from '../../../../lib/domain/entities/domain-service';
-import { FileEntity } from '../../../../lib/domain/entities/file-entity';
-import { ShowcaseAppGeneration } from '../../../../lib/domain/entities/showcase-app-generation';
-import { UIFrameworks } from '../../../../lib/domain/entities/ui-framework';
-import { UiLibrary } from '../../../../lib/domain/entities/ui-library';
+} from '@onion-initializr/lib/domain/interfaces/domain-service-connections';
+import { IProjectService } from '@onion-initializr/lib/domain/interfaces/iproject-service';
+import { AwilixConfig } from '@onion-initializr/lib/domain/entities/awilix-config';
+import { DiFramework } from '@onion-initializr/lib/domain/entities/di-framework';
+import { DomainService } from '@onion-initializr/lib/domain/entities/domain-service';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
+import { ShowcaseAppGeneration } from '@onion-initializr/lib/domain/entities/showcase-app-generation';
+import { UIFrameworks } from '@onion-initializr/lib/domain/entities/ui-framework';
+import { UiLibrary } from '@onion-initializr/lib/domain/entities/ui-library';
 export interface OnionArchitectureGenerationParams {
   folderPath: string;
   entityNames: string[];

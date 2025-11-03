@@ -1,5 +1,5 @@
 import { WebContainer } from '@webcontainer/api';
-import { IFileRepository } from '../../../../lib/domain/interfaces/ifile-repository';
+import { IFileRepository } from '@onion-initializr/lib/domain/interfaces/ifile-repository';
 
 /**
  * Interface for repositories that provide WebContainer functionality

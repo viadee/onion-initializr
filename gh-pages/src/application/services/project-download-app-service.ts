@@ -1,6 +1,6 @@
 import { ZipAppService } from './zip-app-service';
 import { WebContainerFileRepository } from '../../infrastructure/repositories/web-container-file-repository';
-import { FileEntity } from '../../../../lib/domain/entities/file-entity';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
 
 export interface DownloadResult {
   success: boolean;
