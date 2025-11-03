@@ -32,6 +32,7 @@ test-results/
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+.nx/*
 
 # Miscellaneous
 /.angular/cache
