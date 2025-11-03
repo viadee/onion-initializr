@@ -21,7 +21,9 @@
   width: 90%;
   max-width: 800px;
   max-height: 90vh;
-  overflow-y: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   animation: modalSlideIn 0.3s ease-out;
 }
@@ -63,22 +65,28 @@
 
 .video-container {
   position: relative;
-  left: 5%;
-  width: 80%;
+  width: 100%;
   padding: 24px 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 auto;
+  overflow: hidden;
 
-  .youtube-iframe {
+  video {
     width: 100%;
-    height: 400px;
-    border: none;
+    height: auto;
+    max-height: 58vh;
+    object-fit: contain;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 }
 
 .modal-description {
   padding: 0 32px 24px;
   color: variables.$text-secondary;
+  overflow-y: auto;
+  flex-shrink: 0;
 
   p {
     font-size: 16px;

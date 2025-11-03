@@ -1,0 +1,76 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/dist"],
+      "cache": true
+    },
+    "prelink": {
+      "outputs": ["{projectRoot}/dist"],
+      "cache": true
+    },
+    "link": {
+      "outputs": ["{projectRoot}/cli/dist"],
+      "cache": true
+    },
+    "lint": {
+      "outputs": ["{projectRoot}//"],
+      "cache": true
+    },
+    "format": {
+      "outputs": ["{projectRoot}//"],
+      "cache": true
+    },
+    "test": {
+      "outputs": ["{projectRoot}//"],
+      "cache": true
+    },
+    "e2e": {
+      "outputs": ["{projectRoot}//"],
+      "cache": true
+    },
+    "e2e:headed": {
+      "outputs": ["{projectRoot}//"],
+      "cache": true
+    },
+    "e2e:debug": {
+      "outputs": ["{projectRoot}//"],
+      "cache": true
+    },
+    "clean": {
+      "outputs": ["{projectRoot}/dist"],
+      "cache": true
+    },
+    "prebuild": {
+      "outputs": ["{projectRoot}/dist"],
+      "cache": true
+    },
+    "postbuild": {
+      "outputs": ["{projectRoot}/dist"],
+      "cache": true
+    }
+  },
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "eslint:lint"
+      }
+    },
+    {
+      "plugin": "@nx/vite/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "testTargetName": "test",
+        "serveTargetName": "serve",
+        "devTargetName": "dev",
+        "previewTargetName": "preview",
+        "serveStaticTargetName": "serve-static",
+        "typecheckTargetName": "typecheck",
+        "buildDepsTargetName": "build-deps",
+        "watchDepsTargetName": "watch-deps"
+      }
+    }
+  ]
+}
