@@ -1,0 +1,6 @@
+packages:
+  - 'cli'
+  - 'gh-pages'
+  - 'lib'
+  # Exclude template lockfiles from workspace
+  - '!gh-pages/public/lockfiles/**'

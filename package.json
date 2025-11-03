@@ -1,0 +1,32 @@
+{
+  "name": "@onion-initializr/root",
+  "version": "0.0.17",
+  "private": true,
+  "description": "Onion Architecture Initializr - Monorepo root",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "format": "prettier --write .",
+    "clean": "pnpm -r clean",
+    "dev": "pnpm --filter gh-pages dev",
+    "cli:dev": "pnpm --filter cli dev",
+    "cli:build": "pnpm --filter cli build",
+    "cli:link": "pnpm --filter cli link",
+    "gh-pages:build": "pnpm --filter gh-pages github-build",
+    "gh-pages:deploy": "pnpm --filter gh-pages github-deploy"
+  },
+  "keywords": [
+    "onion-architecture",
+    "architecture",
+    "cli",
+    "typescript",
+    "monorepo"
+  ],
+  "author": "viadee",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "rimraf": "^5.0.0"
+  }
+}

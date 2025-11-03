@@ -1,13 +1,13 @@
 {
-  "name": "onion-initializr",
+  "name": "@onion-initializr/cli",
   "version": "0.0.17",
   "description": "Generate Onion Architecture folder structure, files, and code for TypeScript projects",
   "bin": {
     "onion": "dist/cli/src/application/services/main-app-service.js"
   },
   "scripts": {
-    "prelink": "npm run build",
-    "link": "npm link",
+    "prelink": "pnpm run build",
+    "link": "pnpm link --global",
     "lint": "eslint \"src/**/*.{ts,js}\"",
     "dev": "npm run start",
     "format": "prettier --write .",
@@ -19,7 +19,7 @@
     "e2e:headed": "playwright test --headed",
     "e2e:debug": "playwright test --debug",
     "clean": "rimraf dist",
-    "prebuild": "npm run clean",
+    "prebuild": "pnpm run clean",
     "build": "tsc --project tsconfig.json",
     "postbuild": "cpx \"../gh-pages/public/templates/**/*.hbs\" dist/cli/public/templates && cpx \"../gh-pages/public/templates/domain/services/templates/**/*.hbs\" dist/cli/src/domain/services/templates && cpx \"../gh-pages/public/templates/infrastructure/frameworks/templates/**/*.hbs\" dist/cli/src/infrastructure/frameworks/templates"
   },
@@ -44,6 +44,7 @@
     "jszip": "3.10.1",
     "ora": "5.4.1",
     "rxjs": "~7.8.0",
+    "tslib": "^2.8.1",
     "zone.js": "0.15.1"
   },
   "devDependencies": {

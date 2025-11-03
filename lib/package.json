@@ -1,0 +1,24 @@
+{
+  "name": "@onion-initializr/lib",
+  "version": "0.0.17",
+  "description": "Shared library for Onion Architecture Initializr",
+  "type": "module",
+  "main": "./application/index.js",
+  "types": "./application/index.d.ts",
+  "exports": {
+    "./application/*": "./application/*",
+    "./domain/*": "./domain/*"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist",
+    "lint": "echo 'No linting configured for lib'"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "handlebars": "4.7.8",
+    "typescript": "^5.7.3"
+  },
+  "author": "viadee",
+  "license": "MIT"
+}

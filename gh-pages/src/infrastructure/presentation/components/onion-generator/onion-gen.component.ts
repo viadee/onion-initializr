@@ -113,7 +113,11 @@ export class OnionGenComponent implements OnInit, OnDestroy {
     // Subscribe to progress changes
     this.progressSubscription =
       this.progressTrackingAppService.progress$.subscribe(state => {
-        this.isProgressRunning = state.isRunning;
+        // Use setTimeout to avoid ExpressionChangedAfterItHasBeenCheckedError
+        // This defers the update to the next change detection cycle
+        setTimeout(() => {
+          this.isProgressRunning = state.isRunning;
+        });
       });
   }
 
