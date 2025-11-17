@@ -39,7 +39,6 @@ jobs:
       - name: Build application
         run: cd gh-pages && npm run build:prod
 
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
