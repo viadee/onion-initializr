@@ -37,7 +37,7 @@ jobs:
         run: cd gh-pages && npm ci --legacy-peer-deps
 
       - name: Build application
-        run: cd gh-pages && npm run build:prod
+        run: cd gh-pages && npm run github-build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
