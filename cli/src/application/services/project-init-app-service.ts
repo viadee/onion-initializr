@@ -455,7 +455,7 @@ export class ProjectInitAppService implements IProjectService {
         indexHtmlTemplatePath
       );
 
-      let processedContent = templateContent.content;
+      const processedContent = templateContent.content;
 
       // Write the processed index.html to the project root
       const indexHtmlPath = this.pathService.join(folderPath, 'index.html');

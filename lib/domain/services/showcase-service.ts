@@ -1,10 +1,10 @@
-import { FileEntity } from "../entities/file-entity";
-import { ShowcaseAppGeneration } from "../entities/showcase-app-generation";
-import { UIFrameworks } from "../entities/ui-framework";
-import { UiLibrary } from "../entities/ui-library";
-import { FileService } from "./file-service";
-import Handlebars from "handlebars";
-import { ShowcaseTemplateFile } from "../entities/showcase-template-file";
+import { FileEntity } from '../entities/file-entity';
+import { ShowcaseAppGeneration } from '../entities/showcase-app-generation';
+import { UIFrameworks } from '../entities/ui-framework';
+import { UiLibrary } from '../entities/ui-library';
+import { FileService } from './file-service';
+import Handlebars from 'handlebars';
+import { ShowcaseTemplateFile } from '../entities/showcase-template-file';
 interface TemplateContext {
   firstAppService?: string;
   useAngularDI?: boolean;
@@ -23,7 +23,7 @@ type PathBuilder = (
   outputPath: string;
 };
 
-type SupportedFramework = Exclude<keyof UIFrameworks, "vanilla">;
+type SupportedFramework = Exclude<keyof UIFrameworks, 'vanilla'>;
 
 export class ShowcaseService {
   constructor(private readonly fileService: FileService) {}
@@ -32,12 +32,15 @@ export class ShowcaseService {
     request: ShowcaseAppGeneration,
     buildPaths: PathBuilder
   ): Promise<FileEntity[]> {
-    if (request.framework === "vanilla") {
-      console.log("Vanilla framework selected, skipping generation.");
+    if (request.framework === 'vanilla') {
+      console.log('Vanilla framework selected, skipping generation.');
       return [];
     }
 
-    const templateFiles = this.getTemplateFilesForFramework(request.framework, request.uiLibrary);
+    const templateFiles = this.getTemplateFilesForFramework(
+      request.framework,
+      request.uiLibrary
+    );
     if (templateFiles.main.length === 0) {
       return [];
     }
@@ -69,7 +72,7 @@ export class ShowcaseService {
    * Get template files configuration for a specific framework
    */
   private getTemplateFilesForFramework(
-    framework: keyof UIFrameworks, 
+    framework: keyof UIFrameworks,
     uiLibrary: UiLibrary = 'none'
   ): {
     main: ShowcaseTemplateFile[];
@@ -83,51 +86,63 @@ export class ShowcaseService {
       }
     > = {
       react: {
-        main: uiLibrary === 'shadcn' 
-          ? [
-              new ShowcaseTemplateFile("react/shadcn/App-shadcn.tsx.hbs", "App.tsx"),
-              new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
-              new ShowcaseTemplateFile("shared/README.md.hbs", "README.md"),
-            ]
-          : [
-              new ShowcaseTemplateFile("react/App.tsx.hbs", "App.tsx"),
-              new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
-              new ShowcaseTemplateFile("shared/README.md.hbs", "README.md"),
-            ],
-        extra: uiLibrary === 'shadcn' 
-          ? [new ShowcaseTemplateFile("react/shadcn/shadcn.utils.ts.hbs", "utils.ts"),
-              new ShowcaseTemplateFile("react/shadcn/shadcn.components.ts.hbs", "components.ts")
-          ]
-          : undefined,
+        main:
+          uiLibrary === 'shadcn'
+            ? [
+                new ShowcaseTemplateFile(
+                  'react/shadcn/App-shadcn.tsx.hbs',
+                  'App.tsx'
+                ),
+                new ShowcaseTemplateFile('shared/App.css.hbs', 'App.css'),
+                new ShowcaseTemplateFile('shared/README.md.hbs', 'README.md'),
+              ]
+            : [
+                new ShowcaseTemplateFile('react/App.tsx.hbs', 'App.tsx'),
+                new ShowcaseTemplateFile('shared/App.css.hbs', 'App.css'),
+                new ShowcaseTemplateFile('shared/README.md.hbs', 'README.md'),
+              ],
+        extra:
+          uiLibrary === 'shadcn'
+            ? [
+                new ShowcaseTemplateFile(
+                  'react/shadcn/shadcn.utils.ts.hbs',
+                  'utils.ts'
+                ),
+                new ShowcaseTemplateFile(
+                  'react/shadcn/shadcn.components.ts.hbs',
+                  'components.ts'
+                ),
+              ]
+            : undefined,
       },
       angular: {
         main: [
           new ShowcaseTemplateFile(
-            "angular/app.component.ts.hbs",
-            "app.component.ts"
+            'angular/app.component.ts.hbs',
+            'app.component.ts'
           ),
           new ShowcaseTemplateFile(
-            "angular/app.component.html.hbs",
-            "app.component.html"
+            'angular/app.component.html.hbs',
+            'app.component.html'
           ),
-          new ShowcaseTemplateFile("shared/App.css.hbs", "app.component.scss"),
-          new ShowcaseTemplateFile("shared/README.md.hbs", "README.md"),
+          new ShowcaseTemplateFile('shared/App.css.hbs', 'app.component.scss'),
+          new ShowcaseTemplateFile('shared/README.md.hbs', 'README.md'),
         ],
       },
       vue: {
         main: [
-          new ShowcaseTemplateFile("vue/App.vue.hbs", "App.vue"),
-          new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
-          new ShowcaseTemplateFile("shared/README.md.hbs", "README.md"),
+          new ShowcaseTemplateFile('vue/App.vue.hbs', 'App.vue'),
+          new ShowcaseTemplateFile('shared/App.css.hbs', 'App.css'),
+          new ShowcaseTemplateFile('shared/README.md.hbs', 'README.md'),
         ],
       },
       lit: {
         main: [
-          new ShowcaseTemplateFile("lit/App.ts.hbs", "App.ts"),
-          new ShowcaseTemplateFile("shared/App.css.hbs", "App.css"),
-          new ShowcaseTemplateFile("shared/README.md.hbs", "README.md"),
+          new ShowcaseTemplateFile('lit/App.ts.hbs', 'App.ts'),
+          new ShowcaseTemplateFile('shared/App.css.hbs', 'App.css'),
+          new ShowcaseTemplateFile('shared/README.md.hbs', 'README.md'),
         ],
-        extra: [new ShowcaseTemplateFile("lit/index.html.hbs", "index.html")],
+        extra: [new ShowcaseTemplateFile('lit/index.html.hbs', 'index.html')],
       },
     };
 
@@ -141,7 +156,7 @@ export class ShowcaseService {
     files: ShowcaseTemplateFile[],
     buildPaths: PathBuilder
   ): TemplateFileDefinition[] {
-    return files.map((file) => {
+    return files.map(file => {
       const paths = buildPaths(file.template, file.output);
       return {
         templatePath: paths.templatePath,

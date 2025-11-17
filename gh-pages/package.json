@@ -10,7 +10,6 @@
     "link": "pnpm link --global",
     "lint": "eslint \"src/**/*.{ts,js}\"",
     "dev": "pnpm run start",
-    "format": "prettier --write .",
     "ng": "ng",
     "start": "ng serve",
     "watch": "ng build --watch --configuration development",

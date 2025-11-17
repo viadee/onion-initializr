@@ -1,7 +1,7 @@
-import { IConnectionValidator } from "../interfaces/iconnection-validator";
-import { OnionConfigStateService } from "./onion-config-state-service";
-import { OnionConfigNodeService } from "./onion-config-node-service";
-import { OnionConfigRepositoryService } from "./onion-config-repository-service";
+import { IConnectionValidator } from '../interfaces/iconnection-validator';
+import { OnionConfigStateService } from './onion-config-state-service';
+import { OnionConfigNodeService } from './onion-config-node-service';
+import { OnionConfigRepositoryService } from './onion-config-repository-service';
 import { FileEntity } from '../entities/file-entity';
 import { OnionConfig } from '../entities/onion-config';
 

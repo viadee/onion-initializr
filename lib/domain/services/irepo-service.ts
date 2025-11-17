@@ -1,5 +1,5 @@
-import Handlebars from "handlebars";
-import { FileEntity } from "../entities/file-entity";
+import Handlebars from 'handlebars';
+import { FileEntity } from '../entities/file-entity';
 
 export class IRepoService {
   /**

@@ -12,7 +12,7 @@ export class ConfigurationAppService {
     value: boolean
   ): Promise<FileEntity | null> {
     const configPath = await this.findTsConfigFile(folderPath);
-    
+
     if (!configPath) {
       return null;
     }
@@ -20,24 +20,27 @@ export class ConfigurationAppService {
     const configFile = await this.fileService.readFile(configPath);
     const cleanContent = this.removeJsonComments(configFile.content);
 
-      const configContent = JSON.parse(cleanContent);
+    const configContent = JSON.parse(cleanContent);
 
-      configContent.compilerOptions = {
-        ...configContent.compilerOptions,
-        verbatimModuleSyntax: value,
-      };
+    configContent.compilerOptions = {
+      ...configContent.compilerOptions,
+      verbatimModuleSyntax: value,
+    };
 
-      return {
-        filePath: configPath,
-        content: JSON.stringify(configContent, null, 2),
-      };
+    return {
+      filePath: configPath,
+      content: JSON.stringify(configContent, null, 2),
+    };
   }
 
   private async findTsConfigFile(folderPath: string): Promise<string | null> {
     // Try tsconfig.app.json first (CLI), then fallback to tsconfig.json (WEB)
-    const appConfigPath = this.pathService.join(folderPath, 'tsconfig.app.json');
+    const appConfigPath = this.pathService.join(
+      folderPath,
+      'tsconfig.app.json'
+    );
     const mainConfigPath = this.pathService.join(folderPath, 'tsconfig.json');
-    
+
     if (await this.fileService.fileExists(appConfigPath)) {
       return appConfigPath;
     } else if (await this.fileService.fileExists(mainConfigPath)) {

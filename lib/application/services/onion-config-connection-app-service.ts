@@ -2,10 +2,10 @@ import { OnionConfig } from '../../domain/entities/onion-config';
 import { OnionConfigStateService } from '../../domain/services/onion-config-state-service';
 import { OnionConfigRepositoryService } from '../../domain/services/onion-config-repository-service';
 import { IConnectionValidator } from '../../domain/interfaces/iconnection-validator';
-import { 
+import {
   ENTITIES,
   DOMAIN_SERVICES,
-  APPLICATION_SERVICES
+  APPLICATION_SERVICES,
 } from '../../domain/entities/onion-ring';
 
 type Result<T = unknown> = {
@@ -25,10 +25,7 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
     private readonly repositoryService: OnionConfigRepositoryService
   ) {}
 
-  addConnection(
-    source: string,
-    target: string
-  ): ResultWithNull<OnionConfig> {
+  addConnection(source: string, target: string): ResultWithNull<OnionConfig> {
     const data = this.stateService.getData();
     if (!data) {
       return { success: false, message: 'No data loaded', data: null };
@@ -130,10 +127,7 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
     };
   }
 
-  removeConnection(
-    source: string,
-    target: string
-  ): Result<OnionConfig> {
+  removeConnection(source: string, target: string): Result<OnionConfig> {
     const data = this.stateService.getData();
     const newData: OnionConfig = { ...data };
     const sourceRing = this.repositoryService.getRing(source, data);
@@ -175,8 +169,7 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
       }
     } else if (
       sourceIsRepo &&
-      this.repositoryService.getRing(target, data) ===
-        APPLICATION_SERVICES
+      this.repositoryService.getRing(target, data) === APPLICATION_SERVICES
     ) {
       const repoDeps =
         newData.applicationServiceDependencies?.[target]?.repositories;
@@ -226,8 +219,7 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
       return hasDomainConnection || hasRepoConnection;
     } else if (
       sourceIsRepo &&
-      this.repositoryService.getRing(target, data) ===
-        APPLICATION_SERVICES
+      this.repositoryService.getRing(target, data) === APPLICATION_SERVICES
     ) {
       const deps = data.applicationServiceDependencies?.[target];
       return deps?.repositories?.includes(source) || false;
@@ -313,11 +305,7 @@ export class OnionConfigConnectionAppService implements IConnectionValidator {
     if (!targetRing && !targetIsRepo) {
       return false;
     }
-    if (
-      sourceRing === DOMAIN_SERVICES &&
-      targetRing !== ENTITIES
-    )
-      return false;
+    if (sourceRing === DOMAIN_SERVICES && targetRing !== ENTITIES) return false;
     if (
       sourceRing === APPLICATION_SERVICES &&
       targetRing !== DOMAIN_SERVICES &&

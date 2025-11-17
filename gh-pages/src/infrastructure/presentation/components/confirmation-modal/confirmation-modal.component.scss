@@ -1,4 +1,4 @@
-@use "sass:color";
+@use 'sass:color';
 @use '../_shared/variables';
 
 ::ng-deep .light-theme-dialog .mat-mdc-dialog-container {
@@ -115,7 +115,10 @@
       color: white;
 
       &:hover {
-        background-color: color.adjust(variables.$error-color, $lightness: -10%);
+        background-color: color.adjust(
+          variables.$error-color,
+          $lightness: -10%
+        );
       }
     }
   }

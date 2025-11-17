@@ -1,0 +1,8 @@
+{
+  "name": "@onion-initializr/gh-pages",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "gh-pages/src",
+  "projectType": "application",
+  "tags": ["type:app", "scope:gh-pages"],
+  "targets": {}
+}

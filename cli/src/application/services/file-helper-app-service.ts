@@ -50,7 +50,7 @@ export class FileHelperAppService {
   /**
    * Safely read and parse a JSON file. Returns undefined if the file doesn't exist or parse fails.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   async readJsonFile(filePath: string): Promise<JsonFileResult> {
     try {
       if (!(await this.fileService.dirExists(filePath))) {

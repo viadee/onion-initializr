@@ -24,7 +24,9 @@ export class AngularConfigAppService {
     const fileEntities: FileEntity[] = [];
 
     // Generate repository providers
-    const repositories = entityNames.map(entityName => `I${entityName}Repository`);
+    const repositories = entityNames.map(
+      entityName => `I${entityName}Repository`
+    );
     const repositoryProviders = await this.generateRepositoryProviders(
       folderPath,
       repositories
@@ -55,12 +57,14 @@ export class AngularConfigAppService {
     fileEntities.push(serviceProviderIndex);
 
     // Generate modern app.config.ts file
-    const appConfigFile = await this.generateAppConfigFile(folderPath, entityNames);
+    const appConfigFile = await this.generateAppConfigFile(
+      folderPath,
+      entityNames
+    );
     fileEntities.push(appConfigFile);
 
     return fileEntities;
   }
-
 
   private async generateAppConfigFile(
     folderPath: string,
@@ -74,7 +78,7 @@ export class AngularConfigAppService {
       'app.config.ts.hbs'
     );
     const template = await this.fileService.readTemplate(templatePath);
-    
+
     const generator = new TemplateService<{}>(template.content);
     const content = generator.render({});
 
@@ -117,11 +121,13 @@ export class AngularConfigAppService {
     if (!(await this.fileService.dirExists(configDir))) {
       await this.fileService.createDirectory(configDir);
     }
-    
+
     for (const serviceName of domainServices) {
-      const generator = new TemplateService<{ serviceName: string }>(template.content);
+      const generator = new TemplateService<{ serviceName: string }>(
+        template.content
+      );
       const content = generator.render({ serviceName });
-      
+
       const filePath = this.pathService.join(
         configDir,
         `${serviceName}.provider.ts`
@@ -135,7 +141,11 @@ export class AngularConfigAppService {
 
   private async generateApplicationServiceProviders(
     folderPath: string,
-    applicationServices: { name: string; domainServices: string[]; repositories: string[] }[]
+    applicationServices: {
+      name: string;
+      domainServices: string[];
+      repositories: string[];
+    }[]
   ): Promise<FileEntity[]> {
     const fileEntities: FileEntity[] = [];
     const templatePath = this.pathService.join(
@@ -164,7 +174,7 @@ export class AngularConfigAppService {
         repositories: string[];
       }>(template.content);
       const content = generator.render(service);
-      
+
       const filePath = this.pathService.join(
         configDir,
         `${service.name}.provider.ts`
@@ -205,20 +215,22 @@ export class AngularConfigAppService {
       const lastRepositoryIndex = repositoryClass.lastIndexOf('Repository');
 
       // entityName is the part after the I and before THE LAST 'Repository'.
-      // The following logic handles edge cases like 'IRepositoryMetadataRepository'. 
-      const entityName = lastRepositoryIndex >= 0 
-        ? repositoryClass.substring(0, lastRepositoryIndex) + repositoryClass.substring(lastRepositoryIndex + 'Repository'.length)
-        : repositoryClass;
-      
-      const generator = new TemplateService<{ 
-        repositoryInterface: string; 
-        repositoryClass: string; 
+      // The following logic handles edge cases like 'IRepositoryMetadataRepository'.
+      const entityName =
+        lastRepositoryIndex >= 0
+          ? repositoryClass.substring(0, lastRepositoryIndex) +
+            repositoryClass.substring(lastRepositoryIndex + 'Repository'.length)
+          : repositoryClass;
+
+      const generator = new TemplateService<{
+        repositoryInterface: string;
+        repositoryClass: string;
       }>(template.content);
-      const content = generator.render({ 
+      const content = generator.render({
         repositoryInterface: repository,
-        repositoryClass: repositoryClass
+        repositoryClass: repositoryClass,
       });
-      
+
       const filePath = this.pathService.join(
         configDir,
         `${entityName}Repository.provider.ts`
@@ -244,20 +256,28 @@ export class AngularConfigAppService {
       'serviceProvider.ts.hbs'
     );
     const template = await this.fileService.readTemplate(templatePath);
-    
+
     // Prepare repository data for template
     const repositoryData = repositories.map(repo => ({
       entityName: repo.replace('I', '').replace('Repository', ''),
       interface: repo,
-      class: repo.replace('I', '')
+      class: repo.replace('I', ''),
     }));
-    
+
     const generator = new TemplateService<{
-      repositoryData: { entityName: string; interface: string; class: string; }[];
+      repositoryData: {
+        entityName: string;
+        interface: string;
+        class: string;
+      }[];
       domainServices: string[];
       applicationServices: string[];
     }>(template.content);
-    const content = generator.render({ repositoryData, domainServices, applicationServices });
+    const content = generator.render({
+      repositoryData,
+      domainServices,
+      applicationServices,
+    });
 
     const configDir = this.pathService.join(
       folderPath,
@@ -273,6 +293,4 @@ export class AngularConfigAppService {
     const file = new FileEntity(filePath, content);
     return file;
   }
-
-
 }

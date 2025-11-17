@@ -33,7 +33,6 @@ export class OnionConfig {
     this.uiFramework = data.uiFramework;
     this.diFramework = data.diFramework ?? 'awilix';
     this.uiLibrary = data.uiLibrary;
-
   }
 
   static empty(): OnionConfig {

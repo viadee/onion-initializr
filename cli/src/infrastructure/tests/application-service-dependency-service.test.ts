@@ -21,7 +21,7 @@ describe('AppServiceDependencyAppService', () => {
         const repositoryInterfaces = ['ITestRepository'];
 
         // This test only verifies that empty array returns empty object
-        let mockCalled = false;
+        const mockCalled = false;
 
         const result = await service.pickDependencies(
           applicationServices,

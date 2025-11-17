@@ -19,10 +19,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": [
-    "application/**/*.ts",
-    "domain/**/*.ts"
-  ],
+  "include": ["application/**/*.ts", "domain/**/*.ts"],
   "exclude": [
     "node_modules",
     "dist",

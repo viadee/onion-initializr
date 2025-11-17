@@ -15,8 +15,8 @@ jobs:
         run: cp gh-pages/package-lock.json package-lock.json
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: '20'
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
         working-directory: ./gh-pages

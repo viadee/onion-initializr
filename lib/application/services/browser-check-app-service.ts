@@ -8,10 +8,12 @@ export class BrowserCheckAppService {
       typeof process.versions?.node !== 'undefined'
     );
   }
-
+  //testcomment
   isBrowser(): boolean {
     return (
-      typeof window !== 'undefined' && typeof window.document !== 'undefined'
+      typeof globalThis !== 'undefined' &&
+      'window' in globalThis &&
+      'document' in (globalThis as any).window
     );
   }
 }

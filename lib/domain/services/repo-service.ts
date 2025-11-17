@@ -1,8 +1,6 @@
-import Handlebars from "handlebars";
-import { DiFramework } from "../entities/di-framework";
-import { FileEntity } from "../entities/file-entity";
-
-
+import Handlebars from 'handlebars';
+import { DiFramework } from '../entities/di-framework';
+import { FileEntity } from '../entities/file-entity';
 
 export class RepoService {
   generateRepositoriesFiles(
@@ -13,8 +11,8 @@ export class RepoService {
   ): FileEntity[] {
     const template = Handlebars.compile(templateContent);
 
-    const fileEntities: FileEntity[] = [];
-    const useAngularDI = diFramework === "angular";
+    const fileEntities: FileEntity[] = [] ;
+    const useAngularDI = diFramework === 'angular';
 
     entitiesRepository.forEach((entityRepository: string) => {
       const filePath = `${infraRepoDir}/${entityRepository}Repository.ts`;

@@ -1,41 +1,47 @@
-import { {{name}} } from '../../application/services/{{name}}';
+import {
+{{name}}
+} from '../../application/services/{{name}}';
 {{#each domainServices}}
-{{#if this}}
-import { {{this}} } from '../../domain/services/{{this}}';
-{{/if}}
+  {{#if this}}
+    import {
+    {{this}}
+    } from '../../domain/services/{{this}}';
+  {{/if}}
 {{/each}}
 {{#each repositories}}
-{{#if this}}
-import { {{this}} } from '../../domain/interfaces/{{this}}';
-import { {{removeFirst this}} } from '../repositories/{{removeFirst this}}';
-{{/if}}
+  {{#if this}}
+    import {
+    {{this}}
+    } from '../../domain/interfaces/{{this}}'; import {
+    {{removeFirst this}}
+    } from '../repositories/{{removeFirst this}}';
+  {{/if}}
 {{/each}}
 
-const {{lowerFirst name}}Factory = (
+const
+{{lowerFirst name}}Factory = (
 {{#each domainServices}}
   {{#if this}}{{lowerFirst this}}: {{this}},{{/if}}
 {{/each}}
 {{#each repositories}}
   {{#if this}}{{lowerFirst (removeFirst this)}}: {{this}},{{/if}}
 {{/each}}
-) => new {{name}}(
+) => new
+{{name}}(
 {{#each domainServices}}
   {{#if this}}{{lowerFirst this}},{{/if}}
 {{/each}}
 {{#each repositories}}
   {{#if this}}{{lowerFirst (removeFirst this)}},{{/if}}
 {{/each}}
-);
-
-export const {{lowerFirst name}}Provider = {
-  provide: {{name}},
-  useFactory: {{lowerFirst name}}Factory,
-  deps: [
+); export const
+{{lowerFirst name}}Provider = { provide:
+{{name}}, useFactory:
+{{lowerFirst name}}Factory, deps: [
 {{#each domainServices}}
-    {{#if this}}{{this}},{{/if}}
+  {{#if this}}{{this}},{{/if}}
 {{/each}}
 {{#each repositories}}
-    {{#if this}}{{removeFirst this}},{{/if}}
+  {{#if this}}{{removeFirst this}},{{/if}}
 {{/each}}
-  ],
-};
+], };

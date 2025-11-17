@@ -1,0 +1,24 @@
+{
+  "name": "@onion-initializr/lib",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "lib",
+  "projectType": "library",
+  "tags": ["type:shared", "scope:lib"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{workspaceRoot}/lib/dist"],
+      "options": {
+        "tsConfig": "lib/tsconfig.json",
+        "main": "lib/domain/index.ts",
+        "outputPath": "lib/dist"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["lib/**/*.ts"]
+      }
+    }
+  }
+}

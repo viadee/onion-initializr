@@ -19,18 +19,12 @@ export interface IConnectionValidator {
   /**
    * Add a connection between source and target nodes
    */
-  addConnection(
-    source: string,
-    target: string
-  ): ResultWithNull<OnionConfig>;
+  addConnection(source: string, target: string): ResultWithNull<OnionConfig>;
 
   /**
    * Remove a connection between source and target nodes
    */
-  removeConnection(
-    source: string,
-    target: string
-  ): Result<OnionConfig>;
+  removeConnection(source: string, target: string): Result<OnionConfig>;
 
   /**
    * Check if a connection exists between source and target

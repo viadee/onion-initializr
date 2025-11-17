@@ -359,7 +359,7 @@ export class OnionAppService {
     diFramework: DiFramework
   ): Promise<FileEntity[]> {
     const stepStart = Date.now();
-    let fileEntities: FileEntity[] = [];
+    const fileEntities: FileEntity[] = [];
 
     if (diFramework === 'awilix') {
       const awilixConfigParams = new AwilixConfig(

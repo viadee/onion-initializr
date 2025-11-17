@@ -1,10 +1,10 @@
-<div class="app">
+<div class='app'>
   <h1>🧅 Onion Architecture + Angular</h1>
   {{#if firstAppService}}
-    <button (click)="runExampleUseCase()" [disabled]="loading">
+    <button (click)='runExampleUseCase()' [disabled]='loading'>
       {{#if loading}}Running...{{else}}Run Use Case{{/if}}
     </button>
-      <p>\{{ message }}</p>
+    <p>\{{ message }}</p>
 
   {{else}}
     <p>No application services were defined.</p>

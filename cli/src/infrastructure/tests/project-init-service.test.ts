@@ -15,7 +15,7 @@ const mockFs = {
 
 // Override require for fs module
 const originalRequire = require;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 (global as any).require = (id: string) => {
   if (id === 'fs') return mockFs;
   if (id === 'path') return originalRequire('path');

@@ -1,0 +1,35 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@onion-initializr/domain": ["libs/domain/src/index.ts"],
+      "@onion-initializr/sample-domain": ["libs/sample/domain/src/index.ts"],
+      "@onion-initializr/sample-application": [
+        "libs/sample/application/src/index.ts"
+      ],
+      "@onion-initializr/sample-infrastructure": [
+        "libs/sample/infrastructure/src/index.ts"
+      ],
+      "@onion-initializr/sample-presentation": [
+        "libs/sample/presentation/src/index.ts"
+      ],
+      "@gh-pages/domain": ["gh-pages/src/domain/index.ts"],
+      "@gh-pages/application": ["gh-pages/src/application/index.ts"],
+      "@gh-pages/infrastructure": ["gh-pages/src/infrastructure/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

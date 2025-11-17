@@ -8,12 +8,7 @@
   "scripts": {
     "prelink": "pnpm run build",
     "link": "pnpm link --global",
-    "lint": "eslint \"src/**/*.{ts,js}\"",
-    "dev": "npm run start",
-    "format": "prettier --write .",
-    "ng": "ng",
-    "start": "ng serve",
-    "watch": "ng build --watch --configuration development",
+    "dev": "pnpm run start",
     "test": "cross-env TS_NODE_PROJECT=tsconfig.test.json c8 --all --include=\"src/**/*.ts\" --reporter=text --reporter=html mocha --require ts-node/register src/**/*.test.ts",
     "e2e": "playwright test",
     "e2e:headed": "playwright test --headed",

@@ -1,18 +1,18 @@
-import { OnionConfig } from "../entities/onion-config";
-import { OnionConfigStateService } from "./onion-config-state-service";
+import { OnionConfig } from '../entities/onion-config';
+import { OnionConfigStateService } from './onion-config-state-service';
 
 export class OnionConfigNodeService {
   constructor(private readonly stateService: OnionConfigStateService) {}
 
   addEntity(name: string): OnionConfig {
-    return this.stateService.updateData((current) => ({
+    return this.stateService.updateData(current => ({
       ...current,
       entities: [...(current.entities || []), name],
     }));
   }
 
   addDomainService(name: string): OnionConfig {
-    return this.stateService.updateData((current) => ({
+    return this.stateService.updateData(current => ({
       ...current,
       domainServices: [...(current.domainServices || []), name],
       domainServiceConnections: {
@@ -23,7 +23,7 @@ export class OnionConfigNodeService {
   }
 
   addApplicationService(name: string): OnionConfig {
-    return this.stateService.updateData((current) => ({
+    return this.stateService.updateData(current => ({
       ...current,
       applicationServices: [...(current.applicationServices || []), name],
       applicationServiceDependencies: {
@@ -37,15 +37,16 @@ export class OnionConfigNodeService {
   }
 
   removeNode(name: string): OnionConfig {
-    return this.stateService.updateData((current) => {
+    return this.stateService.updateData(current => {
       let newData: OnionConfig = { ...current };
 
       // remove associated repository before entity is removed
-      if(newData.entities.includes(name)) {
+      if (newData.entities.includes(name)) {
         newData = this.removeNode(`I${name}Repository`);
       }
-      newData.entities = (newData.entities || []).filter((e: string) => e !== name);
-      
+      newData.entities = (newData.entities || []).filter(
+        (e: string) => e !== name
+      );
 
       if (newData.domainServices) {
         newData.domainServices = newData.domainServices.filter(
@@ -55,7 +56,9 @@ export class OnionConfigNodeService {
           delete newData.domainServiceConnections[name];
           for (const key of Object.keys(newData.domainServiceConnections)) {
             newData.domainServiceConnections[key] =
-              newData.domainServiceConnections[key].filter((t: string) => t !== name);
+              newData.domainServiceConnections[key].filter(
+                (t: string) => t !== name
+              );
           }
         }
       }
@@ -70,8 +73,12 @@ export class OnionConfigNodeService {
             newData.applicationServiceDependencies
           )) {
             const deps = newData.applicationServiceDependencies[key];
-            deps.domainServices = deps.domainServices.filter((s: string) => s !== name);
-            deps.repositories = deps.repositories.filter((r: string) => r !== name);
+            deps.domainServices = deps.domainServices.filter(
+              (s: string) => s !== name
+            );
+            deps.repositories = deps.repositories.filter(
+              (r: string) => r !== name
+            );
           }
         }
       }
