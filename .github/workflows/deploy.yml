@@ -37,7 +37,18 @@ jobs:
         run: cd gh-pages && npm ci --legacy-peer-deps
 
       - name: Build application
-        run: cd gh-pages && npm run github-build
+        run: cd gh-pages && npm run build:prod
+
+      - name: Fix paths for GitHub Pages subdirectory
+        run: |
+          cd gh-pages/dist/onion-initializr/browser
+          # Update base href
+          sed -i 's|<base href="/">|<base href="/onion-initializr/">|g' index.html
+          # Update script/link src paths to include subdirectory
+          find . -name "index.html" -exec sed -i 's|src="|src="/onion-initializr/|g' {} \;
+          find . -name "index.html" -exec sed -i 's|href="|href="/onion-initializr/|g' {} \;
+          # Fix double slashes from base href
+          sed -i 's|href="/onion-initializr/<base|href="<base|g' index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
