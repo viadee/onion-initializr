@@ -2,29 +2,6 @@
   "name": "@onion-initializr/gh-pages",
   "version": "0.0.5",
   "description": "Generate Onion Architecture folder structure, files, and code for TypeScript projects",
-  "bin": {
-    "onion": "dist/application/services/MainAppService.js"
-  },
-  "scripts": {
-    "prelink": "pnpm run build",
-    "link": "pnpm link --global",
-    "lint": "eslint \"src/**/*.{ts,js}\"",
-    "dev": "pnpm run start",
-    "ng": "ng",
-    "start": "ng serve",
-    "watch": "ng build --watch --configuration development",
-    "test": "cross-env TS_NODE_PROJECT=tsconfig.test.json c8 --all --include=\"src/**/*.ts\" --reporter=text --reporter=html mocha --require ts-node/register src/**/*.test.ts",
-    "e2e": "playwright test",
-    "e2e:headed": "playwright test --headed",
-    "e2e:debug": "playwright test --debug",
-    "clean": "rimraf dist",
-    "prebuild": "pnpm run clean",
-    "build": "ng build --configuration production",
-    "postbuild": "cpx \"public/templates/domain/services/templates/**/*.hbs\" dist/domain/services/templates && cpx \"public/templates/infrastructure/frameworks/templates/**/*.hbs\" dist/infrastructure/frameworks/templates",
-    "github-build": "ng build --configuration production --base-href /onion-initializr/",
-    "firebase-build": "ng build --configuration production --base-href /",
-    "github-deploy": "npx angular-cli-ghpages --dir=dist/onion-initializr/browser --no-silent"
-  },
   "dependencies": {
     "@angular/cdk": "20.0.3",
     "@angular/common": "20.0.3",

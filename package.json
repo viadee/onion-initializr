@@ -4,16 +4,7 @@
   "private": true,
   "description": "Onion Architecture Initializr - Monorepo root",
   "scripts": {
-    "test": "pnpm -r test",
-    "lint": "nx affected -t lint",
-    "lint:all": "nx run-many -t lint",
-    "clean": "pnpm -r clean",
-    "dev": "pnpm --filter gh-pages dev",
-    "cli:dev": "pnpm --filter cli dev",
-    "cli:build": "pnpm --filter cli build",
-    "cli:link": "pnpm --filter cli link",
-    "gh-pages:build": "pnpm --filter gh-pages github-build",
-    "gh-pages:deploy": "pnpm --filter gh-pages github-deploy"
+    "dev": "pnpm --filter gh-pages dev"
   },
   "keywords": [
     "onion-architecture",
@@ -40,8 +31,10 @@
     "@nx/jest": "22.0.2",
     "@nx/js": "22.0.2",
     "@nx/node": "22.0.2",
+    "@nx/playwright": "22.0.2",
     "@nx/vite": "22.0.2",
     "@nx/web": "22.0.2",
+    "@playwright/test": "^1.36.0",
     "@schematics/angular": "~20.3.0",
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
@@ -53,7 +46,7 @@
     "@typescript-eslint/utils": "^7.16.0",
     "@vitest/ui": "^3.0.0",
     "autoprefixer": "^10.4.0",
-    "esbuild": "^0.19.2",
+    "esbuild": "^0.19.12",
     "eslint": "~8.57.0",
     "eslint-config-prettier": "^10.0.0",
     "jest": "^29.7.0",

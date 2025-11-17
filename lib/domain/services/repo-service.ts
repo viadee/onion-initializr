@@ -11,7 +11,7 @@ export class RepoService {
   ): FileEntity[] {
     const template = Handlebars.compile(templateContent);
 
-    const fileEntities: FileEntity[] = [] ;
+    const fileEntities: FileEntity[] = [];
     const useAngularDI = diFramework === 'angular';
 
     entitiesRepository.forEach((entityRepository: string) => {

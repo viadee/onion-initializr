@@ -1,0 +1,81 @@
+{
+  "name": "@onion-initializr/cli",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "cli/src",
+  "projectType": "application",
+  "tags": [
+    "npm:public",
+    "npm:onion",
+    "npm:starter",
+    "npm:architecture",
+    "npm:design",
+    "npm:zwiebel"
+  ],
+  "targets": {
+    "prebuild": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["rimraf dist tsconfig.tsbuildinfo"],
+        "cwd": "cli"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["^build"],
+      "outputs": ["{workspaceRoot}/cli/dist"],
+      "options": {
+        "commands": ["tsc"],
+        "cwd": "cli"
+      }
+    },
+    "postbuild": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "outputs": [
+        "{workspaceRoot}/cli/dist/cli/public",
+        "{workspaceRoot}/cli/dist/cli/src/domain/services/templates",
+        "{workspaceRoot}/cli/dist/cli/src/infrastructure/frameworks/templates"
+      ],
+      "options": {
+        "commands": [
+          "cpx \"../gh-pages/public/templates/**/*.hbs\" dist/cli/public/templates",
+          "cpx \"../gh-pages/public/templates/domain/services/templates/**/*.hbs\" dist/cli/src/domain/services/templates",
+          "cpx \"../gh-pages/public/templates/infrastructure/frameworks/templates/**/*.hbs\" dist/cli/src/infrastructure/frameworks/templates"
+        ],
+        "cwd": "cli",
+        "parallel": false
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["rimraf dist tsconfig.tsbuildinfo"],
+        "cwd": "cli"
+      }
+    },
+    "link": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build", "postbuild"],
+      "options": {
+        "commands": ["pnpm link --global"],
+        "cwd": "cli"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "cross-env TS_NODE_PROJECT=tsconfig.test.json c8 --all --include=\"src/**/*.ts\" --reporter=text --reporter=html mocha --require ts-node/register src/**/*.test.ts"
+        ],
+        "cwd": "cli"
+      }
+    },
+    "e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["playwright test"],
+        "cwd": "cli"
+      }
+    }
+  }
+}
