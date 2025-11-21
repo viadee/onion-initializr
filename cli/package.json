@@ -3,7 +3,7 @@
   "version": "0.0.18",
   "description": "Generate Onion Architecture folder structure, files, and code for TypeScript projects",
   "bin": {
-    "onion": "dist/cli/src/application/services/main-app-service.js"
+    "onion": "dist/src/application/services/main-app-service.js"
   },
   "dependencies": {
     "@angular/cdk": "~20.0.3",

@@ -1,6 +1,5 @@
 import { createContainer, asClass, InjectionMode } from 'awilix';
 
-import { OnionConfigRepository } from '../../../../gh-pages/src/infrastructure/repositories/onion-config-repository';
 import { OnionConfigService } from '@onion-initializr/lib/domain/services/onion-config-service';
 import { OnionConfigStateService } from '@onion-initializr/lib/domain/services/onion-config-state-service';
 import { OnionConfigNodeService } from '@onion-initializr/lib/domain/services/onion-config-node-service';
@@ -22,16 +21,7 @@ import { FileHelperAppService } from '../../application/services/file-helper-app
 import { OnionCliAppService } from '../../application/services/onion-cli-app-service';
 import { AppServiceDependencyAppService } from '../../application/services/app-service-dependency-app-service';
 import { ProjectInitAppService } from '../../application/services/project-init-app-service';
-import { DiagramAppService } from '../../../../gh-pages/src/application/services/diagram-app-service';
-import { DiagramConfigurationAppService } from '../../../../gh-pages/src/application/services/diagram-configuration-app-service';
-import { DiagramConnectionAppService } from '../../../../gh-pages/src/application/services/diagram-connection-app-service';
-import { DiagramNodeInteractionAppService } from '../../../../gh-pages/src/application/services/diagram-node-interaction-app-service';
-import { DiagramNodeManagementService } from '../../../../gh-pages/src/application/services/diagram-node-management-app-service';
-import { DiagramPositionCalculatorAppService } from '../../../../gh-pages/src/application/services/diagram-position-calculator-app-service';
-import { DiagramProjectGenerationService } from '../../../../gh-pages/src/application/services/diagram-project-generation-app-service';
-import { DiagramSVGRendererAppService } from '../../../../gh-pages/src/application/services/diagram-svgrenderer-app-service';
 import { HelpAppService } from '../../application/services/help-app-service';
-import { ProgressTrackingAppService } from '../../../../gh-pages/src/application/services/progress-tracking-app-service';
 import { AngularConfigAppService } from '@onion-initializr/lib/application/services/angular-config-app-service';
 import { BrowserCheckAppService } from '@onion-initializr/lib/application/services/browser-check-app-service';
 import { ConfigurationAppService } from '@onion-initializr/lib/application/services/configuration-app-service';
@@ -81,35 +71,14 @@ container.register({
   onionConfigRepositoryService: asClass(
     OnionConfigRepositoryService
   ).singleton(),
+  onionConfigRepository: asClass(OnionConfigRepositoryService).singleton(),
   onionConfigService: asClass(OnionConfigService).singleton(),
 
-  onionConfigRepository: asClass(OnionConfigRepository).singleton(),
   applicationServiceService: asClass(ApplicationServiceService).singleton(),
-  diagramAppService: asClass(DiagramAppService).singleton(),
-  diagramConfigurationAppService: asClass(
-    DiagramConfigurationAppService
-  ).singleton(),
-  diagramPositionCalculatorAppService: asClass(
-    DiagramPositionCalculatorAppService
-  ).singleton(),
-  diagramSVGRendererAppService: asClass(
-    DiagramSVGRendererAppService
-  ).singleton(),
-  diagramNodeInteractionService: asClass(
-    DiagramNodeInteractionAppService
-  ).singleton(),
-  diagramNodeManagementService: asClass(
-    DiagramNodeManagementService
-  ).singleton(),
-  diagramConnectionService: asClass(DiagramConnectionAppService).singleton(),
-  diagramProjectGenerationService: asClass(
-    DiagramProjectGenerationService
-  ).singleton(),
   pathService: asClass(PathAppService).singleton(),
   pathRepository: asClass(PathRepository).singleton(),
   browserCheckAppService: asClass(BrowserCheckAppService).singleton(),
   onionCliAppService: asClass(OnionCliAppService).singleton(),
-  progressTrackingAppService: asClass(ProgressTrackingAppService).singleton(),
   repositoryService: asClass(OnionConfigRepositoryService).singleton(),
   validationService: asClass(OnionConfigValidationService).singleton(),
   stateService: asClass(OnionConfigStateService).singleton(),

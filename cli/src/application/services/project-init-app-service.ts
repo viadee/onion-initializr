@@ -1,4 +1,4 @@
-import { LintAppService } from './../../../../lib/application/services/lint-app-service';
+import { LintAppService } from '@onion-initializr/lib/application/services/lint-app-service';
 import { ConfigurationAppService } from '@onion-initializr/lib/application/services/configuration-app-service';
 import { FileService } from '@onion-initializr/lib/domain/services/file-service';
 import chalk from 'chalk';

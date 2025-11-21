@@ -2,12 +2,11 @@
   "name": "@onion-initializr/lib",
   "version": "0.0.17",
   "description": "Shared library for Onion Architecture Initializr",
-  "type": "module",
-  "main": "./application/index.js",
-  "types": "./application/index.d.ts",
+  "main": "dist/domain/index.js",
+  "types": "dist/domain/index.d.ts",
   "exports": {
-    "./application/*": "./application/*",
-    "./domain/*": "./domain/*"
+    "./application/*": "./dist/application/*.js",
+    "./domain/*": "./dist/domain/*.js"
   },
   "scripts": {
     "build": "tsc -b",

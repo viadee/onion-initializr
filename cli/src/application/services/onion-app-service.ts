@@ -1,4 +1,4 @@
-import { ApplicationService } from './../../../../lib/domain/entities/application-service';
+import { ApplicationService } from '@onion-initializr/lib/domain/entities/application-service';
 import { EntityService } from '@onion-initializr/lib/domain/services/entitity-service';
 import { RepoService } from '@onion-initializr/lib/domain/services/repo-service';
 import { ApplicationServiceService } from '@onion-initializr/lib/domain/services/application-service-service';

@@ -12,44 +12,30 @@
     "npm:zwiebel"
   ],
   "targets": {
-    "prebuild": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": ["rimraf dist tsconfig.tsbuildinfo"],
-        "cwd": "cli"
-      }
-    },
     "build": {
-      "executor": "nx:run-commands",
-      "dependsOn": ["^build"],
+      "executor": "@nx/js:tsc",
+      "dependsOn": ["@onion-initializr/lib:build"],
       "outputs": ["{workspaceRoot}/cli/dist"],
       "options": {
-        "commands": ["tsc"],
-        "cwd": "cli"
+        "tsConfig": "cli/tsconfig.json",
+        "main": "cli/src/application/services/main-app-service.ts",
+        "outputPath": "cli/dist"
       }
     },
     "postbuild": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
       "outputs": [
-        "{workspaceRoot}/cli/dist/cli/public",
-        "{workspaceRoot}/cli/dist/cli/src/domain/services/templates",
-        "{workspaceRoot}/cli/dist/cli/src/infrastructure/frameworks/templates"
+        "{workspaceRoot}/cli/dist/public",
+        "{workspaceRoot}/cli/dist/src/domain/services/templates",
+        "{workspaceRoot}/cli/dist/src/infrastructure/frameworks/templates"
       ],
       "options": {
         "commands": [
-          "cpx \"../gh-pages/public/templates/**/*.hbs\" dist/cli/public/templates",
-          "cpx \"../gh-pages/public/templates/domain/services/templates/**/*.hbs\" dist/cli/src/domain/services/templates",
-          "cpx \"../gh-pages/public/templates/infrastructure/frameworks/templates/**/*.hbs\" dist/cli/src/infrastructure/frameworks/templates"
+          "cpx \"../gh-pages/public/templates/**/*.hbs\" dist/public/templates",
+          "cpx \"../gh-pages/public/templates/domain/services/templates/**/*.hbs\" dist/src/domain/services/templates",
+          "cpx \"../gh-pages/public/templates/infrastructure/frameworks/templates/**/*.hbs\" dist/src/infrastructure/frameworks/templates"
         ],
-        "cwd": "cli",
-        "parallel": false
-      }
-    },
-    "clean": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": ["rimraf dist tsconfig.tsbuildinfo"],
         "cwd": "cli"
       }
     },

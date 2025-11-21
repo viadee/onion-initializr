@@ -34,16 +34,6 @@
         "cwd": "gh-pages"
       }
     },
-    "github-deploy": {
-      "executor": "nx:run-commands",
-      "dependsOn": ["github-build"],
-      "options": {
-        "commands": [
-          "npx angular-cli-ghpages --dir=dist/onion-initializr/browser --no-silent"
-        ],
-        "cwd": "gh-pages"
-      }
-    },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
