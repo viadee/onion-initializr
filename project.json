@@ -1,0 +1,19 @@
+{
+  "name": "@onion-initializr/root",
+  "$schema": "./node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "targets": {
+    "install": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["pnpm install", "nx link cli"]
+      }
+    },
+    "watch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx watch --all -- nx run %NX_PROJECT_NAME%:build"
+      }
+    }
+  }
+}

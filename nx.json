@@ -34,15 +34,6 @@
       "outputs": ["{projectRoot}/dist", "{workspaceRoot}/dist"],
       "cache": true
     },
-    "prelink": {
-      "inputs": ["production", "^production"],
-      "outputs": ["{projectRoot}/dist", "{workspaceRoot}/dist"],
-      "cache": true
-    },
-    "link": {
-      "dependsOn": ["build"],
-      "cache": true
-    },
     "lint": {
       "inputs": ["default", "{workspaceRoot}/eslint.config.js"],
       "cache": true
