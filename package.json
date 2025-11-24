@@ -4,7 +4,7 @@
   "private": true,
   "description": "Onion Architecture Initializr - Monorepo root",
   "scripts": {
-    "dev": "pnpm --filter gh-pages dev"
+    "watch": "nx watch --all -- nx run %NX_PROJECT_NAME%:build"
   },
   "keywords": [
     "onion-architecture",

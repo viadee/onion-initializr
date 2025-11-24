@@ -8,7 +8,6 @@ export class BrowserCheckAppService {
       typeof process.versions?.node !== 'undefined'
     );
   }
-  //testcomment
   isBrowser(): boolean {
     return (
       typeof globalThis !== 'undefined' &&
