@@ -18,7 +18,7 @@ export class WebContainerCommandRunnerService implements ICommandRunner {
       const webcontainer = await this.webContainerRepository.getWebContainer();
       this.commandRunner = new WebContainerCommandRunner(webcontainer);
     }
-    redsadsaturn this.commandRunner;
+    return this.commandRunner;
   }
 
   async runCommand(command: string, cwd: string): Promise<void> {
