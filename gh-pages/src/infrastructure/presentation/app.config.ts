@@ -14,7 +14,7 @@ function getBaseHref(): string {
     const hostname = globalThis.window.location.hostname;
     // Check if deployed on GitHub Pages
     if (hostname.includes('github.io')) {
-      return '/onion-initializr/';
+      return '/onion-initializr';
     }
   }
   // Default for local/Firebase deployment
