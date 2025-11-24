@@ -12,7 +12,7 @@
     "watch": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "nx watch --all -- nx run %NX_PROJECT_NAME%:build"
+        "commands": ["nx watch --all -- nx run %NX_PROJECT_NAME%:build"]
       }
     }
   }
