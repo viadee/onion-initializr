@@ -15,17 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@onion-initializr/domain": ["libs/domain/src/index.ts"],
-      "@onion-initializr/sample-domain": ["libs/sample/domain/src/index.ts"],
-      "@onion-initializr/sample-application": [
-        "libs/sample/application/src/index.ts"
-      ],
-      "@onion-initializr/sample-infrastructure": [
-        "libs/sample/infrastructure/src/index.ts"
-      ],
-      "@onion-initializr/sample-presentation": [
-        "libs/sample/presentation/src/index.ts"
-      ],
+      "@onion-initializr/lib": ["lib/index.ts"],
+      "@onion-initializr/lib/domain": ["lib/domain/index.ts"],
+      "@onion-initializr/lib/domain/*": ["lib/domain/*"],
+      "@onion-initializr/lib/application": ["lib/application/index.ts"],
+      "@onion-initializr/lib/application/*": ["lib/application/*"],
       "@gh-pages/domain": ["gh-pages/src/domain/index.ts"],
       "@gh-pages/application": ["gh-pages/src/application/index.ts"],
       "@gh-pages/infrastructure": ["gh-pages/src/infrastructure/index.ts"]

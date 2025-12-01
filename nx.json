@@ -32,7 +32,11 @@
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"],
       "outputs": ["{projectRoot}/dist", "{workspaceRoot}/dist"],
-      "cache": true
+      "cache": true,
+      "executor": "@nx/js:tsc",
+      "options": {
+        "batch": true
+      }
     },
     "lint": {
       "inputs": ["default", "{workspaceRoot}/eslint.config.js"],

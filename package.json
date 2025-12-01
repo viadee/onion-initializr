@@ -4,7 +4,6 @@
   "private": true,
   "description": "Onion Architecture Initializr - Monorepo root",
   "scripts": {
-    "watch": "nx run @onion-initializr/root:watch"
   },
   "keywords": [
     "onion-architecture",

@@ -10,8 +10,9 @@
       "outputs": ["{workspaceRoot}/lib/dist"],
       "options": {
         "tsConfig": "lib/tsconfig.json",
-        "main": "lib/domain/index.ts",
-        "outputPath": "lib/dist"
+        "main": "lib/index.ts",
+        "outputPath": "lib/dist",
+        "clean": false
       }
     },
     "lint": {
