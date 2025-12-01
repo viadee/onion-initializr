@@ -184,7 +184,7 @@ importers:
         specifier: ~5.9.2
         version: 5.9.3
       vite:
-        specifier: ^7.0.0
+        specifier: ^7.1.12
         version: 7.1.12(@types/node@20.19.9)(jiti@2.4.2)(less@4.4.2)(sass-embedded@1.93.3)(sass@1.88.0)(terser@5.44.1)(yaml@2.8.1)
       vitest:
         specifier: ^3.0.0

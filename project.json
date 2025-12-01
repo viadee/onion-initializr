@@ -2,6 +2,12 @@
   "name": "@onion-initializr/root",
   "$schema": "./node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
+  "implicitDependencies": [
+    "@onion-initializr/lib",
+    "@onion-initializr/cli",
+    "@onion-initializr/gh-pages"
+  ],
+
   "targets": {
     "setup": {
       "executor": "nx:run-commands",
