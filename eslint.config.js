@@ -10,6 +10,8 @@ module.exports = [
       '**/coverage',
       '**/playwright-report',
       '**/test-results',
+      '**/vite.config.*.timestamp*',
+      '**/vitest.config.*.timestamp*',
     ],
   },
 
