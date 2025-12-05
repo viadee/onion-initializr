@@ -12,6 +12,12 @@
     "npm:zwiebel"
   ],
   "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["cli/**/*.ts"]
+      }
+    },
     "build": {
       "executor": "@nx/js:tsc",
       "dependsOn": ["@onion-initializr/lib:build"],
