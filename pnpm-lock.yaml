@@ -219,9 +219,6 @@ importers:
       '@inquirer/prompts':
         specifier: 7.9.0
         version: 7.9.0(@types/node@20.19.23)
-      '@onion-initializr/lib':
-        specifier: workspace:*
-        version: link:../lib
       '@playwright/test':
         specifier: 1.54.2
         version: 1.54.2

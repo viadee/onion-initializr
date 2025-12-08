@@ -48,7 +48,9 @@
     "bundle-lib": {
       "executor": "nx:run-commands",
       "dependsOn": ["@onion-initializr/lib:build"],
-      "outputs": ["{workspaceRoot}/cli/dist/node_modules/@onion-initializr/lib"],
+      "outputs": [
+        "{workspaceRoot}/cli/dist/node_modules/@onion-initializr/lib"
+      ],
       "options": {
         "command": "bundle-lib.bat",
         "cwd": "cli"
