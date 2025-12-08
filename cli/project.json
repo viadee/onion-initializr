@@ -25,7 +25,8 @@
       "options": {
         "tsConfig": "cli/tsconfig.json",
         "main": "cli/src/application/services/main-app-service.ts",
-        "outputPath": "cli/dist"
+        "outputPath": "cli/dist",
+        "clean": false
       }
     },
     "copyTemplates": {
