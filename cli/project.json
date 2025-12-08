@@ -45,9 +45,18 @@
         "cwd": "cli"
       }
     },
+    "bundle-lib": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["@onion-initializr/lib:build"],
+      "outputs": ["{workspaceRoot}/cli/dist/node_modules/@onion-initializr/lib"],
+      "options": {
+        "command": "bundle-lib.bat",
+        "cwd": "cli"
+      }
+    },
     "link": {
       "executor": "nx:run-commands",
-      "dependsOn": ["build", "postbuild"],
+      "dependsOn": ["build", "bundle-lib", "postbuild"],
       "options": {
         "commands": ["pnpm link --global"],
         "cwd": "cli"
