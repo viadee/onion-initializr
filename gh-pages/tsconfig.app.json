@@ -13,19 +13,22 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "handlebars": ["./node_modules/handlebars"]
+      "handlebars": ["./node_modules/handlebars"],
+      "@onion-initializr/lib/application/*": ["../lib/application/*"],
+      "@onion-initializr/lib/domain/*": ["../lib/domain/*"]
     }
   },
-  "include": ["src/**/*.ts", "../lib/**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": [
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
     "src/Infrastructure/Repositories/FileSystemFileRepository.ts",
     "src/Infrastructure/Repositories/PathRepository.ts",
-    "../lib/Application/Services/LintAppService.ts",
-    "../lib/Domain/Services/ProjectInitService.ts",
-    "../lib/Application/Services/Services/OnionCliAppService.ts",
-    "../lib/Application/Services/Services/MainAppService.ts",
     "../cli/**/*"
+  ],
+  "references": [
+    {
+      "path": "../lib"
+    }
   ]
 }

@@ -1,5 +1,5 @@
 import { RunCommandService } from './run-command-service';
-import { ICommandRunner } from './../../../../lib/domain/interfaces/icommand-runner';
+import { ICommandRunner } from '@onion-initializr/lib/domain/interfaces/icommand-runner';
 
 export class NodeCommandRunner implements ICommandRunner {
   constructor(private readonly commandRunnerService: RunCommandService) {}

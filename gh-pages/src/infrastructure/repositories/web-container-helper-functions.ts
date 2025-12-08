@@ -1,5 +1,5 @@
-import { FileEntity } from '../../../../lib/domain/entities/file-entity';
-import { IFileRepository } from '../../../../lib/domain/interfaces/ifile-repository';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
+import { IFileRepository } from '@onion-initializr/lib/domain/interfaces/ifile-repository';
 
 /**
  * WebContainer-compatible helper functions that mirror the Node.js fs operations

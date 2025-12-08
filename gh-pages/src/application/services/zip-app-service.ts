@@ -1,7 +1,7 @@
 import { FileEntity } from './../../../../lib/domain/entities/file-entity';
 import JSZip from 'jszip';
-import { BrowserCheckAppService } from '../../../../lib/application/services/browser-check-app-service';
-import { IFileRepository } from '../../../../lib/domain/interfaces/ifile-repository';
+import { BrowserCheckAppService } from '@onion-initializr/lib/application/services/browser-check-app-service';
+import { IFileRepository } from '@onion-initializr/lib/domain/interfaces/ifile-repository';
 
 type FileContent = {
   path: string;

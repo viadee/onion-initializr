@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { ApplicationService } from '../../../../lib/domain/entities/application-service';
-import { DomainService } from '../../../../lib/domain/entities/domain-service';
+import { ApplicationService } from '@onion-initializr/lib/domain/entities/application-service';
+import { DomainService } from '@onion-initializr/lib/domain/entities/domain-service';
 import { AppServiceDependencyAppService } from '../../application/services/app-service-dependency-app-service';
 describe('AppServiceDependencyAppService', () => {
   let service: AppServiceDependencyAppService;
@@ -21,7 +21,7 @@ describe('AppServiceDependencyAppService', () => {
         const repositoryInterfaces = ['ITestRepository'];
 
         // This test only verifies that empty array returns empty object
-        let mockCalled = false;
+        const mockCalled = false;
 
         const result = await service.pickDependencies(
           applicationServices,

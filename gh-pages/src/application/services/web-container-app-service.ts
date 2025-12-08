@@ -5,9 +5,9 @@ import { WebContainerManagerAppService } from './web-container-manager-app-servi
 import {
   ProjectDownloadAppService,
   DownloadResult,
-} from '../../../../lib/application/services/project-download-app-service';
-import { ProjectGenerationOrchestratorAppService } from '../../../../lib/application/services/project-generation-orchestrator-app-service';
-import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
+} from './project-download-app-service';
+import { ProjectGenerationOrchestratorAppService } from './project-generation-orchestrator-app-service';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
 
 /**
  * Main service that coordinates WebContainer operations

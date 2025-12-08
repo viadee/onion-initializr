@@ -1,4 +1,4 @@
-import { FileEntity } from "../entities/file-entity";
+import { FileEntity } from '../entities/file-entity';
 
 type FileSystemEntry = {
   isDirectory(): boolean;
@@ -19,7 +19,5 @@ export interface IFileRepository {
   getNamesFromDir(dir: string): Promise<string[]>;
   readdir(dir: string): Promise<string[]>;
   copyFile(source: string, destination: string): Promise<void>;
-  getFileStats(
-    filePath: string
-  ): Promise<FileSystemEntry>;
+  getFileStats(filePath: string): Promise<FileSystemEntry>;
 }

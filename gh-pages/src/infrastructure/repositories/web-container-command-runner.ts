@@ -1,5 +1,5 @@
 import { WebContainer } from '@webcontainer/api';
-import { ICommandRunner } from '../../../../lib/domain/interfaces/icommand-runner';
+import { ICommandRunner } from '@onion-initializr/lib/domain/interfaces/icommand-runner';
 
 /**
  * WebContainer-compatible command runner that replaces the Node.js child_process based runCommand

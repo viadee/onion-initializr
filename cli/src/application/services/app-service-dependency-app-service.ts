@@ -1,5 +1,5 @@
-import { DomainService } from '../../../../lib/domain/entities/domain-service';
-import { ApplicationService } from '../../../../lib/domain/entities/application-service';
+import { DomainService } from '@onion-initializr/lib/domain/entities/domain-service';
+import { ApplicationService } from '@onion-initializr/lib/domain/entities/application-service';
 import { checkbox } from '@inquirer/prompts';
 /**
  * Service for managing application service dependencies through user interaction.

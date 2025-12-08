@@ -13,8 +13,13 @@ export interface IProjectService {
     folderPath: string,
     uiFramework?: keyof UIFrameworks,
     diFramework?: DiFramework,
-    uiLibrary?: UiLibrary,
+    uiLibrary?: UiLibrary
   ): Promise<
-    { uiFramework: keyof UIFrameworks; diFramework: DiFramework; uiLibrary: UiLibrary } | undefined
+    | {
+        uiFramework: keyof UIFrameworks;
+        diFramework: DiFramework;
+        uiLibrary: UiLibrary;
+      }
+    | undefined
   >;
 }

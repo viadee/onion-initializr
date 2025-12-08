@@ -1,5 +1,5 @@
-import { FileEntity } from "../entities/file-entity";
-import { IFileRepository } from "../interfaces/ifile-repository";
+import { FileEntity } from '../entities/file-entity';
+import { IFileRepository } from '../interfaces/ifile-repository';
 
 type FileSystemEntry = {
   isDirectory(): boolean;
@@ -73,9 +73,7 @@ export class FileService {
     return this.fileRepository.copyFile(source, destination);
   }
 
-  async getFileStats(
-    filePath: string
-  ): Promise<FileSystemEntry> {
+  async getFileStats(filePath: string): Promise<FileSystemEntry> {
     return this.fileRepository.getFileStats(filePath);
   }
 }

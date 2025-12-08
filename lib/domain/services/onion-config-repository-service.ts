@@ -1,12 +1,11 @@
-import { OnionConfig } from "../entities/onion-config";
-import { 
+import { OnionConfig } from '../entities/onion-config';
+import {
   OnionRingType,
   ENTITIES,
   DOMAIN_SERVICES,
   APPLICATION_SERVICES,
-  REPOSITORIES
-} from "../entities/onion-ring";
-
+  REPOSITORIES,
+} from '../entities/onion-ring';
 
 export class OnionConfigRepositoryService {
   private extractEntityFromRepository(repoName: string): string | null {
@@ -23,12 +22,12 @@ export class OnionConfigRepositoryService {
     if (!entityName) {
       return false;
     }
-    
+
     return entities?.includes(entityName) || false;
   }
 
   getRepositories(entities: string[]): string[] {
-    return (entities || []).map((entity) => `I${entity}Repository`);
+    return (entities || []).map(entity => `I${entity}Repository`);
   }
 
   getRing(node: string, data: OnionConfig): OnionRingType {

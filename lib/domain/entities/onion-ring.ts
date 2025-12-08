@@ -25,12 +25,7 @@ export const REPOSITORIES = new OnionRing('Repositories');
 
 // Export function to get all rings
 export function getAllRings(): OnionRing[] {
-  return [
-    ENTITIES,
-    DOMAIN_SERVICES,
-    APPLICATION_SERVICES,
-    REPOSITORIES,
-  ];
+  return [ENTITIES, DOMAIN_SERVICES, APPLICATION_SERVICES, REPOSITORIES];
 }
 
 /**

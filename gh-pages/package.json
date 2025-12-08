@@ -1,29 +1,7 @@
 {
-  "name": "onion-initializr",
+  "name": "@onion-initializr/gh-pages",
   "version": "0.0.5",
   "description": "Generate Onion Architecture folder structure, files, and code for TypeScript projects",
-  "bin": {
-    "onion": "dist/application/services/MainAppService.js"
-  },
-  "scripts": {
-    "prelink": "npm run build",
-    "link": "npm link",
-    "lint": "eslint \"src/**/*.{ts,js}\"",
-    "dev": "npm run start",
-    "format": "prettier --write .",
-    "ng": "ng",
-    "start": "ng serve",
-    "watch": "ng build --watch --configuration development",
-    "test": "cross-env TS_NODE_PROJECT=tsconfig.test.json c8 --all --include=\"src/**/*.ts\" --reporter=text --reporter=html mocha --require ts-node/register src/**/*.test.ts",
-    "e2e": "playwright test",
-    "e2e:headed": "playwright test --headed",
-    "e2e:debug": "playwright test --debug",
-    "clean": "rimraf dist",
-    "prebuild": "npm run clean",
-    "build": "tsc --project tsconfig.cli.json",
-    "postbuild": "cpx \"public/templates/domain/services/templates/**/*.hbs\" dist/domain/services/templates && cpx \"public/templates/infrastructure/frameworks/templates/**/*.hbs\" dist/infrastructure/frameworks/templates",
-    "build:prod": "ng build --configuration production"
-  },
   "dependencies": {
     "@angular/cdk": "20.0.3",
     "@angular/common": "20.0.3",
@@ -33,6 +11,7 @@
     "@angular/material": "20.0.3",
     "@angular/platform-browser": "20.0.3",
     "@angular/router": "20.0.3",
+    "@onion-initializr/lib": "workspace:*",
     "@types/handlebars": "4.0.40",
     "@webcontainer/api": "1.6.1",
     "awilix": "12.0.5",
@@ -42,6 +21,7 @@
     "highlight.js": "11.11.1",
     "jszip": "3.10.1",
     "rxjs": "~7.8.0",
+    "tslib": "^2.8.1",
     "zone.js": "0.15.1"
   },
   "devDependencies": {

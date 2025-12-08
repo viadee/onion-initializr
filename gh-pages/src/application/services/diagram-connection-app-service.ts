@@ -1,5 +1,5 @@
-import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
-import { OnionConfigService } from '../../../../lib/domain/services/onion-config-service';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
+import { OnionConfigService } from '@onion-initializr/lib/domain/services/onion-config-service';
 
 export interface ConnectionMode {
   active: boolean;

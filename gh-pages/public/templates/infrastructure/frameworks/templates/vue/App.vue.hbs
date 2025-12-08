@@ -1,9 +1,9 @@
 <template>
-  <div class="app">
+  <div class='app'>
     <h1>🧅 Onion Architecture + Vue</h1>
     {{#if firstAppService}}
-      <button @click="runExampleUseCase" :disabled="loading">
-        <span v-if="loading">Running...</span>
+      <button @click='runExampleUseCase' :disabled='loading'>
+        <span v-if='loading'>Running...</span>
         <span v-else>Run Use Case</span>
       </button>
       <p>\{{ message }}</p>
@@ -14,30 +14,19 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang='ts' setup>
   import { ref } from 'vue';
   {{#if firstAppService}}
-  import container from '../configuration/awilix.config';
-  import {
+    import container from '../configuration/awilix.config'; import {
     {{firstAppService}}
-  } from '../../application/services/{{firstAppService}}';
-
-  const message = ref("Click to run use case");
-  const loading = ref(false);
-
-  const runExampleUseCase = async () => {
-    loading.value = true;
-    try {
-      const service = container.resolve<{{{firstAppService}}}>("{{{camel firstAppService}}}");
-      await service.runExampleUseCase();
-      message.value = "{{firstAppService}}: use case executed ✅";
-    } catch (err) {
-      message.value = "❌ Error: " + (err as Error).message;
-    } finally {
-      loading.value = false;
-    }
-  };
+    } from '../../application/services/{{firstAppService}}'; const message =
+    ref("Click to run use case"); const loading = ref(false); const
+    runExampleUseCase = async () => { loading.value = true; try { const service
+    = container.resolve<{{{firstAppService}}}>("{{{camel firstAppService}}}");
+    await service.runExampleUseCase(); message.value = "{{firstAppService}}: use
+    case executed ✅"; } catch (err) { message.value = "❌ Error: " + (err as
+    Error).message; } finally { loading.value = false; } };
   {{/if}}
 </script>
 
-<style scoped src="./App.css" />
+<style scoped src='./App.css' />

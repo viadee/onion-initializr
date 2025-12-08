@@ -1,4 +1,4 @@
-import { FileEntity } from '../../../../lib/domain/entities/file-entity';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
 
 export interface IFileRepository {
   readTemplate(templatePath: string): Promise<FileEntity>;

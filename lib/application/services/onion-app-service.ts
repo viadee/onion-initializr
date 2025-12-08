@@ -87,8 +87,7 @@ export class OnionAppService {
         folderPath,
         false
       );
-    if (tsConfigFile)
-      allFileEntities.push(tsConfigFile);
+    if (tsConfigFile) allFileEntities.push(tsConfigFile);
 
     // Generate entities, repositories, domain services, application services
     const entityFiles = await this.generateEntities(folderPath, entityNames);
@@ -352,7 +351,7 @@ export class OnionAppService {
     diFramework: DiFramework
   ): Promise<FileEntity[]> {
     const stepStart = Date.now();
-    let fileEntities: FileEntity[] = [];
+    const fileEntities: FileEntity[] = [];
 
     if (diFramework === 'awilix') {
       const awilixConfigParams = new AwilixConfig(
@@ -375,11 +374,13 @@ export class OnionAppService {
       fileEntities.push(awilixFile);
     } else if (diFramework === 'angular') {
       // Prepare application services data for Angular providers
-      const applicationServicesData = Object.entries(appServiceDeps).map(([name, deps]) => ({
-        name,
-        domainServices: deps.domainServices || [],
-        repositories: deps.repositories || []
-      }));
+      const applicationServicesData = Object.entries(appServiceDeps).map(
+        ([name, deps]) => ({
+          name,
+          domainServices: deps.domainServices || [],
+          repositories: deps.repositories || [],
+        })
+      );
 
       const angularFiles =
         await this.angularConfigAppService.generateAngularProvidersFiles(
@@ -424,7 +425,9 @@ export class OnionAppService {
     // Path builder function for templates and outputs
     const buildPaths = (template: string, output: string) => {
       // Special cases: place certain files in project root instead of presentation directory
-      const shouldPlaceInRoot = (framework === 'lit' && output === 'index.html') || output === 'README.md';
+      const shouldPlaceInRoot =
+        (framework === 'lit' && output === 'index.html') ||
+        output === 'README.md';
       const outputPath = shouldPlaceInRoot
         ? this.pathService.join(folderPath, output)
         : this.pathService.join(presentationDir, output);

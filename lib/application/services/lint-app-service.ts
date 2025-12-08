@@ -35,7 +35,7 @@ export default [
       'prettier/prettier': 'error',
     },
   },
-];`
+];`;
     const filePath = this.pathService.join(folderPath, 'eslint.config.js');
     this.fileService.createFile(new FileEntity(filePath, configContent));
   }

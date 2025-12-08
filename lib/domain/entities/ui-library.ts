@@ -19,6 +19,8 @@ export const FRAMEWORK_UI_LIBRARIES: Record<string, UiLibrary[]> = {
   vanilla: ['none'],
 };
 
-export function getAvailableUiLibrariesForFramework(framework: string): UiLibrary[] {
+export function getAvailableUiLibrariesForFramework(
+  framework: string
+): UiLibrary[] {
   return FRAMEWORK_UI_LIBRARIES[framework] || ['none'];
 }

@@ -1,6 +1,6 @@
 import chalk from 'chalk';
-import { FileService } from '../../../../lib/domain/services/file-service';
-import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
+import { FileService } from '@onion-initializr/lib/domain/services/file-service';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
 import { input } from '@inquirer/prompts';
 
 interface JsonFileResult<T = unknown> {
@@ -50,7 +50,7 @@ export class FileHelperAppService {
   /**
    * Safely read and parse a JSON file. Returns undefined if the file doesn't exist or parse fails.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   async readJsonFile(filePath: string): Promise<JsonFileResult> {
     try {
       if (!(await this.fileService.dirExists(filePath))) {

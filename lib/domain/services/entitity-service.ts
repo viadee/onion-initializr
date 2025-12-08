@@ -1,7 +1,6 @@
-
-import { Entity } from "../entities/entity";
-import { FileEntity } from "../entities/file-entity";
-import { TemplateService } from "./template-service";
+import { Entity } from '../entities/entity';
+import { FileEntity } from '../entities/file-entity';
+import { TemplateService } from './template-service';
 
 export class EntityService {
   /**

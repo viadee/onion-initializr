@@ -1,4 +1,4 @@
-import { ICommandRunner } from '../../../../lib/domain/interfaces/icommand-runner';
+import { ICommandRunner } from '@onion-initializr/lib/domain/interfaces/icommand-runner';
 import { WebContainerCommandRunner } from './web-container-command-runner';
 import { IWebContainerRepository } from '../interfaces/iweb-container-repository';
 

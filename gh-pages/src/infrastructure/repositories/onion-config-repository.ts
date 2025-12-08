@@ -1,5 +1,5 @@
-import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
-import { IOnionConfigRepository } from '../../../../lib/domain/interfaces/ionion-config-repository';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
+import { IOnionConfigRepository } from '@onion-initializr/lib/domain/interfaces/ionion-config-repository';
 import initialData from '../onionData.json';
 
 export class OnionConfigRepository implements IOnionConfigRepository {

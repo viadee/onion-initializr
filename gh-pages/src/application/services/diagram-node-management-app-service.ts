@@ -1,6 +1,6 @@
-import { NodeType } from '../../../../lib/domain/entities/node-type';
-import { OnionConfig } from '../../../../lib/domain/entities/onion-config';
-import { OnionConfigService } from '../../../../lib/domain/services/onion-config-service';
+import { NodeType } from '@onion-initializr/lib/domain/entities/node-type';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
+import { OnionConfigService } from '@onion-initializr/lib/domain/services/onion-config-service';
 import { InputSanitizationService } from './input-sanitization-service';
 
 export interface NodeValidationResult {

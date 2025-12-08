@@ -1,0 +1,67 @@
+{
+  "name": "@onion-initializr/gh-pages",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "gh-pages/src",
+  "projectType": "application",
+  "tags": [
+    "npm:public",
+    "npm:onion",
+    "npm:starter",
+    "npm:architecture",
+    "npm:design",
+    "npm:zwiebel",
+    "type:app",
+    "scope:gh-pages"
+  ],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["gh-pages/**/*.ts"]
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["^build"],
+      "outputs": ["{workspaceRoot}/gh-pages/dist"],
+      "options": {
+        "commands": ["ng build --configuration production"],
+        "cwd": "gh-pages"
+      }
+    },
+    "github-build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["^build"],
+      "outputs": ["{workspaceRoot}/gh-pages/dist"],
+      "options": {
+        "commands": [
+          "ng build --configuration production --base-href /onion-initializr/"
+        ],
+        "cwd": "gh-pages"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["ng serve"],
+        "cwd": "gh-pages"
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["rimraf dist"],
+        "cwd": "gh-pages"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "cross-env TS_NODE_PROJECT=tsconfig.test.json c8 --all --include=\"src/**/*.ts\" --reporter=text --reporter=html mocha --require ts-node/register src/**/*.test.ts"
+        ],
+        "cwd": "gh-pages"
+      }
+    }
+  }
+}

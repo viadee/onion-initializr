@@ -1,9 +1,8 @@
-import { DomainService } from "../entities/domain-service";
-import { Entity } from "../entities/entity";
-import { Node } from "../entities/node";
-import { NodeType } from "../entities/node-type";
-import { OnionConfig } from "../entities/onion-config";
-
+import { DomainService } from '../entities/domain-service';
+import { Entity } from '../entities/entity';
+import { Node } from '../entities/node';
+import { NodeType } from '../entities/node-type';
+import { OnionConfig } from '../entities/onion-config';
 
 export class NodeFactory {
   public static createNode(nodeName: string, data: OnionConfig): Node {

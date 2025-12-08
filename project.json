@@ -1,0 +1,37 @@
+{
+  "name": "@onion-initializr/root",
+  "$schema": "./node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "implicitDependencies": [
+    "@onion-initializr/lib",
+    "@onion-initializr/cli",
+    "@onion-initializr/gh-pages"
+  ],
+
+  "targets": {
+    "setup": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["pnpm install", "nx link cli"]
+      }
+    },
+    "watch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx watch --all -- nx run %NX_PROJECT_NAME%:build"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run-many -t lint --all"
+      }
+    },
+    "lint:fix": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run-many -t lint --all -- --fix"
+      }
+    }
+  }
+}
