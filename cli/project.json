@@ -53,7 +53,7 @@
         "{workspaceRoot}/cli/dist/node_modules/@onion-initializr/lib"
       ],
       "options": {
-        "command": "bundle-lib.bat",
+        "command": "node bundle-lib.js",
         "cwd": "cli"
       }
     },
