@@ -3,7 +3,9 @@
   "version": "0.0.18",
   "private": false,
   "description": "Onion Architecture Initializr - Monorepo root",
-  "scripts": {},
+  "scripts": {
+    "postinstall": "pnpm nx run @onion-initializr/cli:link"
+  },
   "keywords": [
     "onion-architecture",
     "architecture",

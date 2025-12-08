@@ -28,7 +28,7 @@
         "outputPath": "cli/dist"
       }
     },
-    "postbuild": {
+    "copyTemplates": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
       "outputs": [
@@ -56,11 +56,11 @@
         "cwd": "cli"
       }
     },
-    "link": {
+    "build-all": {
       "executor": "nx:run-commands",
-      "dependsOn": ["build", "bundle-lib", "postbuild"],
+      "dependsOn": ["build", "bundle-lib", "copyTemplates"],
       "options": {
-        "commands": ["pnpm link --global"],
+        "commands": ["echo CLI build complete with bundled lib and templates"],
         "cwd": "cli"
       }
     },

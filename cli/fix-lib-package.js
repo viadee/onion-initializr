@@ -26,8 +26,8 @@ if (fs.existsSync(packageJsonPath)) {
   }
 
   fs.writeFileSync(packageJsonPath, JSON.stringify(pkg, null, 2));
-  console.log('✓ Fixed lib package.json exports');
+  console.log('Fixed lib package.json exports');
 } else {
-  console.error('✗ package.json not found at', packageJsonPath);
+  console.error('package.json not found at', packageJsonPath);
   process.exit(1);
 }

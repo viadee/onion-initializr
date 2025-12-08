@@ -35,19 +35,28 @@ cd onion-initializr
 2. **Install Dependencies**
 
 ```bash
-npm install
+pnpm install
 ```
 
-3. **Build and link the project to the commandline**
+3. **Build, bundle lib-package into the cli-folder, copy handlebars-Templates to cli-folder**
 
 ```bash
-npm run link
+pnpm nx run @onion-initializr/cli:build-all
 ```
+
+Note: After `pnpm install`, the CLI is automatically linked globally via the postinstall hook.
 
 4. **Run the website locally**
 
 ```bash
-npm run dev
+cd gh-pages
+nx serve
+```
+
+5. **Or Watch both cli and gh-pages**
+
+```bash
+pnpm exec nx watch --projects @onion-initializr/root --includeDependentProjects -- pnpm exec nx build-deps @onion-initializr/root
 ```
 
 ---
@@ -173,17 +182,13 @@ Use `uiFramework` in your config.
 
 ### Which DI-Frameworks are supported?
 
-Use `diFramework` in your config. If `uiFramework` is Angular, you can select Angular as your DI-Framework.   
+Use `diFramework` in your config. If `uiFramework` is Angular, you can select Angular as your DI-Framework.
 
 - **Awilix**
 - **Angular**
-
 
 ### Which UI-Libraries are supported?
 
 When using `uiFramework` React, you can set `uiLibrary` to shadcn in your config.
 
 - **ShadCN**
-
-
-
