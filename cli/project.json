@@ -64,6 +64,14 @@
         "cwd": "cli"
       }
     },
+    "link": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build-all"],
+      "options": {
+        "commands": ["pnpm link --global"],
+        "cwd": "cli"
+      }
+    },
     "test": {
       "executor": "nx:run-commands",
       "options": {
