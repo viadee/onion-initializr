@@ -1,7 +1,7 @@
 {
   "name": "@onion-initializr/root",
   "version": "0.0.18",
-  "private": true,
+  "private": false,
   "description": "Onion Architecture Initializr - Monorepo root",
   "scripts": {},
   "keywords": [
