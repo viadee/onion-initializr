@@ -8,6 +8,8 @@ import Handlebars from 'handlebars';
  * Shared service for setting up UI libraries (ShadCN, etc.)
  * Used by both CLI and WebContainer implementations
  */
+const shadcnVersion = '2.5.0'; // Pinning to a specific version for stability
+
 export class UILibrarySetupService {
   constructor(
     private readonly fileService: FileService,
@@ -73,17 +75,19 @@ export class UILibrarySetupService {
     await this.createIndexCss(folderPath);
 
     await commandRunner.runCommand(
-      'npx shadcn@latest init -y --base-color neutral',
+      `npx shadcn@${shadcnVersion} init -y --base-color neutral`,
       folderPath
     );
 
     // The shadcn command adds weird css directives to index.css, we don't want -> we overwrite the index.css again
     await this.createIndexCss(folderPath);
 
+    /*
     await commandRunner.runCommand(
-      'npx shadcn@latest add button -y',
+      `npx shadcn@${shadcnVersion} add button -y`,
       folderPath
     );
+    */
 
     // Setup configuration files
     await this.createPostCssConfig(folderPath);
