@@ -1,7 +1,7 @@
 //Pin versions to ensure that project generation procedures don't break down
 //#TODO: Add dependencies for react, vite and more
 export const GENERATED_PROJECT_VERSIONS = {
-  shadcnCli: '2.5.0',
+  shadcnCli: '2.7.0',
   tailwindcss: '^4.3.3',
   tailwindcssCli: '^0.1.2',
   classVarianceAuthority: '^0.7.1',
