@@ -82,6 +82,12 @@ Run the command in the same directory as your `myConfig.json`, or provide an abs
 
 ---
 
+## ADR (architecture decision records)
+
+1. `docs/adr/0001-version-pinning-strategy.md` - dependency management decisions
+
+---
+
 ## Example `myConfig.json`
 
 When defining services, you must include an empty dependency array if there are no dependencies (e.g., `"UserService": []`).
