@@ -37,8 +37,13 @@ Critical pinned dependencies include:
 - Vite
 - TailwindCSS
 - Radix UI packages
+- postcss
+- autoprefixer
+- classVarianceAuthority
 
 A centralized version configuration module will be used `(see lib/application/configuration/generated-project-versions.ts)`.
+
+In the future we should expand that list if we expierience futher dependency issues during the project generation process
 
 ## Consequences
 
@@ -64,7 +69,7 @@ Rejected because upstream breaking changes caused generator failures.
 
 ### Using semantic versioning ranges (`^`) for ShadCN
 
-Rejected because generated because anything > shadcn@2.7.0 breaks the generation process.
+Rejected because generated because anything above shadcn@2.7.0 breaks the generation process.
 
 ## Future Work
 
