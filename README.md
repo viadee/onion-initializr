@@ -50,7 +50,7 @@ Note: After `pnpm install`, the CLI is automatically linked globally via the pos
 
 ```bash
 cd gh-pages
-nx serve
+pnpm nx serve
 ```
 
 5. **Or Watch both cli and gh-pages**
