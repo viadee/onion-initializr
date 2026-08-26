@@ -1,6 +1,12 @@
 //Pin versions to ensure that project generation procedures don't break down
 //#TODO: Add dependencies for react, vite and more
 export const GENERATED_PROJECT_VERSIONS = {
+  react: '^18.3.1',
+  reactDom: '^18.3.1',
+  reactTypes: '^18.3.1',
+  reactDomTypes: '^18.3.1',
+  vite: '^7.1.2',
+  angularCli: '^20.3.8',
   shadcnCli: '2.7.0',
   tailwindcss: '^4.3.3',
   tailwindcssCli: '^0.1.2',

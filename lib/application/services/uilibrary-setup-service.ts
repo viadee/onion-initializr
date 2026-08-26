@@ -98,12 +98,10 @@ export class UILibrarySetupService {
     // The shadcn command adds weird css directives to index.css, we don't want -> we overwrite the index.css again
     await this.createIndexCss(folderPath);
 
-    /*
     await commandRunner.runCommand(
       `npx shadcn@${shadcnVersion} add button -y`,
       folderPath
     );
-    */
 
     // Setup configuration files
     await this.createPostCssConfig(folderPath);

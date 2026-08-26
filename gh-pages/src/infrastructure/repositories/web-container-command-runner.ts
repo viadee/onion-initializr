@@ -1,5 +1,9 @@
 import { WebContainer } from '@webcontainer/api';
 import { ICommandRunner } from '@onion-initializr/lib/domain/interfaces/icommand-runner';
+import { GENERATED_PROJECT_VERSIONS } from '@onion-initializr/lib/application/configuration/generated-project-versions';
+
+const viteVersion = GENERATED_PROJECT_VERSIONS.vite;
+const angularCliVersion = GENERATED_PROJECT_VERSIONS.angularCli;
 
 /**
  * WebContainer-compatible command runner that replaces the Node.js child_process based runCommand
@@ -124,7 +128,7 @@ export class WebContainerCommandRunner implements ICommandRunner {
   ): Promise<void> {
     // --no-interactive: Force non-interactive mode
     await this.runCommand(
-      `npx --yes create-vite@latest ${projectName} --template ${template} --no-interactive`,
+      `npx --yes create-vite@${viteVersion} ${projectName} --template ${template} --no-interactive`,
       cwd
     );
   }
@@ -145,7 +149,7 @@ export class WebContainerCommandRunner implements ICommandRunner {
 
     // Run ng new in the safe temp directory
     await this.runCommand(
-      `npx @angular/cli@latest new ${projectName} ${optionsStr}`,
+      `npx @angular/cli@${angularCliVersion} new ${projectName} ${optionsStr}`,
       safeTempDir
     );
 
