@@ -2,12 +2,30 @@ import { FileService } from '../../domain/services/file-service';
 import { PathAppService } from './path-app-service';
 import { ICommandRunner } from '../../domain/interfaces/icommand-runner';
 import { UiLibrary } from '../../domain/entities/ui-library';
+import { GENERATED_PROJECT_VERSIONS } from '../configuration/generated-project-versions';
 import Handlebars from 'handlebars';
 
 /**
  * Shared service for setting up UI libraries (ShadCN, etc.)
  * Used by both CLI and WebContainer implementations
  */
+
+// Pinning to a specific version for stability
+const shadcnVersion = GENERATED_PROJECT_VERSIONS.shadcnCli;
+const tailwindVersion = GENERATED_PROJECT_VERSIONS.tailwindcss;
+const tailwindCliVersion = GENERATED_PROJECT_VERSIONS.tailwindcssCli;
+const postcssVersion = GENERATED_PROJECT_VERSIONS.postcss;
+const autoprefixerVersion = GENERATED_PROJECT_VERSIONS.autoprefixer;
+const tailwindTypographyVersion = GENERATED_PROJECT_VERSIONS.tailwindTypography;
+const tailwindViteVersion = GENERATED_PROJECT_VERSIONS.tailwindVite;
+const tailwindPostcssVersion = GENERATED_PROJECT_VERSIONS.tailwindPostcss;
+const classVarianceAuthorityVersion =
+  GENERATED_PROJECT_VERSIONS.classVarianceAuthority;
+const reactSlotVersion = GENERATED_PROJECT_VERSIONS.radixReactSlot;
+const reactDialogVersion = GENERATED_PROJECT_VERSIONS.radixReactDialog;
+const reactDropdownMenuVersion =
+  GENERATED_PROJECT_VERSIONS.radixReactDropdownMenu;
+
 export class UILibrarySetupService {
   constructor(
     private readonly fileService: FileService,
@@ -44,19 +62,19 @@ export class UILibrarySetupService {
 
     // Install core ShadCN dependencies
     await commandRunner.runCommand(
-      'npm install class-variance-authority clsx tailwind-merge',
+      `npm install class-variance-authority@${classVarianceAuthorityVersion} clsx tailwind-merge`,
       folderPath
     );
 
     // Install Tailwind CSS and related packages
     await commandRunner.runCommand(
-      'npm install -D tailwindcss postcss autoprefixer @tailwindcss/typography @tailwindcss/vite @tailwindcss/postcss tailwindcss-cli',
+      `npm install -D tailwindcss@${tailwindVersion} postcss@${postcssVersion} autoprefixer@${autoprefixerVersion} @tailwindcss/typography@${tailwindTypographyVersion} @tailwindcss/vite@${tailwindViteVersion} @tailwindcss/postcss@${tailwindPostcssVersion} tailwindcss-cli@${tailwindCliVersion}`,
       folderPath
     );
 
     // Install Radix UI components commonly used with ShadCN
     await commandRunner.runCommand(
-      'npm install @radix-ui/react-slot @radix-ui/react-dialog @radix-ui/react-dropdown-menu',
+      `npm install @radix-ui/react-slot@${reactSlotVersion} @radix-ui/react-dialog@${reactDialogVersion} @radix-ui/react-dropdown-menu@${reactDropdownMenuVersion}`,
       folderPath
     );
 
@@ -65,7 +83,7 @@ export class UILibrarySetupService {
 
     // Create tailwind.config.js
     await commandRunner.runCommand(
-      'npx tailwindcss-cli@latest init -p',
+      `npx tailwindcss-cli@${tailwindCliVersion} init -p`,
       folderPath
     );
 
@@ -73,17 +91,19 @@ export class UILibrarySetupService {
     await this.createIndexCss(folderPath);
 
     await commandRunner.runCommand(
-      'npx shadcn@latest init -y --base-color neutral',
+      `npx shadcn@${shadcnVersion} init -y --base-color neutral`,
       folderPath
     );
 
     // The shadcn command adds weird css directives to index.css, we don't want -> we overwrite the index.css again
     await this.createIndexCss(folderPath);
 
+    /*
     await commandRunner.runCommand(
-      'npx shadcn@latest add button -y',
+      `npx shadcn@${shadcnVersion} add button -y`,
       folderPath
     );
+    */
 
     // Setup configuration files
     await this.createPostCssConfig(folderPath);
