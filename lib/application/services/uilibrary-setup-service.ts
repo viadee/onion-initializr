@@ -10,8 +10,11 @@ import Handlebars from 'handlebars';
  * Used by both CLI and WebContainer implementations
  */
 
-// Pinning to a specific version for stability
-const shadcnVersion = GENERATED_PROJECT_VERSIONS.shadcnCli;
+// Dependency pinning
+// UI libraries
+const shadcnVersion = GENERATED_PROJECT_VERSIONS.shadcn;
+
+// Tailwind
 const tailwindVersion = GENERATED_PROJECT_VERSIONS.tailwindcss;
 const tailwindCliVersion = GENERATED_PROJECT_VERSIONS.tailwindcssCli;
 const postcssVersion = GENERATED_PROJECT_VERSIONS.postcss;
@@ -19,12 +22,16 @@ const autoprefixerVersion = GENERATED_PROJECT_VERSIONS.autoprefixer;
 const tailwindTypographyVersion = GENERATED_PROJECT_VERSIONS.tailwindTypography;
 const tailwindViteVersion = GENERATED_PROJECT_VERSIONS.tailwindVite;
 const tailwindPostcssVersion = GENERATED_PROJECT_VERSIONS.tailwindPostcss;
-const classVarianceAuthorityVersion =
-  GENERATED_PROJECT_VERSIONS.classVarianceAuthority;
+
+// Radix
 const reactSlotVersion = GENERATED_PROJECT_VERSIONS.radixReactSlot;
 const reactDialogVersion = GENERATED_PROJECT_VERSIONS.radixReactDialog;
 const reactDropdownMenuVersion =
   GENERATED_PROJECT_VERSIONS.radixReactDropdownMenu;
+
+// Typescript utilities
+const classVarianceAuthorityVersion =
+  GENERATED_PROJECT_VERSIONS.classVarianceAuthority;
 
 export class UILibrarySetupService {
   constructor(
