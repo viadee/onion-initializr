@@ -12,10 +12,12 @@ import { UIFrameworks } from '@onion-initializr/lib/domain/entities/ui-framework
 import { UILibrarySetupService } from '@onion-initializr/lib/application/services/uilibrary-setup-service';
 import { GENERATED_PROJECT_VERSIONS } from '@onion-initializr/lib/application/configuration/generated-project-versions';
 
+// Dependency pinning
 const reactVersion = GENERATED_PROJECT_VERSIONS.react;
 const reactDomVersion = GENERATED_PROJECT_VERSIONS.reactDom;
 const reactTypesVersion = GENERATED_PROJECT_VERSIONS.reactTypes;
 const reactDomTypesVersion = GENERATED_PROJECT_VERSIONS.reactDomTypes;
+
 /**
  * Optimized WebContainer project service that uses pre-generated lock files
  * to dramatically reduce installation time from ~50s to ~5s
@@ -93,7 +95,7 @@ export class WebContainerOptimizedProjectAppService implements IProjectService {
       const originalPackageJson =
         await this.fileService.readFile(packageJsonPath);
 
-      // overwrite originalPackageJson to pin React version
+      // overwrite originalPackageJson to pin React versions
       if (uiFramework === 'react') {
         const parsedPackageJson = JSON.parse(originalPackageJson.content);
         parsedPackageJson.dependencies = {

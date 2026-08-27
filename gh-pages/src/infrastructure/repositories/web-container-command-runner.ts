@@ -2,6 +2,7 @@ import { WebContainer } from '@webcontainer/api';
 import { ICommandRunner } from '@onion-initializr/lib/domain/interfaces/icommand-runner';
 import { GENERATED_PROJECT_VERSIONS } from '@onion-initializr/lib/application/configuration/generated-project-versions';
 
+// Dependency pinning
 const viteVersion = GENERATED_PROJECT_VERSIONS.vite;
 const angularCliVersion = GENERATED_PROJECT_VERSIONS.angularCli;
 
