@@ -22,6 +22,7 @@ import { OnionCliAppService } from '../../application/services/onion-cli-app-ser
 import { AppServiceDependencyAppService } from '../../application/services/app-service-dependency-app-service';
 import { ProjectInitAppService } from '../../application/services/project-init-app-service';
 import { HelpAppService } from '../../application/services/help-app-service';
+import { VersionAppService } from '../../application/services/version-app-service';
 import { AngularConfigAppService } from '@onion-initializr/lib/application/services/angular-config-app-service';
 import { BrowserCheckAppService } from '@onion-initializr/lib/application/services/browser-check-app-service';
 import { ConfigurationAppService } from '@onion-initializr/lib/application/services/configuration-app-service';
@@ -45,6 +46,7 @@ container.register({
   awilixConfig: asClass(AwilixConfig).singleton(),
   scanControllerService: asClass(ScanControllerAppService).singleton(),
   helpAppService: asClass(HelpAppService).singleton(),
+  versionAppService: asClass(VersionAppService).singleton(),
   scannerService: asClass(ScannerAppService).singleton(),
   entityService: asClass(EntityService).singleton(),
   domainServiceService: asClass(DomainServiceService).singleton(),

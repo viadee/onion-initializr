@@ -69,7 +69,7 @@
       "executor": "nx:run-commands",
       "dependsOn": ["build-all"],
       "options": {
-        "commands": ["pnpm link --global"],
+        "commands": ["pnpm add -g ."],
         "cwd": "cli"
       }
     },
