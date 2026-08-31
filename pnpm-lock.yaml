@@ -246,9 +246,6 @@ importers:
       jszip:
         specifier: 3.10.1
         version: 3.10.1
-      onion-initializr:
-        specifier: 'link:'
-        version: 'link:'
       ora:
         specifier: 5.4.1
         version: 5.4.1
