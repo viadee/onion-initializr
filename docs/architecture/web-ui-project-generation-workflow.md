@@ -1,4 +1,7 @@
 ```mermaid
+---
+title: Web UI Onion Project Generation Workflow
+---
 flowchart TD
     %% ---------- Legend (own component, shares ranks with main flow) ----------
     legendTitle["Legend"]
