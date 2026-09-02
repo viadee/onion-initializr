@@ -1,15 +1,14 @@
 ```mermaid
 flowchart TD
-    %% Legend
-    subgraph Legend[" Legend "]
-        direction TB
-        legendUser["User"]
-        legendOnion["Onion initializr"]
-        legendWeb["Web container"]
-        legendDecision{"Decision"}
-        legendUser ~~~ legendOnion ~~~ legendWeb ~~~ legendDecision
-    end
+    %% ---------- Legend (own component, shares ranks with main flow) ----------
+    legendTitle["Legend"]
+    legendUser["User"]
+    legendOnion["Onion initializr"]
+    legendWeb["Web container"]
+    legendDecision{"Decision"}
+    legendTitle ~~~ legendUser ~~~ legendOnion ~~~ legendWeb ~~~ legendDecision
 
+    %% ---------- Main flow ----------
     start([Start])
     navigate["Navigate to project generator"]
     configure["Configure onion project"]
@@ -35,7 +34,7 @@ flowchart TD
     downloadError["Display download error"]
     downloaded([Project downloaded<br/>successfully])
     downloadFailed([Download failed])
-    %% Main flow
+
     start --> navigate
     navigate --> configure
     configure --> downloadStart
@@ -62,25 +61,32 @@ flowchart TD
     downloadSuccessful -->|No| downloadError
     successMessage --> downloaded
     downloadError --> downloadFailed
-    %% Styling
+
+    %% ---------- Styling ----------
     classDef process fill:#d9e8fb,stroke:#6c8ebf,color:#000;
-    classDef technical fill:#e0f7f5,stroke:#00a99d,color:#155;
-    classDef validation fill:#eeeeee,stroke:#888,color:#000;
+    classDef technical fill:#f0fdfa,stroke:#00a99d,color:#155;
+    classDef validation fill:#d9d9d9,stroke:#888,color:#000;
     classDef decision fill:#fffbe6,stroke:#e6b800,color:#754c00;
     classDef success fill:#d5e8d4,stroke:#82b366,color:#000;
     classDef failure fill:#f8cecc,stroke:#b85450,color:#000;
     classDef startEnd fill:#d5f5f5,stroke:#6c8ebf,color:#000;
+    classDef legendTitle fill:none,stroke:none,color:#000;
+
+    %% User
     class navigate,configure,downloadStart process;
+    %% Onion initializr
     class validate,progress,startWeb,validationError,generationError,package,finalize,successMessage,downloadError validation;
+    %% Web container
     class projectGeneration,initialize,framework,setupUI,architecture technical;
     class entities,uiSelected,generationSuccessful,downloadSuccessful decision;
     class start startEnd;
     class generationFailed,downloadFailed failure;
     class downloaded success;
-    %% Legend styling
+
+    %% Legend reuses the exact same classes
+    class legendTitle legendTitle;
     class legendUser process;
     class legendOnion validation;
     class legendWeb technical;
     class legendDecision decision;
-    style Legend fill:#ffffff,stroke:#999,color:#000;
 ```
