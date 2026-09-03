@@ -17,10 +17,12 @@ import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
 import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
 import { UIFrameworks } from '@onion-initializr/lib/domain/entities/ui-framework';
 import { UiLibrary } from '@onion-initializr/lib/domain/entities/ui-library';
+import { VersionAppService } from './version-app-service';
 
 export class OnionCliAppService {
   constructor(
     private readonly helpAppService: HelpAppService,
+    private readonly versionAppService: VersionAppService,
     private readonly scanControllerService: ScanControllerAppService,
     private readonly onionConfigService: OnionConfigService,
     private readonly projectService: IProjectService,
@@ -40,6 +42,7 @@ export class OnionCliAppService {
    *  ShowcaseApp, Dependency Injection Config.
    */
   public async runOnionCli() {
+    await this.versionAppService.handleVersion();
     this.helpAppService.handleHelp();
     await this.scanControllerService.handleScan();
     console.log('🧅 Onion CLI - Generate Onion Architecture Structure\n');
