@@ -18,9 +18,19 @@
         "lintFilePatterns": ["cli/**/*.ts"]
       }
     },
+    "generate-version": {
+      "executor": "nx:run-commands",
+      "outputs": [
+        "{workspaceRoot}/cli/src/application/configuration/generated-version.ts"
+      ],
+      "options": {
+        "commands": ["node generate-version.js"],
+        "cwd": "cli"
+      }
+    },
     "build": {
       "executor": "@nx/js:tsc",
-      "dependsOn": ["@onion-initializr/lib:build"],
+      "dependsOn": ["@onion-initializr/lib:build", "generate-version"],
       "outputs": ["{workspaceRoot}/cli/dist"],
       "options": {
         "tsConfig": "cli/tsconfig.json",
@@ -69,7 +79,7 @@
       "executor": "nx:run-commands",
       "dependsOn": ["build-all"],
       "options": {
-        "commands": ["pnpm link --global"],
+        "commands": ["pnpm add -g ."],
         "cwd": "cli"
       }
     },
