@@ -185,27 +185,27 @@ flowchart TD
 15. **Run code formatter** <br/>
     The command runner formats the generated code (npm run format).
 
-16. **Create folder structure**  
+16. **Create project folder structure**  
     The web container creates the folder structure with the respective project subdirectories (src, src/domain, src/domain/interfaces etc.)
 
-17. **Create project entities, repositories, domain services and application services**
+17. **Create project entities, repositories, domain services and application services**<br/>
     The web container generates the project structure files as file entities according to the user configuration (step 2). The file content gets retrieved from loaded templates. The file entities get added to a central file entities array.
 
 18. **Generate DI-Configuration** <br/>
-    Depending on the selection of the DI Framework, the web container creates a respective Awilix-Config or Angular-Config file entities.
+    Depending on the selection of the DI Framework, the web container creates a respective Awilix-Config or Angular-Config file entity. The files are then added to the central entities array.
 
 19. **Generate framework specific presentation files from templates** <br/>
-    The web container creates the presentation file entities for the selected UI framework and UI library (App.ts, App.css). In case of vanilla, the generation of some files is skipped.
+    The web container creates the presentation file entities for the selected UI framework and UI library (App.ts, App.css). In case of vanilla, the generation of some files is skipped. The files are than added to the central entities array.
 
 20. **Create directories for project files** <br/>
     The web container creates the respective directories for all the file entities.
 
 21. **Create files from file entities** <br/>
-    The web container creates the files from all file entities in the central file entities array.
+    The web container creates the files from all file entities.
 
 22. **Is project generation successful?**  
     Decision gate after generation tasks complete.
-    - If yes, proceed to packaging and download finalization (step 21).
+    - If yes, proceed to packaging and download finalization (steps 23, 24).
     - If no, display generation error to the user
 
 23. **Package generated project** <br/>
