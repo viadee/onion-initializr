@@ -82,9 +82,13 @@ Run the command in the same directory as your `myConfig.json`, or provide an abs
 
 ---
 
+## Architecture
+
+- [Web UI project generation workflow](docs/architecture/web-ui-project-generation-workflow.md) - flowchart of the end-to-end project generation and download flow
+
 ## ADR (architecture decision records)
 
-1. `docs/adr/0001-version-pinning-strategy.md` - dependency management decisions
+1. [docs/adr/01-version-pinning-strategy.md](docs/adr/01-version-pinning-strategy.md) - dependency management decisions
 
 ---
 
