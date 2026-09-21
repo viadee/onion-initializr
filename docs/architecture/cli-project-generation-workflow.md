@@ -132,57 +132,63 @@ flowchart TD
 ## Detailed Step Explanations
 
 1. **Run `onion` command in terminal**  
-   The user starts the CLI. The bootstrap resolves `OnionCliAppService` and delegates the command to it.
+   The user starts the onion initializ CLI by submitting the 'onion' command in the terminal.
 
-2. **Handle informational commands**  
-   Before starting generation, the CLI handles `--version`, `--help`, and `--scan`. When one of these options is requested, the corresponding output is produced and the process exits successfully without generating a project.
+2. **Is --version, --help or --scan requested**
+   - If yes: onion initializr CLI handles `--version`, `--help`, and `--scan`. When one of these options is requested, the corresponding output is produced and the process exits without generating a project.
+   - If no: continue with step 3.
 
-3. **Determine the configuration source**  
-   The CLI checks whether `--config` is followed by a configuration-file path. If no path is provided, generation starts with an empty configuration and missing values are collected interactively.
+3. **Execute requested informational command**
+   #Continue with description
 
-4. **Read the configuration file**  
-   Relative configuration paths are resolved against the current working directory. The CLI then reads the JSON file from the local filesystem.
+4. **Is a --config file provided**  
+   Onion initializr checks whether `--config` is followed by a configuration-file path.
+   - If yes: continue with step 4.
+   - If no: continues with step 8.
 
-5. **Parse and validate the configuration**  
-   The configuration is checked for supported UI and DI frameworks, valid service dependency maps, declared dependency targets, and correctly named repository dependencies. A read, JSON parsing, or validation error is displayed by the CLI bootstrap and terminates the process with exit code 1.
+5. **Resolve the configuration file path**  
+   Onion initializr checks whether the given --config path is already absolute. If it is, that path is used as-is. If not, it is combined with the current working directory to form an absolute path.
 
-6. **Retrive configuration**  
+6. **Read the configuration file**
+   The local filesystem reads the file at the resolved path and returns its raw text content as a string.
+
+7. **Is configuration valid**  
+   The configuration file's raw text context gets parsed to a OnionConfig Object. The configuration is then checked for supported UI and DI frameworks, valid service dependency maps, declared dependency targets, and correctly named repository dependencies.
+   - If yes: the process continues with step 7
+   - If no: a read, JSON parsing, or validation error the onion initializr startup-file prints an configuration error message and terminates the process
+
+8. **Retrive project configuration**  
    Converts the validated JSON configuration file into an OnionConfig object that the CLI can use internally.
 
-7. **Resolve the project folder**  
-   The CLI uses the configured folder path or prompts the user when it is missing. Relative paths are resolved against the current working directory.
+9. **Is folder path configured**
+   - If yes: continue with step 9
+   - If no: prompt the user for the project folder path. The user input will create a new directory in which the project will be generated.
 
-8. **Create base Onion folder structure**  
-   The standard project directories are created before initialization is checked. This includes `src`, so an existing project is subsequently identified by the presence of both `package.json` and `src`.
+10. **Create base onion folder structure**  
+    The standard project directories are created. This includes `src`, `src/domain`, `src/application`, `src/infrastructure` and other directories resembling the base onion project structure.
 
-9. **Are package.json and scr directory present**
-   Decision gate for handling an existing project or creating a new one
-   - If both files are present, continue with steps ()
-   - if not continue with step 11
+11. **Are package.json and scr directory present**
+    Decision gate for handling an existing project or creating a new one
+    - If yes: continue with step 11.
+    - If not: detect used UI, DI Frameworks, used UI Library and continue with step 24.
 
-10. **Resolve options for an existing project**  
-    Values supplied by the user configuration take precedence over detected UI framework, DI framework, and UI-library values. Missing values use the detected result.
-
-11. **Initialize a new npm project**  
+12. **Initialize a new npm project**  
     For a project that is not already initialized, the command runner executes `npm init -y`
 
-12. **Install development dependencies**  
+13. **Install development dependencies**  
     The command runner installs ESLint, Prettier, TypeScript ESLint packages, and the Prettier ESLint plugin as development dependencies.
 
-13. **Is framework configured**  
-    If UI framework is configured continue with step 15
-    If not for React, Vue, Angular, Lit, or Vanilla prompt for required configuration (step 14).
+14. **Is framework configured?**
+    - If yes: continue with step 14
+    - If no: prompt user for project UI framework configuration and its configuration. Angular projects prompt for the dependency injection framework. The two available options are Angular DI or Awilix. Other frameworks use awilix by default. React projects prompt for no UI library or ShadCN. Other frameworks use no UI library by default.
 
-14. **Promt for required project config**  
-    Angular projects prompt for the dependency injection framework. The two available options are Angular DI or Awilix. Other frameworks use awilix by default. React projects prompt for no UI library or ShadCN. Other frameworks use no UI library by default.
-
-15. **10. Is framework other than vanilla?**  
+15. **Is framework other than vanilla?**  
     Decision gate for optional framework project structure generation.
-    - If yes, continue with app creation (step 16).
-    - If no (in case of vanilla), skip directly to finalize project tooling (step 14), since no additional setup is required.
+    - If yes: continue with app creation (step 15).
+    - If no (in case of vanilla): skip directly to finalize project tooling (step 14), since no additional setup is required.
 
-16. **Create app with the configured framowerk**  
-    React, Vue, and Lit projects are created with Vite, Angular projects are created with Angular CLI. Generation takes place in a temporary directory. Vanilla skips framework scaffolding.
+16. **Create app with the configured framework**  
+    React, Vue, and Lit projects are created with Vite, Angular projects are created with Angular CLI. Generation takes place in a temporary directory.
 
 17. **Move app files to target directory**
     The files installed for the configured framework get moved from the temporary directory to the target directory alongside the Onion directories already present. The redundant temporary directory gets removed.
@@ -212,54 +218,35 @@ flowchart TD
 24. **Format initialized project**  
     The command runner installs `eslint-plugin-prettier` and executes `npm run format`.
 
-25. **Handle project-initialization errors**  
-    Other errors inside new-project initialization are caught and logged. The CLI continues with React, Awilix, and no UI library as fallback values; filesystem changes already completed by the failed initialization are not rolled back.
-
-26. **Is onion structure configured?**
+25. **Is onion structure configured?**
     Decision gate for setting entities, domain services and application services
     - If yes, continue with step 27
     - If no, continue with step
 
-27. ** Retrive existing onion config**
+26. ** Retrive existing onion config**
     The local file system retrieves entity, domain-service, and application-service names from the configuration
 
-28. **Prompt for missing onion config**
+27. **Prompt for missing onion config**
     Promt user for entity, domain-service, and application-service names.
 
-29. **Create the Onion folder structure**  
+28. **Create the Onion folder structure**  
     The local file system creates the folder structure with the respective project subdirectories (src, src/domain, src/domain/interfaces etc.)
 
-30. **Create project entities, repositories, domain services and application services**<br/>
+29. **Create project entities, repositories, domain services and application services**<br/>
     The local file system generates the project structure files as file entities according to the configuration. The file content gets retrieved from loaded templates. The file entities get added to a central file entities array.
 
-//#TODO: Contnue with diagramm and description edition from this point
-
-31. **Generate DI-Configuration** <br/>
+30. **Generate DI-Configuration** <br/>
     Depending on the selection of the DI Framework, the local file system creates a respective Awilix-Config or Angular-Config file entity. The files are then added to the central entities array.
 
-32. **Generate framework specific presentation files from templates** <br/>
-    The web container creates the presentation file entities for the selected UI framework and UI library (App.ts, App.css). In case of vanilla, the generation of some files is skipped. The files are than added to the central entities array.
+31. **Generate framework specific presentation files from templates** <br/>
+    The local file system creates the presentation file entities for the selected UI framework and UI library (App.ts, App.css). In case of vanilla, the generation of some files is skipped. The files are than added to the central entities array.
 
-33. **Create directories for project files** <br/>
-    The web container creates the respective directories for all the file entities.
+32. **Create directories for project files** <br/>
+    The local file system creates the respective directories for all the file entities.
 
-34. **Create files from file entities** <br/>
-    The web container creates the files from all file entities.
+33. **Create files from file entities** <br/>
+    The local file system creates the files from all file entities.
 
-35. **Prepare configuration and domain file entities**  
-    The generator prepares a TypeScript configuration update, entity files, repository implementations and interfaces, and domain-service files from templates. When domain-service connections are omitted, each domain service is connected to every entity.
-
-36. **Resolve application-service dependencies**  
-    Configured dependency mappings are used directly. Otherwise, the CLI prompts twice for each application service: once for entity dependencies and once for domain-service dependencies.
-
-37. **Generate application services and DI configuration**  
-    Application-service file entities are created with their resolved dependencies. The generator then creates either Awilix or Angular dependency-injection configuration file entities.
-
-38. **Generate presentation files**  
-    Framework- and UI-library-specific showcase files are prepared from templates. Some presentation files are intentionally skipped for Vanilla projects.
-
-39. **Create directories and write files**  
-    The generator first creates the unique parent directories required by all prepared file entities, then writes every generated file through the filesystem repository.
-
-40. **Complete or fail generation**  
-    Successful writes resolve normally and the CLI process exits with code 0; there is no separate final success message. Unhandled template, generation, directory, or file-write errors reach the bootstrap, which displays the error and exits with code 1.
+34. **Is project generation successful**
+    - If yes, the CLI finishes and returns back to the terminal without printing a success message.
+    - If no, the error travels back up through the code until it reaches the start-up file which is the only place that catches errors. It prints the error message and exits.
