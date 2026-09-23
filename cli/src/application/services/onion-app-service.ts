@@ -75,6 +75,8 @@ export class OnionAppService {
     } = params;
 
     await this.folderStructureService.createFolderStructure(folderPath);
+
+    //determine the DI framework to use, either from passed parameter or default to 'awilix'
     const diFramework = await this.initializeProject(
       folderPath,
       uiFramework,
