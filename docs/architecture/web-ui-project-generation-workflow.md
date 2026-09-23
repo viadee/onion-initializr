@@ -1,3 +1,41 @@
+## High level state diagramm
+
+```mermaid
+---
+title: Web UI Onion Project Generation Workflow (State Diagram)
+---
+stateDiagram-v2
+    [*] --> Configuring
+
+    Configuring --> Validating : start generation
+    Validating --> Configuring : [invalid] / show validation error
+    Validating --> Generating : [valid]
+
+    state Generating {
+        [*] --> InitializingWebcontainerWorkspace
+        InitializingWebcontainerWorkspace --> InstallingDependencies
+        InstallingDependencies --> FrameworkScaffolding : [framework != vanilla]
+        InstallingDependencies --> FinalizingTooling : [framework == vanilla]
+        FrameworkScaffolding --> InstallingUILibrary : [UI library selected]
+        FrameworkScaffolding --> FinalizingTooling : [no UI library]
+        InstallingUILibrary --> FinalizingTooling
+        FinalizingTooling --> CreatingProjectFiles
+        CreatingProjectFiles --> [*]
+    }
+
+    Generating --> Packaging : [generation successful]
+    Generating --> Failed : [generation failed] / show generation error
+
+    Packaging --> Downloading
+    Downloading --> Completed : [download successful] / show success message
+    Downloading --> Failed : [download failed] / show download error
+
+    Completed --> [*]
+    Failed --> [*]
+```
+
+## Detailed flowchart
+
 ```mermaid
 ---
 title: Web UI Onion Project Generation Workflow
