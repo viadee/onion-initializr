@@ -12,6 +12,13 @@ stateDiagram-v2
     Validating --> Generating : [valid]
 
     state Generating {
+        state "Initializing<br/>WebcontainerWorkspace" as InitializingWebcontainerWorkspace
+        state "Installing<br/>Dependencies" as InstallingDependencies
+        state "Framework<br/>Scaffolding" as FrameworkScaffolding
+        state "Installing<br/>UILibrary" as InstallingUILibrary
+        state "Finalizing<br/>Tooling" as FinalizingTooling
+        state "Creating<br/>ProjectFiles" as CreatingProjectFiles
+
         [*] --> InitializingWebcontainerWorkspace
         InitializingWebcontainerWorkspace --> InstallingDependencies
         InstallingDependencies --> FrameworkScaffolding : [framework != vanilla]
