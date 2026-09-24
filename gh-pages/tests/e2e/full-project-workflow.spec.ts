@@ -125,7 +125,7 @@ test.describe('Full Project Workflow E2E Tests', () => {
     };
 
     // Navigate and dismiss YouTube modal if it appears
-    await page.goto('http://localhost:4200/generator');
+    await page.goto('http://localhost:4200/onion-initializr/home');
 
     // Dismiss YouTube modal if it appears
     try {
@@ -199,6 +199,10 @@ test.describe('Full Project Workflow E2E Tests', () => {
   });
 
   async function setupSimpleProject(page: Page) {
+    // Navigate to the generator page
+    await page.getByRole('button', { name: 'Try Online Now' }).first().click();
+    await page.getByRole('button', { name: 'Skip Tutorial' }).click();
+
     // Set project name using the actual input selector
     await page.fill(
       'input.text-input[placeholder="Enter Project name"]',
@@ -207,25 +211,26 @@ test.describe('Full Project Workflow E2E Tests', () => {
 
     // Add nodes using the diagram interface
     // Add an entity
-    await page.selectOption('select.select-input', 'entity');
-    await page.fill('input.text-input[placeholder="Enter node name"]', 'User');
-    await page.click('button.btn.btn-primary:has-text("Add Node")');
+    await page.getByRole('textbox', { name: 'Entity' }).click();
+    await page.getByRole('textbox', { name: 'Entity' }).fill('Supplier');
+    await page.getByRole('button', { name: 'Add Entity' }).click();
 
     // Add a domain service
-    await page.selectOption('select.select-input', 'domain');
-    await page.fill(
-      'input.text-input[placeholder="Enter node name"]',
-      'UserService'
-    );
-    await page.click('button.btn.btn-primary:has-text("Add Node")');
+    await page
+      .getByRole('textbox', { name: 'Domain Service' })
+      .fill('Procurement');
+    await page.getByRole('textbox', { name: 'Domain Service' }).click();
+    await page
+      .getByRole('textbox', { name: 'Domain Service' })
+      .fill('ProcurementService');
+    await page.getByRole('button', { name: 'Add Domain Service' }).click();
 
     // Add an application service
-    await page.selectOption('select.select-input', 'application');
-    await page.fill(
-      'input.text-input[placeholder="Enter node name"]',
-      'UserAppService'
-    );
-    await page.click('button.btn.btn-primary:has-text("Add Node")');
+    await page.getByRole('textbox', { name: 'Application Service' }).click();
+    await page
+      .getByRole('textbox', { name: 'Application Service' })
+      .fill('SupplierAppService');
+    await page.getByRole('button', { name: 'Add Application Service' }).click();
 
     // Wait for configuration to be processed
     await page.waitForTimeout(1000);
