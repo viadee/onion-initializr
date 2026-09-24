@@ -125,7 +125,7 @@ test.describe('Full Project Workflow E2E Tests', () => {
     };
 
     // Navigate and dismiss YouTube modal if it appears
-    await page.goto('http://localhost:4200/onion-initializr/generator');
+    await page.goto('http://localhost:4200/onion-initializr/home');
 
     // Dismiss YouTube modal if it appears
     try {
