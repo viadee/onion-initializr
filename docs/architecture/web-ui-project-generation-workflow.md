@@ -1,3 +1,15 @@
+## Execution model
+
+All actors shown in this workflow execute client-side in the user's browser.
+
+- **Onion Initializr** refers to the Angular web application and its application services.
+- **WebContainer** is an isolated Node.js runtime running inside the browser and executes the processes requested by the Command Runner.
+- **Command Runner** controls the browser WebContainer Instance and starts commands such as npm, npx, Vite, and Angular CLI through the WebContainer.
+
+There is no backend involved in project generation.
+
+## Detailed flowchart
+
 ```mermaid
 ---
 title: Web UI Onion Project Generation Workflow
