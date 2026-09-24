@@ -1,4 +1,4 @@
-## High level state diagramm
+## High level state diagram
 
 ```mermaid
 ---
