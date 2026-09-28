@@ -15,6 +15,8 @@ interface TestProject {
 }
 
 class ProjectRunner {
+  /** Detects typical startup messages in the development server's standard output.
+      A match is used as a signal that startup has succeeded.*/
   private static isStartupMessage(data: string): boolean {
     return (
       data.includes('Local:') ||
@@ -25,10 +27,12 @@ class ProjectRunner {
     );
   }
 
+  // Detects error message in the development server's standard error output.
   private static isErrorMessage(data: string): boolean {
     return data.includes('Error:') || data.includes('EADDRINUSE');
   }
 
+  //Starts the generated project using the specified command in its directory and watches the process output
   static async startProject(
     projectPath: string,
     command: string
@@ -69,6 +73,7 @@ class ProjectRunner {
         handleError('Project failed to start within timeout');
       }, 45000);
 
+      // Listen for startup messages in the project's standard output.
       process.stdout?.on('data', (data: string) => {
         console.log('Project stdout:', data);
         if (ProjectRunner.isStartupMessage(data)) {
@@ -76,6 +81,7 @@ class ProjectRunner {
         }
       });
 
+      // Listen for error messages in the project's standard error output.
       process.stderr?.on('data', (data: string) => {
         console.log('Project stderr:', data);
         if (ProjectRunner.isErrorMessage(data)) {
@@ -83,6 +89,7 @@ class ProjectRunner {
         }
       });
 
+      // Handle process exit and error events to ensure proper cleanup and resolution of the promise.
       process.on('exit', code => {
         clearTimeout(startupTimeout);
         if (!hasStarted && code !== 0) {
@@ -124,21 +131,7 @@ test.describe('Full Project Workflow E2E Tests', () => {
       projectName: 'test-onion-project',
     };
 
-    // Navigate and dismiss YouTube modal if it appears
     await page.goto('http://localhost:4200/onion-initializr/home');
-
-    // Dismiss YouTube modal if it appears
-    try {
-      const closeButton = page.locator('.close-button');
-      if (await closeButton.isVisible({ timeout: 2000 })) {
-        await closeButton.click();
-        await page.waitForTimeout(500);
-      }
-    } catch {
-      // Modal not found, continue
-    }
-
-    await page.waitForLoadState('networkidle');
   });
 
   test.afterEach(async () => {
@@ -152,25 +145,18 @@ test.describe('Full Project Workflow E2E Tests', () => {
     }
   });
 
-  test('should download, extract, install and run generated project successfully', async () => {
-    // Step 1: Configure a simple project
-    await setupSimpleProject(page);
+  test('should handle Lit project generation and execution', async () => {
+    // Configure Lit-specific project
+    await setupLitProject(page);
 
-    // Step 2: Download the project
     const downloadPath = await downloadProject(page);
-    testProject.downloadPath = downloadPath;
+    testProject.downloadPath = downloadPath; // ?
 
-    // Step 3: Extract the zip file
     const extractPath = await extractProject(downloadPath);
     testProject.extractPath = extractPath;
 
-    // Step 4: Verify basic project structure
     await verifyProjectStructure(extractPath);
-
-    // Step 5: Install dependencies
     await installDependencies(extractPath);
-
-    // Step 6: Start the project and verify it runs
     await startAndVerifyProject(extractPath);
   });
 
@@ -183,7 +169,7 @@ test.describe('Full Project Workflow E2E Tests', () => {
 
     await verifyReactProjectStructure(extractPath);
     await installDependencies(extractPath);
-    await startAndVerifyReactProject(extractPath);
+    await startAndVerifyProject(extractPath);
   });
 
   test('should handle Angular project generation and execution', async () => {
@@ -209,7 +195,6 @@ test.describe('Full Project Workflow E2E Tests', () => {
       testProject.projectName
     );
 
-    // Add nodes using the diagram interface
     // Add an entity
     await page.getByRole('textbox', { name: 'Entity' }).click();
     await page.getByRole('textbox', { name: 'Entity' }).fill('Supplier');
@@ -238,12 +223,30 @@ test.describe('Full Project Workflow E2E Tests', () => {
 
   async function setupReactProject(page: Page) {
     await setupSimpleProject(page);
-    // React framework would be pre-selected by routing to the appropriate page
+    // React framework is selected by default, so no additional action is needed here
   }
 
   async function setupAngularProject(page: Page) {
     await setupSimpleProject(page);
-    // Angular framework would be pre-selected by routing to the appropriate page
+
+    // Select Angular framework
+    const angularButton = page
+      .locator('button.framework-btn:has(span:text("angular"))')
+      .first();
+    await expect(angularButton).toBeVisible({ timeout: 10000 });
+    await angularButton.click();
+    await page.waitForTimeout(1000);
+  }
+
+  async function setupLitProject(page: Page) {
+    await setupSimpleProject(page);
+
+    // Select Lit framework
+    const litButton = page
+      .locator('button.framework-btn:has(span:text("lit"))')
+      .first();
+    await litButton.click();
+    await page.waitForTimeout(1000);
   }
 
   async function downloadProject(page: Page): Promise<string> {
@@ -272,7 +275,7 @@ test.describe('Full Project Workflow E2E Tests', () => {
         }
       });
 
-      // Trigger download - this needs to be async but wrapped properly
+      // Trigger download
       (async () => {
         try {
           await page.click('#generate');
@@ -415,17 +418,8 @@ test.describe('Full Project Workflow E2E Tests', () => {
     }
   }
 
+  //works for both React and Lit projects
   async function startAndVerifyProject(projectPath: string) {
-    const packageJsonPath = path.join(projectPath, 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
-
-    const startCommand =
-      packageJson.scripts.dev || packageJson.scripts.start || 'npm run dev';
-
-    await ProjectRunner.startProject(projectPath, startCommand);
-  }
-
-  async function startAndVerifyReactProject(projectPath: string) {
     await ProjectRunner.startProject(projectPath, 'npm run dev');
   }
 
