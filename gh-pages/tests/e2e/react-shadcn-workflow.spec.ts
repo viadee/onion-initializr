@@ -127,21 +127,6 @@ test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
     await page.goto('http://localhost:4200/onion-initializr/home');
   });
 
-  test.afterEach(async () => {
-    if (tempDir && fs.existsSync(tempDir)) {
-      try {
-        fs.rmSync(tempDir, {
-          recursive: true,
-          force: true,
-          maxRetries: 10,
-          retryDelay: 500,
-        });
-      } catch (error) {
-        console.warn('Failed to cleanup temp directory:', error);
-      }
-    }
-  });
-
   test('should handle React project generation and execution', async () => {
     await setupReactShadCNProject(page);
 
@@ -185,6 +170,7 @@ test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
       .fill('SupplierAppService');
     await page.getByRole('button', { name: 'Add Application Service' }).click();
 
+    // Select ShadCN UI framework
     await page.getByRole('button', { name: 'shadcn logo ShadCN' }).click();
     await page
       .getByRole('button', { name: 'shadcn logo ShadCN' })
@@ -196,7 +182,7 @@ test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
   async function downloadProject(page: Page): Promise<string> {
     return new Promise((resolve, reject) => {
       const downloadTimeout = setTimeout(() => {
-        reject(new Error('Download timeout after 300 seconds'));
+        reject(new Error('Download timeout after 5 minutes'));
       }, 300000);
 
       page.on('download', async download => {
@@ -218,6 +204,7 @@ test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
         }
       });
 
+      // trigger download and project generation
       (async () => {
         try {
           await page.click('#generate');
@@ -229,6 +216,7 @@ test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
     });
   }
 
+  // Extracts the downloaded zip file and returns the path to the extracted project directory
   async function extractProject(zipPath: string): Promise<string> {
     const extractDir = path.join(tempDir, 'extracted');
 
@@ -263,7 +251,7 @@ test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
     );
   }
 
-  async function verifyProjectStructure(projectPath: string) {
+  function verifyProjectStructure(projectPath: string) {
     console.log('Project path:', projectPath);
     console.log('Contents:', fs.readdirSync(projectPath));
 
@@ -299,7 +287,7 @@ test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
   }
 
   async function verifyReactProjectStructure(projectPath: string) {
-    await verifyProjectStructure(projectPath);
+    verifyProjectStructure(projectPath);
 
     const reactFiles = ['src/main.tsx', 'src/App.tsx', 'vite.config.ts'];
 
@@ -311,6 +299,7 @@ test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
     }
   }
 
+  // Installs npm dependencies in the generated project directory and verifies that node_modules exists
   async function installDependencies(projectPath: string) {
     console.log(`Installing dependencies in ${projectPath}`);
 
