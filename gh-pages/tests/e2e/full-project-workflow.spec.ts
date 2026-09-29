@@ -8,13 +8,9 @@ import AdmZip from 'adm-zip';
 
 const execAsync = promisify(exec);
 
-interface TestProject {
-  downloadPath: string;
-  extractPath: string;
-  projectName: string;
-}
-
 class ProjectRunner {
+  /** Detects typical startup messages in the development server's standard output.
+      A match is used as a signal that startup has succeeded.*/
   private static isStartupMessage(data: string): boolean {
     return (
       data.includes('Local:') ||
@@ -25,14 +21,13 @@ class ProjectRunner {
     );
   }
 
+  // Detects error message in the development server's standard error output.
   private static isErrorMessage(data: string): boolean {
     return data.includes('Error:') || data.includes('EADDRINUSE');
   }
 
-  static async startProject(
-    projectPath: string,
-    command: string
-  ): Promise<void> {
+  //Starts the generated project using the specified command in its directory and watches the process output
+  static startProject(projectPath: string, command: string): Promise<void> {
     console.log(`Starting project with command: ${command}`);
 
     return new Promise<void>((resolve, reject) => {
@@ -69,6 +64,7 @@ class ProjectRunner {
         handleError('Project failed to start within timeout');
       }, 45000);
 
+      // Listen for startup messages in the project's standard output.
       process.stdout?.on('data', (data: string) => {
         console.log('Project stdout:', data);
         if (ProjectRunner.isStartupMessage(data)) {
@@ -76,6 +72,7 @@ class ProjectRunner {
         }
       });
 
+      // Listen for error messages in the project's standard error output.
       process.stderr?.on('data', (data: string) => {
         console.log('Project stderr:', data);
         if (ProjectRunner.isErrorMessage(data)) {
@@ -83,6 +80,7 @@ class ProjectRunner {
         }
       });
 
+      // Handle process exit and error events to ensure proper cleanup and resolution of the promise.
       process.on('exit', code => {
         clearTimeout(startupTimeout);
         if (!hasStarted && code !== 0) {
@@ -100,12 +98,12 @@ class ProjectRunner {
   }
 }
 
-test.describe('Full Project Workflow E2E Tests', () => {
+test.describe('Project Generation and Execution for Lit, React, and Angular', () => {
   let page: Page;
-  let testProject: TestProject;
+  let projectName: string;
   let tempDir: string;
 
-  // Set longer timeout for all tests in this suite
+  // Set longer timeout for all tests
   test.setTimeout(600000); // 10 minutes
 
   test.beforeEach(async ({ browser }) => {
@@ -115,62 +113,23 @@ test.describe('Full Project Workflow E2E Tests', () => {
 
     page = await context.newPage();
 
-    // Create temporary directory for this test
+    // Create temporary directory for the test
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'onion-e2e-'));
 
-    testProject = {
-      downloadPath: '',
-      extractPath: '',
-      projectName: 'test-onion-project',
-    };
+    projectName = 'test-onion-project';
 
-    // Navigate and dismiss YouTube modal if it appears
-    await page.goto('http://localhost:4200/generator');
-
-    // Dismiss YouTube modal if it appears
-    try {
-      const closeButton = page.locator('.close-button');
-      if (await closeButton.isVisible({ timeout: 2000 })) {
-        await closeButton.click();
-        await page.waitForTimeout(500);
-      }
-    } catch {
-      // Modal not found, continue
-    }
-
-    await page.waitForLoadState('networkidle');
+    await page.goto('http://localhost:4200/onion-initializr/home');
   });
 
-  test.afterEach(async () => {
-    // Cleanup temporary directory
-    if (tempDir && fs.existsSync(tempDir)) {
-      try {
-        fs.rmSync(tempDir, { recursive: true, force: true });
-      } catch (error) {
-        console.warn('Failed to cleanup temp directory:', error);
-      }
-    }
-  });
+  test('should handle Lit project generation and execution', async () => {
+    // Configure Lit-specific project
+    await setupLitProject(page);
 
-  test('should download, extract, install and run generated project successfully', async () => {
-    // Step 1: Configure a simple project
-    await setupSimpleProject(page);
-
-    // Step 2: Download the project
     const downloadPath = await downloadProject(page);
-    testProject.downloadPath = downloadPath;
+    const extractPath = extractProject(downloadPath);
 
-    // Step 3: Extract the zip file
-    const extractPath = await extractProject(downloadPath);
-    testProject.extractPath = extractPath;
-
-    // Step 4: Verify basic project structure
-    await verifyProjectStructure(extractPath);
-
-    // Step 5: Install dependencies
+    verifyLitProject(extractPath);
     await installDependencies(extractPath);
-
-    // Step 6: Start the project and verify it runs
     await startAndVerifyProject(extractPath);
   });
 
@@ -179,11 +138,11 @@ test.describe('Full Project Workflow E2E Tests', () => {
     await setupReactProject(page);
 
     const downloadPath = await downloadProject(page);
-    const extractPath = await extractProject(downloadPath);
+    const extractPath = extractProject(downloadPath);
 
-    await verifyReactProjectStructure(extractPath);
+    verifyReactProjectStructure(extractPath);
     await installDependencies(extractPath);
-    await startAndVerifyReactProject(extractPath);
+    await startAndVerifyProject(extractPath);
   });
 
   test('should handle Angular project generation and execution', async () => {
@@ -191,41 +150,45 @@ test.describe('Full Project Workflow E2E Tests', () => {
     await setupAngularProject(page);
 
     const downloadPath = await downloadProject(page);
-    const extractPath = await extractProject(downloadPath);
+    const extractPath = extractProject(downloadPath);
 
-    await verifyAngularProjectStructure(extractPath);
+    verifyAngularProjectStructure(extractPath);
     await installDependencies(extractPath);
     await startAndVerifyAngularProject(extractPath);
   });
 
   async function setupSimpleProject(page: Page) {
+    // Navigate to the generator page
+    await page.getByRole('button', { name: 'Try Online Now' }).first().click();
+    await page.getByRole('button', { name: 'Skip Tutorial' }).click();
+
     // Set project name using the actual input selector
     await page.fill(
       'input.text-input[placeholder="Enter Project name"]',
-      testProject.projectName
+      projectName
     );
 
-    // Add nodes using the diagram interface
     // Add an entity
-    await page.selectOption('select.select-input', 'entity');
-    await page.fill('input.text-input[placeholder="Enter node name"]', 'User');
-    await page.click('button.btn.btn-primary:has-text("Add Node")');
+    await page.getByRole('textbox', { name: 'Entity' }).click();
+    await page.getByRole('textbox', { name: 'Entity' }).fill('Supplier');
+    await page.getByRole('button', { name: 'Add Entity' }).click();
 
     // Add a domain service
-    await page.selectOption('select.select-input', 'domain');
-    await page.fill(
-      'input.text-input[placeholder="Enter node name"]',
-      'UserService'
-    );
-    await page.click('button.btn.btn-primary:has-text("Add Node")');
+    await page
+      .getByRole('textbox', { name: 'Domain Service' })
+      .fill('Procurement');
+    await page.getByRole('textbox', { name: 'Domain Service' }).click();
+    await page
+      .getByRole('textbox', { name: 'Domain Service' })
+      .fill('ProcurementService');
+    await page.getByRole('button', { name: 'Add Domain Service' }).click();
 
     // Add an application service
-    await page.selectOption('select.select-input', 'application');
-    await page.fill(
-      'input.text-input[placeholder="Enter node name"]',
-      'UserAppService'
-    );
-    await page.click('button.btn.btn-primary:has-text("Add Node")');
+    await page.getByRole('textbox', { name: 'Application Service' }).click();
+    await page
+      .getByRole('textbox', { name: 'Application Service' })
+      .fill('SupplierAppService');
+    await page.getByRole('button', { name: 'Add Application Service' }).click();
 
     // Wait for configuration to be processed
     await page.waitForTimeout(1000);
@@ -233,12 +196,30 @@ test.describe('Full Project Workflow E2E Tests', () => {
 
   async function setupReactProject(page: Page) {
     await setupSimpleProject(page);
-    // React framework would be pre-selected by routing to the appropriate page
+    // React framework is selected by default, so no additional action is needed here
   }
 
   async function setupAngularProject(page: Page) {
     await setupSimpleProject(page);
-    // Angular framework would be pre-selected by routing to the appropriate page
+
+    // Select Angular framework
+    const angularButton = page
+      .locator('button.framework-btn:has(span:text("angular"))')
+      .first();
+    await expect(angularButton).toBeVisible({ timeout: 10000 });
+    await angularButton.click();
+    await page.waitForTimeout(1000);
+  }
+
+  async function setupLitProject(page: Page) {
+    await setupSimpleProject(page);
+
+    // Select Lit framework
+    const litButton = page
+      .locator('button.framework-btn:has(span:text("lit"))')
+      .first();
+    await litButton.click();
+    await page.waitForTimeout(1000);
   }
 
   async function downloadProject(page: Page): Promise<string> {
@@ -267,7 +248,7 @@ test.describe('Full Project Workflow E2E Tests', () => {
         }
       });
 
-      // Trigger download - this needs to be async but wrapped properly
+      // Trigger download
       (async () => {
         try {
           await page.click('#generate');
@@ -279,7 +260,7 @@ test.describe('Full Project Workflow E2E Tests', () => {
     });
   }
 
-  async function extractProject(zipPath: string): Promise<string> {
+  function extractProject(zipPath: string): string {
     const extractDir = path.join(tempDir, 'extracted');
 
     // Create extraction directory
@@ -319,7 +300,7 @@ test.describe('Full Project Workflow E2E Tests', () => {
     );
   }
 
-  async function verifyProjectStructure(projectPath: string) {
+  function verifyProjectStructure(projectPath: string) {
     // Debug: Log what actually exists in the project
     console.log('📁 Project path:', projectPath);
     console.log('📁 Contents:', fs.readdirSync(projectPath));
@@ -372,8 +353,41 @@ test.describe('Full Project Workflow E2E Tests', () => {
     }
   }
 
-  async function verifyAngularProjectStructure(projectPath: string) {
-    await verifyProjectStructure(projectPath);
+  function verifyLitProject(projectPath: string) {
+    verifyProjectStructure(projectPath);
+
+    const packageJsonPath = path.join(projectPath, 'package.json');
+    const appPath = path.join(
+      projectPath,
+      'src/infrastructure/presentation/App.ts'
+    );
+
+    expect(fs.existsSync(packageJsonPath)).toBe(true);
+    expect(fs.existsSync(appPath)).toBe(true);
+    expect(fs.statSync(appPath).isFile()).toBe(true);
+
+    // Verify that the App.ts file contains the expected Lit imports
+    const appSource = fs.readFileSync(appPath, 'utf8');
+    expect(appSource).toMatch(
+      /import\s*\{\s*LitElement\s*,\s*html\s*,\s*css\s*,\s*unsafeCSS\s*\}\s*from\s*['"]lit['"]\s*;/
+    );
+
+    const packageJson = JSON.parse(
+      fs.readFileSync(packageJsonPath, 'utf8')
+    ) as {
+      dependencies?: Record<string, string>;
+      devDependencies?: Record<string, string>;
+    };
+
+    // Verify that the package.json has the 'lit' dependency
+    expect({
+      ...packageJson.dependencies,
+      ...packageJson.devDependencies,
+    }).toHaveProperty('lit');
+  }
+
+  function verifyAngularProjectStructure(projectPath: string) {
+    verifyProjectStructure(projectPath);
 
     // Verify Angular-specific files
     const angularFiles = ['src/main.ts', 'src/app', 'angular.json'];
@@ -410,21 +424,13 @@ test.describe('Full Project Workflow E2E Tests', () => {
     }
   }
 
+  //works for both React and Lit projects
   async function startAndVerifyProject(projectPath: string) {
-    const packageJsonPath = path.join(projectPath, 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
-
-    const startCommand =
-      packageJson.scripts.dev || packageJson.scripts.start || 'npm run dev';
-
-    await ProjectRunner.startProject(projectPath, startCommand);
-  }
-
-  async function startAndVerifyReactProject(projectPath: string) {
     await ProjectRunner.startProject(projectPath, 'npm run dev');
   }
 
   async function startAndVerifyAngularProject(projectPath: string) {
-    await ProjectRunner.startProject(projectPath, 'ng serve');
+    // Use a non-default port to avoid clashing with the app under test on 4200
+    await ProjectRunner.startProject(projectPath, 'ng serve --port 4201');
   }
 });
