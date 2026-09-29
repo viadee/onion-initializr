@@ -16,7 +16,7 @@
   "devDependencies": {
     "@types/node": "^24.10.0",
     "handlebars": "4.7.8",
-    "typescript": "^5.7.3"
+    "typescript": "~6.0.3"
   },
   "author": "viadee",
   "license": "MIT"

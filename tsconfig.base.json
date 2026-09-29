@@ -23,7 +23,12 @@
       "@gh-pages/domain": ["gh-pages/src/domain/index.ts"],
       "@gh-pages/application": ["gh-pages/src/application/index.ts"],
       "@gh-pages/infrastructure": ["gh-pages/src/infrastructure/index.ts"]
-    }
+    },
+    "strict": false,
+    "noUncheckedSideEffectImports": false,
+    "types": ["*"],
+    "esModuleInterop": false,
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["node_modules", "tmp"]
 }
