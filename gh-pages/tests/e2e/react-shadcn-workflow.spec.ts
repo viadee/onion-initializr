@@ -27,10 +27,7 @@ class ProjectRunner {
   }
 
   //Starts the generated project using the specified command in its directory and watches the process output
-  static async startProject(
-    projectPath: string,
-    command: string
-  ): Promise<void> {
+  static startProject(projectPath: string, command: string): Promise<void> {
     console.log(`Starting project with command: ${command}`);
     return new Promise<void>((resolve, reject) => {
       const startupTimeoutTime = 45000; // 45 seconds
@@ -101,7 +98,7 @@ class ProjectRunner {
   }
 }
 
-test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
+test.describe('React project generation with ShadCN', () => {
   let page: Page;
   let projectName: string;
   let tempDir: string;
@@ -121,13 +118,13 @@ test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
     await page.goto('http://localhost:4200/onion-initializr/home');
   });
 
-  test('should handle React project generation and execution', async () => {
+  test('Generates and downloads a React project with ShadCN, installs dependencies, and detects dev-server startup', async () => {
     await setupReactShadCNProject(page);
 
     const downloadPath = await downloadProject(page);
-    const extractPath = await extractProject(downloadPath);
+    const extractPath = extractProject(downloadPath);
 
-    await verifyReactProjectStructure(extractPath);
+    verifyReactProjectStructure(extractPath);
     await installDependencies(extractPath);
     await startAndVerifyReactProject(extractPath);
   });
@@ -173,7 +170,7 @@ test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
     await page.waitForTimeout(1000);
   }
 
-  async function downloadProject(page: Page): Promise<string> {
+  function downloadProject(page: Page): Promise<string> {
     return new Promise((resolve, reject) => {
       const downloadTimeout = setTimeout(() => {
         reject(new Error('Download timeout after 5 minutes'));
@@ -211,7 +208,7 @@ test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
   }
 
   // Extracts the downloaded zip file and returns the path to the extracted project directory
-  async function extractProject(zipPath: string): Promise<string> {
+  function extractProject(zipPath: string): string {
     const extractDir = path.join(tempDir, 'extracted');
 
     fs.mkdirSync(extractDir, { recursive: true });
@@ -280,7 +277,7 @@ test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
     expect(packageJson.scripts.dev || packageJson.scripts.start).toBeDefined();
   }
 
-  async function verifyReactProjectStructure(projectPath: string) {
+  function verifyReactProjectStructure(projectPath: string) {
     verifyProjectStructure(projectPath);
 
     const reactFiles = ['src/main.tsx', 'src/App.tsx', 'vite.config.ts'];
