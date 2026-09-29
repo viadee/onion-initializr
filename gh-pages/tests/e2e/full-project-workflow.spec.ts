@@ -8,12 +8,6 @@ import AdmZip from 'adm-zip';
 
 const execAsync = promisify(exec);
 
-interface TestProject {
-  downloadPath: string;
-  extractPath: string;
-  projectName: string;
-}
-
 class ProjectRunner {
   /** Detects typical startup messages in the development server's standard output.
       A match is used as a signal that startup has succeeded.*/
@@ -33,10 +27,7 @@ class ProjectRunner {
   }
 
   //Starts the generated project using the specified command in its directory and watches the process output
-  static async startProject(
-    projectPath: string,
-    command: string
-  ): Promise<void> {
+  static startProject(projectPath: string, command: string): Promise<void> {
     console.log(`Starting project with command: ${command}`);
 
     return new Promise<void>((resolve, reject) => {
@@ -107,12 +98,12 @@ class ProjectRunner {
   }
 }
 
-test.describe('Full Project Workflow E2E Tests', () => {
+test.describe('Project Generation and Execution for Lit, React, and Angular', () => {
   let page: Page;
-  let testProject: TestProject;
+  let projectName: string;
   let tempDir: string;
 
-  // Set longer timeout for all tests in this suite
+  // Set longer timeout for all tests
   test.setTimeout(600000); // 10 minutes
 
   test.beforeEach(async ({ browser }) => {
@@ -122,27 +113,12 @@ test.describe('Full Project Workflow E2E Tests', () => {
 
     page = await context.newPage();
 
-    // Create temporary directory for this test
+    // Create temporary directory for the test
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'onion-e2e-'));
 
-    testProject = {
-      downloadPath: '',
-      extractPath: '',
-      projectName: 'test-onion-project',
-    };
+    projectName = 'test-onion-project';
 
     await page.goto('http://localhost:4200/onion-initializr/home');
-  });
-
-  test.afterEach(async () => {
-    // Cleanup temporary directory
-    if (tempDir && fs.existsSync(tempDir)) {
-      try {
-        fs.rmSync(tempDir, { recursive: true, force: true });
-      } catch (error) {
-        console.warn('Failed to cleanup temp directory:', error);
-      }
-    }
   });
 
   test('should handle Lit project generation and execution', async () => {
@@ -150,12 +126,9 @@ test.describe('Full Project Workflow E2E Tests', () => {
     await setupLitProject(page);
 
     const downloadPath = await downloadProject(page);
-    testProject.downloadPath = downloadPath; // ?
+    const extractPath = extractProject(downloadPath);
 
-    const extractPath = await extractProject(downloadPath);
-    testProject.extractPath = extractPath;
-
-    await verifyProjectStructure(extractPath);
+    verifyLitProject(extractPath);
     await installDependencies(extractPath);
     await startAndVerifyProject(extractPath);
   });
@@ -165,9 +138,9 @@ test.describe('Full Project Workflow E2E Tests', () => {
     await setupReactProject(page);
 
     const downloadPath = await downloadProject(page);
-    const extractPath = await extractProject(downloadPath);
+    const extractPath = extractProject(downloadPath);
 
-    await verifyReactProjectStructure(extractPath);
+    verifyReactProjectStructure(extractPath);
     await installDependencies(extractPath);
     await startAndVerifyProject(extractPath);
   });
@@ -177,9 +150,9 @@ test.describe('Full Project Workflow E2E Tests', () => {
     await setupAngularProject(page);
 
     const downloadPath = await downloadProject(page);
-    const extractPath = await extractProject(downloadPath);
+    const extractPath = extractProject(downloadPath);
 
-    await verifyAngularProjectStructure(extractPath);
+    verifyAngularProjectStructure(extractPath);
     await installDependencies(extractPath);
     await startAndVerifyAngularProject(extractPath);
   });
@@ -192,7 +165,7 @@ test.describe('Full Project Workflow E2E Tests', () => {
     // Set project name using the actual input selector
     await page.fill(
       'input.text-input[placeholder="Enter Project name"]',
-      testProject.projectName
+      projectName
     );
 
     // Add an entity
@@ -287,7 +260,7 @@ test.describe('Full Project Workflow E2E Tests', () => {
     });
   }
 
-  async function extractProject(zipPath: string): Promise<string> {
+  function extractProject(zipPath: string): string {
     const extractDir = path.join(tempDir, 'extracted');
 
     // Create extraction directory
@@ -327,7 +300,7 @@ test.describe('Full Project Workflow E2E Tests', () => {
     );
   }
 
-  async function verifyProjectStructure(projectPath: string) {
+  function verifyProjectStructure(projectPath: string) {
     // Debug: Log what actually exists in the project
     console.log('📁 Project path:', projectPath);
     console.log('📁 Contents:', fs.readdirSync(projectPath));
@@ -380,8 +353,41 @@ test.describe('Full Project Workflow E2E Tests', () => {
     }
   }
 
-  async function verifyAngularProjectStructure(projectPath: string) {
-    await verifyProjectStructure(projectPath);
+  function verifyLitProject(projectPath: string) {
+    verifyProjectStructure(projectPath);
+
+    const packageJsonPath = path.join(projectPath, 'package.json');
+    const appPath = path.join(
+      projectPath,
+      'src/infrastructure/presentation/App.ts'
+    );
+
+    expect(fs.existsSync(packageJsonPath)).toBe(true);
+    expect(fs.existsSync(appPath)).toBe(true);
+    expect(fs.statSync(appPath).isFile()).toBe(true);
+
+    // Verify that the App.ts file contains the expected Lit imports
+    const appSource = fs.readFileSync(appPath, 'utf8');
+    expect(appSource).toMatch(
+      /import\s*\{\s*LitElement\s*,\s*html\s*,\s*css\s*,\s*unsafeCSS\s*\}\s*from\s*['"]lit['"]\s*;/
+    );
+
+    const packageJson = JSON.parse(
+      fs.readFileSync(packageJsonPath, 'utf8')
+    ) as {
+      dependencies?: Record<string, string>;
+      devDependencies?: Record<string, string>;
+    };
+
+    // Verify that the package.json has the 'lit' dependency
+    expect({
+      ...packageJson.dependencies,
+      ...packageJson.devDependencies,
+    }).toHaveProperty('lit');
+  }
+
+  function verifyAngularProjectStructure(projectPath: string) {
+    verifyProjectStructure(projectPath);
 
     // Verify Angular-specific files
     const angularFiles = ['src/main.ts', 'src/app', 'angular.json'];
@@ -424,6 +430,7 @@ test.describe('Full Project Workflow E2E Tests', () => {
   }
 
   async function startAndVerifyAngularProject(projectPath: string) {
-    await ProjectRunner.startProject(projectPath, 'ng serve');
+    // Use a non-default port to avoid clashing with the app under test on 4200
+    await ProjectRunner.startProject(projectPath, 'ng serve --port 4201');
   }
 });
