@@ -8,10 +8,6 @@ import AdmZip from 'adm-zip';
 
 const execAsync = promisify(exec);
 
-interface TestProject {
-  projectName: string;
-}
-
 class ProjectRunner {
   /** Detects typical startup messages in the development server's standard output.
       A match is used as a signal that startup has succeeded.*/
@@ -107,7 +103,7 @@ class ProjectRunner {
 
 test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
   let page: Page;
-  let testProject: TestProject;
+  let projectName: string;
   let tempDir: string;
 
   test.setTimeout(600000); // limit to 10 minutes to account for installation and startup steps
@@ -120,9 +116,7 @@ test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
     page = await context.newPage();
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'onion-e2e-'));
 
-    testProject = {
-      projectName: 'test-onion-project',
-    };
+    projectName = 'test-onion-project';
 
     await page.goto('http://localhost:4200/onion-initializr/home');
   });
@@ -145,7 +139,7 @@ test.describe('React Project generation Workflow with ShadCN E2E Tests', () => {
 
     await page.fill(
       'input.text-input[placeholder="Enter Project name"]',
-      testProject.projectName
+      projectName
     );
 
     // Add a new entity
