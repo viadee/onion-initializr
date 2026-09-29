@@ -85,6 +85,7 @@ Run the command in the same directory as your `myConfig.json`, or provide an abs
 ## Architecture
 
 - [Web UI project generation workflow](docs/architecture/web-ui-project-generation-workflow.md) - flowchart of the end-to-end project generation and download flow
+- [CLI project generation workflow](docs/architecture/cli-project-generation-workflow.md) - flowchart of the CLI project generation flow
 
 ## ADR (architecture decision records)
 
