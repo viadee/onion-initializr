@@ -449,7 +449,7 @@ describe('ProjectInitAppService', () => {
         expect(callLog).to.deep.include({
           method: 'runCommand',
           args: [
-            'npx --yes create-vite@latest temp --template vue-ts',
+            'npx --yes create-vite@latest temp --template vue-ts --no-interactive',
             mockProjectPath,
           ],
         });
@@ -468,7 +468,7 @@ describe('ProjectInitAppService', () => {
         expect(callLog).to.deep.include({
           method: 'runCommand',
           args: [
-            'npx --yes create-vite@latest temp --template vue-ts',
+            'npx --yes create-vite@latest temp --template vue-ts --no-interactive',
             mockProjectPath,
           ],
         });
@@ -523,7 +523,7 @@ describe('ProjectInitAppService', () => {
         expect(callLog).to.deep.include({
           method: 'runCommand',
           args: [
-            'npx --yes create-vite@latest temp --template lit-ts',
+            'npx --yes create-vite@latest temp --template lit-ts --no-interactive',
             mockProjectPath,
           ],
         });
