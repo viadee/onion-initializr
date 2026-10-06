@@ -7,8 +7,8 @@
     "rootDir": "..",
     "baseUrl": ".",
     "paths": {
-      "@onion-initializr/lib/application/*": ["../lib/application/*"],
-      "@onion-initializr/lib/domain/*": ["../lib/domain/*"]
+      "@onion-initializr/lib/application/*": ["../lib/dist/application/*"],
+      "@onion-initializr/lib/domain/*": ["../lib/dist/domain/*"]
     },
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -20,8 +20,7 @@
     "emitDecoratorMetadata": true,
     "declaration": false,
     "sourceMap": false,
-    "noUncheckedSideEffectImports": false,
-    "types": ["*"],
+    "types": ["node"],
     "ignoreDeprecations": "6.0"
   },
   "include": ["src/**/*"],

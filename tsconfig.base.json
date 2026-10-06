@@ -24,10 +24,7 @@
       "@gh-pages/application": ["gh-pages/src/application/index.ts"],
       "@gh-pages/infrastructure": ["gh-pages/src/infrastructure/index.ts"]
     },
-    "strict": false,
-    "noUncheckedSideEffectImports": false,
-    "types": ["*"],
-    "esModuleInterop": false,
+    "types": ["node"],
     "ignoreDeprecations": "6.0"
   },
   "exclude": ["node_modules", "tmp"]

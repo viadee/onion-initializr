@@ -20,8 +20,7 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "noUncheckedSideEffectImports": false,
-    "types": ["*"],
+    "types": ["node"],
     "ignoreDeprecations": "6.0"
   },
   "include": ["application/**/*.ts", "domain/**/*.ts"],
