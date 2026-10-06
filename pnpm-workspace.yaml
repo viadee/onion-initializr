@@ -5,5 +5,8 @@ packages:
   # Exclude template lockfiles from workspace
   - '!gh-pages/public/lockfiles/**'
 allowBuilds:
+  '@swc/core': true
+  esbuild: true
+  lmdb: true
   nx: true
 minimumReleaseAge: 1440
