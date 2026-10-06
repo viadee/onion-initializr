@@ -123,31 +123,31 @@ test.describe('Project Generation and Execution for Lit, React, and Angular', ()
 
   test('should handle Lit project generation and execution', async () => {
     // Configure Lit-specific project
-    await setupLitProject(page);
+    await selectLitProject(page);
 
     const downloadPath = await downloadProject(page);
     const extractPath = extractProject(downloadPath);
 
     verifyLitProject(extractPath);
     await installDependencies(extractPath);
-    await startAndVerifyProject(extractPath);
+    await startAndVerifyReactOrLitProject(extractPath);
   });
 
   test('should handle React project generation and execution', async () => {
     // Configure React-specific project
-    await setupReactProject(page);
+    await selectReactProject(page);
 
     const downloadPath = await downloadProject(page);
     const extractPath = extractProject(downloadPath);
 
     verifyReactProjectStructure(extractPath);
     await installDependencies(extractPath);
-    await startAndVerifyProject(extractPath);
+    await startAndVerifyReactOrLitProject(extractPath);
   });
 
   test('should handle Angular project generation and execution', async () => {
     // Configure Angular-specific project
-    await setupAngularProject(page);
+    await selectAngularProject(page);
 
     const downloadPath = await downloadProject(page);
     const extractPath = extractProject(downloadPath);
@@ -157,7 +157,7 @@ test.describe('Project Generation and Execution for Lit, React, and Angular', ()
     await startAndVerifyAngularProject(extractPath);
   });
 
-  async function setupSimpleProject(page: Page) {
+  async function configureOnionProject(page: Page) {
     // Navigate to the generator page
     await page.getByRole('button', { name: 'Try Online Now' }).first().click();
     await page.getByRole('button', { name: 'Skip Tutorial' }).click();
@@ -194,13 +194,13 @@ test.describe('Project Generation and Execution for Lit, React, and Angular', ()
     await page.waitForTimeout(1000);
   }
 
-  async function setupReactProject(page: Page) {
-    await setupSimpleProject(page);
+  async function selectReactProject(page: Page) {
+    await configureOnionProject(page);
     // React framework is selected by default, so no additional action is needed here
   }
 
-  async function setupAngularProject(page: Page) {
-    await setupSimpleProject(page);
+  async function selectAngularProject(page: Page) {
+    await configureOnionProject(page);
 
     // Select Angular framework
     const angularButton = page
@@ -211,8 +211,8 @@ test.describe('Project Generation and Execution for Lit, React, and Angular', ()
     await page.waitForTimeout(1000);
   }
 
-  async function setupLitProject(page: Page) {
-    await setupSimpleProject(page);
+  async function selectLitProject(page: Page) {
+    await configureOnionProject(page);
 
     // Select Lit framework
     const litButton = page
@@ -425,7 +425,7 @@ test.describe('Project Generation and Execution for Lit, React, and Angular', ()
   }
 
   //works for both React and Lit projects
-  async function startAndVerifyProject(projectPath: string) {
+  async function startAndVerifyReactOrLitProject(projectPath: string) {
     await ProjectRunner.startProject(projectPath, 'npm run dev');
   }
 
