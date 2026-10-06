@@ -429,7 +429,7 @@ describe('ProjectInitAppService', () => {
         expect(callLog).to.deep.include({
           method: 'runCommand',
           args: [
-            'npx --yes create-vite@latest temp --template react-ts',
+            'npx --yes create-vite@latest temp --template react-ts --no-interactive',
             mockProjectPath,
           ],
         });
