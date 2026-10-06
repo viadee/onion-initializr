@@ -569,7 +569,7 @@ describe('ProjectInitAppService', () => {
   });
 
   describe('Integration Testing', () => {
-    it('should execute complete initialization workflow', async () => {
+    it('Should run npm setup commands before mocked file operations fail', async () => {
       // Mock successful project initialization
       mockFileService.fileExists = async (path: string) => {
         // Package.json doesn't exist initially
@@ -579,7 +579,12 @@ describe('ProjectInitAppService', () => {
       };
 
       try {
-        await projectService.initialize(mockProjectPath, 'react');
+        await projectService.initialize(
+          mockProjectPath,
+          'react',
+          'awilix',
+          'shadcn'
+        );
       } catch {
         // Expected to fail on file operations but commands should be logged
       }
