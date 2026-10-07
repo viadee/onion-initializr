@@ -95,8 +95,10 @@
       "cache": true,
       "inputs": [
         "default",
+        "^default",
         "{workspaceRoot}/eslint.config.js",
-        "{workspaceRoot}/.eslintignore"
+        "{workspaceRoot}/.eslintignore",
+        "{workspaceRoot}/tools/eslint-rules/**/*"
       ]
     },
     "@nx/esbuild:esbuild": {
@@ -116,7 +118,6 @@
       "plugin": "@nx/vite/plugin",
       "options": {
         "buildTargetName": "build",
-        "testTargetName": "test",
         "serveTargetName": "serve",
         "devTargetName": "dev",
         "previewTargetName": "preview",
@@ -145,6 +146,12 @@
       "options": {
         "targetName": "playwright:e2e"
       }
+    },
+    {
+      "plugin": "@nx/vitest",
+      "options": {
+        "testTargetName": "test"
+      }
     }
   ],
   "generators": {
@@ -155,5 +162,6 @@
     "@nx/angular:component": {
       "style": "css"
     }
-  }
+  },
+  "analytics": false
 }

@@ -4,6 +4,7 @@ import { PathAppService } from '@onion-initializr/lib/application/services/path-
 import { ICommandRunner } from '@onion-initializr/lib/domain/interfaces/icommand-runner';
 import { LintAppService } from '@onion-initializr/lib/application/services/lint-app-service';
 import { ProjectInitAppService } from '../../application/services/project-init-app-service';
+import { describe, it, beforeEach } from 'vitest';
 // Mock fs module for filesystem operations
 const mockFs = {
   existsSync: () => true,
@@ -409,7 +410,7 @@ describe('ProjectInitAppService', () => {
         expect(callLog).to.deep.include({
           method: 'runCommand',
           args: [
-            'npx --yes create-vite@latest temp --template react-ts',
+            'npx --yes create-vite@latest temp --template react-ts --no-interactive',
             mockProjectPath,
           ],
         });
@@ -428,7 +429,7 @@ describe('ProjectInitAppService', () => {
         expect(callLog).to.deep.include({
           method: 'runCommand',
           args: [
-            'npx --yes create-vite@latest temp --template react-ts',
+            'npx --yes create-vite@latest temp --template react-ts --no-interactive',
             mockProjectPath,
           ],
         });
@@ -448,7 +449,7 @@ describe('ProjectInitAppService', () => {
         expect(callLog).to.deep.include({
           method: 'runCommand',
           args: [
-            'npx --yes create-vite@latest temp --template vue-ts',
+            'npx --yes create-vite@latest temp --template vue-ts --no-interactive',
             mockProjectPath,
           ],
         });
@@ -467,7 +468,7 @@ describe('ProjectInitAppService', () => {
         expect(callLog).to.deep.include({
           method: 'runCommand',
           args: [
-            'npx --yes create-vite@latest temp --template vue-ts',
+            'npx --yes create-vite@latest temp --template vue-ts --no-interactive',
             mockProjectPath,
           ],
         });
@@ -522,7 +523,7 @@ describe('ProjectInitAppService', () => {
         expect(callLog).to.deep.include({
           method: 'runCommand',
           args: [
-            'npx --yes create-vite@latest temp --template lit-ts',
+            'npx --yes create-vite@latest temp --template lit-ts --no-interactive',
             mockProjectPath,
           ],
         });
@@ -568,7 +569,7 @@ describe('ProjectInitAppService', () => {
   });
 
   describe('Integration Testing', () => {
-    it('should execute complete initialization workflow', async () => {
+    it('Should run npm setup commands before mocked file operations fail', async () => {
       // Mock successful project initialization
       mockFileService.fileExists = async (path: string) => {
         // Package.json doesn't exist initially
@@ -578,7 +579,12 @@ describe('ProjectInitAppService', () => {
       };
 
       try {
-        await projectService.initialize(mockProjectPath, 'react');
+        await projectService.initialize(
+          mockProjectPath,
+          'react',
+          'awilix',
+          'shadcn'
+        );
       } catch {
         // Expected to fail on file operations but commands should be logged
       }
@@ -674,7 +680,12 @@ describe('ProjectInitAppService', () => {
       };
 
       // Should not throw but handle gracefully
-      const result = await projectService.initialize(mockProjectPath, 'react');
+      const result = await projectService.initialize(
+        mockProjectPath,
+        'react',
+        'awilix',
+        'shadcn'
+      );
 
       expect(result).to.be.undefined;
       expect(commandCount).to.be.greaterThan(1);
