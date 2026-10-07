@@ -410,7 +410,7 @@ describe('ProjectInitAppService', () => {
         expect(callLog).to.deep.include({
           method: 'runCommand',
           args: [
-            'npx --yes create-vite@latest temp --template react-ts  --no-interactive',
+            'npx --yes create-vite@latest temp --template react-ts --no-interactive',
             mockProjectPath,
           ],
         });
@@ -670,7 +670,7 @@ describe('ProjectInitAppService', () => {
 
   describe('Error Recovery', () => {
     it('should maintain system stability after command failures', async () => {
-      /*let commandCount = 0;
+      let commandCount = 0;
       mockCommandRunner.runCommand = async (_command: string) => {
         commandCount++;
         if (commandCount === 2) {
@@ -680,10 +680,15 @@ describe('ProjectInitAppService', () => {
       };
 
       // Should not throw but handle gracefully
-      const result = await projectService.initialize(mockProjectPath, 'react');
+      const result = await projectService.initialize(
+        mockProjectPath,
+        'react',
+        'awilix',
+        'shadcn'
+      );
 
       expect(result).to.be.undefined;
-      expect(commandCount).to.be.greaterThan(1);*/
+      expect(commandCount).to.be.greaterThan(1);
     });
 
     it('should cleanup partial operations on failure', async () => {
