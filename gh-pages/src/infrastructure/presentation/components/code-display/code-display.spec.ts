@@ -5,7 +5,7 @@ import { CodeDisplayComponent } from './code-display.component';
 describe('CodeDisplay', () => {
   let service: CodeDisplayComponent;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(CodeDisplayComponent);
   });
