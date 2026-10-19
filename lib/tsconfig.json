@@ -19,7 +19,9 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "types": ["node"],
+    "ignoreDeprecations": "6.0"
   },
   "include": ["application/**/*.ts", "domain/**/*.ts"],
   "exclude": [

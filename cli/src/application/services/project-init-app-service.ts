@@ -259,7 +259,7 @@ export class ProjectInitAppService implements IProjectService {
 
     switch (framework) {
       case 'react':
-        setupCommand = `npx --yes create-vite@latest ${tempDir} --template react-ts  --no-interactive`;
+        setupCommand = `npx --yes create-vite@latest ${tempDir} --template react-ts --no-interactive`;
         break;
       case 'vue':
         setupCommand = `npx --yes create-vite@latest ${tempDir} --template vue-ts --no-interactive`;
