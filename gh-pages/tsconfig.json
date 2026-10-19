@@ -20,6 +20,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["ES2022", "dom"],
+    "noUncheckedSideEffectImports": false,
     "ignoreDeprecations": "6.0"
   },
   "angularCompilerOptions": {
