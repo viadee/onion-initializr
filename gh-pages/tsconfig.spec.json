@@ -4,8 +4,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "types": ["jasmine"],
-    "rootDir": ".." // ensure that the rootDir is set to the parent directory to include tests from cli directory
+    "types": ["jasmine"]
   },
   "include": [
     "src/**/*.ts",

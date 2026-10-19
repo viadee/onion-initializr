@@ -95,10 +95,8 @@
       "cache": true,
       "inputs": [
         "default",
-        "^default",
         "{workspaceRoot}/eslint.config.js",
-        "{workspaceRoot}/.eslintignore",
-        "{workspaceRoot}/tools/eslint-rules/**/*"
+        "{workspaceRoot}/.eslintignore"
       ]
     },
     "@nx/esbuild:esbuild": {
@@ -118,6 +116,7 @@
       "plugin": "@nx/vite/plugin",
       "options": {
         "buildTargetName": "build",
+
         "serveTargetName": "serve",
         "devTargetName": "dev",
         "previewTargetName": "preview",
@@ -162,6 +161,5 @@
     "@nx/angular:component": {
       "style": "css"
     }
-  },
-  "analytics": false
+  }
 }

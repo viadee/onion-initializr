@@ -19,7 +19,6 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "noUncheckedSideEffectImports": false,
     "lib": ["ES2022", "dom"],
     "ignoreDeprecations": "6.0"
   },
