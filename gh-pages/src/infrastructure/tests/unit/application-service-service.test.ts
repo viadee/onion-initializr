@@ -1,5 +1,5 @@
-import { ApplicationServiceService } from './../../../../../lib/domain/services/ApplicationServiceService';
-import { FileEntity } from './../../../../../lib/domain/entities/FileEntity';
+import { ApplicationServiceService } from '@onion-initializr/lib/domain/services/application-service-service';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
 import { expect } from 'chai';
 
 describe('ApplicationServiceService', () => {
@@ -127,7 +127,7 @@ export class {{name}} {
       const generatedCode = result[0].content;
       expect(generatedCode).to.include("@Injectable({ providedIn: 'root' })");
       expect(generatedCode).to.include(
-        "import { Injectable } from '@angular/core';"
+        "import { Injectable, Inject } from '@angular/core';"
       );
     });
 

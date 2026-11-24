@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import { ShowcaseService } from '../../../domain/services/ShowcaseService';
-import { ShowcaseAppGeneration } from '../../../domain/entities/ShowcaseAppGeneration';
-import { FileService } from '../../../domain/services/FileService';
-import { FileEntity } from '../../../domain/entities/FileEntity';
-import { IFileRepository } from '../../../domain/interfaces/IFileRepository';
+import { ShowcaseService } from '@onion-initializr/lib/domain/services/showcase-service';
+import { ShowcaseAppGeneration } from '@onion-initializr/lib/domain/entities/showcase-app-generation';
+import { FileService } from '@onion-initializr/lib/domain/services/file-service';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
+import { IFileRepository } from '@onion-initializr/lib/domain/interfaces/ifile-repository';
 
 describe('ShowcaseService', () => {
   let service: ShowcaseService;
@@ -112,6 +112,7 @@ describe('ShowcaseService', () => {
         '/test/path',
         'vanilla',
         false,
+        'none',
         'TestAppService'
       );
 
@@ -131,6 +132,7 @@ describe('ShowcaseService', () => {
         '/test/path',
         'react',
         false,
+        'none',
         'TestAppService'
       );
 
@@ -165,6 +167,7 @@ describe('ShowcaseService', () => {
         '/test/path',
         'react',
         false,
+        'none',
         'TestAppService'
       );
 
@@ -184,6 +187,7 @@ describe('ShowcaseService', () => {
         '/test/path',
         'vue',
         false,
+        'none',
         'TestAppService'
       );
 

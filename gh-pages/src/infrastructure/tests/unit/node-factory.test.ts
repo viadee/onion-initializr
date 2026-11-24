@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import { DomainService } from '../../../../../lib/domain/entities/domain-service';
-import { Entity } from '../../../../../lib/domain/entities/entity';
-import { NodeType } from '../../../../../lib/domain/entities/node-type';
-import { OnionConfig } from '../../../../../lib/domain/entities/onion-config';
-import { NodeFactory } from '../../../../../lib/domain/services/node-factory';
+import { DomainService } from '@onion-initializr/lib/domain/entities/domain-service';
+import { Entity } from '@onion-initializr/lib/domain/entities/entity';
+import { NodeType } from '@onion-initializr/lib/domain/entities/node-type';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
+import { NodeFactory } from '@onion-initializr/lib/domain/services/node-factory';
 
 describe('NodeFactory', () => {
   // Helper function to create mock config

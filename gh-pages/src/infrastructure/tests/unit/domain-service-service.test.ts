@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { DomainServiceService } from '../../../../../lib/domain/services/domain-service-service';
-import { FileEntity } from '../../../../../lib/domain/entities/file-entity';
-import { Entity } from '../../../../../lib/domain/entities/entity';
+import { DomainServiceService } from '@onion-initializr/lib/domain/services/domain-service-service';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
+import { Entity } from '@onion-initializr/lib/domain/entities/entity';
 
 describe('DomainServiceService', () => {
   let service: DomainServiceService;

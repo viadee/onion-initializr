@@ -1,11 +1,11 @@
 import { expect } from 'chai';
-import { OnionConfigService } from '../../../domain/services/OnionConfigService';
-import { OnionConfig } from '../../../domain/entities/OnionConfig';
-import { FileEntity } from '../../../domain/entities/FileEntity';
-import { OnionConfigStateService } from '../../../domain/services/OnionConfigStateService';
-import { OnionConfigNodeService } from '../../../domain/services/OnionConfigNodeService';
-import { OnionConfigConnectionAppService } from '../../../application/services/OnionConfigConnectionAppService';
-import { OnionConfigRepositoryService } from '../../../domain/services/OnionConfigRepositoryService';
+import { OnionConfigService } from '@onion-initializr/lib/domain/services/onion-config-service';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
+import { OnionConfigStateService } from '@onion-initializr/lib/domain/services/onion-config-state-service';
+import { OnionConfigNodeService } from '@onion-initializr/lib/domain/services/onion-config-node-service';
+import { OnionConfigConnectionAppService } from '@onion-initializr/lib/application/services/onion-config-connection-app-service';
+import { OnionConfigRepositoryService } from '@onion-initializr/lib/domain/services/onion-config-repository-service';
 
 describe('OnionConfigService', () => {
   let service: OnionConfigService;

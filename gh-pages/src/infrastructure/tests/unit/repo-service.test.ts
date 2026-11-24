@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { RepoService } from '../../../domain/services/RepoService';
-import { FileEntity } from '../../../domain/entities/FileEntity';
+import { RepoService } from '@onion-initializr/lib/domain/services/repo-service';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
 
 describe('RepoService', () => {
   let service: RepoService;

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { PathAppService } from '../../../application/services/PathAppService';
-import { IPathRepository } from '../../../domain/interfaces/IPathRepository';
+import { PathAppService } from '@onion-initializr/lib/application/services/path-app-service';
+import { IPathRepository } from '@onion-initializr/lib/domain/interfaces/ipath-repository';
 
 // Mock implementation of IPathRepository for testing
 class MockPathRepository implements IPathRepository {

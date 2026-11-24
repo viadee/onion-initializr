@@ -1,10 +1,10 @@
 import { expect } from 'chai';
-import { OnionConfigValidationService } from '../../../domain/services/OnionConfigValidationService';
-import { OnionConfigService } from '../../../domain/services/OnionConfigService';
-import { OnionConfig } from '../../../domain/entities/OnionConfig';
-import { FileEntity } from '../../../domain/entities/FileEntity';
-import { DiFramework } from '../../../domain/entities/DiFramework';
-import { UIFrameworks } from '../../../domain/entities/UiFramework';
+import { OnionConfigValidationService } from '@onion-initializr/lib/domain/services/onion-config-validation-service';
+import { OnionConfigService } from '@onion-initializr/lib/domain/services/onion-config-service';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
+import { DiFramework } from '@onion-initializr/lib/domain/entities/di-framework';
+import { UIFrameworks } from '@onion-initializr/lib/domain/entities/ui-framework';
 
 describe('OnionConfigValidationService', () => {
   let validationService: OnionConfigValidationService;

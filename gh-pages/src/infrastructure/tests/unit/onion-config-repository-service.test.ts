@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { OnionConfigRepositoryService } from '../../../domain/services/OnionConfigRepositoryService';
-import { OnionConfig } from '../../../domain/entities/OnionConfig';
+import { OnionConfigRepositoryService } from '@onion-initializr/lib/domain/services/onion-config-repository-service';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
 
 describe('OnionConfigRepositoryService', () => {
   let repositoryService: OnionConfigRepositoryService;
@@ -24,6 +24,7 @@ describe('OnionConfigRepositoryService', () => {
     },
     uiFramework: 'react',
     diFramework: 'awilix',
+    uiLibrary: 'none',
   });
 
   beforeEach(() => {
@@ -336,6 +337,7 @@ describe('OnionConfigRepositoryService', () => {
         entities: ['User', 'Product', 'Order', 'Customer', 'Payment'],
         domainServices: ['UserService', 'ProductService', 'OrderService'],
         applicationServices: ['UserAppService', 'OrderAppService'],
+        uiLibrary: 'none',
         domainServiceConnections: {
           UserService: ['User', 'Customer'],
           ProductService: ['Product'],
