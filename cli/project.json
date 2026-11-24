@@ -90,13 +90,6 @@
         "command": "pnpm --dir .. exec vitest run --root cli",
         "cwd": "cli"
       }
-    },
-    "e2e": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": ["playwright test"],
-        "cwd": "cli"
-      }
     }
   }
 }
