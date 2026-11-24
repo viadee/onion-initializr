@@ -57,9 +57,7 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "cross-env TS_NODE_PROJECT=tsconfig.test.json c8 --all --include=\"src/**/*.ts\" --reporter=text --reporter=html mocha --require ts-node/register src/**/*.test.ts"
-        ],
+        "command": "pnpm --dir .. exec vitest run --root gh-pages",
         "cwd": "gh-pages"
       }
     }
