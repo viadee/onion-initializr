@@ -2,6 +2,8 @@ import { expect } from 'chai';
 import { ApplicationService } from '@onion-initializr/lib/domain/entities/application-service';
 import { DomainService } from '@onion-initializr/lib/domain/entities/domain-service';
 import { AppServiceDependencyAppService } from '../../application/services/app-service-dependency-app-service';
+import { describe, it, beforeEach } from 'vitest';
+
 describe('AppServiceDependencyAppService', () => {
   let service: AppServiceDependencyAppService;
 

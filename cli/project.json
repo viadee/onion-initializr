@@ -85,17 +85,9 @@
     },
     "test": {
       "executor": "nx:run-commands",
+      "dependsOn": ["@onion-initializr/lib:build"],
       "options": {
-        "commands": [
-          "cross-env TS_NODE_PROJECT=tsconfig.test.json c8 --all --include=\"src/**/*.ts\" --reporter=text --reporter=html mocha --require ts-node/register src/**/*.test.ts"
-        ],
-        "cwd": "cli"
-      }
-    },
-    "e2e": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": ["playwright test"],
+        "command": "pnpm --dir .. exec vitest run --root cli",
         "cwd": "cli"
       }
     }

@@ -9,7 +9,9 @@
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["mocha", "chai", "node"]
+    "types": ["mocha", "chai", "node"],
+    "noUncheckedSideEffectImports": false,
+    "ignoreDeprecations": "6.0"
   },
   "include": ["src/**/*.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }

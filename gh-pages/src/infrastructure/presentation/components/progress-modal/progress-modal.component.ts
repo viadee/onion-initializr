@@ -1,4 +1,11 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  NgZone,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   MatDialogModule,
@@ -50,7 +57,9 @@ export class ProgressModalComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialogRef: MatDialogRef<ProgressModalComponent>,
-    @Inject(MAT_DIALOG_DATA) data: ProgressModalData
+    @Inject(MAT_DIALOG_DATA) data: ProgressModalData,
+    private readonly ngZone: NgZone,
+    private readonly changeDetectorRef: ChangeDetectorRef
   ) {
     this.data = data;
     this.progressService = container.resolve<ProgressTrackingAppService>(
@@ -61,7 +70,10 @@ export class ProgressModalComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.progressService.progress$.subscribe(
       (state: ProgressState) => {
-        this.progressState = state;
+        this.ngZone.run(() => {
+          this.progressState = state;
+          this.changeDetectorRef.markForCheck(); // mark as in need of re-rendering
+        });
 
         // Auto-close modal when completed successfully
         // if (!state.isRunning && !state.error && state.overallProgress >= 100) {
