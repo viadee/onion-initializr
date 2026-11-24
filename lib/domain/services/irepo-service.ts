@@ -1,5 +1,5 @@
-import Handlebars from 'handlebars';
 import { FileEntity } from '../entities/file-entity';
+import { TemplateService } from './template-service';
 
 export class IRepoService {
   /**
@@ -37,8 +37,10 @@ export class IRepoService {
     templateContent: string,
     entityName: string
   ): string {
-    const template = Handlebars.compile(templateContent);
+    const template = new TemplateService<{ entityName: string }>(
+      templateContent
+    );
 
-    return template({ entityName });
+    return template.render({ entityName });
   }
 }
