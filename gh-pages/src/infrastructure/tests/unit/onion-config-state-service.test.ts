@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { OnionConfigStateService } from '../../../domain/services/OnionConfigStateService';
-import { OnionConfig } from '../../../domain/entities/OnionConfig';
-import { IOnionConfigRepository } from '../../../domain/interfaces/IOnionConfigRepository';
+import { OnionConfigStateService } from '@onion-initializr/lib/domain/services/onion-config-state-service';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
+import { IOnionConfigRepository } from '@onion-initializr/lib/domain/interfaces/ionion-config-repository';
 
 describe('OnionConfigStateService', () => {
   let stateService: OnionConfigStateService;
@@ -26,6 +26,7 @@ describe('OnionConfigStateService', () => {
     },
     uiFramework: 'react',
     diFramework: 'awilix',
+    uiLibrary: 'none',
   });
 
   beforeEach(() => {
@@ -221,6 +222,7 @@ describe('OnionConfigStateService', () => {
         applicationServiceDependencies: {},
         uiFramework: 'vue',
         diFramework: 'angular',
+        uiLibrary: 'none',
       };
 
       const result = stateService.updateData(() => newConfig);

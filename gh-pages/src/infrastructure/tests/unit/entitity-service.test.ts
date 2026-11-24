@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { EntityService } from '../../../domain/services/EntitityService';
-import { FileEntity } from '../../../domain/entities/FileEntity';
+import { EntityService } from '@onion-initializr/lib/domain/services/entitity-service';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
 
 describe('EntityService', () => {
   let service: EntityService;
@@ -668,7 +668,7 @@ export class {{name}} {
         ];
         result.forEach((file, index) => {
           expect(file.filePath).to.equal(
-            `src/Domain/Entities\\${expectedEntities[index]}.ts`
+            `src/domain/Entities\\${expectedEntities[index]}.ts`
           );
           expect(file.content).to.include(
             `export class ${expectedEntities[index]}`
@@ -696,7 +696,7 @@ export class {{name}} {
         result.forEach((file, index) => {
           const expectedName = `Entity${index + 1}`;
           expect(file.filePath).to.equal(
-            `src/Domain/Entities\\${expectedName}.ts`
+            `src/domain/Entities\\${expectedName}.ts`
           );
           expect(file.content).to.equal(`export class ${expectedName} {}`);
         });

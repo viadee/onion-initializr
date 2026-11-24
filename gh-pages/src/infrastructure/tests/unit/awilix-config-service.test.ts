@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { AwilixConfigService } from '../../../domain/services/AwilixConfigService';
-import { AwilixConfig } from '../../../domain/entities/AwilixConfig';
-import { FileEntity } from '../../../domain/entities/FileEntity';
+import { AwilixConfigService } from '@onion-initializr/lib/domain/services/awilix-config-service';
+import { AwilixConfig } from '@onion-initializr/lib/domain/entities/awilix-config';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
 
 describe('AwilixConfigService', () => {
   let service: AwilixConfigService;

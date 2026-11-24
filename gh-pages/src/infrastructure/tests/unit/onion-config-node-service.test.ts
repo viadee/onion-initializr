@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { OnionConfigNodeService } from '../../../domain/services/OnionConfigNodeService';
-import { OnionConfigStateService } from '../../../domain/services/OnionConfigStateService';
-import { OnionConfig } from '../../../domain/entities/OnionConfig';
+import { OnionConfigNodeService } from '@onion-initializr/lib/domain/services/onion-config-node-service';
+import { OnionConfigStateService } from '@onion-initializr/lib/domain/services/onion-config-state-service';
+import { OnionConfig } from '@onion-initializr/lib/domain/entities/onion-config';
 
 describe('OnionConfigNodeService', () => {
   let nodeService: OnionConfigNodeService;
@@ -25,6 +25,7 @@ describe('OnionConfigNodeService', () => {
     },
     uiFramework: 'react',
     diFramework: 'awilix',
+    uiLibrary: 'none',
   });
 
   beforeEach(() => {

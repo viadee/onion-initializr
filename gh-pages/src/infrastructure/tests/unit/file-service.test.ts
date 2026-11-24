@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { FileService } from '../../../domain/services/FileService';
-import { FileEntity } from '../../../domain/entities/FileEntity';
-import { IFileRepository } from '../../../domain/interfaces/IFileRepository';
+import { FileService } from '@onion-initializr/lib/domain/services/file-service';
+import { FileEntity } from '@onion-initializr/lib/domain/entities/file-entity';
+import { IFileRepository } from '@onion-initializr/lib/domain/interfaces/ifile-repository';
 
 describe('FileService', () => {
   let service: FileService;
