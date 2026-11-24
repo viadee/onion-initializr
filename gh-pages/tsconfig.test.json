@@ -1,4 +1,5 @@
 {
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "module": "CommonJS",
     "target": "ES2020",
@@ -9,7 +10,7 @@
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["mocha", "chai", "node"],
+    "types": ["vitest/globals", "chai", "node"],
     "noUncheckedSideEffectImports": false,
     "ignoreDeprecations": "6.0"
   },
